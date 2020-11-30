@@ -1,0 +1,58 @@
+<form class="ui form" style="margin: 0px 30px 30px 30px " method="POST"
+    action="/api/bienestar/admin/empresa/{{empresa._id}}/createreconocimiento">
+    <h4 class="ui dividing header">Datos Principales</h4>
+    <div class="field">
+        <label>Nombre</label>
+        <input type="text" name="nombre" placeholder="Nombre">
+    </div>
+    <div class="field">
+        <label>Categoria </label>
+        <select name="categoria" class="ui fluid dropdown">
+            <option value="">Seleccione</option>
+            <option value="Movilidad limpia">Movilidad limpia</option>
+            <option value="Alianzas">Alianzas</option>
+            <option value="Bienestar">Bienestar</option>
+            <option value="Ocio">Ocio</option>
+        </select>
+    </div>
+    <div class="field">
+        <label>Establecimiento</label>
+        <input type="text" name="establecimiento" placeholder="Nombre, Dirección">
+    </div>
+    <div class="field">
+        <label>Beneficio</label>
+        <input type="text" name="beneficio" placeholder="Especifique el beneficio">
+    </div>
+    <div class="field">
+        <label>Tipo de activación</label>
+        <select name="tipo_activacion" class="ui fluid dropdown">
+            <option value="">Seleccione</option>
+            <option value="distancia">Distancia (KM)</option>
+            <option value="tiempo">Tiempo (Minutos)</option>
+        </select>
+    </div>
+    <div class="field">
+        <label>Activación</label>
+        <input type="number" name="activacion" placeholder="Digite el valor para ser activado">
+    </div>
+    <div class="field">
+        <label>Estado</label>
+        <select name="estado" class="ui fluid dropdown">
+            <option value="">Seleccione</option>
+            <option value="true">Activo</option>
+            <option value="false">Desactivo</option>
+        </select>
+    </div>
+   {{#with success}}
+    <div class="ui green inverted segment" role="alert">
+        {{this}}
+    </div>
+    {{/with}}
+    {{#with error}}
+    <div class="ui red inverted segment" role="alert">
+        {{this}}
+    </div>
+    {{/with}}
+    <button type="submit" class="ui fluid large yellow submit button">Registrar</button>
+
+</form>

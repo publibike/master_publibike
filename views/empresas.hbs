@@ -1,0 +1,27 @@
+<div class="ui one column grid content">
+    <div class="column">
+        <div class="inside-column">
+            {{empresas}}
+            <table class="ui very basic table tabla-ekobike">
+                <thead>
+                    <tr>
+                        <th>Empresa</th>
+                        <th>Usuarios Registrados</th>
+                        <th>Email de Contacto</th>
+                        <th>Celular de Contacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each empresa}}
+                    <tr>
+                        <td><a href="/bienestar/admin/empresadetalle/{{this._id}}">{{this.nombre}}</a></td>
+                        <td>{{this.usuarios.length}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.num_contacto}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

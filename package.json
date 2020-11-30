@@ -1,0 +1,34 @@
+{
+  "name": "Publibike-Bienestar",
+  "version": "1.0.0",
+  "description": "Aplicación Publibike",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --ext js,hbs"
+  },
+  "keywords": [
+    "backend",
+    "publibike"
+  ],
+  "author": "AndresLoto",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/hapi": "^20.0.0",
+    "@hapi/vision": "^6.0.1",
+    "assert": "^2.0.0",
+    "bcrypt": "^5.0.0",
+    "boom": "^7.3.0",
+    "dotenv": "^8.2.0",
+    "handlebars": "^4.7.6",
+    "hapi": "^18.1.0",
+    "hapi-mongodb": "^9.0.1",
+    "inert": "^5.1.3",
+    "joi": "^17.2.1",
+    "nvm": "0.0.4",
+    "vision": "^5.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
