@@ -1,6 +1,23 @@
-# Publibike Bienestar Web
+# Publibike Bienestar App
 Repositorio de producción de publibike
 Es necesario tener nodeJS en el servidor y ejecutar:
 
-1. npm install 
-2. en el archivo .env cambiar las variables necesarias de acuerdo al entorno en el que esta ejecutando la aplicación
+npm install 
+
+Si se realizan cambios y se desean probar en web ejecutar:
+
+ionic serve
+
+Para construir las aplicaciones de android y de iOS ejecutar:
+
+npm run build
+npx cap copy android
+npx cap copy ios
+
+Para ejecutar Android studio desde el proyecto ejecutar:
+
+npx cap open android
+
+Para ejecutar xCode desde el proyecto ejecutar:
+
+npx cap open ios
