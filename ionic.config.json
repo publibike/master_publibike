@@ -1,0 +1,7 @@
+{
+  "name": "PublibikeBienestarApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

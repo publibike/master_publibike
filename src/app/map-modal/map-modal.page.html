@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="secondary" (click)="closeModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="logo-ekobike-in">
+    <img src="assets/img/logo-ekobike.png">
+  </div>
+  <!-- <div id="viewDiv" #map></div> -->
+  <div class="content-map">
+    <div class="ui grid content-play">
+      <div class="column distance">
+        <h5>Distancia Recorrida</h5>
+        <h3 id="km">{{km | number}}</h3>
+        <h4> Km</h4>
+      </div>
+    </div>
+    <div id="viewDiv" #map></div>
+    <div class="chrono">
+      <div class="time-elapsed">
+        <h4>
+          Tiempo Recorrido
+        </h4>
+        <h2 id=time>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>
+      </div>
+      <div class="calories-co2">
+        <div class="calories">
+          <h4>
+            Consumo de Calorías
+          </h4>
+          <h2>
+            {{cal | number}}
+          </h2>
+          <h5>Kcal</h5>
+        </div>
+        <div class="co2">
+          <h4>CO2 Reducido</h4>
+          <h2>
+            {{co2 | number}}
+          </h2>
+          <h5>Kgr</h5>
+        </div>
+      </div>
+      <div class="max-speed">
+        <h4>
+          Velocidad Máxima
+        </h4>
+        <h2>
+          {{vel}}
+        </h2>
+        <h5>Km/h</h5>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer color="primary">
+  <ion-toolbar>
+    <img class="play" src="assets/img/button-start-29.png" (click)="startRute()" *ngIf="!isRun">
+    <img class="play" src="assets/img/button-stop-29.png" (click)="stopRute()" *ngIf="isRun">
+    <!-- <ion-buttons slot="end">
+      <ion-button shape="round" color="secondary" >
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,41 @@
+
+<ion-content>
+	<div class="main-wrapper">
+		<div class="logo-ekobike">
+			<a href="assets/index.html">
+				<img src="assets/img/logo-ekobike.png">
+			</a>
+		</div>
+
+		<div class="form-login">
+			<form class="ui form" [formGroup]='loginForm' (ngSubmit)='loginUser(loginForm.value)'>
+				<div class="field">
+					<ion-input type="text" formControlName="user" id="user" placeholder="Ingresa tu usuario">
+					</ion-input>
+				</div>
+				<div class="validation-error">
+					<ng-container *ngFor="let validation of validation_messages.user">
+						<div
+							*ngIf="loginForm.get('user').hasError(validation.type)&&(loginForm.get('user').dirty || loginForm.get('user').touched)">
+							<p id="alertUser">{{validation.message}}</p>
+						</div>
+					</ng-container>
+				</div>
+				<p id="alertUser"> {{errorMessage}}</p>
+				<ion-button text-center class="ui button" color="secondary" [disabled]="!loginForm.valid" type="Submit">Ingresar
+				</ion-button>
+				<p id="alertUser"></p>
+			</form>
+		</div>
+
+		<div class="footer-main">
+			<img class="slogan-ekobike" src="assets/img/slogan-ekobike.png">
+			<div class="animation-bike">
+				<div class="biker">
+					<img src="assets/img/biker-ekobike.png">
+				</div>
+			</div>
+			<hr>
+		</div>
+	</div>
+</ion-content>

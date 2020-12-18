@@ -1,0 +1,134 @@
+
+<ion-content class="inside-app" padding>
+  <div class="content-profile">
+    <div class="profile-photo">
+      <ul>
+        <li>
+          <hr>
+        </li>
+        <li class="content-photo"><img src="assets/img/logo-ekobike.png"></li>
+        <li>
+          <hr>
+        </li>
+      </ul>
+    </div>
+    <div class="info-profile">
+      <h2 color="secondary">{{user.nombre}} </h2>
+      <h4>Usuario: {{user.usuario}}</h4>
+      <h4>Empresa: {{user.empresa.nombre}}</h4>
+      <div class="data-profile ui two column grid">
+        <div class="column">
+          <form class="ui form" [formGroup]="updateForm" (ngSubmit)="update(updateForm.value)">
+            <ion-item>
+              <ion-label color="secondary">Correo Electrónico: </ion-label>
+              <ion-input formControlName="email"></ion-input>
+            </ion-item>
+            <div class="validation-error">
+              <ng-container *ngFor="let validation of validation_messages.email">
+                <div *ngIf="
+                    updateForm.get('email').hasError(validation.type) &&
+                    (updateForm.get('email').dirty ||
+                      updateForm.get('email').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+            <!-- <ion-item>
+              <ion-label color="secondary">Empresa</ion-label>
+              <ion-input formControlName="empresa.nombre"></ion-input>
+            </ion-item>
+            <div class="validation-error">
+              <ng-container *ngFor="let validation of validation_messages.empresa">
+                <div *ngIf="
+                    updateForm.get('empresa').hasError(validation.type) &&
+                    (updateForm.get('empresa').dirty ||
+                      updateForm.get('empresa').touched)">
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>     -->
+            <ion-button color="transparency" class="ui right floated button btn-yellow edit-btn" [disabled]="!updateForm.valid" type="submit">Editar Correo</ion-button>        
+          </form>
+        </div>
+      </div>
+      <div class="prize-profile">
+        <h4>
+          Último Reconocimientos
+        </h4>
+        <div class="prize-content">
+          <ion-slides [options]="slideOps" *ngIf="reconocimientos.length">
+            <ion-slide *ngFor="let reconocimiento of reconocimientos">
+              <ion-avatar (click)="showRecognition(reconocimiento)">
+                <!-- <img [src]="artist.images[0].url" /> -->
+                <ion-icon text-center color="secondary" class="icon-tools-2"></ion-icon>
+                <span color="secondary">{{reconocimiento.categoria}}</span>
+              </ion-avatar>
+            </ion-slide>
+          </ion-slides>
+          <!-- <ul>
+            <li>
+              <i class="icon-tools-2"></i>
+              Mantenimiento
+            </li>
+            <li>
+              <i class="icon-basket"></i>
+              Mercado
+            </li>
+            <li>
+              <i class="icon-briefcase"></i>
+              Viaje
+            </li>
+          </ul> -->
+
+        </div>
+      </div>    
+    </div>
+    <div class="content-activity ui two column grid">
+      <div class="column">
+        <h4>
+          Total de Kilometros Recorridos
+        </h4>
+        <div class="data-activity">
+          <h3>
+            {{user.km_total | number}}
+          </h3>
+          <h5>Kms</h5>
+        </div>
+
+      </div>
+      <div class="column">
+        <h4>
+          Total de Calorías Consumidas
+        </h4>
+        <div class="data-activity">
+          <h3>
+            {{user.cal_total | number}}
+          </h3>
+          <h5>Kcal</h5>
+        </div>
+      </div>
+      <div class="column">
+        <h4>
+          Total de CO2 Reducido
+        </h4>
+        <div class="data-activity">
+          <h3>
+            {{user.co2_total | number}}
+          </h3>
+          <h5>Kgr</h5>
+        </div>
+      </div>
+      <div class="column">
+        <h4>
+          Tiempo total de actividad
+        </h4>
+        <div class="data-activity">
+          <h3>
+            {{user.tiempo_total | number}}
+          </h3>
+          <h5>Mins</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
