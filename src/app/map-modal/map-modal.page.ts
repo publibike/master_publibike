@@ -135,7 +135,7 @@ export class MapModalPage implements OnInit {
       });
 
       this._locator = new Locator({
-        url: "https://utility.arcgis.com/usrsvcs/appservices/rdJwJijx0YBycNdS/rest/services/World/GeocodeServer/reverseGeocode"
+        url: "https://utility.arcgis.com/usrsvcs/appservices/0M4tNdkWcjbSCK2Z/rest/services/World/GeocodeServer/reverseGeocode"
       })
       this._locate = new Locate({
         view: this._view,
