@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap');
 
 
 /*****ICONOS EKOBIKE*****/
@@ -65,7 +65,7 @@
 }
 
 h1, h2, h3, h4, h5, h6, p, a, li, input, button{
-	font-family: 'Roboto', sans-serif !important;
+	font-family: 'Quicksand', sans-serif !important;
 
 }
 
@@ -73,9 +73,14 @@ body{
 	background: url(../img/background-ekobike.jpg) no-repeat;
 	background-size: cover !important;
 	background-attachment: fixed;
-	background-color: #001434;
-	padding: 20px;
+	background-color: #fff;
+	padding: 0 20px;
 	height: auto;
+}
+
+body.login{
+	background: url(../img/dark-background-uflou-07.jpg) no-repeat;
+	height: 100vh;
 }
 
 img{
@@ -83,45 +88,45 @@ img{
 }
 
 .biker{
-	max-width: 150px;
+	max-width: 100%;
+	width: 100%;
 	display: inline-block;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin-bottom: -5px;
 }
 
 .footer-main{
-	position: relative;
-	bottom: 5%;
+	position: absolute;
+	bottom: 0;
 	left: 0;
 	text-align: center;
 	width: 100%;
-	background: url("../img/fondo-biker.png");
 	background-repeat: repeat-x;
 	background-size: 100%;
 	background-position: bottom center;
 }
 
-.footer-main .slogan-ekobike{
-	max-width: 240px;
-}
-
 
 .footer-main hr{
 	width: 100%;
-	border-color: #f9b410;
+	border-color: #01D9AD;
 	margin-top: -10px;
 }
 
 .logo-ekobike, .logo-ekobike-in{
 	text-align: center;
 	position: relative;
-	top: 10%;
+	top: 10px;
 }
 
 .logo-ekobike img{
-	max-width: 180px;
+	max-width: 200px;
 }
 
 .logo-ekobike-in img{
-	max-width: 120px;
+	max-width: 100px;
 }
 
 .form-login{
@@ -137,7 +142,7 @@ img{
 }
 
 .form-login input[type=text]{
-	padding: 20px !important;
+	padding: 12px 20px !important;
 	border-radius: 50px !important;
 	font-weight: lighter;
 	text-align: center;
@@ -150,10 +155,12 @@ img{
 }
 
 .form-login .ui.button{
-	background-color: #f9b410;
+	background: rgb(0,179,216);
+	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%);
 	padding: 10px 20px;
-	color: #001434;
+	color: #fff;
 	font-size: 20px;
+	border-radius: 20px;
 	text-transform: uppercase;
 	width: 100%;
 }
@@ -163,6 +170,7 @@ img{
 .main-wrapper{
 	max-width: 640px;
 	margin: 0 auto;
+	height: 100vh;
 }
 
 .inside-app{
@@ -174,7 +182,7 @@ img{
 .content-profile ul{
 	list-style: none;
 	padding: 0;
-	text-align: left;
+	text-align: center;
 }
 
 .content-profile ul li{
@@ -184,11 +192,11 @@ img{
 }
 
 .content-profile ul li hr{
-	border-color: #f9b410;
+	border-color: #01D9AD;
 }
 
 .content-profile .content-photo{
-	border: 1px solid #f9b410;
+	border: 1px solid #01D9AD;
 	border-radius: 100%;
 	padding: 0;
 	align-items:; 
@@ -199,7 +207,8 @@ img{
 }
 
 .menu-ekobike{
-	background-color: #001434;
+	background: rgb(0,179,216);
+	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%);
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -251,12 +260,12 @@ i.icon.play.circle:before{
 }
 
 .info-profile h2{
-	color: #f9b410;
+	color: #01D9AD;
 	margin: 0 0 5px 0;
 }
 
 .info-profile h4{
-	color: #fff;
+	color: #606060;
 	margin: 0;
 	margin: 0 0 5px 0;
 	font-size: 16px;
@@ -264,12 +273,13 @@ i.icon.play.circle:before{
 
 .data-profile, .content-activity{
 	padding-top: 40px !important;
+	padding-bottom: 60px !important;
 }
 
 .data-profile h4, .content-activity h4{
 	font-weight: regular;
 	text-align: left;
-	color: #f9b410;
+	color: #01D9AD;
 	font-size: 16px;
 	margin-bottom: 0;
 }
@@ -277,9 +287,9 @@ i.icon.play.circle:before{
 .data-profile input{
 	background-color: transparent !important;
 	border: 0;
-	border-bottom: 1px solid #f9b410 !important;
+	border-bottom: 1px solid #01D9AD !important;
 	padding: 10px 0 !important;
-	color: #fff !important;
+	color: #606060 !important;
 }
 
 .data-profile .ui.form .field :disabled{
@@ -287,18 +297,18 @@ i.icon.play.circle:before{
 }
 
 .data-profile input::placeholder{
-	color: #fff !important;
+	color: #606060 !important;
 	font-size: 16px;
 }
 
 .btn-yellow{
-	background: #f9b410 !important;
-	color: #001434 !important;
+	background: #020202 !important;
+	color: #01D9AD !important;
 	font-size: 16px;
 }
 
 .prize-profile h4{
-	color: #f9b410;
+	color: #01D9AD;
 	text-align: left;
 	margin-top: 10px;
 	font-size: 16px;
@@ -317,20 +327,20 @@ i.icon.play.circle:before{
     width: 49%;
     display: inline-block;
     padding: 10px;
-    color: #fff;
+    color: #606060;
     font-size: 16px;
 }
 
 .prize-content ul li i{
 	font-size: 45px;
-	color: #f9b410;
+	color: #01D9AD;
 	display: block;
 	margin-bottom: 10px;
 }
 
 .prize-content.another h3{
 	text-align: left;
-	color: #fff;
+	color: #606060;
 	vertical-align: middle;
 }
 
@@ -339,7 +349,7 @@ i.icon.play.circle:before{
 }
 
 .prize-content.another h3 small a{
-	color: #f9b410;
+	color: #01D9AD;
 	font-size: 16px;
 	display: block;
 }
@@ -354,16 +364,16 @@ i.icon.play.circle:before{
 }
 
 .content-activity .column:first-child{
-	border-right: 1px solid #f9b410;
-	border-bottom: 1px solid #f9b410;
+	border-right: 1px solid #01D9AD;
+	border-bottom: 1px solid #01D9AD;
 }
 
 .content-activity .column:nth-child(2){
-	border-bottom: 1px solid #f9b410;
+	border-bottom: 1px solid #01D9AD;
 }
 
 .content-activity .column:nth-child(3){
-	border-right: 1px solid #f9b410;
+	border-right: 1px solid #01D9AD;
 }
 
 
@@ -372,7 +382,7 @@ i.icon.play.circle:before{
 }
 
 .data-activity h3, .data-activity h5{
-	color: #fff;
+	color: #606060;
 	display: inline-block;
 	vertical-align: middle;
 	margin: 0;
@@ -385,7 +395,7 @@ i.icon.play.circle:before{
 .data-activity h5{
 	font-size: 20px;
 	font-weight: lighter;
-	color: #f9b410;
+	color: #01D9AD;
 }
 
 .button-start{
@@ -394,7 +404,7 @@ i.icon.play.circle:before{
 }
 
 .button-start a{
-	color: #fff;
+	color: #606060;
 }
 
 .button-start img{
@@ -408,7 +418,7 @@ i.icon.play.circle:before{
 }
 
 .title-section{
-	color: #fff;
+	color: #606060;
 	text-align: center;
 }
 
@@ -416,7 +426,7 @@ i.icon.play.circle:before{
 	content: " ";
 	width: 20px;
 	height: 2px;
-	background-color: #f9b410;
+	background-color: #01D9AD;
 }
 
 .title-section i{
@@ -428,22 +438,22 @@ i.icon.play.circle:before{
 }
 
 .historic h4{
-	color: #fff;
+	color: #606060;
 	font-size: 16px;
 }
 .ui.celled.grid>.column:not(.row), .ui.celled.grid>.row>.column {
-    -webkit-box-shadow: -1px 0 0 0 #f9b410;
-    box-shadow: -1px 0 0 0 #f9b410;
+    -webkit-box-shadow: -1px 0 0 0 #01D9AD;
+    box-shadow: -1px 0 0 0 #01D9AD;
 }
 
 .ui.celled.grid>.row{
-	-webkit-box-shadow: 0 -1px 0 0 #f9b410;
-    box-shadow: 0 -1px 0 0 #f9b410;
+	-webkit-box-shadow: 0 -1px 0 0 #01D9AD;
+    box-shadow: 0 -1px 0 0 #01D9AD;
 
 }
 
 .date-historic label{
-	color: #fff !important;
+	color: #606060 !important;
 	font-size: 16px !important;
 }
 
@@ -463,13 +473,16 @@ i.icon.play.circle:before{
 }
 
 .date-historic .field input::placeholder{
-	color: #fff !important;
+	color: #606060 !important;
 	font-weight: bold;
 }
 
 .content-map{
 	background: #fff;
 	border-radius: 30px;
+	-webkit-box-shadow: 0px 0px 22px -6px rgba(0,0,0,0.6); 
+	box-shadow: 0px 0px 22px -6px rgba(0,0,0,0.6);
+	margin-top: 30px;
 }
 
 .content-play{
@@ -561,7 +574,7 @@ i.icon.play.circle:before{
 }
 
 .styleDate{
-	color: #FFF !important; 
+	color: #606060 !important; 
 	font-weight: 600 !important;
 }
 
@@ -572,4 +585,27 @@ i.icon.play.circle:before{
 
 .data-profile.ui[class*="two column"].grid>.column:not(.row), .data-profile.ui[class*="two column"].grid>.row>.column{
 	width: 100% !important;
+}
+
+/**bar progress**/
+
+.ui.violet.progress .bar{
+	background: rgb(0,179,216);
+	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%);
+}
+.ui.yellow.progress .bar{
+background: rgb(10,222,234);
+background: linear-gradient(90deg, rgba(10,222,234,1) 0%, rgba(1,233,173,1) 100%);
+}
+.ui.orange.progress .bar{
+background: rgb(1,233,173);
+background: linear-gradient(90deg, rgba(1,233,173,1) 0%, rgba(10,222,234,1) 100%);
+}
+
+.ui.blue.progress .bar{
+background: #00B3D8;
+}
+
+.ui.white.progress .bar{
+background: #04BA8E;
 }
