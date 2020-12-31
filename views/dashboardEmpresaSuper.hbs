@@ -26,9 +26,43 @@
     <div class="column">
         <div class="inside-column">
             <h3>Resultados Generales</h3>
-            <div style="width:100%;">
+            {{!-- <div style="width:100%;">
                 <canvas id="coResultados"></canvas>
-            </div>
+            </div> --}}
+            <div class="top attached ui statistics">
+				<div class="data-statistics">
+					Kilometros
+				</div>
+				<div class="ui progress blue graphic-statistics" data-percent="1000">
+					<div class="bar" style="transition-duration: 300ms; width: {{empresa.km}}%;">
+						<div class="progress">{{empresa.km}}</div>
+					</div>
+				</div>
+                <div class="data-statistics">
+					Calorías
+				</div>
+				<div class="ui progress blue graphic-statistics" data-percent="1000">
+					<div class="bar" style="transition-duration: 300ms; width: {{empresa.cal}}%;">
+						<div class="progress">{{empresa.cal}}</div>
+					</div>
+				</div>
+                <div class="data-statistics">
+					CO2 Reducido
+				</div>
+				<div class="ui progress blue graphic-statistics" data-percent="1000">
+					<div class="bar" style="transition-duration: 300ms; width: {{empresa.co2}}%;">
+						<div class="progress">{{empresa.co2}}</div>
+					</div>
+				</div>
+                <div class="data-statistics">
+					Tiempo 
+				</div>
+				<div class="ui progress blue graphic-statistics" data-percent="1000">
+					<div class="bar" style="transition-duration: 300ms; width: {{empresa.tiempo}}%;">
+						<div class="progress">{{empresa.tiempo}}</div>
+					</div>
+				</div>
+			</div>
         </div>
     </div>
 </div>

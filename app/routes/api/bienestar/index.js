@@ -429,6 +429,7 @@ module.exports.register = async server => {
             return reconocimientos;
         }
     });
+    
     //Obtiene los reconocimientos de una empresa
     server.route({
         method: 'GET',
