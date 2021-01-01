@@ -21,3 +21,11 @@ npx cap open android
 Para ejecutar xCode desde el proyecto ejecutar:
 
 npx cap open ios
+
+Para crear el icono y el splash :
+
+1. En la carpeta "resources" pegar un archivo llamado "icon.png" de 1024x1024 px y otro llamado "splash.png" de 2732x2732 px
+2. En consola ejecutar los siguientes comandos:
+    cordova-res ios --skip-config --copy
+    cordova-res android --skip-config --copy
+3. Si llegan a faltar imagenes para Android toca crearlas manualmente
