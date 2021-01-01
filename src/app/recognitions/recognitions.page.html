@@ -4,7 +4,7 @@
   </div>
   <h2 class="title-section"><i class="icon-trophy"></i>Reconocimientos</h2>
   <div class="prize-content">
-    <h1>Movilidad Limpia</h1>
+    <h1 class="title-section" >Movilidad Limpia</h1>
     <ion-slides  *ngIf="movilidad.length">
       <ion-slide *ngFor="let reconocimiento of movilidad">
         <ion-avatar (click)="showRecognition(reconocimiento)">
@@ -14,7 +14,7 @@
         </ion-avatar>
       </ion-slide>
     </ion-slides>
-    <h1>Bienestar</h1>
+    <h1 class="title-section" >Bienestar</h1>
     <ion-slides  *ngIf="bienestar.length">
       <ion-slide *ngFor="let reconocimiento of bienestar">
         <ion-avatar (click)="showRecognition(reconocimiento)">
@@ -24,7 +24,7 @@
         </ion-avatar>
       </ion-slide>
     </ion-slides>
-    <h1>Alianzas</h1>
+    <h1 class="title-section" >Alianzas</h1>
     <ion-slides *ngIf="alianzas.length">
       <ion-slide *ngFor="let reconocimiento of alianzas">
         <ion-avatar (click)="showRecognition(reconocimiento)">
@@ -34,7 +34,7 @@
         </ion-avatar>
       </ion-slide>
     </ion-slides>
-    <h1>Ocio</h1>
+    <h1 class="title-section" >Ocio</h1>
     <ion-slides *ngIf="ocio.length">
       <ion-slide *ngFor="let reconocimiento of ocio">
         <ion-avatar (click)="showRecognition(reconocimiento)">

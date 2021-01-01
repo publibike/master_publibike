@@ -1,20 +1,23 @@
 ion-avatar {
-    height: 120px;
-    width: 90%;
-  }
-  ion-avatar img {
-    width: 90px;
-    height: 90px;
-  }
-  ion-icon{
-    font-size: 75px;
-	display: block;
-	margin-bottom: 10px;
-  }
-  ion-avatar span {
-    font-size: 16px;
-    color: #ffffff;
-  }
-  .ui form .ui.button {
-    padding: 0px;
+  height: 120px;
+  width: 90%;
+}
+ion-avatar img {
+  width: 90px;
+  height: 90px;
+}
+ion-icon {
+  font-size: 75px;
+  display: block;
+  margin-bottom: 10px;
+}
+ion-avatar span {
+  font-size: 16px;
+  color: #ffffff;
+}
+.ui form .ui.button {
+  padding: 0px;
+}
+ion-content {
+  --background-image: url("../../assets/img/background-ekobike.jpg") no-repeat fixed center;
 }

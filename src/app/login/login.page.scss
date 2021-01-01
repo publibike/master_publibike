@@ -1,3 +1,13 @@
 .form-login .ui.button {
     padding: 0px;
+    border-radius: 20px !important;
+}
+
+ion-content{
+    --background: url("../../assets/img/dark-background-uflou-07.jpg") no-repeat fixed center !important;
+    --background-position: top right;
+}
+
+ion-button{
+    --border-radius: 30px;
 }
