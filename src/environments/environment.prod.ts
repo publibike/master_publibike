@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  publibikeApi: "https://geoapps.esri.co/Bienestar"
+  publibikeApi: "http://142.93.44.192/Bienestar"
 };
