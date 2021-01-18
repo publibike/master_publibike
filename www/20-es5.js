@@ -88,9 +88,9 @@
       /* harmony import */
 
 
-      var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
-      /*! ./overlays-c5d9d644.js */
-      "d1dm");
+      var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! ./overlays-2cc140a1.js */
+      "ja7u");
       /* harmony import */
 
 
@@ -459,7 +459,7 @@
           this.swipeToClose = false;
 
           this.onBackdropTap = function () {
-            _this.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["B"]);
+            _this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["B"]);
           };
 
           this.onDismiss = function (ev) {
@@ -496,7 +496,7 @@
         }, {
           key: "connectedCallback",
           value: function connectedCallback() {
-            Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["e"])(this.el);
+            Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["e"])(this.el);
           }
           /**
            * Present the modal overlay after it has been created.
@@ -547,7 +547,7 @@
                         return _this2.el.classList.add('show-modal');
                       });
                       _context.next = 14;
-                      return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["d"])(this, 'modalEnter', iosEnterAnimation, mdEnterAnimation, this.presentingElement);
+                      return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["d"])(this, 'modalEnter', iosEnterAnimation, mdEnterAnimation, this.presentingElement);
 
                     case 14:
                       if (this.swipeToClose) {
@@ -641,9 +641,9 @@
                       return _context3.abrupt("return", false);
 
                     case 2:
-                      enteringAnimation = _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["h"].get(this) || [];
+                      enteringAnimation = _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["h"].get(this) || [];
                       _context3.next = 5;
-                      return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["f"])(this, data, role, 'modalLeave', iosLeaveAnimation, mdLeaveAnimation, this.presentingElement);
+                      return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["f"])(this, data, role, 'modalLeave', iosLeaveAnimation, mdLeaveAnimation, this.presentingElement);
 
                     case 5:
                       dismissed = _context3.sent;
@@ -690,7 +690,7 @@
         }, {
           key: "onDidDismiss",
           value: function onDidDismiss() {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["g"])(this.el, 'ionModalDidDismiss');
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["g"])(this.el, 'ionModalDidDismiss');
           }
           /**
            * Returns a promise that resolves when the modal will dismiss.
@@ -699,7 +699,7 @@
         }, {
           key: "onWillDismiss",
           value: function onWillDismiss() {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["g"])(this.el, 'ionModalWillDismiss');
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["g"])(this.el, 'ionModalWillDismiss');
           }
         }, {
           key: "render",

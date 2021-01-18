@@ -84,9 +84,9 @@
       /* harmony import */
 
 
-      var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-      /*! ./overlays-c5d9d644.js */
-      "d1dm");
+      var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! ./overlays-2cc140a1.js */
+      "ja7u");
       /* harmony import */
 
 
@@ -237,13 +237,13 @@
           this.animated = true;
 
           this.onBackdropTap = function () {
-            _this.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["B"]);
+            _this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["B"]);
           };
 
           this.dispatchCancelHandler = function (ev) {
             var role = ev.detail.role;
 
-            if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
+            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
               var cancelButton = _this.processedButtons.find(function (b) {
                 return b.role === 'cancel';
               });
@@ -254,55 +254,6 @@
         }
 
         _createClass(Alert, [{
-          key: "onKeydown",
-          value: function onKeydown(ev) {
-            var inputTypes = new Set(this.processedInputs.map(function (i) {
-              return i.type;
-            })); // The only inputs we want to navigate between using arrow keys are the radios
-            // ignore the keydown event if it is not on a radio button
-
-            if (!inputTypes.has('radio') || ev.target && !this.el.contains(ev.target) || ev.target.classList.contains('alert-button')) {
-              return;
-            } // Get all radios inside of the radio group and then
-            // filter out disabled radios since we need to skip those
-
-
-            var query = this.el.querySelectorAll('.alert-radio');
-            var radios = Array.from(query).filter(function (radio) {
-              return !radio.disabled;
-            }); // The focused radio is the one that shares the same id as
-            // the event target
-
-            var index = radios.findIndex(function (radio) {
-              return radio.id === ev.target.id;
-            }); // We need to know what the next radio element should
-            // be in order to change the focus
-
-            var nextEl; // If hitting arrow down or arrow right, move to the next radio
-            // If we're on the last radio, move to the first radio
-
-            if (['ArrowDown', 'ArrowRight'].includes(ev.key)) {
-              nextEl = index === radios.length - 1 ? radios[0] : radios[index + 1];
-            } // If hitting arrow up or arrow left, move to the previous radio
-            // If we're on the first radio, move to the last radio
-
-
-            if (['ArrowUp', 'ArrowLeft'].includes(ev.key)) {
-              nextEl = index === 0 ? radios[radios.length - 1] : radios[index - 1];
-            }
-
-            if (nextEl && radios.includes(nextEl)) {
-              var nextProcessed = this.processedInputs.find(function (input) {
-                return input.id === (nextEl === null || nextEl === void 0 ? void 0 : nextEl.id);
-              });
-
-              if (nextProcessed) {
-                this.rbClick(nextProcessed);
-                nextEl.focus();
-              }
-            }
-          }
-        }, {
           key: "buttonsChanged",
           value: function buttonsChanged() {
             var buttons = this.buttons;
@@ -318,18 +269,7 @@
           value: function inputsChanged() {
             var _this2 = this;
 
-            var inputs = this.inputs; // Get the first input that is not disabled and the checked one
-            // If an enabled checked input exists, set it to be the focusable input
-            // otherwise we default to focus the first input
-            // This will only be used when the input is type radio
-
-            var first = inputs.find(function (input) {
-              return !input.disabled;
-            });
-            var checked = inputs.find(function (input) {
-              return input.checked && !input.disabled;
-            });
-            var focusable = checked || first; // An alert can be created with several different inputs. Radios,
+            var inputs = this.inputs; // An alert can be created with several different inputs. Radios,
             // checkboxes and inputs are all accepted, but they cannot be mixed.
 
             var inputTypes = new Set(inputs.map(function (i) {
@@ -355,15 +295,14 @@
                 min: i.min,
                 max: i.max,
                 cssClass: i.cssClass || '',
-                attributes: i.attributes || {},
-                tabindex: i.type === 'radio' && i !== focusable ? -1 : 0
+                attributes: i.attributes || {}
               };
             });
           }
         }, {
           key: "connectedCallback",
           value: function connectedCallback() {
-            Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["e"])(this.el);
+            Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["e"])(this.el);
           }
         }, {
           key: "componentWillLoad",
@@ -404,7 +343,7 @@
         }, {
           key: "present",
           value: function present() {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this, 'alertEnter', iosEnterAnimation, mdEnterAnimation);
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this, 'alertEnter', iosEnterAnimation, mdEnterAnimation);
           }
           /**
            * Dismiss the alert overlay after it has been presented.
@@ -419,7 +358,7 @@
         }, {
           key: "dismiss",
           value: function dismiss(data, role) {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["f"])(this, data, role, 'alertLeave', iosLeaveAnimation, mdLeaveAnimation);
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["f"])(this, data, role, 'alertLeave', iosLeaveAnimation, mdLeaveAnimation);
           }
           /**
            * Returns a promise that resolves when the alert did dismiss.
@@ -428,7 +367,7 @@
         }, {
           key: "onDidDismiss",
           value: function onDidDismiss() {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertDidDismiss');
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertDidDismiss');
           }
           /**
            * Returns a promise that resolves when the alert will dismiss.
@@ -437,7 +376,7 @@
         }, {
           key: "onWillDismiss",
           value: function onWillDismiss() {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertWillDismiss');
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertWillDismiss');
           }
         }, {
           key: "rbClick",
@@ -449,7 +388,6 @@
               for (_iterator.s(); !(_step = _iterator.n()).done;) {
                 var input = _step.value;
                 input.checked = input === selectedInput;
-                input.tabindex = input === selectedInput ? 0 : -1;
               }
             } catch (err) {
               _iterator.e(err);
@@ -458,14 +396,14 @@
             }
 
             this.activeId = selectedInput.id;
-            Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
+            Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
             Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
           }
         }, {
           key: "cbClick",
           value: function cbClick(selectedInput) {
             selectedInput.checked = !selectedInput.checked;
-            Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
+            Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
             Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
           }
         }, {
@@ -474,7 +412,7 @@
             var role = button.role;
             var values = this.getValues();
 
-            if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
+            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
               return this.dismiss({
                 values: values
               }, role);
@@ -496,7 +434,7 @@
             if (button && button.handler) {
               // a handler has been provided, execute it
               // pass the handler the values from the inputs
-              var returnData = Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["s"])(button.handler, data);
+              var returnData = Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["s"])(button.handler, data);
 
               if (returnData === false) {
                 // if the return value of the handler is false then do not dismiss
@@ -583,7 +521,7 @@
                 "aria-checked": "".concat(i.checked),
                 id: i.id,
                 disabled: i.disabled,
-                tabIndex: i.tabindex,
+                tabIndex: 0,
                 role: "checkbox",
                 "class": Object.assign(Object.assign({}, Object(_theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__["g"])(i.cssClass)), {
                   'alert-tappable': true,
@@ -628,7 +566,7 @@
                 "aria-checked": "".concat(i.checked),
                 disabled: i.disabled,
                 id: i.id,
-                tabIndex: i.tabindex,
+                tabIndex: 0,
                 "class": Object.assign(Object.assign({}, Object(_theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__["g"])(i.cssClass)), {
                   'alert-radio-button': true,
                   'alert-tappable': true,
@@ -670,7 +608,7 @@
                   placeholder: i.placeholder,
                   value: i.value,
                   id: i.id,
-                  tabIndex: i.tabindex
+                  tabIndex: 0
                 }, i.attributes, {
                   disabled: (_b = (_a = i.attributes) === null || _a === void 0 ? void 0 : _a.disabled) !== null && _b !== void 0 ? _b : i.disabled,
                   "class": inputClass(i),
@@ -694,7 +632,7 @@
                   max: i.max,
                   value: i.value,
                   id: i.id,
-                  tabIndex: i.tabindex
+                  tabIndex: 0
                 }, i.attributes, {
                   disabled: (_d = (_c = i.attributes) === null || _c === void 0 ? void 0 : _c.disabled) !== null && _d !== void 0 ? _d : i.disabled,
                   "class": inputClass(i),

@@ -1,0 +1,29 @@
+<ion-split-pane  contentId="content" color="primary">
+  <ion-menu class="menu" contentId="content" side="start">
+    <ion-header color="primary">
+      <ion-toolbar style="--background: #000000;">
+        <ion-buttons slot="end">
+          <ion-button icon-only (click)="closeMenu()">
+            <ion-icon name="close" color="primary" size="large"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content style="--background: #000000;">
+      <div class="logo-publibike-in">
+        <img src="assets/img/logo-ekobike.png">
+      </div>
+      <ion-list style="--background: #000000;"> 
+        <!-- <ion-item><img id="logo-publibike-menu" src="assets/img/logo-ekobike.png"></ion-item> -->
+        <ion-item (click)="goToHome()"><ion-icon class="icon-home3" ></ion-icon>  Inicio</ion-item>
+        <ion-item (click)="goToProfile()"><ion-icon class="icon-user"></ion-icon>  Mi perfil</ion-item>
+        <ion-item (click)="goToCampaings()"><ion-icon class="icon-stats-bars"></ion-icon>  Campañas</ion-item>
+        <ion-item (click)="goToRutes()"><ion-icon class="icon-map"></ion-icon>  Mis Recorridos</ion-item>
+        <!-- <ion-item ><ion-icon class="icon-stats-bars"></ion-icon>Cambiar Contraseña</ion-item> -->
+        <!-- <ion-item (click)="goToIntro()"><ion-icon class="icon-stats-bars"></ion-icon>Ver Intro</ion-item> -->
+        <ion-item (click)="logout()"><ion-icon class="icon-switch" ></ion-icon>Cerrar Sesión</ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="content" main></ion-router-outlet>
+</ion-split-pane>

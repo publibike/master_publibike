@@ -6,11 +6,11 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage';
-import { RecognitionModalPageModule } from './recognition-modal/recognition-modal.module';
-import { MapModalPageModule } from './map-modal/map-modal.module';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,14 +19,14 @@ import { MapModalPageModule } from './map-modal/map-modal.module';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    RecognitionModalPageModule,
-    MapModalPageModule,
-    IonicStorageModule.forRoot()],
-    providers: [
-      StatusBar,
-      SplashScreen,
+    IonicStorageModule.forRoot()
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,    
+    BackgroundMode,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

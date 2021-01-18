@@ -7,7 +7,7 @@
 
   <base href="/" />
 
-  <meta name="color-scheme" content="light dark" />
+  <!-- <meta name="color-scheme" content="light dark" /> -->
   <meta name="viewport"
     content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="format-detection" content="telephone=no" />
@@ -15,18 +15,21 @@
 
   <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
 
-  <link rel="stylesheet" type="text/css" href="assets/css/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/ekobike.css">
-  <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css">
-
   <!-- add to homescreen for ios -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <link rel="stylesheet" type="text/css" href="assets/css/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/publibike.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css">
+
+
+  <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD67uv_17Up1UVuDvLLxtB11R0lWl43QpI&libraries=places"></script> -->
   <script src="https://js.arcgis.com/4.17/"></script>
   <style>
     .esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {
       height: 34%;
-      background: #001434;
+      background: #01D9AD;
     }
 
     .esri-widget--button {
@@ -34,12 +37,16 @@
       color: #001434 !important;
     }
 
-   
+    ion-menu-button {
+      color: #01D9AD;
+    }
   </style>
 </head>
 
-<body class="inside-app">
+<body>
   <app-root></app-root>
 </body>
+<script type="text/javascript" src="assets/js/jquery.js"></script>
+<script type="text/javascript" src="assets/js/semantic.min.js"></script>
 
 </html>

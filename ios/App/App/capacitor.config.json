@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "Uflou+",
+  "appId": "com.Uflou.Marca",
+  "appName": "Uflou",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

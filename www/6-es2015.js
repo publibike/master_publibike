@@ -170,7 +170,7 @@ const Button = class {
         this.inItem = !!this.el.closest('ion-item') || !!this.el.closest('ion-item-divider');
     }
     get hasIconOnly() {
-        return !!this.el.querySelector('[slot="icon-only"]');
+        return !!this.el.querySelector('ion-icon[slot="icon-only"]');
     }
     get rippleType() {
         const hasClearFill = this.fill === undefined || this.fill === 'clear';

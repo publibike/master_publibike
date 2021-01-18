@@ -1,16 +1,23 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { formatNumber } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, OnInit, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { async } from '@angular/core/testing';
+import { FormBuilder, FormControl, FormGroup, NumberValueAccessor, Validators } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
+import { ApiPublibikeMarcaService } from '../services/api-publibike-marca.service';
 import { loadModules } from 'esri-loader';
-import { ApiPublibikeBienestarService } from '../services/api-publibike-bienestar.service';
 import esri = __esri;
-
+import { IonInput, LoadingController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { add } from 'esri/views/3d/externalRenderers';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+const { Geolocation } = Plugins;
 @Component({
   selector: 'app-rute',
   templateUrl: './rute.page.html',
   styleUrls: ['./rute.page.scss'],
 })
-export class RutePage implements OnInit {
+export class RutePage {
 
   @ViewChild('map') mapEl: ElementRef;
   loading: any;
@@ -27,8 +34,41 @@ export class RutePage implements OnInit {
   private _pointGC: esri.Point = null;
   private _draw: esri.Draw = null;
   private _distance: esri.DistanceMeasurement2DViewModel = null;
+  // private _geometryEngine: esri.geometryEngine;
 
 
+  get mapLoaded(): boolean {
+    return this._loaded;
+  }
+
+  @Input()
+  set zoom(zoom: number) {
+    this._zoom = zoom;
+  }
+
+  get zoom(): number {
+    return this._zoom;
+  }
+
+  @Input()
+  set center(center: Array<number>) {
+    this._center = center;
+  }
+
+  get center(): Array<number> {
+    return this._center;
+  }
+
+  @Input()
+  set basemap(basemap: string) {
+    this._basemap = basemap;
+  }
+
+  get basemap(): string {
+    return this._basemap;
+  }
+
+  currentDirection: String = "";
   //Variables del cronometro
   public horas: number = 0;
   public centesimas: number = 0;
@@ -42,25 +82,39 @@ export class RutePage implements OnInit {
   public _horas: string = '00';
 
   isRun = false;
+  public estado: String = "INICIAR RECORRIDO";
 
   //Array recorrido con las coordenadas
   recorrido: any[] = [];
 
+  //Variables de distancia
+  photo: SafeResourceUrl;
+  //usuario
   user: {
     nombre: String,
     apellido: String,
     ganancia_total: number,
     km_total: number,
     cal_total: number,
-    co2_total: number
+    co2_total: number,
+    peso: number,
+    campana_actual: {
+      pago_km: number
+    }
   } = {
       nombre: "",
       apellido: "",
       ganancia_total: 0,
       km_total: 0,
       cal_total: 0,
-      co2_total: 0
+      co2_total: 0,
+      peso: 0,
+      campana_actual: {
+        pago_km: 2000
+      }
     };
+
+  //objeto a enviar
   ruteData: object = {};
   fecha: any;
   fstDirection: any;
@@ -72,15 +126,16 @@ export class RutePage implements OnInit {
   co2: any = 0;
 
   constructor(
-    private apiService: ApiPublibikeBienestarService,
+    private apiService: ApiPublibikeMarcaService,
     private storage: Storage,
-    private loadingCtrl: LoadingController
-  ) { }
+    private loadingCtrl: LoadingController,
+    private backgroundMode: BackgroundMode
 
+  ) { }
   async initializedMap() {
     try {
       const [
-        Map, MapView, Graphic, RouteTask, RouteParameters, FeatureSet, Directions, Locate, Track, Locator, Search, Expand, Legend, Point, Draw, geometryEngine, FeatureLayer, DistanceMeasurement2DViewModel
+        Map, MapView, Graphic, RouteTask, RouteParameters, FeatureSet, Directions, Locate, Track, Locator, LocatorSearchSource, Expand, Point, Draw, geometryEngine, FeatureLayer, DistanceMeasurement2DViewModel
       ]: any
         = await loadModules([
           'esri/Map',
@@ -93,9 +148,8 @@ export class RutePage implements OnInit {
           "esri/widgets/Locate",
           "esri/widgets/Track",
           "esri/tasks/Locator",
-          "esri/widgets/Search",
+          "esri/widgets/Search/LocatorSearchSource",
           "esri/widgets/Expand",
-          "esri/widgets/Legend",
           "esri/geometry/Point",
           "esri/views/draw/Draw",
           "esri/geometry/geometryEngine",
@@ -112,51 +166,20 @@ export class RutePage implements OnInit {
         // create the map view at the DOM element in this component
         container: this.mapEl.nativeElement,
         center: this._center,
-        zoom: this._zoom,
+        zoom: this._center,
         map: map
       });
 
-      const template = {
-        title: "Cicloparqueadero",
-        content: function () {
-          console.log("Click")
-          return "<b>Nombre:</b> {NOMBRE_CICP}<br><b>Horario:</b> {HORARIO_CICP}<br><b>Dirección:</b> {DIRECCION}<br><b>Cupos:</b> {CUPOS} <br><b>Servicio:</b> {TIPOLOGIA_CICP}"
-        }
-      };
       const parkingLayer = new FeatureLayer({
-        url: "https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/Cicloparqueaderos_Certificados_Bogota_D_C/FeatureServer/0",
-        outFields: ["NOMBRE_CICP", "HORARIO_CICP", "DIRECCION", "CUPOS", "TIPOLOGIA_CICP"],
-        PopupTemplate: template
+        url: "https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/Cicloparqueaderos_Certificados_Bogota_D_C/FeatureServer/0"
       })
       map.add(parkingLayer);
-
-      var legend = new Legend({
-        view: this._view,
-        layerInfos: [{
-          layer: parkingLayer,
-          title: "Categoria Cicloparqueaderos"
-        }]
-      });
-      // this._view.ui.add(legend, "bottom-right");
-
-      let lgExpand = new Expand({
-        view: this._view,
-        content: legend,
-        autoCollapse: false
-      });
-      this._view.ui.add(lgExpand, "bottom-right");
       //Se configura y crea el widget de busqueda
-      this._search = new Search({
+      this._search = new LocatorSearchSource({
         view: this._view,
       });
-
-      this._view.ui.add(this._search, {
-        position: "top-left",
-        index: 0
-      });
-
       this._locator = new Locator({
-        url: "https://utility.arcgis.com/usrsvcs/appservices/rdJwJijx0YBycNdS/rest/services/World/GeocodeServer/reverseGeocode"
+        url: "https://utility.arcgis.com/usrsvcs/appservices/0M4tNdkWcjbSCK2Z/rest/services/World/GeocodeServer/reverseGeocode"
       })
       this._locate = new Locate({
         view: this._view,
@@ -167,10 +190,7 @@ export class RutePage implements OnInit {
         }
       });
 
-      this._view.ui.add(this._locate, {
-        position: "top-left",
-        index: 2
-      });
+      this._view.ui.add(this._locate, "top-left");
 
       this._pointGC = new Point();
       this._draw = new Draw({
@@ -196,7 +216,7 @@ export class RutePage implements OnInit {
         }
       });
 
-      // this._view.ui.add(this._track, "top-left");
+      this._view.ui.add(this._track, "top-left");
 
       this._distance = new DistanceMeasurement2DViewModel({
         view: this._view,
@@ -213,7 +233,7 @@ export class RutePage implements OnInit {
       let directions = new Directions({
         view: this._view,
         // routeServiceUrl: "https://utility.arcgis.com/usrsvcs/appservices/6MyWChEzkSbXMie3/rest/services/World/Route/NAServer/Route_World"
-        routeServiceUrl: "https://sig.simur.gov.co/arcgis/rest/services/MVI_REDBICI/NARedBici/NAServer/Principiante",
+        routeServiceUrl: "https://sig.simur.gov.co/arcgis/rest/services/MVI_REDBICI/NARedBici/NAServer/Avanzado",
       });
 
       let bgExpand = new Expand({
@@ -226,30 +246,117 @@ export class RutePage implements OnInit {
       await this._view.when();
 
       return this._view;
+
+      function getRoute() {
+        // Setup the route parameters
+        var routeParams = new RouteParameters({
+          stops: new FeatureSet({
+            features: this._view.graphics.toArray()
+          }),
+          // returnDirections: true
+        });
+        // Get the route
+        routeTask.solve(routeParams).then(function (data) {
+          data.routeResults.forEach(function (result) {
+            result.route.symbol = {
+              type: "simple-line",
+              color: [5, 150, 255],
+              width: 3
+            };
+            this._view.graphics.add(result.route);
+          });
+        });
+      }
     } catch (error) {
       console.log(error)
     }
   }
-  async ngOnInit() {
+
+  async ionViewWillEnter() {
     this.presentLoading();
-    // this.backgroundMode.enable();
+    this.backgroundMode.enable();
     this.user = await this.storage.get("userData");
     this.initializedMap()
       .then(async mapView => {
         console.log("mapView ready: ", this._view.ready);
         this._loaded = this._view.ready;
 
-        // let position = await this._locate.locate();
-        // console.log("position", position)
-        // mapView.goTo({
-        //   center: this._locate.locate(),
-        //   zoom: 6,
-        //   tilt: 40
-        // })
-        this.loading.dismiss();
+        let position = await this._locate.locate();
+        console.log("position", position)
+        mapView.goTo({
+          center: this._locate.locate(),
+          zoom: 6,
+          tilt: 40
+        })
+          .then(() => {
+            let address;
+            this._pointGC.latitude = position.coords.latitude;
+            this._pointGC.longitude = position.coords.longitude;
+            let params = {
+              location: this._pointGC
+            }
+            let geocoder = this._locator;
+            console.log(params)
+            geocoder.locationToAddress(params)
+              .then((response) => {
+                address = response.address;
+                console.log(address)
+                address = address.split(",")
+                this.currentDirection = address[0];
+                // this.currentDirection = this.currentDirection.split(",")
+                console.log(this.currentDirection)
+                this.loading.dismiss();
+
+              }).catch(err => console.log(err))
+
+          })
+
       });
   }
+
+  // async ngOnInit() {
+  //   this.presentLoading();
+  //   this.user = await this.storage.get("userData");
+  //   this.initializedMap()
+  //     .then(async mapView => {
+  //       console.log("mapView ready: ", this._view.ready);
+  //       this._loaded = this._view.ready;
+
+  //       let position = await this._locate.locate();
+  //       console.log("position", position)
+  //       mapView.goTo({
+  //         center: this._locate.locate(),
+  //         zoom: 6,
+  //         tilt: 40
+  //       })
+  //         .then(() => {
+  //           let address;
+  //           this._pointGC.latitude = position.coords.latitude;
+  //           this._pointGC.longitude = position.coords.longitude;
+  //           let params = {
+  //             location: this._pointGC
+  //           }
+  //           let geocoder = this._locator;
+  //           console.log(params)
+  //           geocoder.locationToAddress(params)
+  //             .then((response) => {
+  //               address = response.address;
+  //               console.log(address)
+  //               address = address.split(",")
+  //               this.currentDirection = address[0];
+  //               // this.currentDirection = this.currentDirection.split(",")
+  //               console.log(this.currentDirection)
+  //               this.loading.dismiss();
+
+  //             }).catch(err => console.log(err))
+
+  //         })
+
+  //     });
+  // }
+
   async startRute() {
+    this.estado = "RECORRIDO INICIADO";
     this.clearWindows();
     this._track.start();
     await this._distance.start();
@@ -281,10 +388,10 @@ export class RutePage implements OnInit {
         console.log(address)
         address = address.split(",");
         this.fstDirection = address[0];
-        // this.currentDirection = address[0];
+        this.currentDirection = address[0];
         // this.km = position.coords.speed;
 
-        // console.log(this.currentDirection)
+        console.log(this.currentDirection)
 
       }).catch(err => console.log(err))
     //Se inicializa el contador  
@@ -314,6 +421,9 @@ export class RutePage implements OnInit {
       }
     }, 100)
   }
+  pause() {
+    clearInterval(this.contador);
+  }
   async stopRute() {
     try {
       // this.presentLoading();
@@ -330,6 +440,8 @@ export class RutePage implements OnInit {
         // this._segundos = '00';
         // this._minutos = '00';
         // this._horas = '00';
+
+        this.estado = 'INICIAR RECORRIDO';
         this.isRun = false;
         // this.contador = null;
 
@@ -348,12 +460,16 @@ export class RutePage implements OnInit {
             console.log(address);
             address = address.split(",")
             this.fnlDirection = address[0];
-            // this.currentDirection = address[0];
-            // console.log(this.currentDirection)
+            this.currentDirection = address[0];
+            console.log(this.currentDirection)
             let kms = parseFloat(this.km);
             let co2 = kms * 0.3;
             this.co2 = co2.toFixed(3);
-            console.log("co2", typeof (kms), this.co2);
+            // let usPeso =  parseFloat(this.user.peso);
+            console.log(this.user.peso)
+            console.log(typeof(this.user.peso))
+            let totalMin = (this.horas*60)+(this.minutos)+(this.segundos*0.0166667);
+            this.cal = 0.071*(this.user.peso*2.2) *totalMin;
             this.ruteData = {
               fecha: this.fecha,
               inicio: this.fstDirection,
@@ -375,6 +491,140 @@ export class RutePage implements OnInit {
     }
 
   }
+  // drawLine() {
+
+  //   this._view.graphics.removeAll();
+
+  //   // creates and returns an instance of PolyLineDrawAction
+  //   const action = this._draw.create("polyline");
+
+  //   // focus the view to activate keyboard shortcuts for sketching
+  //   this._view.focus();
+
+  //   // listen polylineDrawAction events to give immediate visual feedback
+  //   // to users as the line is being drawn on the view.
+  //   action.on(
+  //     [
+  //       "vertex-add",
+  //       "vertex-remove",
+  //       "cursor-update",
+  //       "redo",
+  //       "undo",
+  //       "draw-complete"
+  //     ],
+  //     this.updateVertices
+  //   );
+
+  // }
+
+  // // Checks if the last vertex is making the line intersect itself.
+  // updateVertices(event) {
+  //   // create a polyline from returned vertices
+  //   if (event.vertices.length > 1) {
+  //     const result = this.createGraphic(event);
+
+  //     // if the last vertex is making the line intersects itself,
+  //     // prevent the events from firing
+  //     if (result.selfIntersects) {
+  //       event.preventDefault();
+  //     }
+  //   }
+  // }
+
+  // // create a new graphic presenting the polyline that is being drawn on the view
+  // createGraphic(event) {
+  //   const vertices = event.vertices;
+  //   this._view.graphics.removeAll();
+
+
+  //   // a graphic representing the polyline that is being drawn
+  //   const graphic = new esri.Graphic({
+  //     geometry: {
+  //       type: "polyline",
+  //       paths: vertices,
+  //       spatialReference: this._view.spatialReference
+  //     },
+  //     symbol: {
+  //       type: "simple-line", // autocasts as new SimpleFillSymbol
+  //       color: [4, 90, 141],
+  //       width: 4,
+  //       cap: "round",
+  //       join: "round"
+  //     }
+  //   });
+
+  //   // check if the polyline intersects itself.
+  //   const intersectingSegment = this.getIntersectingSegment(graphic.geometry);
+
+  //   // Add a new graphic for the intersecting segment.
+  //   if (intersectingSegment) {
+  //     this._view.graphics.addMany([graphic, intersectingSegment]);
+  //   }
+  //   // Just add the graphic representing the polyline if no intersection
+  //   else {
+  //     this._view.graphics.add(graphic);
+  //   }
+
+  //   // return intersectingSegment
+  //   return {
+  //     selfIntersects: intersectingSegment
+  //   };
+  // }
+
+  // // function that checks if the line intersects itself
+  // isSelfIntersecting(polyline) {
+  //   if (polyline.paths[0].length < 3) {
+  //     return false;
+  //   }
+  //   const line = polyline.clone();
+
+  //   //get the last segment from the polyline that is being drawn
+  //   const lastSegment = this.getLastSegment(polyline);
+  //   line.removePoint(0, line.paths[0].length - 1);
+
+  //   // returns true if the line intersects itself, false otherwise
+  //   return this._geometryEngine.crosses(lastSegment, line);
+  // }
+
+  // // Checks if the line intersects itself. If yes, change the last
+  // // segment's symbol giving a visual feedback to the user.
+  // getIntersectingSegment(polyline) {
+  //   if (this.isSelfIntersecting(polyline)) {
+  //     return new esri.Graphic({
+  //       geometry: this.getLastSegment(polyline),
+  //       symbol: {
+  //         // type: "simple-line", // autocasts as new SimpleLineSymbol
+  //         // style: "short-dot",
+  //         // width: 3.5,
+  //         color: "red"
+  //       }
+  //     });
+  //   }
+  //   return null;
+  // }
+
+  // // Get the last segment of the polyline that is being drawn
+  // getLastSegment(polyline): any{
+  //   const line = polyline.clone();
+  //   const lastXYPoint = line.removePoint(0, line.paths[0].length - 1);
+  //   const existingLineFinalPoint = line.getPoint(
+  //     0,
+  //     line.paths[0].length - 1
+  //   );
+  //   const polylineProperties  = {
+  //     type: "polyline",
+  //     spatialReference: this._view.spatialReference,
+  //     hasZ: false,
+  //     paths: [
+  //       [
+  //         [existingLineFinalPoint.x, existingLineFinalPoint.y],
+  //         [lastXYPoint.x, lastXYPoint.y]
+  //       ]
+  //     ]
+  //   }
+  //   return polylineProperties;
+  // }
+
   calculateDistance(lon1, lon2, lat1, lat2) {
     let p = 0.017453292519943295;
     let c = Math.cos;
@@ -382,6 +632,7 @@ export class RutePage implements OnInit {
     let dis = (12742 * Math.asin(Math.sqrt(a)));
     return dis.toFixed(2);
   }
+
   clearWindows() {
     this.minutos = 0;
     this.segundos = 0;
@@ -401,16 +652,5 @@ export class RutePage implements OnInit {
     });
     await this.loading.present();
   }
-  getIconByStatus(status) {
-    let icon = '';
-    switch (status) {
-      case 'true':
-        icon = 'button-stop-29.png';
-        break;
-      case 'false':
-        icon = 'button-start-29.png';
-        break;
-    }
-    return icon;
-  }
+
 }

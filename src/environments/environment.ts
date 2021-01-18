@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  publibikeApi: "http://142.93.44.192/Bienestar"
+  publibikeApi: "https://geoapps.esri.co/Marca",
+  mapsKeyApi: "AIzaSyD67uv_17Up1UVuDvLLxtB11R0lWl43QpI"
 };
 
 /*

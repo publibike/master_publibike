@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="logo-publibike-in">
+    <img src="assets/img/logo-ekobike.png">
+  </div>
+  <div class="title-publibike">
+    <h2>TUS RECORRIDOS</h2>
+  </div>
+  <div class="table-routes">
+    <div class="table-routes-content">
+      <div class="row header-table">
+        <div class="route-column">Fecha</div>
+        <div class="route-column">Inicio</div>
+        <div class="route-column">Final</div>
+        <div class="route-column">Tiempo</div>
+        <div class="route-column">Kms</div>
+        <div class="route-column">Ingresos</div>
+      </div>
+      <div class="row" *ngFor="let rute of rutes">
+        <div class="route-column">{{rute.fecha | date: 'longDate'}}</div>
+        <div class="route-column">{{rute.inicio}}</div>
+        <div class="route-column">{{rute.final}}</div>
+        <div class="route-column">{{rute.tiempo}}</div>
+        <div class="route-column">{{rute.kms}}</div>
+        <div class="route-column">{{rute.ingresos}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="content-button">
+    <ion-button color="transparent" class="ui button begin-activity" (click)="goToRute()">INICIAR NUEVO RECORRIDO
+    </ion-button>
+    <ion-button color="transparent" class="ui button go-campaings" (click)="goToCampaings()">VER NUEVAS CAMPAÑAS
+    </ion-button>
+  </div>
+</ion-content>

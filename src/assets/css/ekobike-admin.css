@@ -4,11 +4,11 @@
 
 @font-face {
   font-family: 'app_ekobike';
-  src:  url('../fonts/app_ekobike.eot?wf75sx');
-  src:  url('../fonts/app_ekobike.eot?wf75sx#iefix') format('embedded-opentype'),
-    url('../fonts/app_ekobike.ttf?wf75sx') format('truetype'),
-    url('../fonts/app_ekobike.woff?wf75sx') format('woff'),
-    url('../fonts/app_ekobike.svg?wf75sx#app_ekobike') format('svg');
+  src:  url('./fonts/app_ekobike.eot?wf75sx');
+  src:  url('./fonts/app_ekobike.eot?wf75sx#iefix') format('embedded-opentype'),
+    url('./fonts/app_ekobike.ttf?wf75sx') format('truetype'),
+    url('./fonts/app_ekobike.woff?wf75sx') format('woff'),
+    url('./fonts/app_ekobike.svg?wf75sx#app_ekobike') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;

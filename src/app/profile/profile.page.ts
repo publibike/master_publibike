@@ -1,75 +1,85 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import { RecognitionModalPage } from '../recognition-modal/recognition-modal.page';
-import { ApiPublibikeBienestarService } from '../services/api-publibike-bienestar.service';
+import { ApiPublibikeMarcaService } from '../services/api-publibike-marca.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
-  loading: any;
+export class ProfilePage {
+ 
 
-  userId: { _id: String } = { _id: "" };
-  user: {
-    nombre: String,
-    apellido: String,
-    usuario: String,
-    empresa: {
-      nombre: String
-    },
-    reconocimientos: any[]
-    km_total: number,
-    cal_total: number,
-    co2_total: number,
-    tiempo_total: number,
-    peso:number
-  } = {
-      nombre: "",
-      apellido: "",
-      usuario: "",
-      empresa: {
-        nombre: ""
-      },
-      reconocimientos: [],
-      km_total: 0,
-      cal_total: 0,
-      co2_total: 0,
-      tiempo_total: 0,
-      peso: 0
-    };
-  reconocimientos: any = [];
-  slideOps = {
-    initialSlide: 2,
-    slidesPerView: 4,
-    centeredSlides: true,
-    speed: 400
-  };
-  updateForm: FormGroup;
+
+  user: {nombre: String,email:String} = {nombre:"",email:""};
+  updaterForm: FormGroup;
   validation_messages = {
-    email: [
-      { type: "required", message: "El Correo es requerido" },
-      { type: "pattern", message: "Ingresa un correo válido" }
+    nombre: [
+      { type: "required", message: "El nombre es requerido." },
+      {
+        type: "minlength",
+        message: "El nombre debe tener mínimo tres letras."
+      }
     ],
-    empresa: {
-      nombre: [
-        { type: "requerido", message: "La empresa es requerida" }
-      ]
-    }
-  }
+    apellido: [
+      { type: "required", message: "El apellido es requerido." },
+      {
+        type: "minlength",
+        message: "El apellido debe tener mínimo tres letras."
+      }
+    ],
+    celular: [
+      { type: "required", message: "El número celular es requerido" }
+    ],
+    email: [
+      { type: "required", message: "El email es requerido" },
+      { type: "pattern", message: "Ingresa un email válido." }
+    ],
+    genero: [
+      { type: "required", message: "El número celular es requerido" }
+    ],
+    estatura: [
+      { type: "required", message: "La estatura es requerida" }
+    ],
+    peso: [
+      { type: "required", message: "El peso es requerido" }
+    ],
+    vehiculo: [
+      { type: "required", message: "El vehiculo a usar es requerido" }
+    ],
+    banco: [
+      { type: "required", message: "El banco es requerido" }
+    ],
+    cuenta: [
+      { type: "required", message: "El número de cuenta es necesario" },
+      { type: "pattern", message: "Ingresa la cuenta sin guiones solo números" }
+    ]
+  };
+  errorMessage: string = "";
 
   constructor(
     private storage: Storage,
     private formBuilder: FormBuilder,
-    private apiService: ApiPublibikeBienestarService,
-    private alertController: AlertController,
-    private modalController: ModalController,
-    private loadingCtrl: LoadingController
+    private apiService: ApiPublibikeMarcaService,
+    public alertController: AlertController,
+    private navCtrl: NavController,
+
   ) {
-    this.updateForm = this.formBuilder.group({
+    this.updaterForm = this.formBuilder.group({
+      nombre: new FormControl(
+        "",
+        Validators.compose([Validators.minLength(3), Validators.required])
+      ),
+      apellido: new FormControl(
+        "",
+        Validators.compose([Validators.minLength(3), Validators.required])
+      ),
+      celular: new FormControl(
+        "",
+        Validators.compose([Validators.required])
+      ),
       email: new FormControl(
         "",
         Validators.compose([
@@ -77,30 +87,37 @@ export class ProfilePage implements OnInit {
           Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
         ])
       ),
-      empresa: {
-        nombre: new FormControl(
-          "",
-          Validators.compose([Validators.required])
-        )
-      }
-    })
-  }
-  async ionViewDidEnter() {
-    this.presentLoading();
-    this.userId = await this.storage.get("userId");
+      genero: new FormControl(
+        "",
+        Validators.compose([Validators.required])
+      ),
+      estatura: new FormControl(
+        "",
+        Validators.compose([Validators.required])
+      ),
+      peso: new FormControl(
+        "",
+        Validators.compose([Validators.required])
+      ),
+      vehiculo: new FormControl(
+        "",
+        Validators.compose([Validators.required])
+      ),
+      banco: new FormControl(
+        "",
+        Validators.compose([Validators.required])
+      ),
+      cuenta: new FormControl(
+        "",
+        Validators.compose([Validators.pattern("^[0-9]*$"), Validators.required])
+      ),
+    });
 
-    // console.log(this.userId)
-    this.apiService.getUserData(this.userId._id).then(async (res) => {
-      console.log(res)
-      this.storage.set("userData", res);
-      this.user = await this.storage.get("userData");
-      console.log(this.user);
-      this.updateForm.patchValue(this.user)
-    })
-    this.reconocimientos = await this.apiService.getUserRecognition(this.userId._id)
-    this.reconocimientos = this.reconocimientos.reconocimientos;
-    this.loading.dismiss();
-    console.log(this.reconocimientos);
+  }
+
+  async ionViewDidEnter() {
+    this.user = await this.storage.get("userData");
+    this.updaterForm.patchValue(this.user)
 
   }
   update(userData) {
@@ -112,39 +129,13 @@ export class ProfilePage implements OnInit {
         message: 'Datos actualizados correctamente',
         buttons: [{
           text: 'Ok',
-          // handler: () => {
-          //   this.navCtrl.navigateForward("menu/home");
-          // }
+          handler: () => {
+            this.navCtrl.navigateForward("menu/home");
+          }
         }]
       });
       await alert.present();
     });
-  }
-  async showRecognition(reconocimiento) {
-    const recognition = await this.apiService.getRecognitions(reconocimiento.id);
-    console.log(recognition);
-    const modal = await this.modalController.create({
-      component: RecognitionModalPage,
-      componentProps: {
-        categoria: reconocimiento.categoria,
-        data: recognition
-      }
-    });
-
-    // modal.onDidDismiss().then(dataRetuned => {
-    //   this.song = dataRetuned.data;
-    // });
-
-    return await modal.present();
-  }
-  async presentLoading() {
-    this.loading = await this.loadingCtrl.create({
-      cssClass: 'my-custom-class',
-      message: 'Cargando...'
-    });
-    await this.loading.present();
-  }
-  ngOnInit() {
   }
 
 }

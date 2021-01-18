@@ -1,41 +1,81 @@
-
 <ion-content>
-	<div class="main-wrapper">
-		<div class="logo-ekobike">
-			<a href="assets/index.html">
-				<img src="assets/img/logo-publibike.png">
-			</a>
-		</div>
+  <div class="header-index">
+    <img class="img-header" src="assets/img/background-publibike.jpg">
+    <!-- <figure text-center>
+      <img class="logo-publibike" src="assets/img/logo-publibike.png">
+    </figure> -->
+    <div class="logo-publibike-in">
+      <img src="assets/img/logo-ekobike.png">
+    </div>
+  </div>`
+  <form class="form-ui" [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+    <ion-item color="secondary">
+      <!-- <ion-label color="primary" >Email</ion-label> -->
+      <ion-input color="tertiary" formControlName="email" placeholder="Correo"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <div
+          *ngIf="loginForm.get('email').hasError(validation.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
+          <p id="alertUser"> {{validation.message}}</p>
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <!-- <ion-label color="primary">Password</ion-label> -->
+      <ion-input color="tertiary" type="password" formControlName="password" placeholder="Contraseña"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div
+          *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+          <p id="alertUser"> {{validation.message}}</p>
+        </div>
+      </ng-container>
+    </div>
+    <p id="alertUser"> {{errorMessage}}</p>
+    <ion-button text-center class="button-login" color="primary" [disabled]="!loginForm.valid" type="Submit">
+      INICIAR SESIÓN
+    </ion-button>
+  </form>
+  <!-- <ion-footer> -->
+    <!-- <h4 text-center color="primary">O Conectate con</h4>
+    <div class="login-social">
+      <img src="assets/img/facebook-icon-31.png">
+    </div> -->
+    
+  <!-- </ion-footer> -->
+  <!-- <div class="main-wrapper">
+    <div class="form-login">
+      <form class="ui form">
+        <div class="field">
+          <input type="text" name="user" placeholder="Usuario">
+        </div>
+        <div class="field">
+          <input type="password" name="pass" placeholder="Contraseña">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+        <div class="button-login">
+          <p id="alertUser"></p>
+          <a  class="ui button">INICIAR SESIÓN</a>
+        </div>
+      </form>
+      <h4>O Conectate con</h4>
+      <div class="login-social">
+        <img src="assets/img/facebook-icon-31.png">
+      </div>
+      <div class="new-user">
+        <a href="register.html">¿Eres un usuario nuevo?</a>
+      </div>
+    </div>
+  
+  </div> -->
 
-		<div class="form-login">
-			<form class="ui form" [formGroup]='loginForm' (ngSubmit)='loginUser(loginForm.value)'>
-				<div class="field">
-					<ion-input type="text" formControlName="user" id="user" placeholder="Ingresa tu usuario">
-					</ion-input>
-				</div>
-				<div class="validation-error">
-					<ng-container *ngFor="let validation of validation_messages.user">
-						<div
-							*ngIf="loginForm.get('user').hasError(validation.type)&&(loginForm.get('user').dirty || loginForm.get('user').touched)">
-							<p id="alertUser">{{validation.message}}</p>
-						</div>
-					</ng-container>
-				</div>
-				<p id="alertUser"> {{errorMessage}}</p>
-				<ion-button text-center class="ui button" color="secondary" [disabled]="!loginForm.valid" type="Submit">Ingresar
-				</ion-button>
-				<p id="alertUser"></p>
-			</form>
-		</div>
-
-		<div class="footer-main">
-			<!-- <img class="slogan-ekobike" src="assets/img/slogan-ekobike.png"> -->
-			<div class="animation-bike">
-				<div class="biker">
-					<img src="assets/img/biker-ekobike.png">
-				</div>
-			</div>
-			<hr>
-		</div>
-	</div>
 </ion-content>
+<ion-footer>
+  <div class="new-user">
+    <ion-button  full outline class="register" (click)="goToRegister()" expand="full">
+      ¿Eres un usuario nuevo?
+    </ion-button>
+  </div>
+</ion-footer>

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" *ngIf="user">
+  <div class="logo-publibike-in">
+    <img src="assets/img/logo-ekobike.png">
+  </div>
+  <div class="welcome-main">
+    <h2>
+      Hola {{user.nombre}} {{user.apellido}}
+    </h2>
+    <h4>
+      Esta es la información de tu cuenta
+    </h4>
+  </div>
+  <!-- <div class="date">
+    <h3>13 de Enero - 18 de Enero <i class="icon-calendar"></i></h3>
+  </div> -->
+  <div class="ui grid" style="text-align: center; padding: 20px;">
+    <div class="column data-main degrade-green">
+      <i class="icon-stats-dots"></i>
+      <h4>
+        Ingresos Generados
+      </h4>
+      <h2>
+        $ {{user.ganancia_total}}
+      </h2>
+    </div>
+    <div class="column data-main degrade-orange">
+      <i class="icon-map"></i>
+      <h4>
+        Kilometros Recorridos
+      </h4>
+      <h2>
+        {{user.km_total}} <small>KM</small>
+      </h2>
+    </div>
+    <div class="column data-main degrade-blue">
+      <i class="icon-heart"></i>
+      <h4>
+        Calorías Consumidas
+      </h4>
+      <h2>
+        {{user.cal_total}} <small>Kcal</small>
+      </h2>
+    </div>
+    <div class="column data-main degrade-violet">
+      <i class="icon-stats-bars"></i>
+      <h4>
+        Campañas Activas
+      </h4>
+      <h2>
+        2
+      </h2>
+    </div>
+  </div>
+  <div class="content-button">
+    <ion-button color="transparent" full outline class="ui button begin-activity" (click)="goToRute()">INICIAR NUEVO
+      RECORRIDO</ion-button>
+    <ion-button color="transparent" full outline class="ui button go-campaings" (click)="goToCampaings()">VER NUEVAS
+      CAMPAÑAS</ion-button>
+
+  </div>
+</ion-content>

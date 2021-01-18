@@ -76,9 +76,9 @@
       /* harmony import */
 
 
-      var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
-      /*! ./overlays-c5d9d644.js */
-      "d1dm");
+      var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ./overlays-2cc140a1.js */
+      "ja7u");
       /* harmony import */
 
 
@@ -198,13 +198,13 @@
           this.animated = true;
 
           this.onBackdropTap = function () {
-            _this.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["B"]);
+            _this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["B"]);
           };
 
           this.dispatchCancelHandler = function (ev) {
             var role = ev.detail.role;
 
-            if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["i"])(role)) {
+            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["i"])(role)) {
               var cancelButton = _this.getButtons().find(function (b) {
                 return b.role === 'cancel';
               });
@@ -221,12 +221,12 @@
         _createClass(ActionSheet, [{
           key: "present",
           value: function present() {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["d"])(this, 'actionSheetEnter', iosEnterAnimation, mdEnterAnimation);
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["d"])(this, 'actionSheetEnter', iosEnterAnimation, mdEnterAnimation);
           }
         }, {
           key: "connectedCallback",
           value: function connectedCallback() {
-            Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["e"])(this.el);
+            Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["e"])(this.el);
           }
           /**
            * Dismiss the action sheet overlay after it has been presented.
@@ -241,7 +241,7 @@
         }, {
           key: "dismiss",
           value: function dismiss(data, role) {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["f"])(this, data, role, 'actionSheetLeave', iosLeaveAnimation, mdLeaveAnimation);
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["f"])(this, data, role, 'actionSheetLeave', iosLeaveAnimation, mdLeaveAnimation);
           }
           /**
            * Returns a promise that resolves when the action sheet did dismiss.
@@ -250,7 +250,7 @@
         }, {
           key: "onDidDismiss",
           value: function onDidDismiss() {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.el, 'ionActionSheetDidDismiss');
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.el, 'ionActionSheetDidDismiss');
           }
           /**
            * Returns a promise that resolves when the action sheet will dismiss.
@@ -260,7 +260,7 @@
         }, {
           key: "onWillDismiss",
           value: function onWillDismiss() {
-            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.el, 'ionActionSheetWillDismiss');
+            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.el, 'ionActionSheetWillDismiss');
           }
         }, {
           key: "buttonClick",
@@ -273,7 +273,7 @@
                     case 0:
                       role = button.role;
 
-                      if (!Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["i"])(role)) {
+                      if (!Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["i"])(role)) {
                         _context.next = 3;
                         break;
                       }
@@ -326,7 +326,7 @@
                       }
 
                       _context2.next = 3;
-                      return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["s"])(button.handler);
+                      return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["s"])(button.handler);
 
                     case 3:
                       rtn = _context2.sent;

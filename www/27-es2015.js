@@ -27,20 +27,14 @@ const Reorder = class {
         Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
     }
     onClick(ev) {
-        const reorderGroup = this.el.closest('ion-reorder-group');
         ev.preventDefault();
-        // Only stop event propagation if the reorder is inside of an enabled
-        // reorder group. This allows interaction with clickable children components.
-        if (!reorderGroup || !reorderGroup.disabled) {
-            ev.stopImmediatePropagation();
-        }
+        ev.stopImmediatePropagation();
     }
     render() {
         const mode = Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
         const reorderIcon = mode === 'ios' ? 'reorder-three-outline' : 'reorder-two-sharp';
         return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: mode }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-icon", { name: reorderIcon, lazy: false, class: "reorder-icon", part: "icon" }))));
     }
-    get el() { return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
 };
 Reorder.style = {
     ios: reorderIosCss,

@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animation-a635a2fc.js */ "XnfD");
 /* harmony import */ var _index_79d74e0b_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index-79d74e0b.js */ "PQ8F");
 /* harmony import */ var _hardware_back_button_7b6ede21_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./hardware-back-button-7b6ede21.js */ "x/Nk");
-/* harmony import */ var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./overlays-c5d9d644.js */ "d1dm");
+/* harmony import */ var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./overlays-2cc140a1.js */ "ja7u");
 /* harmony import */ var _theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./theme-5641d27f.js */ "sPtc");
 
 
@@ -175,20 +175,20 @@ const Toast = class {
         this.animated = true;
         this.dispatchCancelHandler = (ev) => {
             const role = ev.detail.role;
-            if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["i"])(role)) {
+            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["i"])(role)) {
                 const cancelButton = this.getButtons().find(b => b.role === 'cancel');
                 this.callButtonHandler(cancelButton);
             }
         };
     }
     connectedCallback() {
-        Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["e"])(this.el);
+        Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["e"])(this.el);
     }
     /**
      * Present the toast overlay after it has been created.
      */
     async present() {
-        await Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this, 'toastEnter', iosEnterAnimation, mdEnterAnimation, this.position);
+        await Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this, 'toastEnter', iosEnterAnimation, mdEnterAnimation, this.position);
         if (this.duration > 0) {
             this.durationTimeout = setTimeout(() => this.dismiss(undefined, 'timeout'), this.duration);
         }
@@ -206,19 +206,19 @@ const Toast = class {
         if (this.durationTimeout) {
             clearTimeout(this.durationTimeout);
         }
-        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["f"])(this, data, role, 'toastLeave', iosLeaveAnimation, mdLeaveAnimation, this.position);
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["f"])(this, data, role, 'toastLeave', iosLeaveAnimation, mdLeaveAnimation, this.position);
     }
     /**
      * Returns a promise that resolves when the toast did dismiss.
      */
     onDidDismiss() {
-        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionToastDidDismiss');
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionToastDidDismiss');
     }
     /**
      * Returns a promise that resolves when the toast will dismiss.
      */
     onWillDismiss() {
-        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionToastWillDismiss');
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionToastWillDismiss');
     }
     getButtons() {
         const buttons = this.buttons
@@ -232,7 +232,7 @@ const Toast = class {
     }
     async buttonClick(button) {
         const role = button.role;
-        if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["i"])(role)) {
+        if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["i"])(role)) {
             return this.dismiss(undefined, role);
         }
         const shouldDismiss = await this.callButtonHandler(button);
@@ -246,7 +246,7 @@ const Toast = class {
             // a handler has been provided, execute it
             // pass the handler the values from the inputs
             try {
-                const rtn = await Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["s"])(button.handler);
+                const rtn = await Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["s"])(button.handler);
                 if (rtn === false) {
                     // if the return value of the handler is false then do not dismiss
                     return false;

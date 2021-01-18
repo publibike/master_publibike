@@ -17,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gesture_controller_89173521_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./gesture-controller-89173521.js */ "rxGk");
 /* harmony import */ var _index_eea61379_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-eea61379.js */ "ItpF");
 /* harmony import */ var _hardware_back_button_7b6ede21_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./hardware-back-button-7b6ede21.js */ "x/Nk");
-/* harmony import */ var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./overlays-c5d9d644.js */ "d1dm");
+/* harmony import */ var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./overlays-2cc140a1.js */ "ja7u");
 /* harmony import */ var _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./haptic-7b8ba70a.js */ "2c9M");
 /* harmony import */ var _button_active_5da929d4_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./button-active-5da929d4.js */ "U/uv");
 /* harmony import */ var _theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./theme-5641d27f.js */ "sPtc");
@@ -156,11 +156,11 @@ const ActionSheet = class {
          */
         this.animated = true;
         this.onBackdropTap = () => {
-            this.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["B"]);
+            this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["B"]);
         };
         this.dispatchCancelHandler = (ev) => {
             const role = ev.detail.role;
-            if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["i"])(role)) {
+            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["i"])(role)) {
                 const cancelButton = this.getButtons().find(b => b.role === 'cancel');
                 this.callButtonHandler(cancelButton);
             }
@@ -170,10 +170,10 @@ const ActionSheet = class {
      * Present the action sheet overlay after it has been created.
      */
     present() {
-        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["d"])(this, 'actionSheetEnter', iosEnterAnimation, mdEnterAnimation);
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["d"])(this, 'actionSheetEnter', iosEnterAnimation, mdEnterAnimation);
     }
     connectedCallback() {
-        Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["e"])(this.el);
+        Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["e"])(this.el);
     }
     /**
      * Dismiss the action sheet overlay after it has been presented.
@@ -185,24 +185,24 @@ const ActionSheet = class {
      * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
      */
     dismiss(data, role) {
-        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["f"])(this, data, role, 'actionSheetLeave', iosLeaveAnimation, mdLeaveAnimation);
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["f"])(this, data, role, 'actionSheetLeave', iosLeaveAnimation, mdLeaveAnimation);
     }
     /**
      * Returns a promise that resolves when the action sheet did dismiss.
      */
     onDidDismiss() {
-        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.el, 'ionActionSheetDidDismiss');
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.el, 'ionActionSheetDidDismiss');
     }
     /**
      * Returns a promise that resolves when the action sheet will dismiss.
      *
      */
     onWillDismiss() {
-        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.el, 'ionActionSheetWillDismiss');
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.el, 'ionActionSheetWillDismiss');
     }
     async buttonClick(button) {
         const role = button.role;
-        if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["i"])(role)) {
+        if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["i"])(role)) {
             return this.dismiss(undefined, role);
         }
         const shouldDismiss = await this.callButtonHandler(button);
@@ -215,7 +215,7 @@ const ActionSheet = class {
         if (button) {
             // a handler has been provided, execute it
             // pass the handler the values from the inputs
-            const rtn = await Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_7__["s"])(button.handler);
+            const rtn = await Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_7__["s"])(button.handler);
             if (rtn === false) {
                 // if the return value of the handler is false then do not dismiss
                 return false;

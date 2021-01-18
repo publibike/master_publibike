@@ -1,0 +1,204 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-center>Registrate</ion-title>
+    <ion-buttons>
+      <ion-button (click)="goToLogin()">
+        Atrás
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="logo-publibike-in">
+    <img src="assets/img/logo-ekobike.png">
+  </div>
+  <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Nombre</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.nombre">
+        <div *ngIf="
+            registerForm.get('nombre').hasError(validation.type) &&
+            (registerForm.get('nombre').dirty ||
+              registerForm.get('nombre').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Apellido</ion-label>
+      <ion-input formControlName="apellido"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.apellido">
+        <div *ngIf="
+            registerForm.get('apellido').hasError(validation.type) &&
+            (registerForm.get('apellido').dirty ||
+              registerForm.get('apellido').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Número Celular</ion-label>
+      <ion-input formControlName="celular"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.celular">
+        <div *ngIf="
+            registerForm.get('celular').hasError(validation.type) &&
+            (registerForm.get('celular').dirty ||
+              registerForm.get('celular').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Correo </ion-label>
+      <ion-input formControlName="email"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.email">
+        <div *ngIf="
+            registerForm.get('email').hasError(validation.type) &&
+            (registerForm.get('email').dirty ||
+              registerForm.get('email').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.password">
+        <div *ngIf="
+                registerForm.get('password').hasError(validation.type) &&
+                (registerForm.get('password').dirty ||
+                  registerForm.get('password').touched)
+              ">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Género</ion-label>
+      <ion-select formControlName="genero" placeholder="Seleccione">
+        <ion-select-option value="Masculino">Masculino</ion-select-option>
+        <ion-select-option value="Femenino">Femenino</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.genero">
+        <div *ngIf="
+                registerForm.get('genero').hasError(validation.type) &&
+                (registerForm.get('genero').dirty ||
+                  registerForm.get('genero').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Estatura(cm)</ion-label>
+      <ion-input formControlName="estatura"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.estatura">
+        <div *ngIf="
+            registerForm.get('estatura').hasError(validation.type) &&
+            (registerForm.get('estatura').dirty ||
+              registerForm.get('estatura').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Peso (kg)</ion-label>
+      <ion-input formControlName="peso"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.peso">
+        <div *ngIf="
+            registerForm.get('peso').hasError(validation.type) &&
+            (registerForm.get('peso').dirty ||
+              registerForm.get('peso').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Vehiculo</ion-label>
+      <ion-select formControlName="vehiculo" placeholder="Seleccione">
+        <ion-select-option value="Bicicleta">Bicicleta</ion-select-option>
+        <ion-select-option value="Bicicleta_motorizada">Bicicleta motorizada</ion-select-option>
+        <ion-select-option value="Patineta_electrica">Patineta Eléctrica</ion-select-option>
+        <ion-select-option value="Patineta_electrica">Moto Eléctrica</ion-select-option>
+        <ion-select-option value="Patineta_electrica">Carro Eléctrico</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.vehiculo">
+        <div *ngIf="
+            registerForm.get('vehiculo').hasError(validation.type) &&
+            (registerForm.get('vehiculo').dirty ||
+              registerForm.get('vehiculo').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Selecciona tu Banco</ion-label>
+      <ion-select formControlName="banco" placeholder="Seleccione">
+        <ion-select-option value="Bancamia S.A.">Bancamia S.A.</ion-select-option>
+        <ion-select-option value="Banco Agrario">Banco Agrario</ion-select-option>
+        <ion-select-option value="Banco Av Villas">Banco Av Villas</ion-select-option>
+        <ion-select-option value="Banco BBVA Colombia S.A.">Banco BBVA Colombia S.A.</ion-select-option>
+        <ion-select-option value="Banco Caja Social">Banco Caja Social</ion-select-option>
+        <ion-select-option value="Bancolombia">Bancolombia</ion-select-option>
+        <ion-select-option value="Banco Davivienda">Banco Davivienda</ion-select-option>
+        <ion-select-option value="Banco de Bogota">Banco de Bogota</ion-select-option>
+        <ion-select-option value="Banco de Occidente">Banco de Occidente</ion-select-option>
+        <ion-select-option value="Banco Popular">Banco Popular</ion-select-option>
+        <ion-select-option value="Banco Falabella">Banco Falabella</ion-select-option>
+        <ion-select-option value="Banco GNB Sudameris">Banco GNB Sudameris</ion-select-option>
+        <ion-select-option value="Banco Itau">Banco Itau</ion-select-option>
+        <ion-select-option value="Banco Pichincha S.A.">Banco Pichincha S.A.</ion-select-option>
+        <ion-select-option value="Bancoomeva S.A.">Bancoomeva S.A.</ion-select-option>
+        <ion-select-option value="Citibank">Citibank</ion-select-option>
+        <ion-select-option value="Scotiabank Colpatria">Scotiabank Colpatria</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.banco">
+        <div *ngIf="
+            registerForm.get('banco').hasError(validation.type) &&
+            (registerForm.get('banco').dirty ||
+              registerForm.get('banco').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Cuenta Bancaria</ion-label>
+      <ion-input formControlName="cuenta"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.cuenta">
+        <div *ngIf="
+            registerForm.get('cuenta').hasError(validation.type) &&
+            (registerForm.get('cuenta').dirty ||
+              registerForm.get('cuenta').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    {{ errorMessage }}
+    <ion-button color="transparent" full outline class="ui button go-campaings"  [disabled]="!registerForm.valid" type="submit">
+      REGISTRARME
+    </ion-button>
+  </form> 
+</ion-content>

@@ -25,12 +25,12 @@ let LoginGuard = class LoginGuard {
     }
     canActivate() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            const isUserLoggedIn = yield this.storage.get('isUserLoggedIn');
+            const isUserLoggedIn = yield this.storage.get("isUserLoggedIn");
             if (isUserLoggedIn) {
                 return true;
             }
             else {
-                this.router.navigateByUrl('/login');
+                this.router.navigateByUrl("login");
             }
         });
     }
@@ -56,7 +56,7 @@ LoginGuard = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeBienestar-APP\PublibikeBienestarApp\PublibikeBienestarApp2\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeMarca-APP\PublibikeMarcaApp\src\main.ts */"zUnb");
 
 
 /***/ }),
@@ -76,7 +76,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    publibikeApi: "http://142.93.44.192/Bienestar"
+    publibikeApi: "https://geoapps.esri.co/Marca",
+    mapsKeyApi: "AIzaSyD67uv_17Up1UVuDvLLxtB11R0lWl43QpI"
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -87,783 +88,6 @@ const environment = {
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 
-
-/***/ }),
-
-/***/ "B46g":
-/*!***********************************************************************!*\
-  !*** ./src/app/recognition-modal/recognition-modal-routing.module.ts ***!
-  \***********************************************************************/
-/*! exports provided: RecognitionModalPageRoutingModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecognitionModalPageRoutingModule", function() { return RecognitionModalPageRoutingModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "iInd");
-/* harmony import */ var _recognition_modal_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./recognition-modal.page */ "u6bn");
-
-
-
-
-const routes = [
-    {
-        path: '',
-        component: _recognition_modal_page__WEBPACK_IMPORTED_MODULE_3__["RecognitionModalPage"]
-    }
-];
-let RecognitionModalPageRoutingModule = class RecognitionModalPageRoutingModule {
-};
-RecognitionModalPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
-    })
-], RecognitionModalPageRoutingModule);
-
-
-
-/***/ }),
-
-/***/ "LePj":
-/*!*******************************************************!*\
-  !*** ./src/app/map-modal/map-modal-routing.module.ts ***!
-  \*******************************************************/
-/*! exports provided: MapModalPageRoutingModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MapModalPageRoutingModule", function() { return MapModalPageRoutingModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "iInd");
-/* harmony import */ var _map_modal_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./map-modal.page */ "O0P6");
-
-
-
-
-const routes = [
-    {
-        path: '',
-        component: _map_modal_page__WEBPACK_IMPORTED_MODULE_3__["MapModalPage"]
-    }
-];
-let MapModalPageRoutingModule = class MapModalPageRoutingModule {
-};
-MapModalPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
-    })
-], MapModalPageRoutingModule);
-
-
-
-/***/ }),
-
-/***/ "N/ei":
-/*!*************************************************************!*\
-  !*** ./src/app/services/api-publibike-bienestar.service.ts ***!
-  \*************************************************************/
-/*! exports provided: ApiPublibikeBienestarService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiPublibikeBienestarService", function() { return ApiPublibikeBienestarService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
-/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ "AytR");
-
-
-
-
-let ApiPublibikeBienestarService = class ApiPublibikeBienestarService {
-    constructor(storage) {
-        this.storage = storage;
-    }
-    getUserData(id) {
-        try {
-            const options = {
-                method: 'GET',
-                // body: JSON.stringify(id),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            };
-            return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}`, options).then(response => response.json());
-        }
-        catch (error) {
-        }
-    }
-    updateUser(userData) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            const user = yield this.storage.get("userData").then(res => res);
-            console.log(userData);
-            const id = user._id;
-            console.log(id);
-            const options = {
-                method: 'PUT',
-                body: JSON.stringify(userData),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}`, options).then(response => {
-                console.log(response.text());
-            }).catch(error => console.log(error));
-        });
-    }
-    getRecognitions(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/reconocimiento/${id}`).then(response => response.json());
-    }
-    getUserRecognition(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}/reconocimientos`).then(response => response.json());
-    }
-    getCompanyRecognitios(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/empresa/${id}/reconocimientos`).then(response => response.json());
-    }
-    ;
-    sendRute(ruteData) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            const user = yield this.storage.get("userData").then(res => res);
-            console.log(ruteData);
-            const id = user._id;
-            console.log(id);
-            const options = {
-                method: 'PUT',
-                body: JSON.stringify(ruteData),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}/recorrido`, options).then(response => {
-                console.log("rutaResponde", response.text());
-            }).catch(error => console.log(error));
-        });
-    }
-    sendCovidRisk(riesgo_covid) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            const user = yield this.storage.get("userData").then(res => res);
-            const id = user._id;
-            console.log(id);
-            const options = {
-                method: 'PUT',
-                body: JSON.stringify(riesgo_covid),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}/riesgocovid`, options).then(response => {
-                console.log(response.text());
-            }).catch(error => console.log(error));
-        });
-    }
-};
-ApiPublibikeBienestarService.ctorParameters = () => [
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"] }
-];
-ApiPublibikeBienestarService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    })
-], ApiPublibikeBienestarService);
-
-
-
-/***/ }),
-
-/***/ "NfN8":
-/*!***********************************************!*\
-  !*** ./src/app/map-modal/map-modal.module.ts ***!
-  \***********************************************/
-/*! exports provided: MapModalPageModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MapModalPageModule", function() { return MapModalPageModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "SVse");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "s7LF");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
-/* harmony import */ var _map_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./map-modal-routing.module */ "LePj");
-/* harmony import */ var _map_modal_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./map-modal.page */ "O0P6");
-
-
-
-
-
-
-
-let MapModalPageModule = class MapModalPageModule {
-};
-MapModalPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [
-            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
-            _map_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__["MapModalPageRoutingModule"]
-        ],
-        declarations: [_map_modal_page__WEBPACK_IMPORTED_MODULE_6__["MapModalPage"]]
-    })
-], MapModalPageModule);
-
-
-
-/***/ }),
-
-/***/ "O0P6":
-/*!*********************************************!*\
-  !*** ./src/app/map-modal/map-modal.page.ts ***!
-  \*********************************************/
-/*! exports provided: MapModalPage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MapModalPage", function() { return MapModalPage; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
-/* harmony import */ var _raw_loader_map_modal_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./map-modal.page.html */ "St+6");
-/* harmony import */ var _map_modal_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./map-modal.page.scss */ "Qb6g");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "8Y7J");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
-/* harmony import */ var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/api-publibike-bienestar.service */ "N/ei");
-/* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! esri-loader */ "r6rm");
-/* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(esri_loader__WEBPACK_IMPORTED_MODULE_7__);
-
-
-
-
-
-
-
-
-// import { type } from 'os';
-let MapModalPage = class MapModalPage {
-    constructor(apiService, storage, loadingCtrl, modalController, alertController) {
-        this.apiService = apiService;
-        this.storage = storage;
-        this.loadingCtrl = loadingCtrl;
-        this.modalController = modalController;
-        this.alertController = alertController;
-        //Variables ArcGIS
-        this._zoom = 10;
-        this._center = [-74.090923, 4.694939];
-        this._basemap = "streets-vector";
-        this._loaded = false;
-        this._view = null;
-        this._locator = null;
-        this._locate = null;
-        this._search = null;
-        this._track = null;
-        this._pointGC = null;
-        this._draw = null;
-        this._distance = null;
-        //Variables del cronometro
-        this.horas = 0;
-        this.centesimas = 0;
-        this.minutos = 59;
-        this.segundos = 0;
-        this._centesimas = '00';
-        this._minutos = '00';
-        this._segundos = '00';
-        this._horas = '00';
-        this.isRun = false;
-        this.urlButton = "button-start-29.png";
-        //Array recorrido con las coordenadas
-        this.recorrido = [];
-        this.user = {
-            nombre: "",
-            apellido: "",
-            ganancia_total: 0,
-            km_total: 0,
-            cal_total: 0,
-            co2_total: 0,
-            peso: 0
-        };
-        this.ruteData = {};
-        this.flagCovid = 0;
-        this.km = 0.0;
-        this.ingresos = 0;
-        this.cal = 0;
-        this.co2 = 0;
-        this.vel = 0;
-        this.riesgo_covid = 0;
-    }
-    initializedMap() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            try {
-                const [Map, MapView, Graphic, RouteTask, RouteParameters, FeatureSet, Directions, Locate, Track, Locator, LocatorSearchSource, Expand, Point, Draw, geometryEngine, FeatureLayer, DistanceMeasurement2DViewModel] = yield Object(esri_loader__WEBPACK_IMPORTED_MODULE_7__["loadModules"])([
-                    'esri/Map',
-                    'esri/views/MapView',
-                    "esri/Graphic",
-                    "esri/tasks/RouteTask",
-                    "esri/tasks/support/RouteParameters",
-                    "esri/tasks/support/FeatureSet",
-                    "esri/widgets/Directions",
-                    "esri/widgets/Locate",
-                    "esri/widgets/Track",
-                    "esri/tasks/Locator",
-                    "esri/widgets/Search/LocatorSearchSource",
-                    "esri/widgets/Expand",
-                    "esri/geometry/Point",
-                    "esri/views/draw/Draw",
-                    "esri/geometry/geometryEngine",
-                    "esri/layers/FeatureLayer",
-                    "esri/widgets/DistanceMeasurement2D/DistanceMeasurement2DViewModel"
-                ]);
-                // await this._platform.ready();
-                let map = new Map({
-                    basemap: this._basemap
-                });
-                // Inflate and display the map
-                this._view = new MapView({
-                    // create the map view at the DOM element in this component
-                    container: this.mapEl.nativeElement,
-                    center: this._center,
-                    zoom: this._zoom,
-                    map: map
-                });
-                const parkingLayer = new FeatureLayer({
-                    url: "https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/Cicloparqueaderos_Certificados_Bogota_D_C/FeatureServer/0"
-                });
-                map.add(parkingLayer);
-                //Se configura y crea el widget de busqueda
-                this._search = new LocatorSearchSource({
-                    view: this._view,
-                });
-                this._locator = new Locator({
-                    url: "https://utility.arcgis.com/usrsvcs/appservices/0M4tNdkWcjbSCK2Z/rest/services/World/GeocodeServer/reverseGeocode"
-                });
-                this._locate = new Locate({
-                    view: this._view,
-                    useHeadingEnabled: false,
-                    goToOverride: function (view, options) {
-                        options.target.scale = 1500; // Override the default map scale
-                        return view.goTo(options.target);
-                    }
-                });
-                this._view.ui.add(this._locate, "top-left");
-                this._pointGC = new Point();
-                this._draw = new Draw({
-                    view: this._view
-                });
-                this._track = new Track({
-                    view: this._view,
-                    graphic: new Graphic({
-                        symbol: {
-                            type: "simple-marker",
-                            size: "12px",
-                            color: "green",
-                            outline: {
-                                color: "#efefef",
-                                width: "1.5px"
-                            }
-                        }
-                    }),
-                    useHeadingEnabled: true,
-                    goToOverride: function (view, options) {
-                        options.target.scale = 1500; // Override the default map scale
-                        return view.goTo(options.target);
-                    }
-                });
-                this._view.ui.add(this._track, "top-left");
-                this._distance = new DistanceMeasurement2DViewModel({
-                    view: this._view,
-                    unit: "kilometers"
-                });
-                let routeTask = new RouteTask({
-                    // url: "https://utility.arcgis.com/usrsvcs/appservices/6MyWChEzkSbXMie3/rest/services/World/Route/NAServer/Route_World/solve"
-                    url: "https://sig.simur.gov.co/arcgis/rest/services/MVI_REDBICI/NARedBici/NAServer/Principiante",
-                });
-                let directions = new Directions({
-                    view: this._view,
-                    routeServiceUrl: "https://sig.simur.gov.co/arcgis/rest/services/MVI_REDBICI/NARedBici/NAServer/Avanzado",
-                });
-                let bgExpand = new Expand({
-                    view: this._view,
-                    content: directions,
-                    autoCollapse: false
-                });
-                this._view.ui.add(bgExpand, "top-right");
-                yield this._view.when();
-                return this._view;
-                // function getRoute() {
-                //   // Setup the route parameters
-                //   var routeParams = new RouteParameters({
-                //     stops: new FeatureSet({
-                //       features: this._view.graphics.toArray()
-                //     }),
-                //     // returnDirections: true
-                //   });
-                //   // Get the route
-                //   routeTask.solve(routeParams).then(function (data) {
-                //     data.routeResults.forEach(function (result) {
-                //       result.route.symbol = {
-                //         type: "simple-line",
-                //         color: [5, 150, 255],
-                //         width: 3
-                //       };
-                //       this._view.graphics.add(result.route);
-                //     });
-                //   });
-                // }
-            }
-            catch (error) {
-                console.log(error);
-            }
-        });
-    }
-    ngOnInit() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            // this.presentLoading();
-            this.user = yield this.storage.get("userData");
-            console.log(this.user);
-            //se usa localizacion en segundo plano      
-            this.initializedMap()
-                .then((mapView) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-                console.log("mapView ready: ", this._view.ready);
-                this._loaded = this._view.ready;
-                let position = yield this._locate.locate();
-                console.log("position", position);
-                mapView.goTo({
-                    center: this._locate.locate(),
-                    zoom: 6,
-                    tilt: 40
-                });
-                // this.loading.dismiss();
-            }));
-        });
-    }
-    startRute() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            this.km = 0;
-            this.cal = 0;
-            this.co2 = 0;
-            this.vel = 0;
-            this.isRun = true;
-            this.urlButton = "button-stop-29.png";
-            this.clearWindows();
-            this._track.start();
-            // await this._distance.start();
-            // console.log(this._distance)
-            const fechaActual = new Date;
-            this.fecha = fechaActual;
-            console.log(this.fecha);
-            //se toma la posicion y se geocodifica
-            let address;
-            let position = yield this._locate.locate();
-            console.log(position);
-            this._pointGC.latitude = position.coords.latitude;
-            this._pointGC.longitude = position.coords.longitude;
-            let params = {
-                location: this._pointGC
-            };
-            this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-                // this.backgroundGeolocation.start();
-                this.recorrido.push(position);
-                this.positionAct = position.position;
-                console.log(`posicion ${this.recorrido.length}`, this.recorrido);
-                console.log("vel", position.position.coords.speed);
-                this.vel = position.position.coords.speed;
-                this.riesgoCovid(this.vel);
-                let ult = this.recorrido.length - 1;
-                if (this.recorrido.length == 1) {
-                    this.km = this.calculateDistance(this.recorrido[0].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[0].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
-                }
-                else if (this.recorrido.length > 1) {
-                    let kmTemporal = this.km;
-                    this.km = this.calculateDistance(this.recorrido[ult - 1].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[ult - 1].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
-                    this.km = kmTemporal + this.km;
-                    this.co2 = this.km * 0.3;
-                    let totalMin = (parseInt(this._horas) * 60) + (parseInt(this._minutos)) + (parseInt(this._segundos) * 0.0166667);
-                    console.log(totalMin);
-                    this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
-                    console.log(this.km);
-                    // this.ingresos = this.km * this.user.campana_actual.pago_km;
-                }
-            }));
-            let geocoder = this._locator;
-            geocoder.locationToAddress(params)
-                .then((response) => {
-                address = response.address;
-                console.log(address);
-                address = address.split(",");
-                this.fstDirection = address[0];
-                // this.currentDirection = address[0];
-                // this.km = position.coords.speed;
-                // console.log(this.currentDirection)
-            }).catch(err => console.log(err));
-            //Se inicializa el contador  
-            this.startCounter();
-        });
-    }
-    stopRute() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            try {
-                // this.presentLoading();
-                if (this.isRun) {
-                    console.log("voy a parar");
-                    this._track.stop();
-                    this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
-                    console.log(this.time);
-                    clearInterval(this.contador);
-                    // this.minutos = 0;
-                    // this.segundos = 0;
-                    // this.centesimas = 0;
-                    // this.horas = 0;
-                    // this._centesimas = '00';
-                    // this._segundos = '00';
-                    // this._minutos = '00';
-                    // this._horas = '00';
-                    this.isRun = false;
-                    // this.contador = null;
-                    //se toma la posicion y se geocodifica
-                    let address;
-                    let position = yield this._locate.locate();
-                    console.log(position);
-                    this._pointGC.latitude = position.coords.latitude;
-                    this._pointGC.longitude = position.coords.longitude;
-                    // this.vel = position.coords.speed;
-                    // this.vel= this.vel.toFixed(2);
-                    let params = {
-                        location: this._pointGC
-                    };
-                    let geocoder = this._locator;
-                    geocoder.locationToAddress(params)
-                        .then((response) => {
-                        address = response.address;
-                        console.log(address);
-                        address = address.split(",");
-                        this.fnlDirection = address[0];
-                        // this.currentDirection = address[0];
-                        // console.log(this.currentDirection)
-                        let kms = this.km;
-                        let cal = this.cal;
-                        let co2 = this.co2;
-                        // co2 = kms * 0.3;
-                        let totalMin = (parseInt(this._horas) * 60) + (parseInt(this._minutos)) + (parseInt(this._segundos) * 0.0166667);
-                        // console.log(totalMin)
-                        // cal = 0.071*(this.user.peso*2.2) *totalMin;
-                        console.log(this.cal, typeof (this.cal));
-                        console.log(this.user.peso, typeof (this.user.peso));
-                        this.ruteData = {
-                            fecha: this.fecha,
-                            inicio: this.fstDirection,
-                            final: this.fnlDirection,
-                            tiempo: this.time,
-                            minutos: totalMin,
-                            kms: kms,
-                            cal: this.cal,
-                            co2: this.co2
-                        };
-                        console.log("ruteData", this.ruteData);
-                        this.apiService.sendRute(this.ruteData);
-                        // .then(()=>{this.loading.dismiss()});
-                        this.flagCovid = 0;
-                        this.recorrido = [];
-                    }).catch(err => console.log(err));
-                }
-            }
-            catch (error) {
-                console.log(error);
-            }
-        });
-    }
-    calculateDistance(lon1, lon2, lat1, lat2) {
-        let p = 0.017453292519943295;
-        let c = Math.cos;
-        let a = 0.5 - c((lat1 - lat2) * p) / 2 + c(lat2 * p) * c((lat1) * p) * (1 - c(((lon1 - lon2) * p))) / 2;
-        let dis = (12742 * Math.asin(Math.sqrt(a)));
-        console.log(typeof (dis));
-        return dis;
-    }
-    startCounter() {
-        this.contador = setInterval(() => {
-            this.centesimas += 1;
-            if (this.centesimas < 10)
-                this._centesimas = '0' + this.centesimas;
-            else
-                this._centesimas = '' + this.centesimas;
-            if (this.centesimas == 10) {
-                this.centesimas = 0;
-                this.segundos += 1;
-                if (this.segundos < 10)
-                    this._segundos = '0' + this.segundos;
-                else
-                    this._segundos = this.segundos + '';
-                if (this.segundos == 60) {
-                    this.segundos = 0;
-                    this.minutos += 1;
-                    if (this.minutos < 10)
-                        this._minutos = '0' + this.minutos;
-                    else
-                        this._minutos = this.minutos + '';
-                    this._segundos = '00';
-                    if (this.minutos == 60) {
-                        this.minutos = 0;
-                        this.minutos += 1;
-                        if (this.horas < 10)
-                            this._horas = '0' + this.horas;
-                        else
-                            this._horas = this.horas + '';
-                        this._minutos = '00';
-                    }
-                }
-            }
-        }, 100);
-    }
-    clearWindows() {
-        this.minutos = 0;
-        this.segundos = 0;
-        this.centesimas = 0;
-        this.horas = 0;
-        this._centesimas = '00';
-        this._segundos = '00';
-        this._minutos = '00';
-        this._horas = '00';
-        this.km = 0;
-    }
-    presentLoading() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            this.loading = yield this.loadingCtrl.create({
-                cssClass: 'my-custom-class',
-                message: 'Cargando...'
-            });
-            yield this.loading.present();
-        });
-    }
-    logEvent(event) {
-        console.log(event.target);
-    }
-    closeModal() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            yield this.modalController.dismiss();
-        });
-    }
-    riesgoCovid(vel) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            let alert;
-            if (vel < 2) {
-                this.flagCovid += 1;
-                console.log(this.flagCovid);
-                if (this.flagCovid >= 10) {
-                    this._track.stop();
-                    clearInterval(this.contador);
-                    alert = yield this.alertController.create({
-                        cssClass: 'my-custom-class',
-                        header: 'Atención',
-                        subHeader: '¿Estas movilizandote a pie?',
-                        message: 'Te recomendamos guardar el distanciamiento social y las medidas de protección necesarias',
-                        buttons: [{
-                                text: 'Ok',
-                                handler: () => {
-                                    this._track.start();
-                                    this.startCounter();
-                                    this.flagCovid = 0;
-                                }
-                            }]
-                    });
-                    yield alert.present();
-                    this.riesgo_covid = 40;
-                    yield this.apiService.sendCovidRisk(this.riesgo_covid);
-                }
-            }
-            else if (vel > 50) {
-                this._track.stop();
-                alert = yield this.alertController.create({
-                    cssClass: 'my-custom-class',
-                    header: 'Atención',
-                    subHeader: '¿Estas movilizandote en?',
-                    message: 'Te recomendamos aguardar el distanciamiento social y las medidas de protección necesarias',
-                    inputs: [
-                        {
-                            name: 'radio1',
-                            type: 'radio',
-                            label: 'Vehiculo Particular',
-                            value: 'Vehiculo_Particular',
-                            checked: true
-                        },
-                        {
-                            name: 'radio2',
-                            type: 'radio',
-                            label: 'Taxi,Uber,Beat,...',
-                            value: 'Vehiculo_independiente'
-                        },
-                        {
-                            name: 'radio3',
-                            type: 'radio',
-                            label: 'Transporte Público',
-                            value: 'Transporte_Publico'
-                        }
-                    ],
-                    buttons: [{
-                            text: 'Ok',
-                            handler: () => {
-                                this._track.start();
-                            }
-                        }]
-                });
-                yield alert.present();
-                this.riesgo_covid = 60;
-                yield this.apiService.sendCovidRisk(this.riesgo_covid);
-            }
-        });
-    }
-};
-MapModalPage.ctorParameters = () => [
-    { type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_6__["ApiPublibikeBienestarService"] },
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] }
-];
-MapModalPage.propDecorators = {
-    mapEl: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"], args: ['map',] }]
-};
-MapModalPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-map-modal',
-        template: _raw_loader_map_modal_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
-        styles: [_map_modal_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
-    })
-], MapModalPage);
-
-
-
-/***/ }),
-
-/***/ "Qb6g":
-/*!***********************************************!*\
-  !*** ./src/app/map-modal/map-modal.page.scss ***!
-  \***********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\n.content-map {\n  height: 104%;\n}\n\n#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 340px;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.play {\n  height: 40px;\n  width: 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwLW1vZGFsL21hcC1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxnQkFBQTtBQUNKOztBQUNBO0VBQ0ksWUFBQTtBQUVKOztBQUFBO0VBQ0ksVUFBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtBQUdKOztBQURBO0VBQ0ksV0FBQTtFQUNBLG1CQUFBO0FBSUo7O0FBRkE7RUFDSSxvQ0FBQTtFQUNBLHlCQUFBO0FBS0o7O0FBSEE7RUFDSSxlQUFBO0VBQ0EsV0FBQTtBQU1KOztBQUhBO0VBQ0ksZUFBQTtBQU1KOztBQUpBO0VBQ0ksWUFBQTtBQU9KOztBQUxBO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUFRSiIsImZpbGUiOiJzcmMvYXBwL21hcC1tb2RhbC9tYXAtbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxvZ28tZWtvYmlrZS1pbiB7XHJcbiAgICBwb3NpdGlvbjogdW5zZXQ7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAzMHB4O1xyXG4gICAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG4uY29udGVudC1tYXB7XHJcbiAgICBoZWlnaHQ6IDEwNCU7XHJcbn1cclxuI3ZpZXdEaXYge1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIG1hcmdpbjogMDtcclxuICAgIGhlaWdodDogMzQwcHg7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG4uZXNyaS12aWV3LXdpZHRoLXhzbWFsbCAuZXNyaS1leHBhbmQtLWF1dG8gLmVzcmktZXhwYW5kX19jb250YWluZXItLWV4cGFuZGVkIHtcclxuICAgIGhlaWdodDogMzQlO1xyXG4gICAgYmFja2dyb3VuZDogIzAwMTQzNDtcclxufVxyXG4uZXNyaS13aWRnZXQtLWJ1dHRvbiB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjliNDEwICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogIzAwMTQzNCAhaW1wb3J0YW50O1xyXG59XHJcbi5lc3JpLXZpZXcgLmVzcmktZGlyZWN0aW9ucyB7XHJcbiAgICBwb3NpdGlvbjogZml4ZWQ7XHJcbiAgICByaWdodDogMTVweDtcclxufVxyXG5cclxuLmVzcmktdmlldyAuZXNyaS1jb21wb25lbnQuZXNyaS1hdHRyaWJ1dGlvbiB7XHJcbiAgICBwb3NpdGlvbjogZml4ZWQ7XHJcbn1cclxuLmVzcmktc2VhcmNoX19zdWdnZXN0aW9ucy1saXN0ID4gbGkge1xyXG4gICAgcGFkZGluZzogMWVtO1xyXG59XHJcbi5wbGF5e1xyXG4gICAgaGVpZ2h0OiA0MHB4O1xyXG4gICAgd2lkdGg6IDQwcHg7XHJcbn1cclxuIl19 */");
-
-/***/ }),
-
-/***/ "St+6":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/map-modal/map-modal.page.html ***!
-  \*************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"end\">\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div class=\"logo-ekobike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <!-- <div id=\"viewDiv\" #map></div> -->\n  <div class=\"content-map\">\n    <div class=\"ui grid content-play\">\n      <div class=\"column distance\">\n        <h5>Distancia Recorrida</h5>\n        <h3 id=\"km\">{{km | number}}</h3>\n        <h4> Km</h4>\n      </div>\n    </div>\n    <div id=\"viewDiv\" #map></div>\n    <div class=\"chrono\">\n      <div class=\"time-elapsed\">\n        <h4>\n          Tiempo Recorrido\n        </h4>\n        <h2 id=time>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n      </div>\n      <div class=\"calories-co2\">\n        <div class=\"calories\">\n          <h4>\n            Consumo de Calorías\n          </h4>\n          <h2>\n            {{cal | number}}\n          </h2>\n          <h5>Kcal</h5>\n        </div>\n        <div class=\"co2\">\n          <h4>CO2 Reducido</h4>\n          <h2>\n            {{co2 | number}}\n          </h2>\n          <h5>Kgr</h5>\n        </div>\n      </div>\n      <div class=\"max-speed\">\n        <h4>\n          Velocidad Máxima\n        </h4>\n        <h2>\n          {{vel}}\n        </h2>\n        <h5>Km/h</h5>\n      </div>\n    </div>\n  </div>\n</ion-content>\n<ion-footer color=\"primary\">\n  <ion-toolbar>\n    <img class=\"play\" src=\"assets/img/button-start-29.png\" (click)=\"startRute()\" *ngIf=\"!isRun\">\n    <img class=\"play\" src=\"assets/img/button-stop-29.png\" (click)=\"stopRute()\" *ngIf=\"isRun\">\n    <!-- <ion-buttons slot=\"end\">\n      <ion-button shape=\"round\" color=\"secondary\" >\n      </ion-button>\n    </ion-buttons> -->\n  </ion-toolbar>\n</ion-footer>");
 
 /***/ }),
 
@@ -922,19 +146,6 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 /***/ }),
 
-/***/ "UO2D":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/recognition-modal/recognition-modal.page.html ***!
-  \*****************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header color=\"primary\">\n  <ion-toolbar>\n    <ion-title color=\"secondary\">{{categoria}}</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div class=\"logo-ekobike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <ion-list>\n    <ion-item>\n      <ion-label>\n        <h2>Nombre: </h2>\n        <p>{{ data.nombre }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Establecimiento: </h2>\n        <p>{{ data.establecimiento }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Beneficio: </h2>\n        <p>{{ data.beneficio }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Meta en km para activar: </h2>\n        <p>{{ data.activacion_km }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Estado: </h2>\n        <p>{{ data.estado  ? 'Activo' : 'Bloqueado' }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>");
-
-/***/ }),
-
 /***/ "VzVu":
 /*!**************************************************************************!*\
   !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/app.component.html ***!
@@ -945,19 +156,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-app>\n");
-
-/***/ }),
-
-/***/ "YCkW":
-/*!***************************************************************!*\
-  !*** ./src/app/recognition-modal/recognition-modal.page.scss ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("h2 {\n  font-size: 15px;\n  color: var(--ion-color-secondary);\n}\n\np {\n  font-size: 15px;\n  color: var(--ion-color-tertiary);\n}\n\n.logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\nion-content {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGlDQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsZ0NBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FBR0o7O0FBREE7RUFDSSx3RUFBQTtBQUlKIiwiZmlsZSI6InNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDJ7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXNlY29uZGFyeSk7XHJcbn1cclxucHtcclxuICAgIGZvbnQtc2l6ZTogMTVweDtcclxuICAgIGNvbG9yOnZhcigtLWlvbi1jb2xvci10ZXJ0aWFyeSk7XHJcbn1cclxuLmxvZ28tZWtvYmlrZS1pbiB7XHJcbiAgICBwb3NpdGlvbjogdW5zZXQ7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAzMHB4O1xyXG4gICAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG5pb24tY29udGVudCB7XHJcbiAgICAtLWJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uL2Fzc2V0cy9pbWcvYmFja2dyb3VuZC1la29iaWtlLmpwZ1wiKSBuby1yZXBlYXQgZml4ZWQgY2VudGVyO1xyXG4gIH1cclxuICAiXX0= */");
 
 /***/ }),
 
@@ -978,12 +176,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "y2f/");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "p74H");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "Sy1n");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "Sy1n");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
-/* harmony import */ var _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./recognition-modal/recognition-modal.module */ "lFiN");
-/* harmony import */ var _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./map-modal/map-modal.module */ "NfN8");
-
+/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "AcVp");
 
 
 
@@ -999,22 +195,21 @@ let AppModule = class AppModule {
 };
 AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
         entryComponents: [],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
-            _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__["RecognitionModalPageModule"],
-            _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__["MapModalPageModule"],
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
             _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()
         ],
         providers: [
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
+            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_10__["BackgroundMode"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
         ],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     })
 ], AppModule);
 
@@ -1260,101 +455,6 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ "lFiN":
-/*!***************************************************************!*\
-  !*** ./src/app/recognition-modal/recognition-modal.module.ts ***!
-  \***************************************************************/
-/*! exports provided: RecognitionModalPageModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecognitionModalPageModule", function() { return RecognitionModalPageModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "SVse");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "s7LF");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
-/* harmony import */ var _recognition_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./recognition-modal-routing.module */ "B46g");
-/* harmony import */ var _recognition_modal_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./recognition-modal.page */ "u6bn");
-
-
-
-
-
-
-
-let RecognitionModalPageModule = class RecognitionModalPageModule {
-};
-RecognitionModalPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        imports: [
-            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
-            _recognition_modal_routing_module__WEBPACK_IMPORTED_MODULE_5__["RecognitionModalPageRoutingModule"]
-        ],
-        declarations: [_recognition_modal_page__WEBPACK_IMPORTED_MODULE_6__["RecognitionModalPage"]]
-    })
-], RecognitionModalPageModule);
-
-
-
-/***/ }),
-
-/***/ "u6bn":
-/*!*************************************************************!*\
-  !*** ./src/app/recognition-modal/recognition-modal.page.ts ***!
-  \*************************************************************/
-/*! exports provided: RecognitionModalPage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecognitionModalPage", function() { return RecognitionModalPage; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
-/* harmony import */ var _raw_loader_recognition_modal_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./recognition-modal.page.html */ "UO2D");
-/* harmony import */ var _recognition_modal_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recognition-modal.page.scss */ "YCkW");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "8Y7J");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
-
-
-
-
-
-let RecognitionModalPage = class RecognitionModalPage {
-    constructor(navParams, modalController) {
-        this.navParams = navParams;
-        this.modalController = modalController;
-    }
-    ionViewDidEnter() {
-        this.categoria = this.navParams.data.categoria;
-        this.data = this.navParams.data.data;
-    }
-    closeModal() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            yield this.modalController.dismiss();
-        });
-    }
-    ngOnInit() {
-    }
-};
-RecognitionModalPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavParams"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] }
-];
-RecognitionModalPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-recognition-modal',
-        template: _raw_loader_recognition_modal_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
-        styles: [_recognition_modal_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
-    })
-], RecognitionModalPage);
-
-
-
-/***/ }),
-
 /***/ "vY5A":
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -1377,24 +477,30 @@ const routes = [
     {
         path: '',
         redirectTo: 'login',
-        pathMatch: 'full',
+        pathMatch: 'full'
+    },
+    {
+        path: 'intro',
+        loadChildren: () => __webpack_require__.e(/*! import() | intro-intro-module */ "intro-intro-module").then(__webpack_require__.bind(null, /*! ./intro/intro.module */ "PQfJ")).then(m => m.IntroPageModule)
     },
     {
         path: 'login',
-        loadChildren: () => __webpack_require__.e(/*! import() | login-login-module */ "login-login-module").then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginPageModule)
+        loadChildren: () => Promise.all(/*! import() | login-login-module */[__webpack_require__.e("common"), __webpack_require__.e("login-login-module")]).then(__webpack_require__.bind(null, /*! ./login/login.module */ "X3zk")).then(m => m.LoginPageModule)
     },
+    // {
+    //   path: 'home',
+    //   loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    //   // canActivate: [LoginGuard]
+    // },
     {
-        path: 'tabs',
-        loadChildren: () => __webpack_require__.e(/*! import() | tabs-tabs-module */ "tabs-tabs-module").then(__webpack_require__.bind(null, /*! ./tabs/tabs.module */ "hO9l")).then(m => m.TabsPageModule),
+        path: 'menu',
+        // loadChildren: "./menu/menu.module#MenuPageModule",
+        loadChildren: () => __webpack_require__.e(/*! import() | menu-menu-module */ "menu-menu-module").then(__webpack_require__.bind(null, /*! ./menu/menu.module */ "19mU")).then(m => m.MenuPageModule),
         canActivate: [_guards_login_guard__WEBPACK_IMPORTED_MODULE_3__["LoginGuard"]]
     },
     {
-        path: 'recognition-modal',
-        loadChildren: () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./recognition-modal/recognition-modal.module */ "lFiN")).then(m => m.RecognitionModalPageModule)
-    },
-    {
-        path: 'map-modal',
-        loadChildren: () => Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./map-modal/map-modal.module */ "NfN8")).then(m => m.MapModalPageModule)
+        path: 'register',
+        loadChildren: () => Promise.all(/*! import() | register-register-module */[__webpack_require__.e("common"), __webpack_require__.e("register-register-module")]).then(__webpack_require__.bind(null, /*! ./register/register.module */ "x5bZ")).then(m => m.RegisterPageModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -1402,7 +508,10 @@ let AppRoutingModule = class AppRoutingModule {
 AppRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         imports: [
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__["PreloadAllModules"] })
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, {
+                preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__["PreloadAllModules"],
+                paramsInheritanceStrategy: 'always'
+            })
         ],
         exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
     })
@@ -1421,7 +530,7 @@ AppRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJ9 */");
+/* harmony default export */ __webpack_exports__["default"] = ("\n@import url(\"https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap\");\n@charset \"UTF-8\";\n/******ICONS PUBLIBIKE******/\n@font-face {\n  font-family: \"app_publibike\";\n  src: url('app_publibike.eot');\n  src: url('app_publibike.eot') format(\"embedded-opentype\"), url('app_publibike.ttf') format(\"truetype\"), url('app_publibike.woff') format(\"woff\"), url('app_publibike.svg') format(\"svg\");\n  font-weight: normal;\n  font-style: normal;\n  font-display: block;\n}\n[class^=icon-], [class*=\" icon-\"] {\n  /* use !important to prevent issues with browser extensions that change fonts */\n  font-family: \"app_publibike\" !important;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  line-height: 1;\n  /* Better Font Rendering =========== */\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.icon-home3:before {\n  content: \"\";\n}\n.icon-camera:before {\n  content: \"\";\n}\n.icon-map:before {\n  content: \"\";\n}\n.icon-calendar:before {\n  content: \"\";\n}\n.icon-user:before {\n  content: \"\";\n}\n.icon-search:before {\n  content: \"\";\n}\n.icon-lock:before {\n  content: \"\";\n}\n.icon-stats-dots:before {\n  content: \"\";\n}\n.icon-stats-bars:before {\n  content: \"\";\n}\n.icon-switch:before {\n  content: \"\";\n}\n.icon-menu:before {\n  content: \"\";\n}\n.icon-heart:before {\n  content: \"\";\n}\n.icon-cross:before {\n  content: \"\";\n}\nh1, h2, h3, h4, h5, h6, p, a, li, input, button {\n  font-family: \"Roboto\", sans-serif !important;\n}\nbody {\n  background-color: #001434;\n  height: auto;\n}\nimg {\n  width: 100%;\n}\n.main-wrapper {\n  padding: 0 20px;\n  position: relative;\n  visibility: hidden;\n}\n.header-index {\n  text-align: center;\n}\n.header-index .logo-publibike {\n  max-width: 150px;\n  margin-top: -100px;\n}\n.form-login input {\n  background-color: transparent !important;\n  border-bottom: 1px solid #f9b410 !important;\n  color: #fff !important;\n}\n.form-login input::-moz-placeholder {\n  color: #f9b410 !important;\n  font-size: 18px !important;\n}\n.form-login input::placeholder {\n  color: #f9b410 !important;\n  font-size: 18px !important;\n}\n.form-login a {\n  float: right;\n  color: #aaaaaa;\n  font-size: 16px !important;\n}\n.button-login {\n  display: inline-block;\n  margin-top: 40px;\n  width: 100%;\n}\n.button-login .button {\n  background-color: #f9b410;\n  width: 100%;\n}\n.form-login h4 {\n  color: #f9b410;\n  margin-top: 20px;\n  text-align: center;\n  font-weight: lighter;\n}\n.login-social {\n  text-align: center;\n}\n.login-social img {\n  max-width: 40px;\n}\n.new-user {\n  text-align: center;\n  margin-top: 20px;\n}\n.new-user a {\n  float: none;\n  font-size: 16px !important;\n}\n.logo-publibike-in {\n  text-align: center;\n}\n.logo-publibike-in img {\n  max-width: 100px;\n}\n.header-inside ul {\n  padding: 0;\n}\n.header-inside ul li {\n  display: inline-block;\n  width: 32%;\n  vertical-align: middle;\n}\n.header-inside ul li i {\n  color: #f9b410;\n  font-size: 30px;\n}\n.header-inside ul li:first-child {\n  text-align: left;\n}\n.header-inside ul li:nth-child(2) {\n  text-align: center;\n}\n.header-inside ul li:last-child {\n  text-align: right;\n}\n#sidebar-menu {\n  position: fixed;\n  height: 100%;\n  width: 0;\n  top: 0;\n  left: 0;\n  z-index: 1;\n  background-color: #f9b410;\n  overflow-x: hidden;\n  transition: 0.4s;\n  box-sizing: border-box;\n}\n#sidebar-menu img {\n  max-width: 100px;\n}\n#sidebar-menu ul, #sidebar-menu li {\n  margin: 0;\n  padding: 0;\n  list-style: none inside;\n}\n#sidebar-menu ul {\n  margin: 20px auto;\n  display: block;\n  width: 80%;\n  min-width: 200px;\n}\n#sidebar-menu a {\n  display: block;\n  font-size: 120%;\n  color: #eee;\n  text-decoration: none;\n}\n.ui.form select {\n  color: #fff !important;\n  font-size: 20px;\n}\n#sidebar-menu a:hover {\n  color: #f9b410;\n  background-color: #001434;\n}\n#main-wrapper {\n  transition: left 0.4s;\n  padding: 1rem;\n}\n.abrir-cerrar {\n  color: #2E88C7;\n  font-size: 1rem;\n}\n#cerrar {\n  display: none;\n}\n#sidebar-menu li a {\n  font-size: 18px;\n  color: #001434;\n  padding: 10px;\n}\n#sidebar-menu li i {\n  margin-right: 10px;\n}\n#sidebar-menu li img {\n  margin-bottom: 20px;\n}\n.data-main {\n  text-align: center;\n  padding: 40px;\n  background-color: gray;\n  color: #fff;\n  margin: 5px;\n  width: 47% !important;\n  display: inline-block !important;\n}\n.data-main i {\n  font-size: 30px;\n}\n.data-main h4 {\n  font-weight: lighter;\n  margin: 0;\n  font-size: 16px;\n}\n.data-main h2 {\n  font-size: 25px;\n  margin: 0;\n}\n.degrade-green {\n  background: #006a0f;\n  background: linear-gradient(90deg, #006a0f 0%, #8dc935 100%);\n}\n.degrade-orange {\n  background: #fe342c;\n  background: linear-gradient(90deg, #fe342c 0%, #fdc935 100%);\n}\n.degrade-blue {\n  background: #014afd;\n  background: linear-gradient(90deg, #014afd 0%, #10cad7 100%);\n}\n.degrade-violet {\n  background: #a400d4;\n  background: linear-gradient(90deg, #a400d4 0%, #6a0094 100%);\n}\n.welcome-main {\n  margin-top: 40px;\n}\n.welcome-main h2 {\n  color: #f9b410;\n}\n.welcome-main h4 {\n  color: #fff;\n  font-size: 16px;\n  margin: 0;\n}\n.date {\n  text-align: center;\n  margin-top: 20px;\n}\n.date h3 {\n  color: #fff;\n  font-size: 25px;\n}\n.content-button {\n  text-align: center;\n}\n.begin-activity {\n  width: 100%;\n  background-color: #fe342c !important;\n  color: #fff !important;\n  border-radius: 0px !important;\n  padding: 0px !important;\n  margin: 10px 0 !important;\n  display: block !important;\n  font-size: 20px !important;\n}\n.go-campaings {\n  font-size: 20px !important;\n  width: 100%;\n  background-color: #6c0097 !important;\n  color: #fff !important;\n  border-radius: 0px !important;\n  padding: 10px !important;\n  margin: 10px 0 !important;\n  display: block !important;\n}\n.stop-activity {\n  font-size: 20px !important;\n  width: 100%;\n  background-color: #fff !important;\n  color: #fe342c !important;\n  border-radius: 0px !important;\n  padding: 10px !important;\n  margin: 10px 0 !important;\n  display: block !important;\n}\n.chrono {\n  display: block !important;\n  margin-top: 10px !important;\n}\n.chrono h2, .chrono h3, .chrono h4 {\n  color: #fff !important;\n}\n.chrono h4 {\n  font-weight: lighter;\n}\n.chrono h2 {\n  font-size: 30px;\n}\n.chrono .four {\n  border-right: 1px solid #f9b410;\n}\n.data-rute {\n  width: 50% !important;\n  display: inline-block !important;\n  color: #fff;\n}\n.data-rute i {\n  font-size: 30px;\n}\n.data-rute h4 {\n  font-size: 12px;\n  font-weight: lighter;\n  margin: 0;\n}\n.data-rute h2 {\n  font-size: 20px;\n}\n.column.campaing {\n  background-color: #fff;\n  margin: 5px;\n  padding: 10px;\n  width: 46%;\n  display: inline-block;\n  vertical-align: top;\n}\n.column.campaing h4 {\n  margin: 10px 0px;\n  color: #001434;\n}\n.column.campaing h4 small {\n  display: block;\n  font-size: 16px;\n  font-weight: lighter;\n}\n.title-publibike {\n  padding: 10px;\n  color: #fff;\n}\n.title-publibike h2 {\n  font-size: 20px;\n}\n.title-campaing {\n  color: #f9b410;\n  font-weight: lighter;\n}\n.state-campaing h3:before {\n  content: \"• \";\n  font-size: 45px;\n  display: inline-block;\n  margin-right: 11px;\n  vertical-align: middle;\n}\n.state-campaing h3 {\n  margin: 0;\n  font-size: 10px;\n  text-transform: uppercase;\n}\n.state-campaing.active {\n  color: #4a9a00;\n}\n.state-campaing.no-disponible {\n  color: #8e8e8e;\n}\n.warning-date {\n  color: #d72024 !important;\n}\n.warning-quotas {\n  color: #f1a30c !important;\n}\n.suscribe-campaing {\n  background-color: #f1a30c;\n  color: #001434;\n  padding: 10px;\n  text-align: center;\n  width: 100%;\n  font-weight: bold;\n  margin-bottom: 5px;\n  display: block;\n}\n.start-campaing {\n  background-color: #fe342c;\n  color: #fff;\n  padding: 10px;\n  text-align: center;\n  width: 100%;\n  font-weight: bold;\n  margin-bottom: 5px;\n  display: block;\n}\n.logo-campaing {\n  text-align: center;\n}\n.logo-campaing img {\n  max-width: 200px;\n}\n.begin-campaing, .logo-campaing {\n  background-color: #fff;\n}\n.begin-campaing .column {\n  width: 49%;\n  display: inline-block;\n  vertical-align: top;\n  padding: 5px;\n}\n.begin-campaing .column-full {\n  width: 100%;\n  padding: 5px;\n}\n.begin-campaing h4 {\n  color: #001434;\n}\n.begin-campaing h4 small {\n  display: block;\n  font-size: 16px;\n  font-weight: lighter;\n}\n.photo-campaing {\n  background-color: #aaaaaa;\n  text-align: center;\n  padding: 40px;\n}\n.photo-campaing i {\n  color: #727272;\n  font-size: 40px;\n}\n.title-rute {\n  color: #f9b410;\n  text-align: center;\n}\n.title-rute small {\n  color: #fff;\n  display: block;\n}\n.table-routes {\n  overflow-x: scroll;\n}\n.table-routes-content {\n  width: 920px;\n}\n.table-routes .row {\n  border-bottom: 1px solid #f9b410;\n}\n.table-routes .header-table div {\n  color: #f9b410;\n}\n.route-column {\n  width: 150px;\n  display: inline-block;\n  padding: 10px;\n  color: #fff;\n  font-size: 16px;\n}\n.content-profile ul {\n  list-style: none;\n  padding: 0;\n}\n.content-profile ul li {\n  display: inline-block;\n  vertical-align: middle;\n}\n.content-profile ul li:first-child {\n  width: 30%;\n  margin-right: 10px;\n}\n.content-profile ul li img {\n  width: 100%;\n}\n.content-profile ul li h2 {\n  color: #f9b410;\n  font-size: 20px;\n  margin: 0;\n}\n.content-profile ul li h4 {\n  color: #fff;\n  margin: 0;\n  font-size: 16px;\n}\n.info-profile h2 {\n  color: #f9b410;\n}\n.data-profile.ui.grid > .column:not(.row), .data-profile.ui.grid > .row > .column {\n  width: 100% !important;\n}\n.data-profile.ui.grid > .column:not(.row) input, .data-profile.ui.grid > .row > .column input, .data-profile.ui.grid > .column:not(.row) select, .data-profile.ui.grid > .row > .column select {\n  background-color: transparent !important;\n  border-bottom: 1px solid #f9b410 !important;\n}\n.data-profile.ui.grid > .column h4 {\n  color: #fff;\n  font-size: 16px;\n  margin-bottom: 0;\n  font-weight: lighter;\n}\n.data-profile.ui.grid > .column input::-moz-placeholder {\n  font-size: 20px;\n  color: #fff;\n}\n.data-profile.ui.grid > .column input, .data-profile.ui.grid > .column input::placeholder, .data-profile.ui.grid > .column select option:not(:checked) {\n  font-size: 20px;\n  color: #fff;\n}\n.data-profile.ui.grid > .column input, .data-profile.ui.grid > .column select {\n  opacity: 1 !important;\n}\n.chrono {\n  background-color: #001434;\n  padding: 20px;\n  margin: 0 !important;\n}\n#alertUser {\n  color: red;\n  text-align: center;\n}\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFBUSxzRkFBQTtBQUFSLGdCQUFnQjtBQUVoQiw0QkFBQTtBQUVBO0VBQ0UsNEJBQUE7RUFDQSw2QkFBQTtFQUNBLHdMQUFBO0VBSUEsbUJBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0FBSEY7QUFNQTtFQUNFLCtFQUFBO0VBQ0EsdUNBQUE7RUFDQSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLG9CQUFBO0VBQ0Esb0JBQUE7RUFDQSxjQUFBO0VBRUEsc0NBQUE7RUFDQSxtQ0FBQTtFQUNBLGtDQUFBO0FBTEY7QUFRQTtFQUNFLFlBQUE7QUFMRjtBQU9BO0VBQ0UsWUFBQTtBQUpGO0FBTUE7RUFDRSxZQUFBO0FBSEY7QUFLQTtFQUNFLFlBQUE7QUFGRjtBQUlBO0VBQ0UsWUFBQTtBQURGO0FBR0E7RUFDRSxZQUFBO0FBQUY7QUFFQTtFQUNFLFlBQUE7QUFDRjtBQUNBO0VBQ0UsWUFBQTtBQUVGO0FBQUE7RUFDRSxZQUFBO0FBR0Y7QUFEQTtFQUNFLFlBQUE7QUFJRjtBQUZBO0VBQ0UsWUFBQTtBQUtGO0FBSEE7RUFDRSxZQUFBO0FBTUY7QUFKQTtFQUNFLFlBQUE7QUFPRjtBQUhBO0VBQ0MsNENBQUE7QUFNRDtBQUZBO0VBQ0MseUJBQUE7RUFDQSxZQUFBO0FBS0Q7QUFGQTtFQUNDLFdBQUE7QUFLRDtBQUZBO0VBQ0MsZUFBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7QUFLRDtBQUZBO0VBQ0Msa0JBQUE7QUFLRDtBQUZBO0VBQ0MsZ0JBQUE7RUFDQSxrQkFBQTtBQUtEO0FBRkE7RUFDQyx3Q0FBQTtFQUNBLDJDQUFBO0VBQ0Esc0JBQUE7QUFLRDtBQUZBO0VBQ0MseUJBQUE7RUFDQSwwQkFBQTtBQUtEO0FBUEE7RUFDQyx5QkFBQTtFQUNBLDBCQUFBO0FBS0Q7QUFEQTtFQUNDLFlBQUE7RUFDQSxjQUFBO0VBQ0EsMEJBQUE7QUFJRDtBQURBO0VB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RUFDQSxlQUFBO0VBQ0Esb0JBQUE7QUFDRDtBQUVBO0VBQ0MseUJBQUE7RUFDQSxrQkFBQTtFQUNBLGFBQUE7QUFDRDtBQUVBO0VBQ0MsY0FBQTtFQUNBLGVBQUE7QUFDRDtBQUVBO0VBQ0MsY0FBQTtFQUNBLGtCQUFBO0FBQ0Q7QUFFQTtFQUNDLFdBQUE7RUFDQSxjQUFBO0FBQ0Q7QUFFQTtFQUNDLGtCQUFBO0FBQ0Q7QUFFQTtFQUNDLFlBQUE7QUFDRDtBQUVBO0VBQ0MsZ0NBQUE7QUFDRDtBQUVBO0VBQ0MsY0FBQTtBQUNEO0FBRUE7RUFDQyxZQUFBO0VBQ0EscUJBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtFQUNBLGVBQUE7QUFDRDtBQUVBO0VBQ0MsZ0JBQUE7RUFDQSxVQUFBO0FBQ0Q7QUFFQTtFQUNDLHFCQUFBO0VBQ0Esc0JBQUE7QUFDRDtBQUVBO0VBQ0MsVUFBQTtFQUNBLGtCQUFBO0FBQ0Q7QUFFQTtFQUNDLFdBQUE7QUFDRDtBQUVBO0VBQ0MsY0FBQTtFQUNBLGVBQUE7RUFDQSxTQUFBO0FBQ0Q7QUFFQTtFQUNDLFdBQUE7RUFDQSxTQUFBO0VBQ0EsZUFBQTtBQUNEO0FBRUE7RUFDQyxjQUFBO0FBQ0Q7QUFFQTtFQUNDLHNCQUFBO0FBQ0Q7QUFFQTtFQUNDLHdDQUFBO0VBQ0EsMkNBQUE7QUFDRDtBQUVBO0VBQ0MsV0FBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtFQUNBLG9CQUFBO0FBQ0Q7QUFFQTtFQUNDLGVBQUE7RUFDQSxXQUFBO0FBQ0Q7QUFIQTtFQUNDLGVBQUE7RUFDQSxXQUFBO0FBQ0Q7QUFFQTtFQUNDLHFCQUFBO0FBQ0Q7QUFFQTtFQUNDLHlCQUFBO0VBQ0EsYUFBQTtFQUNBLG9CQUFBO0FBQ0Q7QUFFQTtFQUNDLFVBQUE7RUFDQSxrQkFBQTtBQUNEO0FBR0E7RUFDQyxvQ0FBQTtFQUNBLHlCQUFBO0FBQUQiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAY2hhcnNldCBcIlVURi04XCI7XG5AaW1wb3J0IHVybChcImh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1Sb2JvdG86MzAwLDQwMCw3MDAmZGlzcGxheT1zd2FwXCIpO1xuLyoqKioqKklDT05TIFBVQkxJQklLRSoqKioqKi9cbkBmb250LWZhY2Uge1xuICBmb250LWZhbWlseTogXCJhcHBfcHVibGliaWtlXCI7XG4gIHNyYzogdXJsKFwiLi4vYXNzZXRzL2ZvbnRzL2FwcF9wdWJsaWJpa2UuZW90P3dicHM5bVwiKTtcbiAgc3JjOiB1cmwoXCIuLi9hc3NldHMvZm9udHMvYXBwX3B1YmxpYmlrZS5lb3Q/d2JwczltI2llZml4XCIpIGZvcm1hdChcImVtYmVkZGVkLW9wZW50eXBlXCIpLCB1cmwoXCIuLi9hc3NldHMvZm9udHMvYXBwX3B1YmxpYmlrZS50dGY/d2JwczltXCIpIGZvcm1hdChcInRydWV0eXBlXCIpLCB1cmwoXCIuLi9hc3NldHMvZm9udHMvYXBwX3B1YmxpYmlrZS53b2ZmP3dicHM5bVwiKSBmb3JtYXQoXCJ3b2ZmXCIpLCB1cmwoXCIuLi9hc3NldHMvZm9udHMvYXBwX3B1YmxpYmlrZS5zdmc/d2JwczltI2FwcF9wdWJsaWJpa2VcIikgZm9ybWF0KFwic3ZnXCIpO1xuICBmb250LXdlaWdodDogbm9ybWFsO1xuICBmb250LXN0eWxlOiBub3JtYWw7XG4gIGZvbnQtZGlzcGxheTogYmxvY2s7XG59XG5bY2xhc3NePWljb24tXSwgW2NsYXNzKj1cIiBpY29uLVwiXSB7XG4gIC8qIHVzZSAhaW1wb3J0YW50IHRvIHByZXZlbnQgaXNzdWVzIHdpdGggYnJvd3NlciBleHRlbnNpb25zIHRoYXQgY2hhbmdlIGZvbnRzICovXG4gIGZvbnQtZmFtaWx5OiBcImFwcF9wdWJsaWJpa2VcIiAhaW1wb3J0YW50O1xuICBzcGVhazogbm9uZTtcbiAgZm9udC1zdHlsZTogbm9ybWFsO1xuICBmb250LXdlaWdodDogbm9ybWFsO1xuICBmb250LXZhcmlhbnQ6IG5vcm1hbDtcbiAgdGV4dC10cmFuc2Zvcm06IG5vbmU7XG4gIGxpbmUtaGVpZ2h0OiAxO1xuICAvKiBCZXR0ZXIgRm9udCBSZW5kZXJpbmcgPT09PT09PT09PT0gKi9cbiAgLXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQ7XG4gIC1tb3otb3N4LWZvbnQtc21vb3RoaW5nOiBncmF5c2NhbGU7XG59XG5cbi5pY29uLWhvbWUzOmJlZm9yZSB7XG4gIGNvbnRlbnQ6IFwi7qSCXCI7XG59XG5cbi5pY29uLWNhbWVyYTpiZWZvcmUge1xuICBjb250ZW50OiBcIu6kj1wiO1xufVxuXG4uaWNvbi1tYXA6YmVmb3JlIHtcbiAgY29udGVudDogXCLupYtcIjtcbn1cblxuLmljb24tY2FsZW5kYXI6YmVmb3JlIHtcbiAgY29udGVudDogXCLupZNcIjtcbn1cblxuLmljb24tdXNlcjpiZWZvcmUge1xuICBjb250ZW50OiBcIu6lsVwiO1xufVxuXG4uaWNvbi1zZWFyY2g6YmVmb3JlIHtcbiAgY29udGVudDogXCLupoZcIjtcbn1cblxuLmljb24tbG9jazpiZWZvcmUge1xuICBjb250ZW50OiBcIu6mj1wiO1xufVxuXG4uaWNvbi1zdGF0cy1kb3RzOmJlZm9yZSB7XG4gIGNvbnRlbnQ6IFwi7qabXCI7XG59XG5cbi5pY29uLXN0YXRzLWJhcnM6YmVmb3JlIHtcbiAgY29udGVudDogXCLuppxcIjtcbn1cblxuLmljb24tc3dpdGNoOmJlZm9yZSB7XG4gIGNvbnRlbnQ6IFwi7qa2XCI7XG59XG5cbi5pY29uLW1lbnU6YmVmb3JlIHtcbiAgY29udGVudDogXCLupr1cIjtcbn1cblxuLmljb24taGVhcnQ6YmVmb3JlIHtcbiAgY29udGVudDogXCLup5pcIjtcbn1cblxuLmljb24tY3Jvc3M6YmVmb3JlIHtcbiAgY29udGVudDogXCLuqI9cIjtcbn1cblxuaDEsIGgyLCBoMywgaDQsIGg1LCBoNiwgcCwgYSwgbGksIGlucHV0LCBidXR0b24ge1xuICBmb250LWZhbWlseTogXCJSb2JvdG9cIiwgc2Fucy1zZXJpZiAhaW1wb3J0YW50O1xufVxuXG5ib2R5IHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzAwMTQzNDtcbiAgaGVpZ2h0OiBhdXRvO1xufVxuXG5pbWcge1xuICB3aWR0aDogMTAwJTtcbn1cblxuLm1haW4td3JhcHBlciB7XG4gIHBhZGRpbmc6IDAgMjBweDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB2aXNpYmlsaXR5OiBoaWRkZW47XG59XG5cbi5oZWFkZXItaW5kZXgge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5oZWFkZXItaW5kZXggLmxvZ28tcHVibGliaWtlIHtcbiAgbWF4LXdpZHRoOiAxNTBweDtcbiAgbWFyZ2luLXRvcDogLTEwMHB4O1xufVxuXG4uZm9ybS1sb2dpbiBpbnB1dCB7XG4gIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50ICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZjliNDEwICFpbXBvcnRhbnQ7XG4gIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG59XG5cbi5mb3JtLWxvZ2luIGlucHV0OjpwbGFjZWhvbGRlciB7XG4gIGNvbG9yOiAjZjliNDEwICFpbXBvcnRhbnQ7XG4gIGZvbnQtc2l6ZTogMThweCAhaW1wb3J0YW50O1xufVxuXG4uZm9ybS1sb2dpbiBhIHtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBjb2xvcjogI2FhYWFhYTtcbiAgZm9udC1zaXplOiAxNnB4ICFpbXBvcnRhbnQ7XG59XG5cbi5idXR0b24tbG9naW4ge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIG1hcmdpbi10b3A6IDQwcHg7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uYnV0dG9uLWxvZ2luIC5idXR0b24ge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjliNDEwO1xuICB3aWR0aDogMTAwJTtcbn1cblxuLmZvcm0tbG9naW4gaDQge1xuICBjb2xvcjogI2Y5YjQxMDtcbiAgbWFyZ2luLXRvcDogMjBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBmb250LXdlaWdodDogbGlnaHRlcjtcbn1cblxuLmxvZ2luLXNvY2lhbCB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmxvZ2luLXNvY2lhbCBpbWcge1xuICBtYXgtd2lkdGg6IDQwcHg7XG59XG5cbi5uZXctdXNlciB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luLXRvcDogMjBweDtcbn1cblxuLm5ldy11c2VyIGEge1xuICBmbG9hdDogbm9uZTtcbiAgZm9udC1zaXplOiAxNnB4ICFpbXBvcnRhbnQ7XG59XG5cbi5sb2dvLXB1YmxpYmlrZS1pbiB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmxvZ28tcHVibGliaWtlLWluIGltZyB7XG4gIG1heC13aWR0aDogMTAwcHg7XG59XG5cbi5oZWFkZXItaW5zaWRlIHVsIHtcbiAgcGFkZGluZzogMDtcbn1cblxuLmhlYWRlci1pbnNpZGUgdWwgbGkge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIHdpZHRoOiAzMiU7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbi5oZWFkZXItaW5zaWRlIHVsIGxpIGkge1xuICBjb2xvcjogI2Y5YjQxMDtcbiAgZm9udC1zaXplOiAzMHB4O1xufVxuXG4uaGVhZGVyLWluc2lkZSB1bCBsaTpmaXJzdC1jaGlsZCB7XG4gIHRleHQtYWxpZ246IGxlZnQ7XG59XG5cbi5oZWFkZXItaW5zaWRlIHVsIGxpOm50aC1jaGlsZCgyKSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmhlYWRlci1pbnNpZGUgdWwgbGk6bGFzdC1jaGlsZCB7XG4gIHRleHQtYWxpZ246IHJpZ2h0O1xufVxuXG4jc2lkZWJhci1tZW51IHtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAwO1xuICB0b3A6IDA7XG4gIGxlZnQ6IDA7XG4gIHotaW5kZXg6IDE7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmOWI0MTA7XG4gIG92ZXJmbG93LXg6IGhpZGRlbjtcbiAgdHJhbnNpdGlvbjogMC40cztcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcbn1cblxuI3NpZGViYXItbWVudSBpbWcge1xuICBtYXgtd2lkdGg6IDEwMHB4O1xufVxuXG4jc2lkZWJhci1tZW51IHVsLCAjc2lkZWJhci1tZW51IGxpIHtcbiAgbWFyZ2luOiAwO1xuICBwYWRkaW5nOiAwO1xuICBsaXN0LXN0eWxlOiBub25lIGluc2lkZTtcbn1cblxuI3NpZGViYXItbWVudSB1bCB7XG4gIG1hcmdpbjogMjBweCBhdXRvO1xuICBkaXNwbGF5OiBibG9jaztcbiAgd2lkdGg6IDgwJTtcbiAgbWluLXdpZHRoOiAyMDBweDtcbn1cblxuI3NpZGViYXItbWVudSBhIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIGZvbnQtc2l6ZTogMTIwJTtcbiAgY29sb3I6ICNlZWU7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbn1cblxuLnVpLmZvcm0gc2VsZWN0IHtcbiAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4jc2lkZWJhci1tZW51IGE6aG92ZXIge1xuICBjb2xvcjogI2Y5YjQxMDtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzAwMTQzNDtcbn1cblxuI21haW4td3JhcHBlciB7XG4gIHRyYW5zaXRpb246IGxlZnQgMC40cztcbiAgcGFkZGluZzogMXJlbTtcbn1cblxuLmFicmlyLWNlcnJhciB7XG4gIGNvbG9yOiAjMkU4OEM3O1xuICBmb250LXNpemU6IDFyZW07XG59XG5cbiNjZXJyYXIge1xuICBkaXNwbGF5OiBub25lO1xufVxuXG4jc2lkZWJhci1tZW51IGxpIGEge1xuICBmb250LXNpemU6IDE4cHg7XG4gIGNvbG9yOiAjMDAxNDM0O1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG4jc2lkZWJhci1tZW51IGxpIGkge1xuICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG59XG5cbiNzaWRlYmFyLW1lbnUgbGkgaW1nIHtcbiAgbWFyZ2luLWJvdHRvbTogMjBweDtcbn1cblxuLmRhdGEtbWFpbiB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgcGFkZGluZzogNDBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogZ3JheTtcbiAgY29sb3I6ICNmZmY7XG4gIG1hcmdpbjogNXB4O1xuICB3aWR0aDogNDclICFpbXBvcnRhbnQ7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jayAhaW1wb3J0YW50O1xufVxuXG4uZGF0YS1tYWluIGkge1xuICBmb250LXNpemU6IDMwcHg7XG59XG5cbi5kYXRhLW1haW4gaDQge1xuICBmb250LXdlaWdodDogbGlnaHRlcjtcbiAgbWFyZ2luOiAwO1xuICBmb250LXNpemU6IDE2cHg7XG59XG5cbi5kYXRhLW1haW4gaDIge1xuICBmb250LXNpemU6IDI1cHg7XG4gIG1hcmdpbjogMDtcbn1cblxuLmRlZ3JhZGUtZ3JlZW4ge1xuICBiYWNrZ3JvdW5kOiAjMDA2YTBmO1xuICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoOTBkZWcsICMwMDZhMGYgMCUsICM4ZGM5MzUgMTAwJSk7XG59XG5cbi5kZWdyYWRlLW9yYW5nZSB7XG4gIGJhY2tncm91bmQ6ICNmZTM0MmM7XG4gIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCg5MGRlZywgI2ZlMzQyYyAwJSwgI2ZkYzkzNSAxMDAlKTtcbn1cblxuLmRlZ3JhZGUtYmx1ZSB7XG4gIGJhY2tncm91bmQ6ICMwMTRhZmQ7XG4gIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCg5MGRlZywgIzAxNGFmZCAwJSwgIzEwY2FkNyAxMDAlKTtcbn1cblxuLmRlZ3JhZGUtdmlvbGV0IHtcbiAgYmFja2dyb3VuZDogI2E0MDBkNDtcbiAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KDkwZGVnLCAjYTQwMGQ0IDAlLCAjNmEwMDk0IDEwMCUpO1xufVxuXG4ud2VsY29tZS1tYWluIHtcbiAgbWFyZ2luLXRvcDogNDBweDtcbn1cblxuLndlbGNvbWUtbWFpbiBoMiB7XG4gIGNvbG9yOiAjZjliNDEwO1xufVxuXG4ud2VsY29tZS1tYWluIGg0IHtcbiAgY29sb3I6ICNmZmY7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgbWFyZ2luOiAwO1xufVxuXG4uZGF0ZSB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWFyZ2luLXRvcDogMjBweDtcbn1cblxuLmRhdGUgaDMge1xuICBjb2xvcjogI2ZmZjtcbiAgZm9udC1zaXplOiAyNXB4O1xufVxuXG4uY29udGVudC1idXR0b24ge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5iZWdpbi1hY3Rpdml0eSB7XG4gIHdpZHRoOiAxMDAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmUzNDJjICFpbXBvcnRhbnQ7XG4gIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDBweCAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAwcHggIWltcG9ydGFudDtcbiAgbWFyZ2luOiAxMHB4IDAgIWltcG9ydGFudDtcbiAgZGlzcGxheTogYmxvY2sgIWltcG9ydGFudDtcbiAgZm9udC1zaXplOiAyMHB4ICFpbXBvcnRhbnQ7XG59XG5cbi5nby1jYW1wYWluZ3Mge1xuICBmb250LXNpemU6IDIwcHggIWltcG9ydGFudDtcbiAgd2lkdGg6IDEwMCU7XG4gIGJhY2tncm91bmQtY29sb3I6ICM2YzAwOTcgIWltcG9ydGFudDtcbiAgY29sb3I6ICNmZmYgIWltcG9ydGFudDtcbiAgYm9yZGVyLXJhZGl1czogMHB4ICFpbXBvcnRhbnQ7XG4gIHBhZGRpbmc6IDEwcHggIWltcG9ydGFudDtcbiAgbWFyZ2luOiAxMHB4IDAgIWltcG9ydGFudDtcbiAgZGlzcGxheTogYmxvY2sgIWltcG9ydGFudDtcbn1cblxuLnN0b3AtYWN0aXZpdHkge1xuICBmb250LXNpemU6IDIwcHggIWltcG9ydGFudDtcbiAgd2lkdGg6IDEwMCU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZmYgIWltcG9ydGFudDtcbiAgY29sb3I6ICNmZTM0MmMgIWltcG9ydGFudDtcbiAgYm9yZGVyLXJhZGl1czogMHB4ICFpbXBvcnRhbnQ7XG4gIHBhZGRpbmc6IDEwcHggIWltcG9ydGFudDtcbiAgbWFyZ2luOiAxMHB4IDAgIWltcG9ydGFudDtcbiAgZGlzcGxheTogYmxvY2sgIWltcG9ydGFudDtcbn1cblxuLmNocm9ubyB7XG4gIGRpc3BsYXk6IGJsb2NrICFpbXBvcnRhbnQ7XG4gIG1hcmdpbi10b3A6IDEwcHggIWltcG9ydGFudDtcbn1cblxuLmNocm9ubyBoMiwgLmNocm9ubyBoMywgLmNocm9ubyBoNCB7XG4gIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG59XG5cbi5jaHJvbm8gaDQge1xuICBmb250LXdlaWdodDogbGlnaHRlcjtcbn1cblxuLmNocm9ubyBoMiB7XG4gIGZvbnQtc2l6ZTogMzBweDtcbn1cblxuLmNocm9ubyAuZm91ciB7XG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkICNmOWI0MTA7XG59XG5cbi5kYXRhLXJ1dGUge1xuICB3aWR0aDogNTAlICFpbXBvcnRhbnQ7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jayAhaW1wb3J0YW50O1xuICBjb2xvcjogI2ZmZjtcbn1cblxuLmRhdGEtcnV0ZSBpIHtcbiAgZm9udC1zaXplOiAzMHB4O1xufVxuXG4uZGF0YS1ydXRlIGg0IHtcbiAgZm9udC1zaXplOiAxMnB4O1xuICBmb250LXdlaWdodDogbGlnaHRlcjtcbiAgbWFyZ2luOiAwO1xufVxuXG4uZGF0YS1ydXRlIGgyIHtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uY29sdW1uLmNhbXBhaW5nIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcbiAgbWFyZ2luOiA1cHg7XG4gIHBhZGRpbmc6IDEwcHg7XG4gIHdpZHRoOiA0NiU7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgdmVydGljYWwtYWxpZ246IHRvcDtcbn1cblxuLmNvbHVtbi5jYW1wYWluZyBoNCB7XG4gIG1hcmdpbjogMTBweCAwcHg7XG4gIGNvbG9yOiAjMDAxNDM0O1xufVxuXG4uY29sdW1uLmNhbXBhaW5nIGg0IHNtYWxsIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgZm9udC13ZWlnaHQ6IGxpZ2h0ZXI7XG59XG5cbi50aXRsZS1wdWJsaWJpa2Uge1xuICBwYWRkaW5nOiAxMHB4O1xuICBjb2xvcjogI2ZmZjtcbn1cblxuLnRpdGxlLXB1YmxpYmlrZSBoMiB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbn1cblxuLnRpdGxlLWNhbXBhaW5nIHtcbiAgY29sb3I6ICNmOWI0MTA7XG4gIGZvbnQtd2VpZ2h0OiBsaWdodGVyO1xufVxuXG4uc3RhdGUtY2FtcGFpbmcgaDM6YmVmb3JlIHtcbiAgY29udGVudDogXCLigKIgXCI7XG4gIGZvbnQtc2l6ZTogNDVweDtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICBtYXJnaW4tcmlnaHQ6IDExcHg7XG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XG59XG5cbi5zdGF0ZS1jYW1wYWluZyBoMyB7XG4gIG1hcmdpbjogMDtcbiAgZm9udC1zaXplOiAxMHB4O1xuICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlO1xufVxuXG4uc3RhdGUtY2FtcGFpbmcuYWN0aXZlIHtcbiAgY29sb3I6ICM0YTlhMDA7XG59XG5cbi5zdGF0ZS1jYW1wYWluZy5uby1kaXNwb25pYmxlIHtcbiAgY29sb3I6ICM4ZThlOGU7XG59XG5cbi53YXJuaW5nLWRhdGUge1xuICBjb2xvcjogI2Q3MjAyNCAhaW1wb3J0YW50O1xufVxuXG4ud2FybmluZy1xdW90YXMge1xuICBjb2xvcjogI2YxYTMwYyAhaW1wb3J0YW50O1xufVxuXG4uc3VzY3JpYmUtY2FtcGFpbmcge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjFhMzBjO1xuICBjb2xvcjogIzAwMTQzNDtcbiAgcGFkZGluZzogMTBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMTAwJTtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIG1hcmdpbi1ib3R0b206IDVweDtcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5zdGFydC1jYW1wYWluZyB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmZTM0MmM7XG4gIGNvbG9yOiAjZmZmO1xuICBwYWRkaW5nOiAxMHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiAxMDAlO1xuICBmb250LXdlaWdodDogYm9sZDtcbiAgbWFyZ2luLWJvdHRvbTogNXB4O1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLmxvZ28tY2FtcGFpbmcge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5sb2dvLWNhbXBhaW5nIGltZyB7XG4gIG1heC13aWR0aDogMjAwcHg7XG59XG5cbi5iZWdpbi1jYW1wYWluZywgLmxvZ28tY2FtcGFpbmcge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xufVxuXG4uYmVnaW4tY2FtcGFpbmcgLmNvbHVtbiB7XG4gIHdpZHRoOiA0OSU7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgdmVydGljYWwtYWxpZ246IHRvcDtcbiAgcGFkZGluZzogNXB4O1xufVxuXG4uYmVnaW4tY2FtcGFpbmcgLmNvbHVtbi1mdWxsIHtcbiAgd2lkdGg6IDEwMCU7XG4gIHBhZGRpbmc6IDVweDtcbn1cblxuLmJlZ2luLWNhbXBhaW5nIGg0IHtcbiAgY29sb3I6ICMwMDE0MzQ7XG59XG5cbi5iZWdpbi1jYW1wYWluZyBoNCBzbWFsbCB7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICBmb250LXNpemU6IDE2cHg7XG4gIGZvbnQtd2VpZ2h0OiBsaWdodGVyO1xufVxuXG4ucGhvdG8tY2FtcGFpbmcge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjYWFhYWFhO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHBhZGRpbmc6IDQwcHg7XG59XG5cbi5waG90by1jYW1wYWluZyBpIHtcbiAgY29sb3I6ICM3MjcyNzI7XG4gIGZvbnQtc2l6ZTogNDBweDtcbn1cblxuLnRpdGxlLXJ1dGUge1xuICBjb2xvcjogI2Y5YjQxMDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4udGl0bGUtcnV0ZSBzbWFsbCB7XG4gIGNvbG9yOiAjZmZmO1xuICBkaXNwbGF5OiBibG9jaztcbn1cblxuLnRhYmxlLXJvdXRlcyB7XG4gIG92ZXJmbG93LXg6IHNjcm9sbDtcbn1cblxuLnRhYmxlLXJvdXRlcy1jb250ZW50IHtcbiAgd2lkdGg6IDkyMHB4O1xufVxuXG4udGFibGUtcm91dGVzIC5yb3cge1xuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgI2Y5YjQxMDtcbn1cblxuLnRhYmxlLXJvdXRlcyAuaGVhZGVyLXRhYmxlIGRpdiB7XG4gIGNvbG9yOiAjZjliNDEwO1xufVxuXG4ucm91dGUtY29sdW1uIHtcbiAgd2lkdGg6IDE1MHB4O1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIHBhZGRpbmc6IDEwcHg7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXNpemU6IDE2cHg7XG59XG5cbi5jb250ZW50LXByb2ZpbGUgdWwge1xuICBsaXN0LXN0eWxlOiBub25lO1xuICBwYWRkaW5nOiAwO1xufVxuXG4uY29udGVudC1wcm9maWxlIHVsIGxpIHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xufVxuXG4uY29udGVudC1wcm9maWxlIHVsIGxpOmZpcnN0LWNoaWxkIHtcbiAgd2lkdGg6IDMwJTtcbiAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xufVxuXG4uY29udGVudC1wcm9maWxlIHVsIGxpIGltZyB7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uY29udGVudC1wcm9maWxlIHVsIGxpIGgyIHtcbiAgY29sb3I6ICNmOWI0MTA7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgbWFyZ2luOiAwO1xufVxuXG4uY29udGVudC1wcm9maWxlIHVsIGxpIGg0IHtcbiAgY29sb3I6ICNmZmY7XG4gIG1hcmdpbjogMDtcbiAgZm9udC1zaXplOiAxNnB4O1xufVxuXG4uaW5mby1wcm9maWxlIGgyIHtcbiAgY29sb3I6ICNmOWI0MTA7XG59XG5cbi5kYXRhLXByb2ZpbGUudWkuZ3JpZCA+IC5jb2x1bW46bm90KC5yb3cpLCAuZGF0YS1wcm9maWxlLnVpLmdyaWQgPiAucm93ID4gLmNvbHVtbiB7XG4gIHdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XG59XG5cbi5kYXRhLXByb2ZpbGUudWkuZ3JpZCA+IC5jb2x1bW46bm90KC5yb3cpIGlucHV0LCAuZGF0YS1wcm9maWxlLnVpLmdyaWQgPiAucm93ID4gLmNvbHVtbiBpbnB1dCwgLmRhdGEtcHJvZmlsZS51aS5ncmlkID4gLmNvbHVtbjpub3QoLnJvdykgc2VsZWN0LCAuZGF0YS1wcm9maWxlLnVpLmdyaWQgPiAucm93ID4gLmNvbHVtbiBzZWxlY3Qge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudCAhaW1wb3J0YW50O1xuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgI2Y5YjQxMCAhaW1wb3J0YW50O1xufVxuXG4uZGF0YS1wcm9maWxlLnVpLmdyaWQgPiAuY29sdW1uIGg0IHtcbiAgY29sb3I6ICNmZmY7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgbWFyZ2luLWJvdHRvbTogMDtcbiAgZm9udC13ZWlnaHQ6IGxpZ2h0ZXI7XG59XG5cbi5kYXRhLXByb2ZpbGUudWkuZ3JpZCA+IC5jb2x1bW4gaW5wdXQsIC5kYXRhLXByb2ZpbGUudWkuZ3JpZCA+IC5jb2x1bW4gaW5wdXQ6OnBsYWNlaG9sZGVyLCAuZGF0YS1wcm9maWxlLnVpLmdyaWQgPiAuY29sdW1uIHNlbGVjdCBvcHRpb246bm90KDpjaGVja2VkKSB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgY29sb3I6ICNmZmY7XG59XG5cbi5kYXRhLXByb2ZpbGUudWkuZ3JpZCA+IC5jb2x1bW4gaW5wdXQsIC5kYXRhLXByb2ZpbGUudWkuZ3JpZCA+IC5jb2x1bW4gc2VsZWN0IHtcbiAgb3BhY2l0eTogMSAhaW1wb3J0YW50O1xufVxuXG4uY2hyb25vIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzAwMTQzNDtcbiAgcGFkZGluZzogMjBweDtcbiAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XG59XG5cbiNhbGVydFVzZXIge1xuICBjb2xvcjogcmVkO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5lc3JpLXdpZGdldC0tYnV0dG9uIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y5YjQxMCAhaW1wb3J0YW50O1xuICBjb2xvcjogIzAwMTQzNCAhaW1wb3J0YW50O1xufSJdfQ== */");
 
 /***/ }),
 

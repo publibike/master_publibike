@@ -4,11 +4,11 @@
 
 @font-face {
   font-family: 'app_publibike';
-  src:  url('../fonts/app_publibike.eot?wbps9m');
-  src:  url('../fonts/app_publibike.eot?wbps9m#iefix') format('embedded-opentype'),
-    url('../fonts/app_publibike.ttf?wbps9m') format('truetype'),
-    url('../fonts/app_publibike.woff?wbps9m') format('woff'),
-    url('../fonts/app_publibike.svg?wbps9m#app_publibike') format('svg');
+  src:  url('./fonts/app_publibike.eot?wbps9m');
+  src:  url('./fonts/app_publibike.eot?wbps9m#iefix') format('embedded-opentype'),
+    url('./fonts/app_publibike.ttf?wbps9m') format('truetype'),
+    url('./fonts/app_publibike.woff?wbps9m') format('woff'),
+    url('./fonts/app_publibike.svg?wbps9m#app_publibike') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;

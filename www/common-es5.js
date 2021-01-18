@@ -1,6 +1,12 @@
 (function () {
   function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
   function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
   function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -415,6 +421,199 @@
     },
 
     /***/
+    "Q5Ll":
+    /*!*********************************************************!*\
+      !*** ./src/app/services/api-publibike-marca.service.ts ***!
+      \*********************************************************/
+
+    /*! exports provided: ApiPublibikeMarcaService */
+
+    /***/
+    function Q5Ll(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "ApiPublibikeMarcaService", function () {
+        return ApiPublibikeMarcaService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "8Y7J");
+      /* harmony import */
+
+
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/storage */
+      "xgBC");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
+
+      var ApiPublibikeMarcaService = /*#__PURE__*/function () {
+        function ApiPublibikeMarcaService(storage) {
+          _classCallCheck(this, ApiPublibikeMarcaService);
+
+          this.storage = storage;
+        }
+
+        _createClass(ApiPublibikeMarcaService, [{
+          key: "getUserData",
+          value: function getUserData(id) {
+            try {
+              var options = {
+                method: 'GET',
+                // body: JSON.stringify(id),
+                headers: new Headers({
+                  'Content-Type': 'application/json'
+                })
+              };
+              return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id), options).then(function (response) {
+                return response.json();
+              });
+            } catch (error) {}
+          }
+        }, {
+          key: "getUserRoutes",
+          value: function getUserRoutes(id) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/recorridos")).then(function (response) {
+              return response.json();
+            });
+          }
+        }, {
+          key: "getUserCampaings",
+          value: function getUserCampaings() {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login")).then(function (response) {
+              return response.json();
+            });
+          }
+        }, {
+          key: "getCampaings",
+          value: function getCampaings() {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login")).then(function (response) {
+              return response.json();
+            });
+          }
+        }, {
+          key: "sendRute",
+          value: function sendRute(ruteData) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var user, id, options;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.storage.get("userData").then(function (res) {
+                        return res;
+                      });
+
+                    case 2:
+                      user = _context2.sent;
+                      console.log(ruteData);
+                      id = user._id;
+                      console.log(id);
+                      options = {
+                        method: 'PUT',
+                        body: JSON.stringify(ruteData),
+                        headers: new Headers({
+                          'Content-Type': 'application/json'
+                        })
+                      };
+                      _context2.next = 9;
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/recorrido"), options).then(function (response) {
+                        console.log(response.text());
+                      })["catch"](function (error) {
+                        return console.log(error);
+                      });
+
+                    case 9:
+                      return _context2.abrupt("return", _context2.sent);
+
+                    case 10:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "updateUser",
+          value: function updateUser(userData) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var user, id, options;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.next = 2;
+                      return this.storage.get("userData").then(function (res) {
+                        return res;
+                      });
+
+                    case 2:
+                      user = _context3.sent;
+                      console.log(userData);
+                      id = user._id;
+                      console.log(id);
+                      options = {
+                        method: 'PUT',
+                        body: JSON.stringify(userData),
+                        headers: new Headers({
+                          'Content-Type': 'application/json'
+                        })
+                      };
+                      _context3.next = 9;
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id), options).then(function (response) {
+                        console.log(response.text());
+                      })["catch"](function (error) {
+                        return console.log(error);
+                      });
+
+                    case 9:
+                      return _context3.abrupt("return", _context3.sent);
+
+                    case 10:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this);
+            }));
+          }
+        }]);
+
+        return ApiPublibikeMarcaService;
+      }();
+
+      ApiPublibikeMarcaService.ctorParameters = function () {
+        return [{
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"]
+        }];
+      };
+
+      ApiPublibikeMarcaService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], ApiPublibikeMarcaService);
+      /***/
+    },
+
+    /***/
     "U/uv":
     /*!*********************************************************************!*\
       !*** ./node_modules/@ionic/core/dist/esm/button-active-5da929d4.js ***!
@@ -537,6 +736,146 @@
     },
 
     /***/
+    "fKRy":
+    /*!**************************************************!*\
+      !*** ./src/app/services/authenticate.service.ts ***!
+      \**************************************************/
+
+    /*! exports provided: AuthenticateService */
+
+    /***/
+    function fKRy(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "AuthenticateService", function () {
+        return AuthenticateService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "8Y7J");
+      /* harmony import */
+
+
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/storage */
+      "xgBC");
+      /* harmony import */
+
+
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! src/environments/environment */
+      "AytR");
+
+      var AuthenticateService = /*#__PURE__*/function () {
+        function AuthenticateService(storage) {
+          _classCallCheck(this, AuthenticateService);
+
+          this.storage = storage;
+        }
+
+        _createClass(AuthenticateService, [{
+          key: "loginUser",
+          value: function loginUser(credential) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var user, options;
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.prev = 0;
+                      _context4.next = 3;
+                      return this.storage.get("user");
+
+                    case 3:
+                      user = _context4.sent;
+                      options = {
+                        method: 'POST',
+                        body: JSON.stringify(credential),
+                        headers: new Headers({
+                          'Content-Type': 'application/json'
+                        })
+                      };
+                      return _context4.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login"), options).then(function (response) {
+                        return response.json();
+                      }));
+
+                    case 8:
+                      _context4.prev = 8;
+                      _context4.t0 = _context4["catch"](0);
+                      return _context4.abrupt("return", _context4.t0);
+
+                    case 11:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this, [[0, 8]]);
+            }));
+          }
+        }, {
+          key: "registerUser",
+          value: function registerUser(userData) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var options;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      console.log(userData);
+                      options = {
+                        method: 'POST',
+                        body: JSON.stringify(userData),
+                        headers: new Headers({
+                          'Content-Type': 'application/json'
+                        })
+                      };
+                      _context5.next = 4;
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/registerUser"), options).then(function (response) {
+                        return response;
+                      });
+
+                    case 4:
+                      return _context5.abrupt("return", _context5.sent);
+
+                    case 5:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5);
+            }));
+          }
+        }]);
+
+        return AuthenticateService;
+      }();
+
+      AuthenticateService.ctorParameters = function () {
+        return [{
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"]
+        }];
+      };
+
+      AuthenticateService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], AuthenticateService);
+      /***/
+    },
+
+    /***/
     "sPtc":
     /*!*************************************************************!*\
       !*** ./node_modules/@ionic/core/dist/esm/theme-5641d27f.js ***!
@@ -614,21 +953,21 @@
       var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
 
       var openURL = /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(url, ev, direction, animation) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(url, ev, direction, animation) {
           var router;
-          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          return regeneratorRuntime.wrap(function _callee6$(_context6) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context6.prev = _context6.next) {
                 case 0:
                   if (!(url != null && url[0] !== '#' && !SCHEME.test(url))) {
-                    _context2.next = 5;
+                    _context6.next = 5;
                     break;
                   }
 
                   router = document.querySelector('ion-router');
 
                   if (!router) {
-                    _context2.next = 5;
+                    _context6.next = 5;
                     break;
                   }
 
@@ -636,17 +975,17 @@
                     ev.preventDefault();
                   }
 
-                  return _context2.abrupt("return", router.push(url, direction, animation));
+                  return _context6.abrupt("return", router.push(url, direction, animation));
 
                 case 5:
-                  return _context2.abrupt("return", false);
+                  return _context6.abrupt("return", false);
 
                 case 6:
                 case "end":
-                  return _context2.stop();
+                  return _context6.stop();
               }
             }
-          }, _callee2);
+          }, _callee6);
         }));
 
         return function openURL(_x6, _x7, _x8, _x9) {

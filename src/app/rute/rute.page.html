@@ -1,59 +1,111 @@
+<ion-header color="secondary">
+  <ion-toolbar>
+    <ion-buttons slot>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <div class="logo-ekobike-in">    
-      <img src="assets/img/logo-ekobike.png">
+  <div id="viewDiv" #map></div>
+  <div class="degrade-green" style="height: 5px; width: 100%; margin-top: -4px;">
   </div>
-    <!-- <div id="viewDiv" #map></div> -->
-  <div class="content-map">
-    <div class="ui grid content-play">
-      <div class="column distance">
-        <!-- <h5>Explora</h5>
-        <h3 id="km">0</h3> -->
-        <h4>Explora</h4>
-      </div>
-    </div>
-    <div id="viewDiv" #map></div>
-    <!-- <div class="chrono">
-      <div class="time-elapsed">
-        <h4>
-          Tiempo Recorrido
-        </h4>
-        <h2 id=time>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>
-      </div>
-      <div class="calories-co2">
-        <div class="calories">
-          <h4>
-            Consumo de Calorías
-          </h4>
-          <h2>
-            0
-          </h2>
-          <h5>
-            Kcal
-          </h5>
+  <ion-slides>
+    <ion-slide>
+      <!-- <div class="ui divided grid chrono">
+        <div class="row">
+          <div class="five wide column">
+            <h4>Tiempo Recorrido</h4>
+          </div>
+          <div class="nine wide column">
+            <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>
+          </div>
         </div>
-        <div class="co2">
-          <h4>
-            CO2 Reducido
-          </h4>
-          <h2>
-            0
-          </h2>
-          <h5>
-            Kgr
-          </h5>
+        <div class="row">
+          <div class="five wide column">
+            <h4>Punto Actual</h4>
+          </div>
+          <div class="nine wide column">
+            <h3>{{currentDirection}}</h3>
+          </div>
+        </div>
+        <div class="content-button">
+          <ion-button color="transparent" full outline class="ui button begin-activity" (click)="startRute()">{{estado}}</ion-button>
+          <ion-button color="transparent" full outline class="ui button go-campaings" (click)="stopRute()">DETENER
+            RECORRIDO
+          </ion-button>
+        </div>
+      </div> -->
+      <div class="ui grid" style="text-align: center; padding: 20px;">
+        <div class="column data-rute degrade-green">
+          <i class="stopwatch icon"></i>
+          <h4>Tiempo Recorrido</h4>
+        </div>
+        <div class="column data-rute">
+          <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>
+        </div>
+        <div class="column data-rute degrade-green">
+          <i class="map marker alternate icon"></i>
+          <h4>Punto Actual</h4>
+        </div>
+        <div class="column data-rute">
+          <h3>{{currentDirection}}</h3>
+        </div>
+        <div class="column data-button">
+          <ion-button color="transparent" full outline class="ui button begin-activity" (click)="startRute()">{{estado}}</ion-button>
+        </div>
+        <div class="column data-button">
+          <ion-button color="transparent" full outline class="ui button go-campaings" (click)="stopRute()">DETENER RECORRIDO </ion-button>
         </div>
       </div>
-      <div class="max-speed">
-        <h4>
-          Velocidad Máxima
-        </h4>
-        <h2>
-          0
-        </h2>
-        <h5>
-          Km/h
-        </h5>
+    </ion-slide>
+    <ion-slide>
+      <div class="ui grid" style="text-align: center; padding: 20px;">
+        <div class="column data-rute degrade-green">
+          <i class="icon-stats-dots"></i>
+          <h4>
+            Estás Generado
+          </h4>
+        </div>
+        <div class="column data-rute">
+          <h2>
+            $ {{ingresos}}
+          </h2>
+        </div>
+        <div class="column data-rute degrade-orange">
+          <i class="icon-map"></i>
+          <h4>
+            Has Recorrido
+          </h4>
+        </div>
+        <div class="column data-rute">
+          <h2>
+            <span id="km">{{km}}</span><small> KM</small>
+          </h2>
+        </div>
+        <div class="column data-rute degrade-blue">
+          <i class="icon-heart"></i>
+          <h4>
+            Has Consumido
+          </h4>
+        </div>
+        <div class="column data-rute">
+          <h2>
+            <small>{{cal}} Kcal</small>
+          </h2>
+        </div>
+        <div class="column data-rute degrade-violet">
+          <i class="icon-stats-bars"></i>
+          <h4>
+            Campaña Actual
+          </h4>
+        </div>
+        <div class="column data-rute">
+          <h2>
+            Prueba
+          </h2>
+        </div>
       </div>
-    </div> -->
-  </div>
+    </ion-slide>
+  </ion-slides>
+  <!-- <hr class="degrade-orange" style="height: 5px; width: 100%; border: 0; margin-top: 30px;"> -->
 </ion-content>

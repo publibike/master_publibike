@@ -23,6 +23,7 @@
   font-variant: normal;
   text-transform: none;
   line-height: 1;
+  color: #ffffff;
 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
@@ -125,16 +126,19 @@ img{
 .button-login{
 	display: inline-block;
 	margin-top: 40px;
-	width: 100%;
+	width: 100%;	
+	border-radius: 30px!important;
+	margin-left: 5px;
+	margin-right: 5px;
 }
+
 
 .button-login .button{
 	background: rgb(0,179,216);
 	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%);
 	width: 100%;
-	padding: 20px 10px;
+	padding: 0px 10px;
 	color: #fff;
-	border-radius: 20px;
 }
 
 .form-login h4{
@@ -300,6 +304,12 @@ img{
 	font-size: 25px;
 	margin: 0;
 }
+.data-button{
+	width: 98% !important;
+	display: inline-block !important;
+	color: #606060;
+	margin-bottom: 5px;
+}
 
 .degrade-green{
 	background: rgb(10,222,234);
@@ -323,6 +333,7 @@ img{
 
 .welcome-main{
 	margin-top: 40px;
+	margin-left: 10px;
 }
 
 .welcome-main h2{
@@ -353,6 +364,8 @@ img{
 
 .content-button{
 	text-align: center;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .begin-activity{
@@ -360,8 +373,8 @@ img{
 	background-color: #020202 !important;
 	color: #fff !important;
 	border-radius: 0px !important;
-	padding: 20px 10px !important;
-	border-radius: 20px !important;
+	padding: 0px 10px !important;
+	border-radius: 15px !important;
 	margin: 10px 0 !important;
 	display: block !important;
 	font-size: 16px !important;
@@ -373,8 +386,8 @@ img{
 	background: rgb(0,179,216);
 	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%) !important;
 	color: #fff !important;
-	border-radius: 20px !important;
-	padding: 20px 10px !important;
+	border-radius: 15px !important;
+	padding: 0px 10px !important;
 	margin: 10px 0 !important;
 	display: block !important;
 }
@@ -626,7 +639,7 @@ img{
 }
 
 .content-profile ul li h2{
-	color: #01D9AD;
+	color: #01D9AD!important;
 	font-size: 20px;
 	margin: 0;
 }
@@ -635,6 +648,10 @@ img{
 	color: #606060;
 	margin: 0;
 	font-size: 16px;
+}
+
+.content-profile  .content-photo img{
+	display: block;
 }
 
 .info-profile h2{
@@ -669,10 +686,24 @@ img{
 .chrono{
 	background-color: #001434;
 	padding: 20px;
-	margin: 0 !important;
+	/* margin: 0 !important; */
 }
 
 #alertUser{
 	color: red;
 	text-align: center;
+}
+
+.logo-publibike, .logo-publibike-in{
+	text-align: center;
+	position: relative;
+	top: 10px;
+}
+
+.logo-publibike img{
+	max-width: 200px;
+}
+
+.logo-publibike-in img{
+	max-width: 100px;
 }

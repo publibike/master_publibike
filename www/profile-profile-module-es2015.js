@@ -60,9 +60,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "s7LF");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
-/* harmony import */ var _recognition_modal_recognition_modal_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../recognition-modal/recognition-modal.page */ "u6bn");
-/* harmony import */ var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/api-publibike-bienestar.service */ "N/ei");
-
+/* harmony import */ var _services_api_publibike_marca_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/api-publibike-marca.service */ "Q5Ll");
 
 
 
@@ -72,72 +70,76 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let ProfilePage = class ProfilePage {
-    constructor(storage, formBuilder, apiService, alertController, modalController, loadingCtrl) {
+    constructor(storage, formBuilder, apiService, alertController, navCtrl) {
         this.storage = storage;
         this.formBuilder = formBuilder;
         this.apiService = apiService;
         this.alertController = alertController;
-        this.modalController = modalController;
-        this.loadingCtrl = loadingCtrl;
-        this.userId = { _id: "" };
-        this.user = {
-            nombre: "",
-            apellido: "",
-            usuario: "",
-            empresa: {
-                nombre: ""
-            },
-            reconocimientos: [],
-            km_total: 0,
-            cal_total: 0,
-            co2_total: 0,
-            tiempo_total: 0,
-            peso: 0
-        };
-        this.reconocimientos = [];
-        this.slideOps = {
-            initialSlide: 2,
-            slidesPerView: 4,
-            centeredSlides: true,
-            speed: 400
-        };
+        this.navCtrl = navCtrl;
+        this.user = { nombre: "", email: "" };
         this.validation_messages = {
-            email: [
-                { type: "required", message: "El Correo es requerido" },
-                { type: "pattern", message: "Ingresa un correo válido" }
+            nombre: [
+                { type: "required", message: "El nombre es requerido." },
+                {
+                    type: "minlength",
+                    message: "El nombre debe tener mínimo tres letras."
+                }
             ],
-            empresa: {
-                nombre: [
-                    { type: "requerido", message: "La empresa es requerida" }
-                ]
-            }
+            apellido: [
+                { type: "required", message: "El apellido es requerido." },
+                {
+                    type: "minlength",
+                    message: "El apellido debe tener mínimo tres letras."
+                }
+            ],
+            celular: [
+                { type: "required", message: "El número celular es requerido" }
+            ],
+            email: [
+                { type: "required", message: "El email es requerido" },
+                { type: "pattern", message: "Ingresa un email válido." }
+            ],
+            genero: [
+                { type: "required", message: "El número celular es requerido" }
+            ],
+            estatura: [
+                { type: "required", message: "La estatura es requerida" }
+            ],
+            peso: [
+                { type: "required", message: "El peso es requerido" }
+            ],
+            vehiculo: [
+                { type: "required", message: "El vehiculo a usar es requerido" }
+            ],
+            banco: [
+                { type: "required", message: "El banco es requerido" }
+            ],
+            cuenta: [
+                { type: "required", message: "El número de cuenta es necesario" },
+                { type: "pattern", message: "Ingresa la cuenta sin guiones solo números" }
+            ]
         };
-        this.updateForm = this.formBuilder.group({
+        this.errorMessage = "";
+        this.updaterForm = this.formBuilder.group({
+            nombre: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(3), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
+            apellido: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(3), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
+            celular: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
             email: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required,
                 _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")
             ])),
-            empresa: {
-                nombre: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]))
-            }
+            genero: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
+            estatura: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
+            peso: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
+            vehiculo: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
+            banco: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
+            cuenta: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern("^[0-9]*$"), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
         });
     }
     ionViewDidEnter() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            this.presentLoading();
-            this.userId = yield this.storage.get("userId");
-            // console.log(this.userId)
-            this.apiService.getUserData(this.userId._id).then((res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-                console.log(res);
-                this.storage.set("userData", res);
-                this.user = yield this.storage.get("userData");
-                console.log(this.user);
-                this.updateForm.patchValue(this.user);
-            }));
-            this.reconocimientos = yield this.apiService.getUserRecognition(this.userId._id);
-            this.reconocimientos = this.reconocimientos.reconocimientos;
-            this.loading.dismiss();
-            console.log(this.reconocimientos);
+            this.user = yield this.storage.get("userData");
+            this.updaterForm.patchValue(this.user);
         });
     }
     update(userData) {
@@ -149,47 +151,21 @@ let ProfilePage = class ProfilePage {
                 message: 'Datos actualizados correctamente',
                 buttons: [{
                         text: 'Ok',
+                        handler: () => {
+                            this.navCtrl.navigateForward("menu/home");
+                        }
                     }]
             });
             yield alert.present();
         }));
     }
-    showRecognition(reconocimiento) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            const recognition = yield this.apiService.getRecognitions(reconocimiento.id);
-            console.log(recognition);
-            const modal = yield this.modalController.create({
-                component: _recognition_modal_recognition_modal_page__WEBPACK_IMPORTED_MODULE_7__["RecognitionModalPage"],
-                componentProps: {
-                    categoria: reconocimiento.categoria,
-                    data: recognition
-                }
-            });
-            // modal.onDidDismiss().then(dataRetuned => {
-            //   this.song = dataRetuned.data;
-            // });
-            return yield modal.present();
-        });
-    }
-    presentLoading() {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            this.loading = yield this.loadingCtrl.create({
-                cssClass: 'my-custom-class',
-                message: 'Cargando...'
-            });
-            yield this.loading.present();
-        });
-    }
-    ngOnInit() {
-    }
 };
 ProfilePage.ctorParameters = () => [
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"] },
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
-    { type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_8__["ApiPublibikeBienestarService"] },
+    { type: _services_api_publibike_marca_service__WEBPACK_IMPORTED_MODULE_7__["ApiPublibikeMarcaService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["NavController"] }
 ];
 ProfilePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -212,7 +188,7 @@ ProfilePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<ion-content class=\"inside-app\" padding>\n  <div class=\"content-profile\">\n    <div class=\"profile-photo\">\n      <ul>\n        <li>\n          <hr>\n        </li>\n        <li class=\"content-photo\"><img src=\"assets/img/logo-ekobike.png\"></li>\n        <li>\n          <hr>\n        </li>\n      </ul>\n    </div>\n    <div class=\"info-profile\">\n      <h2 color=\"secondary\">{{user.nombre}} </h2>\n      <h4>Usuario: {{user.usuario}}</h4>\n      <h4>Empresa: {{user.empresa.nombre}}</h4>\n      <div class=\"data-profile ui two column grid\">\n        <div class=\"column\">\n          <form class=\"ui form\" [formGroup]=\"updateForm\" (ngSubmit)=\"update(updateForm.value)\">\n            <ion-item>\n              <ion-label color=\"secondary\">Correo Electrónico: </ion-label>\n              <ion-input formControlName=\"email\"></ion-input>\n            </ion-item>\n            <div class=\"validation-error\">\n              <ng-container *ngFor=\"let validation of validation_messages.email\">\n                <div *ngIf=\"\n                    updateForm.get('email').hasError(validation.type) &&\n                    (updateForm.get('email').dirty ||\n                      updateForm.get('email').touched)\">\n                  {{ validation.message }}\n                </div>\n              </ng-container>\n            </div>\n            <!-- <ion-item>\n              <ion-label color=\"secondary\">Empresa</ion-label>\n              <ion-input formControlName=\"empresa.nombre\"></ion-input>\n            </ion-item>\n            <div class=\"validation-error\">\n              <ng-container *ngFor=\"let validation of validation_messages.empresa\">\n                <div *ngIf=\"\n                    updateForm.get('empresa').hasError(validation.type) &&\n                    (updateForm.get('empresa').dirty ||\n                      updateForm.get('empresa').touched)\">\n                  {{ validation.message }}\n                </div>\n              </ng-container>\n            </div>     -->\n            <ion-button color=\"transparency\" class=\"ui right floated button btn-yellow edit-btn\" [disabled]=\"!updateForm.valid\" type=\"submit\">Editar Correo</ion-button>        \n          </form>\n        </div>\n      </div>\n      <div class=\"prize-profile\">\n        <h4>\n          Último Reconocimientos\n        </h4>\n        <div class=\"prize-content\">\n          <ion-slides [options]=\"slideOps\" *ngIf=\"reconocimientos.length\">\n            <ion-slide *ngFor=\"let reconocimiento of reconocimientos\">\n              <ion-avatar (click)=\"showRecognition(reconocimiento)\">\n                <!-- <img [src]=\"artist.images[0].url\" /> -->\n                <ion-icon text-center color=\"secondary\" class=\"icon-tools-2\"></ion-icon>\n                <span color=\"secondary\">{{reconocimiento.categoria}}</span>\n              </ion-avatar>\n            </ion-slide>\n          </ion-slides>\n          <!-- <ul>\n            <li>\n              <i class=\"icon-tools-2\"></i>\n              Mantenimiento\n            </li>\n            <li>\n              <i class=\"icon-basket\"></i>\n              Mercado\n            </li>\n            <li>\n              <i class=\"icon-briefcase\"></i>\n              Viaje\n            </li>\n          </ul> -->\n\n        </div>\n      </div>    \n    </div>\n    <div class=\"content-activity ui two column grid\">\n      <div class=\"column\">\n        <h4>\n          Total de Kilometros Recorridos\n        </h4>\n        <div class=\"data-activity\">\n          <h3>\n            {{user.km_total | number}}\n          </h3>\n          <h5>Kms</h5>\n        </div>\n\n      </div>\n      <div class=\"column\">\n        <h4>\n          Total de Calorías Consumidas\n        </h4>\n        <div class=\"data-activity\">\n          <h3>\n            {{user.cal_total | number}}\n          </h3>\n          <h5>Kcal</h5>\n        </div>\n      </div>\n      <div class=\"column\">\n        <h4>\n          Total de CO2 Reducido\n        </h4>\n        <div class=\"data-activity\">\n          <h3>\n            {{user.co2_total | number}}\n          </h3>\n          <h5>Kgr</h5>\n        </div>\n      </div>\n      <div class=\"column\">\n        <h4>\n          Tiempo total de actividad\n        </h4>\n        <div class=\"data-activity\">\n          <h3>\n            {{user.tiempo_total | number}}\n          </h3>\n          <h5>Mins</h5>\n        </div>\n      </div>\n    </div>\n  </div>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <div class=\"logo-publibike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <div text-center class=\"profile-photo\">\n    <ul style=\"list-style:none\">\n      <!-- <li>\n        <hr>\n      </li>\n      <li class=\"content-photo\"><img src=\"assets/img/logo-ekobike.png\"></li>\n      <li>\n        <hr>\n      </li> -->\n      <li>\n        <h2>{{user.nombre}} {{user.apellido}}</h2>\n        <h4>{{user.email}}</h4>\n      </li>\n    </ul>\n  </div>\n  <h2 class=\"PaddingSpecial\">Tus Datos</h2>\n  <form [formGroup]=\"updaterForm\" (ngSubmit)=\"update(updaterForm.value)\">\n    <ion-item color=\"secondary\">\n      <ion-label>Nombre</ion-label>\n      <ion-input formControlName=\"nombre\"></ion-input>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.nombre\">\n        <div *ngIf=\"\n            updaterForm.get('nombre').hasError(validation.type) &&\n            (updaterForm.get('nombre').dirty ||\n              updaterForm.get('nombre').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <ion-item color=\"secondary\">\n      <ion-label>Apellido</ion-label>\n      <ion-input formControlName=\"apellido\"></ion-input>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.apellido\">\n        <div *ngIf=\"\n            updaterForm.get('apellido').hasError(validation.type) &&\n            (updaterForm.get('apellido').dirty ||\n              updaterForm.get('apellido').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <ion-item color=\"secondary\">\n      <ion-label>Celular</ion-label>\n      <ion-input formControlName=\"celular\"></ion-input>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.celular\">\n        <div *ngIf=\"\n            updaterForm.get('celular').hasError(validation.type) &&\n            (updaterForm.get('celular').dirty ||\n              updaterForm.get('celular').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <ion-item color=\"secondary\">\n      <ion-label>Correo Electrónico</ion-label>\n      <ion-input formControlName=\"email\"></ion-input>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.email\">\n        <div *ngIf=\"\n            updaterForm.get('email').hasError(validation.type) &&\n            (updaterForm.get('email').dirty ||\n              updaterForm.get('email').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <ion-item color=\"secondary\">\n      <ion-label>Ingresa tu Género</ion-label>\n      <ion-select formControlName=\"genero\" placeholder=\"Seleccione\">\n        <ion-select-option value=\"Masculino\">Masculino</ion-select-option>\n        <ion-select-option value=\"Femenino\">Femenino</ion-select-option>\n      </ion-select>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.genero\">\n        <div *ngIf=\"\n                updaterForm.get('genero').hasError(validation.type) &&\n                (updaterForm.get('genero').dirty ||\n                  updaterForm.get('genero').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <ion-item color=\"secondary\">\n      <ion-label>Estatura(cm)</ion-label>\n      <ion-input formControlName=\"estatura\"></ion-input>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.estatura\">\n        <div *ngIf=\"\n            updaterForm.get('estatura').hasError(validation.type) &&\n            (updaterForm.get('estatura').dirty ||\n              updaterForm.get('estatura').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <ion-item color=\"secondary\">\n      <ion-label>Peso (kg)</ion-label>\n      <ion-input formControlName=\"peso\"></ion-input>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.peso\">\n        <div *ngIf=\"\n            updaterForm.get('peso').hasError(validation.type) &&\n            (updaterForm.get('peso').dirty ||\n              updaterForm.get('peso').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <ion-item color=\"secondary\">\n      <ion-label>Vehiculo</ion-label>\n      <ion-select formControlName=\"vehiculo\" placeholder=\"Seleccione\">\n        <ion-select-option value=\"Bicicleta\">Bicicleta</ion-select-option>\n        <ion-select-option value=\"Bicicleta_motorizada\">Bicicleta motorizada</ion-select-option>\n        <ion-select-option value=\"Patineta_electrica\">Patineta Eléctrica</ion-select-option>\n        <ion-select-option value=\"Patineta_electrica\">Moto Eléctrica</ion-select-option>\n        <ion-select-option value=\"Patineta_electrica\">Carro Eléctrico</ion-select-option>\n      </ion-select>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.vehiculo\">\n        <div *ngIf=\"\n            updaterForm.get('vehiculo').hasError(validation.type) &&\n            (updaterForm.get('vehiculo').dirty ||\n              updaterForm.get('vehiculo').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <h2 class=\"PaddingSpecial\">Tus Datos Bancarios</h2>\n    <ion-item color=\"secondary\">\n      <ion-label>Banco</ion-label>\n      <ion-select formControlName=\"banco\" placeholder=\"Seleccione\">\n        <ion-select-option value=\"Bancamia S.A.\">Bancamia S.A.</ion-select-option>\n        <ion-select-option value=\"Banco Agrario\">Banco Agrario</ion-select-option>\n        <ion-select-option value=\"Banco Av Villas\">Banco Av Villas</ion-select-option>\n        <ion-select-option value=\"Banco BBVA Colombia S.A.\">Banco BBVA Colombia S.A.</ion-select-option>\n        <ion-select-option value=\"Banco Caja Social\">Banco Caja Social</ion-select-option>\n        <ion-select-option value=\"Bancolombia\">Bancolombia</ion-select-option>\n        <ion-select-option value=\"Banco Davivienda\">Banco Davivienda</ion-select-option>\n        <ion-select-option value=\"Banco de Bogota\">Banco de Bogota</ion-select-option>\n        <ion-select-option value=\"Banco de Occidente\">Banco de Occidente</ion-select-option>\n        <ion-select-option value=\"Banco Popular\">Banco Popular</ion-select-option>\n        <ion-select-option value=\"Banco Falabella\">Banco Falabella</ion-select-option>\n        <ion-select-option value=\"Banco GNB Sudameris\">Banco GNB Sudameris</ion-select-option>\n        <ion-select-option value=\"Banco Itau\">Banco Itau</ion-select-option>\n        <ion-select-option value=\"Banco Pichincha S.A.\">Banco Pichincha S.A.</ion-select-option>\n        <ion-select-option value=\"Bancoomeva S.A.\">Bancoomeva S.A.</ion-select-option>\n        <ion-select-option value=\"Citibank\">Citibank</ion-select-option>\n        <ion-select-option value=\"Scotiabank Colpatria\">Scotiabank Colpatria</ion-select-option>\n      </ion-select>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.banco\">\n        <div *ngIf=\"\n            updaterForm.get('banco').hasError(validation.type) &&\n            (updaterForm.get('banco').dirty ||\n              updaterForm.get('banco').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    <ion-item color=\"secondary\">\n      <ion-label>Cuenta Bancaria</ion-label>\n      <ion-input formControlName=\"cuenta\"></ion-input>\n    </ion-item>\n    <div class=\"validation-error\">\n      <ng-container *ngFor=\"let validation of validation_messages.cuenta\">\n        <div *ngIf=\"\n            updaterForm.get('cuenta').hasError(validation.type) &&\n            (updaterForm.get('cuenta').dirty ||\n              updaterForm.get('cuenta').touched)\">\n          {{ validation.message }}\n        </div>\n      </ng-container>\n    </div>\n    {{ errorMessage }}\n    <!-- <ion-item color=\"secondary\">\n      <ion-label position=\"floating\">Mis Ingresos</ion-label>\n      <ion-input formControlName=\"ingresos\"></ion-input>\n    </ion-item> -->\n    <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" [disabled]=\"!updaterForm.valid\" type=\"submit\">\n      EDITAR PERFIL\n    </ion-button>\n  </form>\n</ion-content>");
 
 /***/ }),
 
@@ -262,7 +238,7 @@ ProfilePageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-avatar {\n  height: 120px;\n  width: 90%;\n}\n\nion-avatar img {\n  width: 90px;\n  height: 90px;\n}\n\nion-icon {\n  font-size: 75px;\n  display: block;\n  margin-bottom: 10px;\n}\n\nion-avatar span {\n  font-size: 16px;\n  color: #ffffff;\n}\n\n.ui form .ui.button {\n  padding: 0px;\n}\n\nion-content {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcHJvZmlsZS9wcm9maWxlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQUE7RUFDQSxVQUFBO0FBQ0Y7O0FBQ0E7RUFDRSxXQUFBO0VBQ0EsWUFBQTtBQUVGOztBQUFBO0VBQ0UsZUFBQTtFQUNBLGNBQUE7RUFDQSxtQkFBQTtBQUdGOztBQURBO0VBQ0UsZUFBQTtFQUNBLGNBQUE7QUFJRjs7QUFGQTtFQUNFLFlBQUE7QUFLRjs7QUFIQTtFQUNFLHdFQUFBO0FBTUYiLCJmaWxlIjoic3JjL2FwcC9wcm9maWxlL3Byb2ZpbGUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWF2YXRhciB7XHJcbiAgaGVpZ2h0OiAxMjBweDtcclxuICB3aWR0aDogOTAlO1xyXG59XHJcbmlvbi1hdmF0YXIgaW1nIHtcclxuICB3aWR0aDogOTBweDtcclxuICBoZWlnaHQ6IDkwcHg7XHJcbn1cclxuaW9uLWljb24ge1xyXG4gIGZvbnQtc2l6ZTogNzVweDtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG59XHJcbmlvbi1hdmF0YXIgc3BhbiB7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG4gIGNvbG9yOiAjZmZmZmZmO1xyXG59XHJcbi51aSBmb3JtIC51aS5idXR0b24ge1xyXG4gIHBhZGRpbmc6IDBweDtcclxufVxyXG5pb24tY29udGVudCB7XHJcbiAgLS1iYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1nL2JhY2tncm91bmQtZWtvYmlrZS5qcGdcIikgbm8tcmVwZWF0IGZpeGVkIGNlbnRlcjtcclxufVxyXG4iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("h2 {\n  color: #01D9AD;\n}\n\nh4, ion-label, ion-input {\n  color: #606060 !important;\n}\n\n.PaddingSpecial {\n  margin-left: 10px;\n}\n\n:host(.button-full:not(.button-round)) .button-native {\n  border-radius: 10px !important;\n}\n\nion-button {\n  --border-radius: 30px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcHJvZmlsZS9wcm9maWxlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGNBQUE7QUFDSjs7QUFDQTtFQUNJLHlCQUFBO0FBRUo7O0FBQUE7RUFDSSxpQkFBQTtBQUdKOztBQURBO0VBQ0ksOEJBQUE7QUFJSjs7QUFGQTtFQUNJLHFCQUFBO0FBS0oiLCJmaWxlIjoic3JjL2FwcC9wcm9maWxlL3Byb2ZpbGUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDJ7XHJcbiAgICBjb2xvcjogIzAxRDlBRDtcclxufVxyXG5oNCwgaW9uLWxhYmVsLCBpb24taW5wdXQge1xyXG4gICAgY29sb3I6IzYwNjA2MCFpbXBvcnRhbnQ7XHJcbn1cclxuLlBhZGRpbmdTcGVjaWFse1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbn1cclxuOmhvc3QoLmJ1dHRvbi1mdWxsOm5vdCguYnV0dG9uLXJvdW5kKSkgLmJ1dHRvbi1uYXRpdmUge1xyXG4gICAgYm9yZGVyLXJhZGl1czogMTBweCFpbXBvcnRhbnQ7XHJcbn1cclxuaW9uLWJ1dHRvbntcclxuICAgIC0tYm9yZGVyLXJhZGl1czogMzBweDtcclxufSJdfQ== */");
 
 /***/ })
 
