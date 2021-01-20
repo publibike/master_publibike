@@ -9,7 +9,6 @@ dotenv.config();
 //Captura las variables de entorno que la aplicación necesita
 const {
     PORT,
-
     NODE_ENV,
     HOST,
     HOST_URL,
