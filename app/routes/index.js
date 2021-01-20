@@ -16,13 +16,13 @@ module.exports.register = async server => {
     //Ruta de login del admin
     server.route({
         method: "GET",
-        path: "/bienestar/admin",
+        path: "/admin",
         handler: async (request, h) => {
             if (request.state.session) {
                 if (request.state.session === 'super') {
-                    return h.redirect('bienestar/admin/dashboard')
+                    return h.redirect('/admin/dashboard')
                 } else if (request.state.session === 'empresa') {
-                    return h.redirect('bienestar/admin/empresa')
+                    return h.redirect('/admin/empresa')
                 }
             }
             return h.view('index', null,
@@ -35,16 +35,16 @@ module.exports.register = async server => {
     //Ruta de logout del admin
     server.route({
         method: "GET",
-        path: "/bienestar/admin/logout",
+        path: "/admin/logout",
         handler: async (request, h) => {
-            return h.redirect('/bienestar/admin').unstate('admin')
+            return h.redirect('/admin').unstate('admin')
         }
     });
 
     //Ruta que muestra el home del administrador o dashboard
     server.route({
         method: "GET",
-        path: "/bienestar/admin/dashboard",
+        path: "/admin/dashboard",
         handler: async (request, h) => {
 
             const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
@@ -62,7 +62,7 @@ module.exports.register = async server => {
     //Ruta para registrar administrador
     server.route({
         method: "GET",
-        path: "/bienestar/admin/registro",
+        path: "/admin/registro",
         handler: async (request, h) => {
 
             const empresas = await request.mongo.db.collection('Empresa').find({}).toArray();
@@ -76,7 +76,7 @@ module.exports.register = async server => {
     //Ruta para registrar empresa
     server.route({
         method: "GET",
-        path: "/bienestar/admin/registro/empresa",
+        path: "/admin/registro/empresa",
         handler: async (request, h) => {
             return h.view('registroEmpresa', {
                 title: 'Registrar Empresa'
@@ -89,7 +89,7 @@ module.exports.register = async server => {
     //Ruta que muestra el home del administrador o dashboard
     server.route({
         method: "GET",
-        path: "/bienestar/admin/usuarios",
+        path: "/admin/usuarios",
         handler: async (request, h) => {
             const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
             return h.view('usuarios', {
@@ -102,7 +102,7 @@ module.exports.register = async server => {
     //Ruta que muestra las empresas registradas
     server.route({
         method: "GET",
-        path: "/bienestar/admin/empresas",
+        path: "/admin/empresas",
         handler: async (request, h) => {
             try {
 
@@ -121,7 +121,7 @@ module.exports.register = async server => {
     //Ruta que muestra un usuario
     server.route({
         method: "GET",
-        path: "/bienestar/admin/usuario/{id}",
+        path: "/admin/usuario/{id}",
         handler: async (req, h) => {
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
@@ -147,7 +147,7 @@ module.exports.register = async server => {
     //Ruta que muestra un usuario
     server.route({
         method: "GET",
-        path: "/bienestar/admin/empresadetalle/{id}",
+        path: "/admin/empresadetalle/{id}",
         handler: async (req, h) => {
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
@@ -169,7 +169,7 @@ module.exports.register = async server => {
     //Ruta que muestra la empresa
     server.route({
         method: "GET",
-        path: "/bienestar/admin/empresa/{id}",
+        path: "/admin/empresa/{id}",
         handler: async (req, h) => {
             const id = req.params.id;
             console.log(id)
@@ -189,7 +189,7 @@ module.exports.register = async server => {
     //Ruta que muestra los usuarios de una empresa
     server.route({
         method: "GET",
-        path: "/bienestar/admin/empresa/{id}/usuarios",
+        path: "/admin/empresa/{id}/usuarios",
         handler: async (req, h) => {
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
@@ -210,7 +210,7 @@ module.exports.register = async server => {
     //Ruta que permite ver el registro de usuarios
     server.route({
         method: "GET",
-        path: "/bienestar/admin/empresa/{id}/registro/usuarios",
+        path: "/admin/empresa/{id}/registro/usuarios",
         handler: async (req, h) => {
             console.log(h.response)
             const id = req.params.id;
@@ -230,7 +230,7 @@ module.exports.register = async server => {
     //Ruta que permite ver el registro de reconocimientos
     server.route({
         method: "GET",
-        path: "/bienestar/admin/empresa/{id}/registro/reconocimiento",
+        path: "/admin/empresa/{id}/registro/reconocimiento",
         handler: async (req, h) => {
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
@@ -249,7 +249,7 @@ module.exports.register = async server => {
     //Ruta que muestra un usuario
     server.route({
         method: "GET",
-        path: "/bienestar/admin/empresa/usuario/{id}",
+        path: "/admin/empresa/usuario/{id}",
         handler: async (req, h) => {
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
@@ -280,7 +280,7 @@ module.exports.register = async server => {
         method: "GET",
         path: "/",
         handler: async (request, h) => {
-            return h.redirect('/bienestar/admin')
+            return h.redirect('/admin')
         }
     });
     //Ruta que permite cargar los diferentes assets de las vistas

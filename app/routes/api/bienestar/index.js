@@ -16,7 +16,7 @@ module.exports.register = async server => {
     //Permite el acceso al administrador
     server.route({
         method: 'POST',
-        path: '/api/bienestar/admin/login',
+        path: '/api/admin/login',
         options: {
             cors: true
         },
@@ -68,9 +68,9 @@ module.exports.register = async server => {
 
             if (result.tipo === "super") {
                 console.log(result)
-                return h.redirect('/bienestar/admin/dashboard').state('session', cookie);
+                return h.redirect('/admin/dashboard').state('session', cookie);
             } else if (result.tipo === "empresa") {
-                return h.redirect(`/bienestar/admin/empresa/${result.empresaId}`).state('session', cookie);
+                return h.redirect(`/admin/empresa/${result.empresaId}`).state('session', cookie);
             }
         }
     });
@@ -79,7 +79,7 @@ module.exports.register = async server => {
     //Agrega un administrador SuperUsuario
     server.route({
         method: 'POST',
-        path: '/api/bienestar/admin/createadmin',
+        path: '/api/admin/createadmin',
         options: {
             cors: true
         },
@@ -116,7 +116,7 @@ module.exports.register = async server => {
 
             }
 
-            // return h.response(`Administrador creado con ID: ${result.ops[0]._id}`).redirect('/bienestar/admin/registro')
+            // return h.response(`Administrador creado con ID: ${result.ops[0]._id}`).redirect('/admin/registro')
             return h.view('registroAdmin', {
                 success: `Administrador ${result.ops[0].usuario} Registrado`
             });
@@ -126,7 +126,7 @@ module.exports.register = async server => {
     //Agrega un administrador empresa
     server.route({
         method: 'POST',
-        path: '/api/bienestar/admin/createadmin/empresa',
+        path: '/api/admin/createadmin/empresa',
         handler: async (req, h) => {
             let result = {};
             try {
@@ -162,7 +162,7 @@ module.exports.register = async server => {
     //Agrega un nuevo usuario
     server.route({
         method: 'POST',
-        path: '/api/bienestar/admin/empresa/{id}/createusuario',
+        path: '/api/admin/empresa/{id}/createusuario',
         handler: async (req, h) => {
             try {
                 let us = req.payload
@@ -188,7 +188,7 @@ module.exports.register = async server => {
 
                 const statusEmp = await req.mongo.db.collection('Empresa').updateOne({ _id: new ObjectID(id) }, { $push: { usuarios: usEmp } })
 
-                // return h.response(statusEmp.ok).redirect(`/bienestar/admin/empresa/${id}/registro/usuarios`);
+                // return h.response(statusEmp.ok).redirect(`/admin/empresa/${id}/registro/usuarios`);
                 return h.view('registroUsuarios', {
                     success: `Usario ${status.ops[0].usuario} registrado Satisfactoriamente`,
                     empresa: empresa
@@ -215,7 +215,7 @@ module.exports.register = async server => {
     //Agrega una nueva empresa
     server.route({
         method: 'POST',
-        path: '/api/bienestar/admin/createcompany',
+        path: '/api/admin/createcompany',
         handler: async (req, h) => {
             try {
                 let comp = req.payload
@@ -224,7 +224,7 @@ module.exports.register = async server => {
 
                 const status = await req.mongo.db.collection('Empresa').insertOne(comp);
 
-                // return h.response(status.ok).redirect(`/bienestar/admin/registro/empresa`);
+                // return h.response(status.ok).redirect(`/admin/registro/empresa`);
                 return h.view('registroEmpresa', {
                     success: `Empresa ${status.ops[0].nombre} Registrada`
                 });
@@ -248,7 +248,7 @@ module.exports.register = async server => {
     //Agrega un nuevo reconocimiento
     server.route({
         method: 'POST',
-        path: '/api/bienestar/admin/empresa/{id}/createreconocimiento',
+        path: '/api/admin/empresa/{id}/createreconocimiento',
         handler: async (req, h) => {
 
             try {
@@ -273,7 +273,7 @@ module.exports.register = async server => {
                 const result = await req.mongo.db.collection('Empresa').updateOne({ _id: new ObjectID(id) }, { $push: { reconocimientos: recEmp } })
 
                 const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) }, { "_id": 1, "nombre": 1 });
-                // return h.response(result.ok).redirect(`/bienestar/admin/empresa/${id}/registro/reconocimiento`);
+                // return h.response(result.ok).redirect(`/admin/empresa/${id}/registro/reconocimiento`);
                 return h.view('registroReconocimiento',{
                     success: `Reconocimiento ${status.ops[0].nombre} registrado satisfactoriamente`,
                     empresa: empresa
@@ -303,7 +303,7 @@ module.exports.register = async server => {
     //Obtiene todos los usuarios registrados
     server.route({
         method: 'GET',
-        path: '/api/bienestar/admin/usuarios',
+        path: '/api/admin/usuarios',
         handler: (req, h) => {
 
             const usuario = req.mongo.db.collection('Usuario').find({}, { "nombre": 1, "usuario": 1, "email": 1, "empresa": 1 }).toArray();
@@ -314,7 +314,7 @@ module.exports.register = async server => {
     //Obtiene datos por usuario
     server.route({
         method: 'GET',
-        path: '/api/bienestar/admin/usuario/{id}',
+        path: '/api/admin/usuario/{id}',
         handler: (req, h) => {
 
             const id = req.params.id;
@@ -329,7 +329,7 @@ module.exports.register = async server => {
     //Obtiene los datos de todas las empresas
     server.route({
         method: 'GET',
-        path: '/api/bienestar/admin/empresas',
+        path: '/api/admin/empresas',
         handler: (req, h) => {
 
             const empresas = req.mongo.db.collection('Empresa').find().toArray();
@@ -340,7 +340,7 @@ module.exports.register = async server => {
     //Obtiene datos por empresa
     server.route({
         method: 'GET',
-        path: '/api/bienestar/admin/empresa/{id}',
+        path: '/api/admin/empresa/{id}',
         handler: (req, h) => {
 
             const id = req.params.id;
@@ -358,7 +358,7 @@ module.exports.register = async server => {
     //Permite el acceso al usuario
     server.route({
         method: 'POST',
-        path: '/api/bienestar/movil/login',
+        path: 'Bienestar/api/movil/login',
         options: {
             cors: true
         },
@@ -398,7 +398,7 @@ module.exports.register = async server => {
     //Obtiene los datos del usuario 
     server.route({
         method: 'GET',
-        path: '/api/bienestar/movil/usuario/{id}',
+        path: 'Bienestar/api/movil/usuario/{id}',
         options: {
             cors: true
         },
@@ -415,7 +415,7 @@ module.exports.register = async server => {
     //Obtiene los reconocimientos de un usuario
     server.route({
         method: 'GET',
-        path: '/api/bienestar/movil/usuario/{id}/reconocimientos',
+        path: 'Bienestar/api/movil/usuario/{id}/reconocimientos',
         options: {
             cors: true
         },
@@ -433,7 +433,7 @@ module.exports.register = async server => {
     //Obtiene los reconocimientos de una empresa
     server.route({
         method: 'GET',
-        path: '/api/bienestar/movil/empresa/{id}/reconocimientos',
+        path: 'Bienestar/api/movil/empresa/{id}/reconocimientos',
         options: {
             cors: true
         },
@@ -450,7 +450,7 @@ module.exports.register = async server => {
     //Obtiene los reconocimientos
     server.route({
         method: 'GET',
-        path: '/api/bienestar/movil/reconocimiento/{id}',
+        path: 'Bienestar/api/movil/reconocimiento/{id}',
         options: {
             cors: true
         },
@@ -468,7 +468,7 @@ module.exports.register = async server => {
     //Actualiza a un usuario 
     server.route({
         method: 'PUT',
-        path: '/api/bienestar/movil/usuario/{id}',
+        path: 'Bienestar/api/movil/usuario/{id}',
         options: {
             cors: true
         },
@@ -493,7 +493,7 @@ module.exports.register = async server => {
     //Envia el recorrido
     server.route({
         method: 'PUT',
-        path: '/api/bienestar/movil/usuario/{id}/recorrido',
+        path: 'Bienestar/api/movil/usuario/{id}/recorrido',
         options: {
             cors: true
         },
@@ -585,7 +585,7 @@ module.exports.register = async server => {
     //Actualiza el riesgo COVID del usuario
     server.route({
         method: 'PUT',
-        path: '/api/bienestar/movil/usuario/{id}/riesgocovid',
+        path: 'Bienestar/api/movil/usuario/{id}/riesgocovid',
         options: {
             cors: true
         },

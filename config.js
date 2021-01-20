@@ -9,6 +9,8 @@ dotenv.config();
 //Captura las variables de entorno que la aplicación necesita
 const {
     PORT,
+
+    NODE_ENV,
     HOST,
     HOST_URL,
     COOKIE_ENCRYPT_PWD,
@@ -23,6 +25,7 @@ const {
 
 // valida la información de configuración requerida
 assert( PORT, "PORT configuration is required." );
+assert( NODE_ENV, "NODE_ENV configuration is required." );
 assert( HOST, "HOST configuration is required." );
 assert( HOST_URL, "HOST_URL configuration is required." );
 assert( COOKIE_ENCRYPT_PWD, "COOKIE_ENCRYPT_PWD configuration is required." );
@@ -38,6 +41,7 @@ assert( MONGO_PASSWORD, "MONGO_PASSWORD configuration is required." );
 // export the configuration information
 module.exports = {
     port: PORT,
+    node_env: NODE_ENV,
     host: HOST,
     url: HOST_URL,
     cookiePwd: COOKIE_ENCRYPT_PWD,
