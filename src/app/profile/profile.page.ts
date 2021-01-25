@@ -101,6 +101,23 @@ export class ProfilePage implements OnInit {
     this.reconocimientos = this.reconocimientos.reconocimientos;
     this.loading.dismiss();
     console.log(this.reconocimientos);
+  }
+  async ionViewWillLeave(){
+    this.presentLoading();
+    this.userId = await this.storage.get("userId");
+
+    // console.log(this.userId)
+    this.apiService.getUserData(this.userId._id).then(async (res) => {
+      console.log(res)
+      this.storage.set("userData", res);
+      this.user = await this.storage.get("userData");
+      console.log(this.user);
+      this.updateForm.patchValue(this.user)
+    })
+    this.reconocimientos = await this.apiService.getUserRecognition(this.userId._id)
+    this.reconocimientos = this.reconocimientos.reconocimientos;
+    this.loading.dismiss();
+    console.log(this.reconocimientos);
 
   }
   update(userData) {

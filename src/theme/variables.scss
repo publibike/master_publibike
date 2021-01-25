@@ -75,10 +75,12 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
-  --ion-background-color: transparent;
+  // --ion-background-color: transparent;
   // --ion-toolbar-background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%);
   --ion-tabs-background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%);
   --ion-text-color: #01D9AD;
+  // --ion-backdrop-opacity: 1;
+  --ion-background-image: url("../assets/img/background-ekobike.jpg") no-repeat fixed center !important;
 }
 
 // @media (prefers-color-scheme: dark) {

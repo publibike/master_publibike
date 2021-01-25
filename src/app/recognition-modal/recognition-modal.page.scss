@@ -1,10 +1,10 @@
-h2{
+h2 {
     font-size: 15px;
     color: var(--ion-color-secondary);
 }
-p{
+p {
     font-size: 15px;
-    color:var(--ion-color-tertiary);
+    color: var(--ion-color-tertiary);
 }
 .logo-ekobike-in {
     position: unset;
@@ -13,5 +13,10 @@ p{
 }
 ion-content {
     --background-image: url("../../assets/img/background-ekobike.jpg") no-repeat fixed center;
-  }
-  
+}
+app-recognition-modal{
+    background-image: var(--ion-background-image);
+}
+.background-modal{
+    --background-image: url("../../assets/img/background-ekobike.jpg") no-repeat fixed center;
+}

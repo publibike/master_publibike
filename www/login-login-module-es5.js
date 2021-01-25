@@ -104,7 +104,9 @@
             var _this = this;
 
             this.presentLoading();
+            console.log(credentials);
             this.authServices.loginUser(credentials).then(function (res) {
+              console.log(res);
               _this.errorMessage = "";
 
               _this.storage.set("isUserLoggedIn", true);
@@ -116,12 +118,18 @@
               _this.navCtrl.navigateForward("/tabs/profile"); // this.storage.set("userData", res);
 
             })["catch"](function (err) {
+              console.log(err);
+
               _this.loading.dismiss();
 
               console.error("ERROR", err.name);
 
               if (err.name == 'SyntaxError') {
+                console.log(err);
                 _this.errorMessage = "Usuario Incorrecto";
+              } else if (err.name == 'TypeError') {
+                // this.errorMessage = "Usuario Incorrecto";
+                console.log(err);
               }
             });
           }

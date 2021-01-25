@@ -40,9 +40,11 @@ export class LoginPage {
 
   loginUser(credentials) {
     this.presentLoading();
+    console.log(credentials)
     this.authServices
       .loginUser(credentials)
       .then(res => {
+        console.log(res)
         this.errorMessage = "";
         this.storage.set("isUserLoggedIn", true);
         this.storage.set("userId", res);
@@ -51,10 +53,15 @@ export class LoginPage {
         // this.storage.set("userData", res);
       })
       .catch(err => {
+        console.log(err)
         this.loading.dismiss();
         console.error("ERROR", err.name)
         if (err.name == 'SyntaxError') {
+          console.log(err)
           this.errorMessage = "Usuario Incorrecto";
+        }else if (err.name == 'TypeError') {
+          // this.errorMessage = "Usuario Incorrecto";
+          console.log(err)
         }
       })
   }

@@ -163,7 +163,8 @@
 
       var environment = {
         production: false,
-        publibikeApi: "http://142.93.44.192/Bienestar"
+        // publibikeApi: "http://142.93.44.192/Bienestar"
+        publibikeApi: "https://geoapps.esri.co/Bienestar"
       };
       /*
        * For easier debugging in development mode, you can import the following file
@@ -1541,7 +1542,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header color=\"primary\">\n  <ion-toolbar>\n    <ion-title color=\"secondary\">{{categoria}}</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div class=\"logo-ekobike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <ion-list>\n    <ion-item>\n      <ion-label>\n        <h2>Nombre: </h2>\n        <p>{{ data.nombre }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Establecimiento: </h2>\n        <p>{{ data.establecimiento }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Beneficio: </h2>\n        <p>{{ data.beneficio }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Meta en km para activar: </h2>\n        <p>{{ data.activacion_km }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Estado: </h2>\n        <p>{{ data.estado  ? 'Activo' : 'Bloqueado' }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header color=\"primary\">\n  <ion-toolbar>\n    <ion-title color=\"secondary\">{{categoria}}</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content class=\"background-modal\">\n  <div class=\"logo-ekobike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <ion-list>\n    <ion-item>\n      <ion-label>\n        <h2>Nombre: </h2>\n        <p>{{ data.nombre }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Establecimiento: </h2>\n        <p>{{ data.establecimiento }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Beneficio: </h2>\n        <p>{{ data.beneficio }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Meta en km para activar: </h2>\n        <p>{{ data.activacion_km }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Estado: </h2>\n        <p>{{ data.estado  ? 'Activo' : 'Bloqueado' }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>";
       /***/
     },
 
@@ -1581,7 +1582,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "h2 {\n  font-size: 15px;\n  color: var(--ion-color-secondary);\n}\n\np {\n  font-size: 15px;\n  color: var(--ion-color-tertiary);\n}\n\n.logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\nion-content {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGlDQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsZ0NBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FBR0o7O0FBREE7RUFDSSx3RUFBQTtBQUlKIiwiZmlsZSI6InNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDJ7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXNlY29uZGFyeSk7XHJcbn1cclxucHtcclxuICAgIGZvbnQtc2l6ZTogMTVweDtcclxuICAgIGNvbG9yOnZhcigtLWlvbi1jb2xvci10ZXJ0aWFyeSk7XHJcbn1cclxuLmxvZ28tZWtvYmlrZS1pbiB7XHJcbiAgICBwb3NpdGlvbjogdW5zZXQ7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAzMHB4O1xyXG4gICAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG5pb24tY29udGVudCB7XHJcbiAgICAtLWJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uL2Fzc2V0cy9pbWcvYmFja2dyb3VuZC1la29iaWtlLmpwZ1wiKSBuby1yZXBlYXQgZml4ZWQgY2VudGVyO1xyXG4gIH1cclxuICAiXX0= */";
+      __webpack_exports__["default"] = "h2 {\n  font-size: 15px;\n  color: var(--ion-color-secondary);\n}\n\np {\n  font-size: 15px;\n  color: var(--ion-color-tertiary);\n}\n\n.logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\nion-content {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n\napp-recognition-modal {\n  background-image: var(--ion-background-image);\n}\n\n.background-modal {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGlDQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsZ0NBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FBR0o7O0FBREE7RUFDSSx3RUFBQTtBQUlKOztBQUZBO0VBQ0ksNkNBQUE7QUFLSjs7QUFIQTtFQUNJLHdFQUFBO0FBTUoiLCJmaWxlIjoic3JjL2FwcC9yZWNvZ25pdGlvbi1tb2RhbC9yZWNvZ25pdGlvbi1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMiB7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXNlY29uZGFyeSk7XHJcbn1cclxucCB7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXRlcnRpYXJ5KTtcclxufVxyXG4ubG9nby1la29iaWtlLWluIHtcclxuICAgIHBvc2l0aW9uOiB1bnNldDtcclxuICAgIG1hcmdpbi1ib3R0b206IDMwcHg7XHJcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xyXG59XHJcbmlvbi1jb250ZW50IHtcclxuICAgIC0tYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vYXNzZXRzL2ltZy9iYWNrZ3JvdW5kLWVrb2Jpa2UuanBnXCIpIG5vLXJlcGVhdCBmaXhlZCBjZW50ZXI7XHJcbn1cclxuYXBwLXJlY29nbml0aW9uLW1vZGFse1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdmFyKC0taW9uLWJhY2tncm91bmQtaW1hZ2UpO1xyXG59XHJcbi5iYWNrZ3JvdW5kLW1vZGFse1xyXG4gICAgLS1iYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1nL2JhY2tncm91bmQtZWtvYmlrZS5qcGdcIikgbm8tcmVwZWF0IGZpeGVkIGNlbnRlcjtcclxufVxyXG4iXX0= */";
       /***/
     },
 
@@ -2075,7 +2076,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJ9 */";
+      __webpack_exports__["default"] = "ion-modal {\n  --ion-background-image: url('background-ekobike.jpg') no-repeat fixed center !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUZBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tb2RhbHtcclxuICAgIC0taW9uLWJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9pbWcvYmFja2dyb3VuZC1la29iaWtlLmpwZ1wiKSBuby1yZXBlYXQgZml4ZWQgY2VudGVyICFpbXBvcnRhbnQ7XHJcbn1cclxuIl19 */";
       /***/
     },
 

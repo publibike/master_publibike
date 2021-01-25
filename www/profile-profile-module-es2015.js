@@ -140,6 +140,24 @@ let ProfilePage = class ProfilePage {
             console.log(this.reconocimientos);
         });
     }
+    ionViewWillLeave() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            this.presentLoading();
+            this.userId = yield this.storage.get("userId");
+            // console.log(this.userId)
+            this.apiService.getUserData(this.userId._id).then((res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                console.log(res);
+                this.storage.set("userData", res);
+                this.user = yield this.storage.get("userData");
+                console.log(this.user);
+                this.updateForm.patchValue(this.user);
+            }));
+            this.reconocimientos = yield this.apiService.getUserRecognition(this.userId._id);
+            this.reconocimientos = this.reconocimientos.reconocimientos;
+            this.loading.dismiss();
+            console.log(this.reconocimientos);
+        });
+    }
     update(userData) {
         this.apiService.updateUser(userData).then(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("Datos actualizados");

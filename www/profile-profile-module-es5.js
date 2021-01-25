@@ -269,19 +269,77 @@
             }));
           }
         }, {
+          key: "ionViewWillLeave",
+          value: function ionViewWillLeave() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var _this2 = this;
+
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      this.presentLoading();
+                      _context4.next = 3;
+                      return this.storage.get("userId");
+
+                    case 3:
+                      this.userId = _context4.sent;
+                      // console.log(this.userId)
+                      this.apiService.getUserData(this.userId._id).then(function (res) {
+                        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+                          return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                            while (1) {
+                              switch (_context3.prev = _context3.next) {
+                                case 0:
+                                  console.log(res);
+                                  this.storage.set("userData", res);
+                                  _context3.next = 4;
+                                  return this.storage.get("userData");
+
+                                case 4:
+                                  this.user = _context3.sent;
+                                  console.log(this.user);
+                                  this.updateForm.patchValue(this.user);
+
+                                case 7:
+                                case "end":
+                                  return _context3.stop();
+                              }
+                            }
+                          }, _callee3, this);
+                        }));
+                      });
+                      _context4.next = 7;
+                      return this.apiService.getUserRecognition(this.userId._id);
+
+                    case 7:
+                      this.reconocimientos = _context4.sent;
+                      this.reconocimientos = this.reconocimientos.reconocimientos;
+                      this.loading.dismiss();
+                      console.log(this.reconocimientos);
+
+                    case 11:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
+            }));
+          }
+        }, {
           key: "update",
           value: function update(userData) {
-            var _this2 = this;
+            var _this3 = this;
 
             this.apiService.updateUser(userData).then(function () {
-              return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
                 var alert;
-                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                return regeneratorRuntime.wrap(function _callee5$(_context5) {
                   while (1) {
-                    switch (_context3.prev = _context3.next) {
+                    switch (_context5.prev = _context5.next) {
                       case 0:
                         console.log("Datos actualizados");
-                        _context3.next = 3;
+                        _context5.next = 3;
                         return this.alertController.create({
                           cssClass: 'my-custom-class',
                           header: 'Atención',
@@ -292,35 +350,35 @@
                         });
 
                       case 3:
-                        alert = _context3.sent;
-                        _context3.next = 6;
+                        alert = _context5.sent;
+                        _context5.next = 6;
                         return alert.present();
 
                       case 6:
                       case "end":
-                        return _context3.stop();
+                        return _context5.stop();
                     }
                   }
-                }, _callee3, this);
+                }, _callee5, this);
               }));
             });
           }
         }, {
           key: "showRecognition",
           value: function showRecognition(reconocimiento) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var recognition, modal;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context4.next = 2;
+                      _context6.next = 2;
                       return this.apiService.getRecognitions(reconocimiento.id);
 
                     case 2:
-                      recognition = _context4.sent;
+                      recognition = _context6.sent;
                       console.log(recognition);
-                      _context4.next = 6;
+                      _context6.next = 6;
                       return this.modalController.create({
                         component: _recognition_modal_recognition_modal_page__WEBPACK_IMPORTED_MODULE_7__["RecognitionModalPage"],
                         componentProps: {
@@ -330,46 +388,46 @@
                       });
 
                     case 6:
-                      modal = _context4.sent;
-                      _context4.next = 9;
+                      modal = _context6.sent;
+                      _context6.next = 9;
                       return modal.present();
 
                     case 9:
-                      return _context4.abrupt("return", _context4.sent);
+                      return _context6.abrupt("return", _context6.sent);
 
                     case 10:
                     case "end":
-                      return _context4.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee4, this);
+              }, _callee6, this);
             }));
           }
         }, {
           key: "presentLoading",
           value: function presentLoading() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
-                      _context5.next = 2;
+                      _context7.next = 2;
                       return this.loadingCtrl.create({
                         cssClass: 'my-custom-class',
                         message: 'Cargando...'
                       });
 
                     case 2:
-                      this.loading = _context5.sent;
-                      _context5.next = 5;
+                      this.loading = _context7.sent;
+                      _context7.next = 5;
                       return this.loading.present();
 
                     case 5:
                     case "end":
-                      return _context5.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee5, this);
+              }, _callee7, this);
             }));
           }
         }, {
