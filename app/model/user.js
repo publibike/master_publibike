@@ -8,6 +8,7 @@ class User {
             id: dataEmpresa._id,
             nombre: dataEmpresa.nombre
         }
+        data.usuario = Number.parseInt(data.usuario);
         data.riesgo_COVID = 0;
         data.recorridos = [];
         data.reconocimientos = [];
