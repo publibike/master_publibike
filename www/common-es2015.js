@@ -336,11 +336,17 @@ let ApiPublibikeMarcaService = class ApiPublibikeMarcaService {
     getUserRoutes(id) {
         return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/recorridos`).then(response => response.json());
     }
-    getUserCampaings() {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/login`).then(response => response.json());
+    getUserCampaings(id) {
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/campanas`).then(response => response.json());
     }
     getCampaings() {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/login`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/campanas`).then(response => response.json());
+    }
+    getCampaing(id) {
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/campana/${id}`).then(response => response.json());
+    }
+    getCompanies() {
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/empresas`).then(response => response.json());
     }
     sendRute(ruteData) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -376,6 +382,38 @@ let ApiPublibikeMarcaService = class ApiPublibikeMarcaService {
             return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}`, options).then(response => {
                 console.log(response.text());
             }).catch(error => console.log(error));
+        });
+    }
+    registerCampaing(campData) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const user = yield this.storage.get("userData").then(res => res);
+            console.log(campData);
+            const id = user._id;
+            console.log(id);
+            const options = {
+                method: 'PUT',
+                body: JSON.stringify(campData),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            };
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/campana`, options).then(response => response.text()).catch(error => console.log(error));
+        });
+    }
+    updateActualCampaing(campData) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const user = yield this.storage.get("userData").then(res => res);
+            console.log(campData);
+            const id = user._id;
+            console.log(id);
+            const options = {
+                method: 'PUT',
+                body: JSON.stringify(campData),
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                })
+            };
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/actualcampana`, options).then(response => response.text()).catch(error => console.log(error));
         });
     }
 };
@@ -518,6 +556,7 @@ let AuthenticateService = class AuthenticateService {
             console.log(userData);
             const options = {
                 method: 'POST',
+                mode: 'no-cors',
                 body: JSON.stringify(userData),
                 headers: new Headers({
                     'Content-Type': 'application/json'

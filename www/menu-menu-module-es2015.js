@@ -41,7 +41,7 @@ const routes = [
             },
             {
                 path: 'campaings',
-                loadChildren: () => __webpack_require__.e(/*! import() | campaings-campaings-module */ "campaings-campaings-module").then(__webpack_require__.bind(null, /*! ../campaings/campaings.module */ "8kny")).then(m => m.CampaingsPageModule)
+                loadChildren: () => Promise.all(/*! import() | campaings-campaings-module */[__webpack_require__.e("common"), __webpack_require__.e("campaings-campaings-module")]).then(__webpack_require__.bind(null, /*! ../campaings/campaings.module */ "8kny")).then(m => m.CampaingsPageModule)
             },
             {
                 path: 'rutes',
@@ -53,11 +53,11 @@ const routes = [
             },
             {
                 path: 'start-campaing',
-                loadChildren: () => __webpack_require__.e(/*! import() | start-campaing-start-campaing-module */ "start-campaing-start-campaing-module").then(__webpack_require__.bind(null, /*! ../start-campaing/start-campaing.module */ "UYBe")).then(m => m.StartCampaingPageModule)
+                loadChildren: () => Promise.all(/*! import() | start-campaing-start-campaing-module */[__webpack_require__.e("common"), __webpack_require__.e("start-campaing-start-campaing-module")]).then(__webpack_require__.bind(null, /*! ../start-campaing/start-campaing.module */ "UYBe")).then(m => m.StartCampaingPageModule)
             },
             {
                 path: 'subscribe-campaing',
-                loadChildren: () => __webpack_require__.e(/*! import() | subscribe-campaing-subscribe-campaing-module */ "subscribe-campaing-subscribe-campaing-module").then(__webpack_require__.bind(null, /*! ../subscribe-campaing/subscribe-campaing.module */ "Q3yt")).then(m => m.SubscribeCampaingPageModule)
+                loadChildren: () => Promise.all(/*! import() | subscribe-campaing-subscribe-campaing-module */[__webpack_require__.e("common"), __webpack_require__.e("subscribe-campaing-subscribe-campaing-module")]).then(__webpack_require__.bind(null, /*! ../subscribe-campaing/subscribe-campaing.module */ "Q3yt")).then(m => m.SubscribeCampaingPageModule)
             },
             {
                 path: "",
@@ -142,12 +142,10 @@ const routes = [
             {
                 path: 'profile',
                 loadChildren: () => Promise.all(/*! import() | profile-profile-module */[__webpack_require__.e("common"), __webpack_require__.e("profile-profile-module")]).then(__webpack_require__.bind(null, /*! ../profile/profile.module */ "cRhG")).then(m => m.ProfilePageModule)
-                // loadChildren: "../profile/profile.module#ProfilePageModule"
             },
             {
                 path: 'campaings',
-                loadChildren: () => __webpack_require__.e(/*! import() | campaings-campaings-module */ "campaings-campaings-module").then(__webpack_require__.bind(null, /*! ../campaings/campaings.module */ "8kny")).then(m => m.CampaingsPageModule)
-                // loadChildren: "../campaings/campaings.module#CampaingsPageModule"
+                loadChildren: () => Promise.all(/*! import() | campaings-campaings-module */[__webpack_require__.e("common"), __webpack_require__.e("campaings-campaings-module")]).then(__webpack_require__.bind(null, /*! ../campaings/campaings.module */ "8kny")).then(m => m.CampaingsPageModule)
             },
             {
                 path: 'rutes',
@@ -156,15 +154,14 @@ const routes = [
             {
                 path: 'rute',
                 loadChildren: () => Promise.all(/*! import() | rute-rute-module */[__webpack_require__.e("common"), __webpack_require__.e("rute-rute-module")]).then(__webpack_require__.bind(null, /*! ../rute/rute.module */ "4+Gx")).then(m => m.RutePageModule)
-                // loadChildren: "../rute/rute.module#RutePageModule"
             },
             {
-                path: 'start-campaing',
-                loadChildren: () => __webpack_require__.e(/*! import() | start-campaing-start-campaing-module */ "start-campaing-start-campaing-module").then(__webpack_require__.bind(null, /*! ../start-campaing/start-campaing.module */ "UYBe")).then(m => m.StartCampaingPageModule)
+                path: 'start-campaing/:id',
+                loadChildren: () => Promise.all(/*! import() | start-campaing-start-campaing-module */[__webpack_require__.e("common"), __webpack_require__.e("start-campaing-start-campaing-module")]).then(__webpack_require__.bind(null, /*! ../start-campaing/start-campaing.module */ "UYBe")).then(m => m.StartCampaingPageModule)
             },
             {
-                path: 'subscribe-campaing',
-                loadChildren: () => __webpack_require__.e(/*! import() | subscribe-campaing-subscribe-campaing-module */ "subscribe-campaing-subscribe-campaing-module").then(__webpack_require__.bind(null, /*! ../subscribe-campaing/subscribe-campaing.module */ "Q3yt")).then(m => m.SubscribeCampaingPageModule)
+                path: 'subscribe-campaing/:id',
+                loadChildren: () => Promise.all(/*! import() | subscribe-campaing-subscribe-campaing-module */[__webpack_require__.e("common"), __webpack_require__.e("subscribe-campaing-subscribe-campaing-module")]).then(__webpack_require__.bind(null, /*! ../subscribe-campaing/subscribe-campaing.module */ "Q3yt")).then(m => m.SubscribeCampaingPageModule)
             },
             {
                 path: 'intro',

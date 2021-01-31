@@ -19,14 +19,16 @@ export class HomePage {
     ganancia_total: number,
     km_total: number,
     cal_total: number,
-    co2_total: number
+    co2_total: number,
+    campanas: any
   } = {
       nombre: "",
       apellido: "",
       ganancia_total: 0,
       km_total: 0,
       cal_total: 0,
-      co2_total: 0
+      co2_total: 0,
+      campanas: []
     };
 
   constructor(
@@ -42,9 +44,11 @@ export class HomePage {
     console.log("en home")
     this.presentLoading()
     this.userId = await this.storage.get("userId");
-    this.apiService.getUserData(this.userId._id).then(async (res) => {
+    this.user = await this.apiService.getUserData(this.userId._id)
+    await this.apiService.getUserData(this.userId._id).then(async (res) => {
       this.storage.set("userData", res);
       this.user = await this.storage.get("userData");
+      console.log(res)
       this.loading.dismiss();
     })
 
@@ -55,6 +59,26 @@ export class HomePage {
     //     .catch(err => console.log('Error launching dialer', err));    
     // })
   }
+  // async ionViewWillLeave() {
+  //   console.log("en home")
+  //   this.presentLoading()
+  //   this.userId = await this.storage.get("userId");
+  //   this.user = await this.apiService.getUserData(this.userId._id)
+  //   this.apiService.getUserData(this.userId._id).then(async (res) => {
+  //     this.storage.set("userData", res);
+  //     this.user = await this.storage.get("userData");
+  //     console.log(res)
+  //     this.loading.dismiss();
+  //   })
+
+
+  //   // this.backgroundMode.enable();
+  //   // this.backgroundMode.on("activate").subscribe(() => {
+  //   //   this.callNumber.callNumber('3507935088', true)
+  //   //     .then(res => console.log('Launched dialer!', res))
+  //   //     .catch(err => console.log('Error launching dialer', err));    
+  //   // })
+  // }
 
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({

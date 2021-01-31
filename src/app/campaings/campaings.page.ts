@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavComponentWithProps, NavController } from '@ionic/angular';
+import { LoadingController, NavComponentWithProps, NavController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { ApiPublibikeMarcaService } from '../services/api-publibike-marca.service';
 
 @Component({
   selector: 'app-campaings',
@@ -8,14 +10,53 @@ import { NavComponentWithProps, NavController } from '@ionic/angular';
 })
 export class CampaingsPage implements OnInit {
 
-  constructor(private navCtrl: NavController) { }
+  loading: any;
+  campaings: any = [];
+  myCampaings: any = [];
+  companies: any = [];
+  slideOps = {
+    initialSlide: 2,
+    slidesPerView: 2,
+    centeredSlides: false,
+    speed: 400
+  };
+
+  constructor(
+    private storage: Storage,
+    private loadingCtrl: LoadingController,
+    private apiService: ApiPublibikeMarcaService,
+    private navCtrl: NavController
+  ) { }
+
+  async ionViewDidEnter() {
+    this.presentLoading();
+    let user = await this.storage.get("userId")
+    user = await this.apiService.getUserData(user._id)
+    // this.campaings = await this.apiService.getCampaings()
+    this.campaings = user.campanas
+    console.log(this.campaings)
+    this.companies = await this.apiService.getCompanies()
+    console.log(this.companies)
+    this.loading.dismiss();
+
+  }
 
   ngOnInit() {
   }
-  goToSubscribeCampaing(){
-    this.navCtrl.navigateForward("menu/subscribe-campaing");
+
+  async presentLoading() {
+    this.loading = await this.loadingCtrl.create({
+      cssClass: 'my-custom-class',
+      message: 'Cargando...'
+    });
+    await this.loading.present();
   }
-  goToStartCampaing(){
-    this.navCtrl.navigateForward("menu/start-campaing");
+  goToSubscribeCampaing(id) {
+    console.log(id)
+    this.navCtrl.navigateForward(["menu/subscribe-campaing", id]);
+  }
+  goToStartCampaing(id) {
+    console.log(id)
+    this.navCtrl.navigateForward(["menu/start-campaing", id]);
   }
 }

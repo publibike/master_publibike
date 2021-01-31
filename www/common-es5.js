@@ -496,15 +496,29 @@
           }
         }, {
           key: "getUserCampaings",
-          value: function getUserCampaings() {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login")).then(function (response) {
+          value: function getUserCampaings(id) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/campanas")).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getCampaings",
           value: function getCampaings() {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/campanas")).then(function (response) {
+              return response.json();
+            });
+          }
+        }, {
+          key: "getCampaing",
+          value: function getCampaing(id) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/campana/").concat(id)).then(function (response) {
+              return response.json();
+            });
+          }
+        }, {
+          key: "getCompanies",
+          value: function getCompanies() {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/empresas")).then(function (response) {
               return response.json();
             });
           }
@@ -594,6 +608,94 @@
                   }
                 }
               }, _callee3, this);
+            }));
+          }
+        }, {
+          key: "registerCampaing",
+          value: function registerCampaing(campData) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var user, id, options;
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.next = 2;
+                      return this.storage.get("userData").then(function (res) {
+                        return res;
+                      });
+
+                    case 2:
+                      user = _context4.sent;
+                      console.log(campData);
+                      id = user._id;
+                      console.log(id);
+                      options = {
+                        method: 'PUT',
+                        body: JSON.stringify(campData),
+                        headers: new Headers({
+                          'Content-Type': 'application/json'
+                        })
+                      };
+                      _context4.next = 9;
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/campana"), options).then(function (response) {
+                        return response.text();
+                      })["catch"](function (error) {
+                        return console.log(error);
+                      });
+
+                    case 9:
+                      return _context4.abrupt("return", _context4.sent);
+
+                    case 10:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
+            }));
+          }
+        }, {
+          key: "updateActualCampaing",
+          value: function updateActualCampaing(campData) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var user, id, options;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
+                      return this.storage.get("userData").then(function (res) {
+                        return res;
+                      });
+
+                    case 2:
+                      user = _context5.sent;
+                      console.log(campData);
+                      id = user._id;
+                      console.log(id);
+                      options = {
+                        method: 'PUT',
+                        body: JSON.stringify(campData),
+                        headers: new Headers({
+                          'Content-Type': 'application/json'
+                        })
+                      };
+                      _context5.next = 9;
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/actualcampana"), options).then(function (response) {
+                        return response.text();
+                      })["catch"](function (error) {
+                        return console.log(error);
+                      });
+
+                    case 9:
+                      return _context5.abrupt("return", _context5.sent);
+
+                    case 10:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5, this);
             }));
           }
         }]);
@@ -789,18 +891,18 @@
         _createClass(AuthenticateService, [{
           key: "loginUser",
           value: function loginUser(credential) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var user, options;
-              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context4.prev = _context4.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context4.prev = 0;
-                      _context4.next = 3;
+                      _context6.prev = 0;
+                      _context6.next = 3;
                       return this.storage.get("user");
 
                     case 3:
-                      user = _context4.sent;
+                      user = _context6.sent;
                       options = {
                         method: 'POST',
                         body: JSON.stringify(credential),
@@ -808,54 +910,55 @@
                           'Content-Type': 'application/json'
                         })
                       };
-                      return _context4.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login"), options).then(function (response) {
+                      return _context6.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login"), options).then(function (response) {
                         return response.json();
                       }));
 
                     case 8:
-                      _context4.prev = 8;
-                      _context4.t0 = _context4["catch"](0);
-                      return _context4.abrupt("return", _context4.t0);
+                      _context6.prev = 8;
+                      _context6.t0 = _context6["catch"](0);
+                      return _context6.abrupt("return", _context6.t0);
 
                     case 11:
                     case "end":
-                      return _context4.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee4, this, [[0, 8]]);
+              }, _callee6, this, [[0, 8]]);
             }));
           }
         }, {
           key: "registerUser",
           value: function registerUser(userData) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
               var options;
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
                       console.log(userData);
                       options = {
                         method: 'POST',
+                        mode: 'no-cors',
                         body: JSON.stringify(userData),
                         headers: new Headers({
                           'Content-Type': 'application/json'
                         })
                       };
-                      _context5.next = 4;
+                      _context7.next = 4;
                       return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/registerUser"), options).then(function (response) {
                         return response;
                       });
 
                     case 4:
-                      return _context5.abrupt("return", _context5.sent);
+                      return _context7.abrupt("return", _context7.sent);
 
                     case 5:
                     case "end":
-                      return _context5.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee5);
+              }, _callee7);
             }));
           }
         }]);
@@ -953,21 +1056,21 @@
       var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
 
       var openURL = /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(url, ev, direction, animation) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(url, ev, direction, animation) {
           var router;
-          return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          return regeneratorRuntime.wrap(function _callee8$(_context8) {
             while (1) {
-              switch (_context6.prev = _context6.next) {
+              switch (_context8.prev = _context8.next) {
                 case 0:
                   if (!(url != null && url[0] !== '#' && !SCHEME.test(url))) {
-                    _context6.next = 5;
+                    _context8.next = 5;
                     break;
                   }
 
                   router = document.querySelector('ion-router');
 
                   if (!router) {
-                    _context6.next = 5;
+                    _context8.next = 5;
                     break;
                   }
 
@@ -975,17 +1078,17 @@
                     ev.preventDefault();
                   }
 
-                  return _context6.abrupt("return", router.push(url, direction, animation));
+                  return _context8.abrupt("return", router.push(url, direction, animation));
 
                 case 5:
-                  return _context6.abrupt("return", false);
+                  return _context8.abrupt("return", false);
 
                 case 6:
                 case "end":
-                  return _context6.stop();
+                  return _context8.stop();
               }
             }
-          }, _callee6);
+          }, _callee8);
         }));
 
         return function openURL(_x6, _x7, _x8, _x9) {

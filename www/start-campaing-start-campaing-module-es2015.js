@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div class=\"title-publibike degrade-orange\">\n    <h2>INICIANDO NUEVO RECORRIDO</h2>\n  </div>\n  <h3 class=\"title-campaing\">\n    Vas a iniciar tu recorrido con la siguiente campaña:\n  </h3>\n  <div class=\"row logo-campaing\">\n      <div class=\"column\">\n        <img src=\"assets/img/logo-bancolombia.jpg\">\n      </div>\n  </div>\n  <div class=\"row begin-campaing\">\n      <div class=\"column\">\n        <div class=\"campaing-info\">\n          <h4>Campaña <small>\"Mira los ahorros crecer\"</small></h4>\n        </div>\n      </div>\n      <div class=\"column\">\n        <div class=\"campaing-info\">\n          <h4>Zonas <small>Calle 72 - Calle 93</small></h4>\n        </div>\n      </div>\n      <div class=\"column-full\">\n        <div class=\"campaing-info\">\n          <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>\n        </div>\n      </div>\n      <div class=\"column\">\n        <h4>Pago por Km Hora Valle (9am - 3pm)<small>$2.000</small></h4>\t        \t\t\n      </div>\n      <div class=\"column\">\n        <h4>Pago por Km - Hora Pico (7am - 9am / 3pm - 7pm)<small>$2.000</small></h4>\n      </div>\n  </div>\n  <!-- <h3 class=\"title-campaing\" style=\"font-weight: bold\">\n    Sube la foto de tu bici, con la publicidad de la campaña\n  </h3>\n  <div class=\"row photo-campaing\">\n      <i class=\"icon-camera\">\n        \n      </i>\n  </div> -->\n  <!-- <h3 class=\"title-rute\" style=\"font-weight: bold\">\n    Tu recorrido iniciará en:\n    <small>Calle 72 # 15 - 24</small>\n </h3> -->\n <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"goToRute()\">ESTOY LISTO</ion-button>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"title-publibike degrade-orange\">\n    <h2>INICIANDO NUEVO RECORRIDO</h2>\n  </div>\n  <h3 class=\"title-campaing\">\n    Vas a iniciar tu recorrido con la siguiente campaña:\n  </h3>\n  <div class=\"row logo-campaing\" *ngIf=\"campaing\">\n    <div class=\"column\">\n      <img src=\"{{campaing.imagen}}\">\n    </div>\n  </div>\n  <div class=\"row begin-campaing\">\n    <div class=\"column\">\n      <div class=\"campaing-info\">\n        <h4>Campaña <small>{{campaing.nombre}}</small></h4>\n      </div>\n    </div>\n    <div class=\"column\">\n      <div class=\"campaing-info\">\n        <h4>Zonas <small> {{campaing.zona}}</small></h4>\n      </div>\n    </div>\n    <div class=\"column-full\">\n      <div class=\"campaing-info\">\n        <h4>Duración <small>{{campaing.fecha_inicio}} - {{campaing.fecha_final}}</small></h4>\n      </div>\n    </div>\n    <div class=\"column\">\n      <h4>Pago por Km <small>{{campaing.pago_km}}</small></h4>\n    </div>\n  </div>\n  <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"goToRute()\">ESTOY LISTO\n  </ion-button>\n\n</ion-content>");
 
 /***/ }),
 
@@ -119,24 +119,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _raw_loader_start_campaing_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./start-campaing.page.html */ "/0MB");
 /* harmony import */ var _start_campaing_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./start-campaing.page.scss */ "nwAU");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "8Y7J");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "iInd");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
+/* harmony import */ var _services_api_publibike_marca_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/api-publibike-marca.service */ "Q5Ll");
+
+
+
 
 
 
 
 
 let StartCampaingPage = class StartCampaingPage {
-    constructor(navCtrl) {
+    constructor(navCtrl, activeRoute, storage, apiService, loadingCtrl) {
         this.navCtrl = navCtrl;
+        this.activeRoute = activeRoute;
+        this.storage = storage;
+        this.apiService = apiService;
+        this.loadingCtrl = loadingCtrl;
+        this.params = null;
+        this.campaing = {};
     }
-    ngOnInit() {
+    ionViewDidEnter() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            this.params = this.activeRoute.snapshot.paramMap.get('id');
+            console.log(this.params);
+            let user = yield this.storage.get("userId");
+            user = yield this.apiService.getUserData(user._id);
+            let result = user.campanas.filter((item) => {
+                return item.id === this.params;
+            });
+            this.campaing = result[0];
+        });
     }
     goToRute() {
-        this.navCtrl.navigateForward("menu/rute");
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            yield this.apiService.updateActualCampaing(this.campaing);
+            this.navCtrl.navigateForward("menu/rute");
+        });
     }
 };
 StartCampaingPage.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["NavController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"] },
+    { type: _services_api_publibike_marca_service__WEBPACK_IMPORTED_MODULE_7__["ApiPublibikeMarcaService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["LoadingController"] }
 ];
 StartCampaingPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

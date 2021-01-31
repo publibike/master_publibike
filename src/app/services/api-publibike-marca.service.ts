@@ -32,13 +32,23 @@ export class ApiPublibikeMarcaService {
       response => response.json()
     )
   }
-  getUserCampaings() {
-    return fetch(`${environment.publibikeApi}/api/marca/movil/login`).then(
+  getUserCampaings(id) {
+    return fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}/campanas`).then(
       response => response.json()
     )
   }
   getCampaings() {
-    return fetch(`${environment.publibikeApi}/api/marca/movil/login`).then(
+    return fetch(`${environment.publibikeApi}/api/marca/movil/campanas`).then(
+      response => response.json()
+    )
+  }
+  getCampaing(id) {
+    return fetch(`${environment.publibikeApi}/api/marca/movil/campana/${id}`).then(
+      response => response.json()
+    )
+  }
+  getCompanies() {
+    return fetch(`${environment.publibikeApi}/api/marca/movil/empresas`).then(
       response => response.json()
     )
   }
@@ -79,6 +89,40 @@ export class ApiPublibikeMarcaService {
       response => {
         console.log(response.text())
       }
+    ).catch(error => console.log(error))
+  }
+  async registerCampaing(campData){
+    const user = await this.storage.get("userData").then(res => res);
+    console.log(campData)
+    const id = user._id
+    console.log(id);
+    const options = {
+      method: 'PUT',
+      body: JSON.stringify(campData),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return await fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}/campana`, options).then(
+      response => response.text()
+    ).catch(error => console.log(error))
+  }
+  async updateActualCampaing(campData){
+    const user = await this.storage.get("userData").then(res => res);
+    console.log(campData)
+    const id = user._id
+    console.log(id);
+    const options = {
+      method: 'PUT',
+      body: JSON.stringify(campData),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return await fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}/actualcampana`, options).then(
+      response => response.text()
     ).catch(error => console.log(error))
   }
 }

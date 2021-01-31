@@ -450,9 +450,9 @@ img{
 
 .column.campaing{
 	background-color: #fff;
-	margin: 5px;
-	padding: 10px;
-	width: 46%;
+	/* margin: 5px;
+	padding: 10px; */
+	width: 90%;
 	border-radius: 20px;
 	display: inline-block;
 	vertical-align: top;
@@ -460,6 +460,7 @@ img{
 .column.campaing h4{
 	margin: 10px 0px;
 	color: #001434;
+	text-align: left;
 }
 
 .column.campaing h4 small{

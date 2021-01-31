@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"logo-publibike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <div class=\"title-publibike\">\n    <h2>CAMPAÑAS</h2>\n  </div>\n  <h3 class=\"title-campaing\">\n    Tus Campañas\n  </h3>\n  <div class=\"row\">\n    <div class=\"column campaing\">\n      <div class=\"state-campaing active\">\n        <h3>ACTIVA</h3>\n      </div>\n      <img src=\"assets/img/logo-bancolombia.jpg\">\n      <div class=\"campaing-info\">\n        <h4>Campaña <small>\"Mira los ahorros crecer\"</small></h4>\n        <h4>Pago por Km <small>$2.000</small></h4>\n        <h4>Zonas <small>Calle 72 - Calle 93</small></h4>\n        <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>\n        <ion-button color=\"transparent\" full outline class=\"start-campaing\" (click)=\"goToStartCampaing()\">Iniciar\n          Campaña</ion-button>\n      </div>\n    </div>\n    <div class=\"column campaing\">\n      <div class=\"state-campaing no-disponible\">\n        <h3>NO DISPONIBLE</h3>\n      </div>\n      <img src=\"assets/img/logo-homecenter.jpg\">\n      <div class=\"campaing-info\">\n        <h4>Campaña <small>\"Nuevo año, ahorra más\"</small></h4>\n        <h4>Pago por Km <small>$1.500</small></h4>\n        <h4>Zonas <small>Calle 80 a Calle 72</small></h4>\n        <h4>Duración <small>10/01/2020 - 14/01/2020</small></h4>\n      </div>\n    </div>\n    <h3 class=\"title-campaing\">\n      Otras campañas disponibles\n    </h3>\n    <div class=\"row\">\n      <div class=\"column campaing\">\n        <div class=\"state-campaing warning-date\">\n          <h3>Terminará Pronto</h3>\n        </div>\n        <img src=\"assets/img/logo-banco-de-bogota.jpg\">\n        <div class=\"campaing-info\">\n          <h4>Campaña <small>\"Conocer tu turno virtual\"</small></h4>\n          <h4>Pago por Km <small>$2.000</small></h4>\n          <h4>Zonas <small>Calle 72 - Calle 93</small></h4>\n          <h4 class=\"warning-date\">Duración <small>15/01/20220 - 24/01/2020</small></h4>\n          <h4>Cupos Disponibles <small>10 Ciclistas</small></h4>\n          <ion-button color=\"transparent\" full outline class=\"start-campaing\" (click)=\"goToStartCampaing()\">Iniciar\n            Campaña</ion-button>\n        </div>\n      </div>\n      <div class=\"column campaing\">\n        <div class=\"state-campaing warning-quotas\">\n          <h3>Pocos Cupos</h3>\n        </div>\n        <img src=\"assets/img/logo-titan.jpg\">\n        <div class=\"campaing-info\">\n          <h4>Campaña <small>\"Un Ambiente Grandioso\"</small></h4>\n          <h4>Pago por Km <small>$1.500</small></h4>\n          <h4>Zonas <small>Calle 80 - Calle 72</small></h4>\n          <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>\n          <h4 class=\"warning-quotas\">Cupos Disponibles <small>10 Ciclistas</small></h4>\n          <ion-button color=\"transparent\" full outline class=\"suscribe-campaing\" (click)=\"goToSubscribeCampaing()\">\n            Suscribir Campaña</ion-button>\n        </div>\n      </div>\n      <div class=\"column campaing\">\n        <div class=\"state-campaing active\">\n          <h3>Activa</h3>\n        </div>\n        <img src=\"assets/img/logo-jumbo.jpg\">\n        <div class=\"campaing-info\">\n          <h4>Campaña <small>\"Ahora el finde es más largo\"</small></h4>\n          <h4>Pago por Km <small>$1.500</small></h4>\n          <h4>Zonas <small>Calle 80 - Calle 72</small></h4>\n          <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>\n          <h4>Cupos Disponibles <small>10 Ciclistas</small></h4>\n          <ion-button color=\"transparent\" full outline class=\"suscribe-campaing\" (click)=\"goToSubscribeCampaing()\">\n            Suscribir Campaña</ion-button>\n        </div>\n      </div>\n      <div class=\"column campaing\">\n        <div class=\"state-campaing warning-quotas\">\n          <h3>Pocos Cupos</h3>\n        </div>\n        <img src=\"assets/img/logo-toyota.jpg\">\n        <div class=\"campaing-info\">\n          <h4>Campaña <small>“Nuevo Corolla 2020” </small></h4>\n          <h4>Pago por Km <small>$1.500</small></h4>\n          <h4>Zonas <small>Calle 100 - Calle 116</small></h4>\n          <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>\n          <h4 class=\"warning-quotas\">Cupos Disponibles <small>2 Ciclistas</small></h4>\n          <ion-button color=\"transparent\" full outline class=\"suscribe-campaing\" (click)=\"goToSubscribeCampaing()\">\n            Suscribir Campaña</ion-button>\n        </div>\n      </div>\n    </div>\n  </div>\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"logo-publibike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <div class=\"title-publibike\">\n    <h2>CAMPAÑAS</h2>\n  </div>\n  <h3 class=\"title-campaing\">\n    Tus Campañas\n  </h3>\n  <div class=\"row\">\n    <ion-slides [options]=\"slideOps\" *ngIf=\"campaings.length\">\n      <ion-slide *ngFor=\"let campaing of campaings\">\n        <div class=\"column campaing\">\n          <div class=\"state-campaing active\">\n            <h3>{{campaing.estado}}</h3>\n          </div>\n          <img src=\"{{campaing.imagen}}\">\n          <div class=\"campaing-info\">\n            <h4>Campaña <small>{{campaing.nombre}}</small></h4>\n            <h4>Pago por Km <small>{{campaing.pago_km}}</small></h4>\n            <h4>Zonas <small>{{campaing.zona}}</small></h4>\n            <h4>Duración <small>{{campaing.fecha_inicio}} - {{campaing.fecha_final}}</small></h4>\n            <div *ngIf=\"campaing.estado=='Activo'\">\n              <ion-button color=\"transparent\" full outline class=\"start-campaing\"\n                (click)=\"goToStartCampaing(campaing.id)\">Iniciar\n                Campaña</ion-button>\n            </div>\n            <div *ngIf=\"campaing.estado=='No_activo'\">\n              <ion-button disabled=\"true\" color=\"transparent\" full outline class=\"start-campaing\"\n                (click)=\"goToStartCampaing(campaing.id)\">Iniciar\n                Campaña</ion-button>\n            </div>\n          </div>\n        </div>\n      </ion-slide>\n    </ion-slides>\n    <div *ngIf=\"campaings.length===0\">\n      <h4 class=\"campaing-info\">No tienes campañas registradas</h4>\n    </div>\n    <h3 class=\"title-campaing\">Campañas disponibles</h3>\n    <div *ngIf=\"companies.length\">\n      <div *ngFor=\"let company of companies\">\n        <div class=\"row\">\n          <h3 class=\"title-campaing\">{{company.nombre}}</h3>\n          <ion-slides [options]=\"slideOps\" *ngIf=\"company.campanas.length\">\n            <ion-slide *ngFor=\"let campaing of company.campanas\">\n              <div class=\"column campaing\">\n                <div class=\"state-campaing active\">\n                  <h3>{{campaing.estado}}</h3>\n                </div>\n                <img src=\"{{campaing.imagen}}\">\n                <div class=\"campaing-info\">\n                  <h4>Campaña <small>{{campaing.nombre}}</small></h4>\n                  <h4>Pago por Km <small>{{campaing.pago_km}}</small></h4>\n                  <h4>Zonas <small>{{campaing.zona}}</small></h4>\n                  <h4>Duración <small>{{campaing.fecha_inicio}} - {{campaing.fecha_final}}</small></h4>\n                  <div *ngIf=\"campaing.estado=='Activo'\">\n                    <ion-button color=\"transparent\" full outline class=\"start-campaing\"\n                      (click)=\"goToSubscribeCampaing(campaing.id)\">\n                      Suscribir Campaña</ion-button>\n                  </div>\n                  <div *ngIf=\"campaing.estado=='No_activo'\">\n                    <ion-button disabled=\"true\" color=\"transparent\" full outline class=\"start-campaing\"\n                      (click)=\"goToSubscribeCampaing(campaing.id)\">\n                      Suscribir Campaña</ion-button>\n                  </div>\n                </div>\n              </div>\n            </ion-slide>\n          </ion-slides>\n          <div *ngIf=\"company.campanas.length===0\">\n            <h4 class=\"campaing-info\">No existen campañas registradas</h4>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div *ngIf=\"companies.length===0\">\n      <h4 class=\"campaing-info\">Aun no hay empresas registradas</h4>\n    </div>\n  </div>\n</ion-content>";
       /***/
     },
 
@@ -42,7 +42,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NhbXBhaW5ncy9jYW1wYWluZ3MucGFnZS5zY3NzIn0= */";
+      __webpack_exports__["default"] = "h4 {\n  color: black;\n  text-align: center;\n}\n\nh3 {\n  margin-left: 2%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FtcGFpbmdzL2NhbXBhaW5ncy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFBO0VBQ0Esa0JBQUE7QUFDSjs7QUFDQTtFQUNJLGVBQUE7QUFFSiIsImZpbGUiOiJzcmMvYXBwL2NhbXBhaW5ncy9jYW1wYWluZ3MucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDR7XHJcbiAgICBjb2xvcjpibGFjaztcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5oM3tcclxuICAgIG1hcmdpbi1sZWZ0OiAyJTtcclxufSJdfQ== */";
       /***/
     },
 
@@ -228,26 +228,118 @@
       var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! @ionic/angular */
       "sZkV");
+      /* harmony import */
+
+
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @ionic/storage */
+      "xgBC");
+      /* harmony import */
+
+
+      var _services_api_publibike_marca_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../services/api-publibike-marca.service */
+      "Q5Ll");
 
       var CampaingsPage = /*#__PURE__*/function () {
-        function CampaingsPage(navCtrl) {
+        function CampaingsPage(storage, loadingCtrl, apiService, navCtrl) {
           _classCallCheck(this, CampaingsPage);
 
+          this.storage = storage;
+          this.loadingCtrl = loadingCtrl;
+          this.apiService = apiService;
           this.navCtrl = navCtrl;
+          this.campaings = [];
+          this.myCampaings = [];
+          this.companies = [];
+          this.slideOps = {
+            initialSlide: 2,
+            slidesPerView: 2,
+            centeredSlides: false,
+            speed: 400
+          };
         }
 
         _createClass(CampaingsPage, [{
+          key: "ionViewDidEnter",
+          value: function ionViewDidEnter() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              var user;
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      this.presentLoading();
+                      _context.next = 3;
+                      return this.storage.get("userId");
+
+                    case 3:
+                      user = _context.sent;
+                      _context.next = 6;
+                      return this.apiService.getUserData(user._id);
+
+                    case 6:
+                      user = _context.sent;
+                      // this.campaings = await this.apiService.getCampaings()
+                      this.campaings = user.campanas;
+                      console.log(this.campaings);
+                      _context.next = 11;
+                      return this.apiService.getCompanies();
+
+                    case 11:
+                      this.companies = _context.sent;
+                      console.log(this.companies);
+                      this.loading.dismiss();
+
+                    case 14:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
           key: "ngOnInit",
           value: function ngOnInit() {}
         }, {
+          key: "presentLoading",
+          value: function presentLoading() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.loadingCtrl.create({
+                        cssClass: 'my-custom-class',
+                        message: 'Cargando...'
+                      });
+
+                    case 2:
+                      this.loading = _context2.sent;
+                      _context2.next = 5;
+                      return this.loading.present();
+
+                    case 5:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
           key: "goToSubscribeCampaing",
-          value: function goToSubscribeCampaing() {
-            this.navCtrl.navigateForward("menu/subscribe-campaing");
+          value: function goToSubscribeCampaing(id) {
+            console.log(id);
+            this.navCtrl.navigateForward(["menu/subscribe-campaing", id]);
           }
         }, {
           key: "goToStartCampaing",
-          value: function goToStartCampaing() {
-            this.navCtrl.navigateForward("menu/start-campaing");
+          value: function goToStartCampaing(id) {
+            console.log(id);
+            this.navCtrl.navigateForward(["menu/start-campaing", id]);
           }
         }]);
 
@@ -256,6 +348,12 @@
 
       CampaingsPage.ctorParameters = function () {
         return [{
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
+        }, {
+          type: _services_api_publibike_marca_service__WEBPACK_IMPORTED_MODULE_6__["ApiPublibikeMarcaService"]
+        }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]
         }];
       };

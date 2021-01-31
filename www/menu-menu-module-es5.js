@@ -102,9 +102,9 @@
         }, {
           path: 'campaings',
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | campaings-campaings-module */
-            "campaings-campaings-module").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("common"), __webpack_require__.e("campaings-campaings-module")]).then(__webpack_require__.bind(null,
             /*! ../campaings/campaings.module */
             "8kny")).then(function (m) {
               return m.CampaingsPageModule;
@@ -135,9 +135,9 @@
         }, {
           path: 'start-campaing',
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | start-campaing-start-campaing-module */
-            "start-campaing-start-campaing-module").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("common"), __webpack_require__.e("start-campaing-start-campaing-module")]).then(__webpack_require__.bind(null,
             /*! ../start-campaing/start-campaing.module */
             "UYBe")).then(function (m) {
               return m.StartCampaingPageModule;
@@ -146,9 +146,9 @@
         }, {
           path: 'subscribe-campaing',
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | subscribe-campaing-subscribe-campaing-module */
-            "subscribe-campaing-subscribe-campaing-module").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("common"), __webpack_require__.e("subscribe-campaing-subscribe-campaing-module")]).then(__webpack_require__.bind(null,
             /*! ../subscribe-campaing/subscribe-campaing.module */
             "Q3yt")).then(function (m) {
               return m.SubscribeCampaingPageModule;
@@ -280,20 +280,18 @@
             "cRhG")).then(function (m) {
               return m.ProfilePageModule;
             });
-          } // loadChildren: "../profile/profile.module#ProfilePageModule"
-
+          }
         }, {
           path: 'campaings',
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | campaings-campaings-module */
-            "campaings-campaings-module").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("common"), __webpack_require__.e("campaings-campaings-module")]).then(__webpack_require__.bind(null,
             /*! ../campaings/campaings.module */
             "8kny")).then(function (m) {
               return m.CampaingsPageModule;
             });
-          } // loadChildren: "../campaings/campaings.module#CampaingsPageModule"
-
+          }
         }, {
           path: 'rutes',
           loadChildren: function loadChildren() {
@@ -315,25 +313,24 @@
             "4+Gx")).then(function (m) {
               return m.RutePageModule;
             });
-          } // loadChildren: "../rute/rute.module#RutePageModule"
-
+          }
         }, {
-          path: 'start-campaing',
+          path: 'start-campaing/:id',
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | start-campaing-start-campaing-module */
-            "start-campaing-start-campaing-module").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("common"), __webpack_require__.e("start-campaing-start-campaing-module")]).then(__webpack_require__.bind(null,
             /*! ../start-campaing/start-campaing.module */
             "UYBe")).then(function (m) {
               return m.StartCampaingPageModule;
             });
           }
         }, {
-          path: 'subscribe-campaing',
+          path: 'subscribe-campaing/:id',
           loadChildren: function loadChildren() {
-            return __webpack_require__.e(
+            return Promise.all(
             /*! import() | subscribe-campaing-subscribe-campaing-module */
-            "subscribe-campaing-subscribe-campaing-module").then(__webpack_require__.bind(null,
+            [__webpack_require__.e("common"), __webpack_require__.e("subscribe-campaing-subscribe-campaing-module")]).then(__webpack_require__.bind(null,
             /*! ../subscribe-campaing/subscribe-campaing.module */
             "Q3yt")).then(function (m) {
               return m.SubscribeCampaingPageModule;

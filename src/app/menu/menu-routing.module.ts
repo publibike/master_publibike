@@ -17,13 +17,10 @@ const routes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
-        // loadChildren: "../profile/profile.module#ProfilePageModule"
       },
       {
         path: 'campaings',
         loadChildren: () => import('../campaings/campaings.module').then(m => m.CampaingsPageModule)
-        // loadChildren: "../campaings/campaings.module#CampaingsPageModule"
-
       },
       {
         path: 'rutes',
@@ -32,15 +29,14 @@ const routes: Routes = [
       {
         path: 'rute',
         loadChildren: () => import('../rute/rute.module').then(m => m.RutePageModule)
-        // loadChildren: "../rute/rute.module#RutePageModule"
-
+       
       },
       {
-        path: 'start-campaing',
+        path: 'start-campaing/:id',
         loadChildren: () => import('../start-campaing/start-campaing.module').then(m => m.StartCampaingPageModule)
       },
       {
-        path: 'subscribe-campaing',
+        path: 'subscribe-campaing/:id',
         loadChildren: () => import('../subscribe-campaing/subscribe-campaing.module').then(m => m.SubscribeCampaingPageModule)
       },
       {

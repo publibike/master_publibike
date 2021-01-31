@@ -21,6 +21,7 @@ export class RutePage {
 
   @ViewChild('map') mapEl: ElementRef;
   loading: any;
+
   //Variables ArcGIS
   private _zoom = 10;
   private _center: Array<number> = [-74.090923, 4.694939];
@@ -34,9 +35,8 @@ export class RutePage {
   private _pointGC: esri.Point = null;
   private _draw: esri.Draw = null;
   private _distance: esri.DistanceMeasurement2DViewModel = null;
-  // private _geometryEngine: esri.geometryEngine;
 
-
+  //Get y set de variables de ArcGIS
   get mapLoaded(): boolean {
     return this._loaded;
   }
@@ -68,7 +68,9 @@ export class RutePage {
     return this._basemap;
   }
 
+  //Variable de Dirección actual
   currentDirection: String = "";
+
   //Variables del cronometro
   public horas: number = 0;
   public centesimas: number = 0;
@@ -76,12 +78,15 @@ export class RutePage {
   public segundos: number = 0;
   public contador: any;
 
+  //Variables del cronometro que se muestran 
   public _centesimas: string = '00';
   public _minutos: string = '00';
   public _segundos: string = '00';
   public _horas: string = '00';
 
+  //Variable para validar si se esta corriendo 
   isRun = false;
+  //Variable que cambia el estado del botón
   public estado: String = "INICIAR RECORRIDO";
 
   //Array recorrido con las coordenadas
@@ -99,6 +104,7 @@ export class RutePage {
     co2_total: number,
     peso: number,
     campana_actual: {
+      nombre: string,
       pago_km: number
     }
   } = {
@@ -110,7 +116,8 @@ export class RutePage {
       co2_total: 0,
       peso: 0,
       campana_actual: {
-        pago_km: 2000
+        nombre: "",
+        pago_km: 0
       }
     };
 
@@ -120,10 +127,10 @@ export class RutePage {
   fstDirection: any;
   fnlDirection: any;
   time: any;
-  km: any = 0.0;
-  ingresos: any = 0;
-  cal: any = 0;
-  co2: any = 0;
+  km: number = 0.0;
+  ingresos: number = 0;
+  cal: number = 0;
+  co2: number = 0;
 
   constructor(
     private apiService: ApiPublibikeMarcaService,
@@ -132,6 +139,7 @@ export class RutePage {
     private backgroundMode: BackgroundMode
 
   ) { }
+  //Se inicializa el mapa
   async initializedMap() {
     try {
       const [
@@ -275,7 +283,8 @@ export class RutePage {
   async ionViewWillEnter() {
     this.presentLoading();
     this.backgroundMode.enable();
-    this.user = await this.storage.get("userData");
+    const user = await this.storage.get("userData");
+    this.user = await this.apiService.getUserData(user._id)
     this.initializedMap()
       .then(async mapView => {
         console.log("mapView ready: ", this._view.ready);
@@ -297,6 +306,7 @@ export class RutePage {
             }
             let geocoder = this._locator;
             console.log(params)
+            //Se obtiene la dirección actual del GPS
             geocoder.locationToAddress(params)
               .then((response) => {
                 address = response.address;
@@ -313,48 +323,7 @@ export class RutePage {
 
       });
   }
-
-  // async ngOnInit() {
-  //   this.presentLoading();
-  //   this.user = await this.storage.get("userData");
-  //   this.initializedMap()
-  //     .then(async mapView => {
-  //       console.log("mapView ready: ", this._view.ready);
-  //       this._loaded = this._view.ready;
-
-  //       let position = await this._locate.locate();
-  //       console.log("position", position)
-  //       mapView.goTo({
-  //         center: this._locate.locate(),
-  //         zoom: 6,
-  //         tilt: 40
-  //       })
-  //         .then(() => {
-  //           let address;
-  //           this._pointGC.latitude = position.coords.latitude;
-  //           this._pointGC.longitude = position.coords.longitude;
-  //           let params = {
-  //             location: this._pointGC
-  //           }
-  //           let geocoder = this._locator;
-  //           console.log(params)
-  //           geocoder.locationToAddress(params)
-  //             .then((response) => {
-  //               address = response.address;
-  //               console.log(address)
-  //               address = address.split(",")
-  //               this.currentDirection = address[0];
-  //               // this.currentDirection = this.currentDirection.split(",")
-  //               console.log(this.currentDirection)
-  //               this.loading.dismiss();
-
-  //             }).catch(err => console.log(err))
-
-  //         })
-
-  //     });
-  // }
-
+  //Función que inicia la ruta
   async startRute() {
     this.estado = "RECORRIDO INICIADO";
     this.clearWindows();
@@ -372,13 +341,21 @@ export class RutePage {
     let params = {
       location: this._pointGC
     }
+    //cálculo de distancia cuando se esta en movimiento
     this._track.on("track", async (position) => {
       this.recorrido.push(position);
       let ult = this.recorrido.length - 1;
-      if (this.recorrido.length > 1) {
+      if (this.recorrido.length == 1) {
         this.km = this.calculateDistance(this.recorrido[0].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[0].position.coords.latitude, this.recorrido[ult].position.coords.latitude)
+      } else if (this.recorrido.length > 1) {
+        let kmTemporal = this.km
+        this.km = this.calculateDistance(this.recorrido[ult - 1].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[ult - 1].position.coords.latitude, this.recorrido[ult].position.coords.latitude)
+        this.km = kmTemporal + this.km;
+        this.co2 = this.km * 0.3;
+        let totalMin = (parseInt(this._horas) * 60) + (parseInt(this._minutos)) + (parseInt(this._segundos) * 0.0166667);
+        console.log(totalMin)
+        this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
         console.log(this.km)
-        // this.ingresos = this.km * this.user.campana_actual.pago_km;
       }
     })
     let geocoder = this._locator;
@@ -395,6 +372,76 @@ export class RutePage {
 
       }).catch(err => console.log(err))
     //Se inicializa el contador  
+    this.startCounter();
+  }
+  //pausa el conteo
+  pause() {
+    clearInterval(this.contador);
+  }
+  //Funcion que se ejecuta al detener el conteo
+  async stopRute() {
+    try {
+      // this.presentLoading();
+      if (!this.isRun) {
+        this._track.stop();
+        this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
+        //Limpia el contador
+        clearInterval(this.contador);
+
+        this.estado = 'INICIAR RECORRIDO';
+        this.isRun = false;
+        // this.contador = null;
+
+        //se toma la posicion y se geocodifica
+        let address;
+        let position = await this._locate.locate();
+        this._pointGC.latitude = position.coords.latitude;
+        this._pointGC.longitude = position.coords.longitude;
+        let params = {
+          location: this._pointGC
+        }
+        let geocoder = this._locator;
+        //Se obtiene la posición actual
+        geocoder.locationToAddress(params)
+          .then((response) => {
+            address = response.address;
+            console.log(address);
+            address = address.split(",")
+            this.fnlDirection = address[0];
+            this.currentDirection = address[0];
+            console.log(this.currentDirection)
+            let kms = this.km;
+            let co2 = this.co2;
+            let cal = this.cal;
+            let totalMin = (this.horas * 60) + (this.minutos) + (this.segundos * 0.0166667);
+            console.log("totalMin",totalMin)
+            //Se calaulan las calorias
+            this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+            //Se construye la ruta a enviar
+            this.ruteData = {
+              fecha: this.fecha,
+              inicio: this.fstDirection,
+              final: this.fnlDirection,
+              tiempo: this.time,
+              minutos:totalMin,
+              kms: this.km,
+              cal: this.cal,
+              co2: this.co2,
+              ingresos: this.ingresos
+            }
+            console.log(this.ruteData)
+            this.apiService.sendRute(this.ruteData)
+            // .then(()=>{this.loading.dismiss()});
+
+          }).catch(err => console.log(err))
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
+  startCounter() {
     this.contador = setInterval(() => {
       this.centesimas += 1;
       if (this.centesimas < 10) this._centesimas = '0' + this.centesimas;
@@ -421,216 +468,14 @@ export class RutePage {
       }
     }, 100)
   }
-  pause() {
-    clearInterval(this.contador);
-  }
-  async stopRute() {
-    try {
-      // this.presentLoading();
-      if (!this.isRun) {
-        this._track.stop();
-        this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
-        clearInterval(this.contador);
-        // this.minutos = 0;
-        // this.segundos = 0;
-        // this.centesimas = 0;
-        // this.horas = 0;
-
-        // this._centesimas = '00';
-        // this._segundos = '00';
-        // this._minutos = '00';
-        // this._horas = '00';
-
-        this.estado = 'INICIAR RECORRIDO';
-        this.isRun = false;
-        // this.contador = null;
-
-        //se toma la posicion y se geocodifica
-        let address;
-        let position = await this._locate.locate();
-        this._pointGC.latitude = position.coords.latitude;
-        this._pointGC.longitude = position.coords.longitude;
-        let params = {
-          location: this._pointGC
-        }
-        let geocoder = this._locator;
-        geocoder.locationToAddress(params)
-          .then((response) => {
-            address = response.address;
-            console.log(address);
-            address = address.split(",")
-            this.fnlDirection = address[0];
-            this.currentDirection = address[0];
-            console.log(this.currentDirection)
-            let kms = parseFloat(this.km);
-            let co2 = kms * 0.3;
-            this.co2 = co2.toFixed(3);
-            // let usPeso =  parseFloat(this.user.peso);
-            console.log(this.user.peso)
-            console.log(typeof(this.user.peso))
-            let totalMin = (this.horas*60)+(this.minutos)+(this.segundos*0.0166667);
-            this.cal = 0.071*(this.user.peso*2.2) *totalMin;
-            this.ruteData = {
-              fecha: this.fecha,
-              inicio: this.fstDirection,
-              final: this.fnlDirection,
-              tiempo: this.time,
-              kms: this.km,
-              cal: this.cal,
-              co2: this.co2,
-              ingresos: this.ingresos
-            }
-            console.log(this.ruteData)
-            this.apiService.sendRute(this.ruteData)
-            // .then(()=>{this.loading.dismiss()});
-
-          }).catch(err => console.log(err))
-      }
-    } catch (error) {
-      console.log(error)
-    }
-
-  }
-  // drawLine() {
-
-  //   this._view.graphics.removeAll();
-
-  //   // creates and returns an instance of PolyLineDrawAction
-  //   const action = this._draw.create("polyline");
-
-  //   // focus the view to activate keyboard shortcuts for sketching
-  //   this._view.focus();
-
-  //   // listen polylineDrawAction events to give immediate visual feedback
-  //   // to users as the line is being drawn on the view.
-  //   action.on(
-  //     [
-  //       "vertex-add",
-  //       "vertex-remove",
-  //       "cursor-update",
-  //       "redo",
-  //       "undo",
-  //       "draw-complete"
-  //     ],
-  //     this.updateVertices
-  //   );
-
-  // }
-
-  // // Checks if the last vertex is making the line intersect itself.
-  // updateVertices(event) {
-  //   // create a polyline from returned vertices
-  //   if (event.vertices.length > 1) {
-  //     const result = this.createGraphic(event);
-
-  //     // if the last vertex is making the line intersects itself,
-  //     // prevent the events from firing
-  //     if (result.selfIntersects) {
-  //       event.preventDefault();
-  //     }
-  //   }
-  // }
-
-  // // create a new graphic presenting the polyline that is being drawn on the view
-  // createGraphic(event) {
-  //   const vertices = event.vertices;
-  //   this._view.graphics.removeAll();
-
-
-  //   // a graphic representing the polyline that is being drawn
-  //   const graphic = new esri.Graphic({
-  //     geometry: {
-  //       type: "polyline",
-  //       paths: vertices,
-  //       spatialReference: this._view.spatialReference
-  //     },
-  //     symbol: {
-  //       type: "simple-line", // autocasts as new SimpleFillSymbol
-  //       color: [4, 90, 141],
-  //       width: 4,
-  //       cap: "round",
-  //       join: "round"
-  //     }
-  //   });
-
-  //   // check if the polyline intersects itself.
-  //   const intersectingSegment = this.getIntersectingSegment(graphic.geometry);
-
-  //   // Add a new graphic for the intersecting segment.
-  //   if (intersectingSegment) {
-  //     this._view.graphics.addMany([graphic, intersectingSegment]);
-  //   }
-  //   // Just add the graphic representing the polyline if no intersection
-  //   else {
-  //     this._view.graphics.add(graphic);
-  //   }
-
-  //   // return intersectingSegment
-  //   return {
-  //     selfIntersects: intersectingSegment
-  //   };
-  // }
-
-  // // function that checks if the line intersects itself
-  // isSelfIntersecting(polyline) {
-  //   if (polyline.paths[0].length < 3) {
-  //     return false;
-  //   }
-  //   const line = polyline.clone();
-
-  //   //get the last segment from the polyline that is being drawn
-  //   const lastSegment = this.getLastSegment(polyline);
-  //   line.removePoint(0, line.paths[0].length - 1);
-
-  //   // returns true if the line intersects itself, false otherwise
-  //   return this._geometryEngine.crosses(lastSegment, line);
-  // }
-
-  // // Checks if the line intersects itself. If yes, change the last
-  // // segment's symbol giving a visual feedback to the user.
-  // getIntersectingSegment(polyline) {
-  //   if (this.isSelfIntersecting(polyline)) {
-  //     return new esri.Graphic({
-  //       geometry: this.getLastSegment(polyline),
-  //       symbol: {
-  //         // type: "simple-line", // autocasts as new SimpleLineSymbol
-  //         // style: "short-dot",
-  //         // width: 3.5,
-  //         color: "red"
-  //       }
-  //     });
-  //   }
-  //   return null;
-  // }
-
-  // // Get the last segment of the polyline that is being drawn
-  // getLastSegment(polyline): any{
-  //   const line = polyline.clone();
-  //   const lastXYPoint = line.removePoint(0, line.paths[0].length - 1);
-  //   const existingLineFinalPoint = line.getPoint(
-  //     0,
-  //     line.paths[0].length - 1
-  //   );
-  //   const polylineProperties  = {
-  //     type: "polyline",
-  //     spatialReference: this._view.spatialReference,
-  //     hasZ: false,
-  //     paths: [
-  //       [
-  //         [existingLineFinalPoint.x, existingLineFinalPoint.y],
-  //         [lastXYPoint.x, lastXYPoint.y]
-  //       ]
-  //     ]
-  //   }
-  //   return polylineProperties;
-  // }
 
   calculateDistance(lon1, lon2, lat1, lat2) {
     let p = 0.017453292519943295;
     let c = Math.cos;
     let a = 0.5 - c((lat1 - lat2) * p) / 2 + c(lat2 * p) * c((lat1) * p) * (1 - c(((lon1 - lon2) * p))) / 2;
     let dis = (12742 * Math.asin(Math.sqrt(a)));
-    return dis.toFixed(2);
+    console.log("cdistance", dis.toFixed(2));
+    return dis;
   }
 
   clearWindows() {

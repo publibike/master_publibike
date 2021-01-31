@@ -1801,17 +1801,21 @@ let RutePage = class RutePage {
         this._pointGC = null;
         this._draw = null;
         this._distance = null;
+        //Variable de Dirección actual
         this.currentDirection = "";
         //Variables del cronometro
         this.horas = 0;
         this.centesimas = 0;
         this.minutos = 59;
         this.segundos = 0;
+        //Variables del cronometro que se muestran 
         this._centesimas = '00';
         this._minutos = '00';
         this._segundos = '00';
         this._horas = '00';
+        //Variable para validar si se esta corriendo 
         this.isRun = false;
+        //Variable que cambia el estado del botón
         this.estado = "INICIAR RECORRIDO";
         //Array recorrido con las coordenadas
         this.recorrido = [];
@@ -1825,7 +1829,8 @@ let RutePage = class RutePage {
             co2_total: 0,
             peso: 0,
             campana_actual: {
-                pago_km: 2000
+                nombre: "",
+                pago_km: 0
             }
         };
         //objeto a enviar
@@ -1835,7 +1840,7 @@ let RutePage = class RutePage {
         this.cal = 0;
         this.co2 = 0;
     }
-    // private _geometryEngine: esri.geometryEngine;
+    //Get y set de variables de ArcGIS
     get mapLoaded() {
         return this._loaded;
     }
@@ -1857,6 +1862,7 @@ let RutePage = class RutePage {
     get basemap() {
         return this._basemap;
     }
+    //Se inicializa el mapa
     initializedMap() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             try {
@@ -1985,7 +1991,8 @@ let RutePage = class RutePage {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.presentLoading();
             this.backgroundMode.enable();
-            this.user = yield this.storage.get("userData");
+            const user = yield this.storage.get("userData");
+            this.user = yield this.apiService.getUserData(user._id);
             this.initializedMap()
                 .then((mapView) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 console.log("mapView ready: ", this._view.ready);
@@ -2006,6 +2013,7 @@ let RutePage = class RutePage {
                     };
                     let geocoder = this._locator;
                     console.log(params);
+                    //Se obtiene la dirección actual del GPS
                     geocoder.locationToAddress(params)
                         .then((response) => {
                         address = response.address;
@@ -2020,42 +2028,7 @@ let RutePage = class RutePage {
             }));
         });
     }
-    // async ngOnInit() {
-    //   this.presentLoading();
-    //   this.user = await this.storage.get("userData");
-    //   this.initializedMap()
-    //     .then(async mapView => {
-    //       console.log("mapView ready: ", this._view.ready);
-    //       this._loaded = this._view.ready;
-    //       let position = await this._locate.locate();
-    //       console.log("position", position)
-    //       mapView.goTo({
-    //         center: this._locate.locate(),
-    //         zoom: 6,
-    //         tilt: 40
-    //       })
-    //         .then(() => {
-    //           let address;
-    //           this._pointGC.latitude = position.coords.latitude;
-    //           this._pointGC.longitude = position.coords.longitude;
-    //           let params = {
-    //             location: this._pointGC
-    //           }
-    //           let geocoder = this._locator;
-    //           console.log(params)
-    //           geocoder.locationToAddress(params)
-    //             .then((response) => {
-    //               address = response.address;
-    //               console.log(address)
-    //               address = address.split(",")
-    //               this.currentDirection = address[0];
-    //               // this.currentDirection = this.currentDirection.split(",")
-    //               console.log(this.currentDirection)
-    //               this.loading.dismiss();
-    //             }).catch(err => console.log(err))
-    //         })
-    //     });
-    // }
+    //Función que inicia la ruta
     startRute() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.estado = "RECORRIDO INICIADO";
@@ -2074,13 +2047,22 @@ let RutePage = class RutePage {
             let params = {
                 location: this._pointGC
             };
+            //cálculo de distancia cuando se esta en movimiento
             this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 this.recorrido.push(position);
                 let ult = this.recorrido.length - 1;
-                if (this.recorrido.length > 1) {
+                if (this.recorrido.length == 1) {
                     this.km = this.calculateDistance(this.recorrido[0].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[0].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                }
+                else if (this.recorrido.length > 1) {
+                    let kmTemporal = this.km;
+                    this.km = this.calculateDistance(this.recorrido[ult - 1].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[ult - 1].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                    this.km = kmTemporal + this.km;
+                    this.co2 = this.km * 0.3;
+                    let totalMin = (parseInt(this._horas) * 60) + (parseInt(this._minutos)) + (parseInt(this._segundos) * 0.0166667);
+                    console.log(totalMin);
+                    this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
                     console.log(this.km);
-                    // this.ingresos = this.km * this.user.campana_actual.pago_km;
                 }
             }));
             let geocoder = this._locator;
@@ -2095,44 +2077,14 @@ let RutePage = class RutePage {
                 console.log(this.currentDirection);
             }).catch(err => console.log(err));
             //Se inicializa el contador  
-            this.contador = setInterval(() => {
-                this.centesimas += 1;
-                if (this.centesimas < 10)
-                    this._centesimas = '0' + this.centesimas;
-                else
-                    this._centesimas = '' + this.centesimas;
-                if (this.centesimas == 10) {
-                    this.centesimas = 0;
-                    this.segundos += 1;
-                    if (this.segundos < 10)
-                        this._segundos = '0' + this.segundos;
-                    else
-                        this._segundos = this.segundos + '';
-                    if (this.segundos == 60) {
-                        this.segundos = 0;
-                        this.minutos += 1;
-                        if (this.minutos < 10)
-                            this._minutos = '0' + this.minutos;
-                        else
-                            this._minutos = this.minutos + '';
-                        this._segundos = '00';
-                        if (this.minutos == 60) {
-                            this.minutos = 0;
-                            this.minutos += 1;
-                            if (this.horas < 10)
-                                this._horas = '0' + this.horas;
-                            else
-                                this._horas = this.horas + '';
-                            this._minutos = '00';
-                        }
-                    }
-                }
-            }, 100);
+            this.startCounter();
         });
     }
+    //pausa el conteo
     pause() {
         clearInterval(this.contador);
     }
+    //Funcion que se ejecuta al detener el conteo
     stopRute() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             try {
@@ -2140,15 +2092,8 @@ let RutePage = class RutePage {
                 if (!this.isRun) {
                     this._track.stop();
                     this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
+                    //Limpia el contador
                     clearInterval(this.contador);
-                    // this.minutos = 0;
-                    // this.segundos = 0;
-                    // this.centesimas = 0;
-                    // this.horas = 0;
-                    // this._centesimas = '00';
-                    // this._segundos = '00';
-                    // this._minutos = '00';
-                    // this._horas = '00';
                     this.estado = 'INICIAR RECORRIDO';
                     this.isRun = false;
                     // this.contador = null;
@@ -2161,6 +2106,7 @@ let RutePage = class RutePage {
                         location: this._pointGC
                     };
                     let geocoder = this._locator;
+                    //Se obtiene la posición actual
                     geocoder.locationToAddress(params)
                         .then((response) => {
                         address = response.address;
@@ -2169,19 +2115,20 @@ let RutePage = class RutePage {
                         this.fnlDirection = address[0];
                         this.currentDirection = address[0];
                         console.log(this.currentDirection);
-                        let kms = parseFloat(this.km);
-                        let co2 = kms * 0.3;
-                        this.co2 = co2.toFixed(3);
-                        // let usPeso =  parseFloat(this.user.peso);
-                        console.log(this.user.peso);
-                        console.log(typeof (this.user.peso));
+                        let kms = this.km;
+                        let co2 = this.co2;
+                        let cal = this.cal;
                         let totalMin = (this.horas * 60) + (this.minutos) + (this.segundos * 0.0166667);
+                        console.log("totalMin", totalMin);
+                        //Se calaulan las calorias
                         this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+                        //Se construye la ruta a enviar
                         this.ruteData = {
                             fecha: this.fecha,
                             inicio: this.fstDirection,
                             final: this.fnlDirection,
                             tiempo: this.time,
+                            minutos: totalMin,
                             kms: this.km,
                             cal: this.cal,
                             co2: this.co2,
@@ -2198,127 +2145,48 @@ let RutePage = class RutePage {
             }
         });
     }
-    // drawLine() {
-    //   this._view.graphics.removeAll();
-    //   // creates and returns an instance of PolyLineDrawAction
-    //   const action = this._draw.create("polyline");
-    //   // focus the view to activate keyboard shortcuts for sketching
-    //   this._view.focus();
-    //   // listen polylineDrawAction events to give immediate visual feedback
-    //   // to users as the line is being drawn on the view.
-    //   action.on(
-    //     [
-    //       "vertex-add",
-    //       "vertex-remove",
-    //       "cursor-update",
-    //       "redo",
-    //       "undo",
-    //       "draw-complete"
-    //     ],
-    //     this.updateVertices
-    //   );
-    // }
-    // // Checks if the last vertex is making the line intersect itself.
-    // updateVertices(event) {
-    //   // create a polyline from returned vertices
-    //   if (event.vertices.length > 1) {
-    //     const result = this.createGraphic(event);
-    //     // if the last vertex is making the line intersects itself,
-    //     // prevent the events from firing
-    //     if (result.selfIntersects) {
-    //       event.preventDefault();
-    //     }
-    //   }
-    // }
-    // // create a new graphic presenting the polyline that is being drawn on the view
-    // createGraphic(event) {
-    //   const vertices = event.vertices;
-    //   this._view.graphics.removeAll();
-    //   // a graphic representing the polyline that is being drawn
-    //   const graphic = new esri.Graphic({
-    //     geometry: {
-    //       type: "polyline",
-    //       paths: vertices,
-    //       spatialReference: this._view.spatialReference
-    //     },
-    //     symbol: {
-    //       type: "simple-line", // autocasts as new SimpleFillSymbol
-    //       color: [4, 90, 141],
-    //       width: 4,
-    //       cap: "round",
-    //       join: "round"
-    //     }
-    //   });
-    //   // check if the polyline intersects itself.
-    //   const intersectingSegment = this.getIntersectingSegment(graphic.geometry);
-    //   // Add a new graphic for the intersecting segment.
-    //   if (intersectingSegment) {
-    //     this._view.graphics.addMany([graphic, intersectingSegment]);
-    //   }
-    //   // Just add the graphic representing the polyline if no intersection
-    //   else {
-    //     this._view.graphics.add(graphic);
-    //   }
-    //   // return intersectingSegment
-    //   return {
-    //     selfIntersects: intersectingSegment
-    //   };
-    // }
-    // // function that checks if the line intersects itself
-    // isSelfIntersecting(polyline) {
-    //   if (polyline.paths[0].length < 3) {
-    //     return false;
-    //   }
-    //   const line = polyline.clone();
-    //   //get the last segment from the polyline that is being drawn
-    //   const lastSegment = this.getLastSegment(polyline);
-    //   line.removePoint(0, line.paths[0].length - 1);
-    //   // returns true if the line intersects itself, false otherwise
-    //   return this._geometryEngine.crosses(lastSegment, line);
-    // }
-    // // Checks if the line intersects itself. If yes, change the last
-    // // segment's symbol giving a visual feedback to the user.
-    // getIntersectingSegment(polyline) {
-    //   if (this.isSelfIntersecting(polyline)) {
-    //     return new esri.Graphic({
-    //       geometry: this.getLastSegment(polyline),
-    //       symbol: {
-    //         // type: "simple-line", // autocasts as new SimpleLineSymbol
-    //         // style: "short-dot",
-    //         // width: 3.5,
-    //         color: "red"
-    //       }
-    //     });
-    //   }
-    //   return null;
-    // }
-    // // Get the last segment of the polyline that is being drawn
-    // getLastSegment(polyline): any{
-    //   const line = polyline.clone();
-    //   const lastXYPoint = line.removePoint(0, line.paths[0].length - 1);
-    //   const existingLineFinalPoint = line.getPoint(
-    //     0,
-    //     line.paths[0].length - 1
-    //   );
-    //   const polylineProperties  = {
-    //     type: "polyline",
-    //     spatialReference: this._view.spatialReference,
-    //     hasZ: false,
-    //     paths: [
-    //       [
-    //         [existingLineFinalPoint.x, existingLineFinalPoint.y],
-    //         [lastXYPoint.x, lastXYPoint.y]
-    //       ]
-    //     ]
-    //   }
-    //   return polylineProperties;
-    // }
+    startCounter() {
+        this.contador = setInterval(() => {
+            this.centesimas += 1;
+            if (this.centesimas < 10)
+                this._centesimas = '0' + this.centesimas;
+            else
+                this._centesimas = '' + this.centesimas;
+            if (this.centesimas == 10) {
+                this.centesimas = 0;
+                this.segundos += 1;
+                if (this.segundos < 10)
+                    this._segundos = '0' + this.segundos;
+                else
+                    this._segundos = this.segundos + '';
+                if (this.segundos == 60) {
+                    this.segundos = 0;
+                    this.minutos += 1;
+                    if (this.minutos < 10)
+                        this._minutos = '0' + this.minutos;
+                    else
+                        this._minutos = this.minutos + '';
+                    this._segundos = '00';
+                    if (this.minutos == 60) {
+                        this.minutos = 0;
+                        this.minutos += 1;
+                        if (this.horas < 10)
+                            this._horas = '0' + this.horas;
+                        else
+                            this._horas = this.horas + '';
+                        this._minutos = '00';
+                    }
+                }
+            }
+        }, 100);
+    }
     calculateDistance(lon1, lon2, lat1, lat2) {
         let p = 0.017453292519943295;
         let c = Math.cos;
         let a = 0.5 - c((lat1 - lat2) * p) / 2 + c(lat2 * p) * c((lat1) * p) * (1 - c(((lon1 - lon2) * p))) / 2;
         let dis = (12742 * Math.asin(Math.sqrt(a)));
-        return dis.toFixed(2);
+        console.log("cdistance", dis.toFixed(2));
+        return dis;
     }
     clearWindows() {
         this.minutos = 0;
@@ -3595,7 +3463,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header color=\"secondary\">\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div id=\"viewDiv\" #map></div>\n  <div class=\"degrade-green\" style=\"height: 5px; width: 100%; margin-top: -4px;\">\n  </div>\n  <ion-slides>\n    <ion-slide>\n      <!-- <div class=\"ui divided grid chrono\">\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Tiempo Recorrido</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Punto Actual</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h3>{{currentDirection}}</h3>\n          </div>\n        </div>\n        <div class=\"content-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER\n            RECORRIDO\n          </ion-button>\n        </div>\n      </div> -->\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"stopwatch icon\"></i>\n          <h4>Tiempo Recorrido</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n        </div>\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"map marker alternate icon\"></i>\n          <h4>Punto Actual</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h3>{{currentDirection}}</h3>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER RECORRIDO </ion-button>\n        </div>\n      </div>\n    </ion-slide>\n    <ion-slide>\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"icon-stats-dots\"></i>\n          <h4>\n            Estás Generado\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            $ {{ingresos}}\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-orange\">\n          <i class=\"icon-map\"></i>\n          <h4>\n            Has Recorrido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <span id=\"km\">{{km}}</span><small> KM</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-blue\">\n          <i class=\"icon-heart\"></i>\n          <h4>\n            Has Consumido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <small>{{cal}} Kcal</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-violet\">\n          <i class=\"icon-stats-bars\"></i>\n          <h4>\n            Campaña Actual\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            Prueba\n          </h2>\n        </div>\n      </div>\n    </ion-slide>\n  </ion-slides>\n  <!-- <hr class=\"degrade-orange\" style=\"height: 5px; width: 100%; border: 0; margin-top: 30px;\"> -->\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header color=\"secondary\">\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div id=\"viewDiv\" #map></div>\n  <div class=\"degrade-green\" style=\"height: 5px; width: 100%; margin-top: -4px;\">\n  </div>\n  <ion-slides>\n    <ion-slide>\n      <!-- <div class=\"ui divided grid chrono\">\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Tiempo Recorrido</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Punto Actual</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h3>{{currentDirection}}</h3>\n          </div>\n        </div>\n        <div class=\"content-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER\n            RECORRIDO\n          </ion-button>\n        </div>\n      </div> -->\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"stopwatch icon\"></i>\n          <h4>Tiempo Recorrido</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n        </div>\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"map marker alternate icon\"></i>\n          <h4>Punto Actual</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h3>{{currentDirection}}</h3>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER RECORRIDO </ion-button>\n        </div>\n      </div>\n    </ion-slide>\n    <ion-slide>\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"icon-stats-dots\"></i>\n          <h4>\n            Estás Generado\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            $ {{ingresos}}\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-orange\">\n          <i class=\"icon-map\"></i>\n          <h4>\n            Has Recorrido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <span id=\"km\">{{km}}</span><small> KM</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-blue\">\n          <i class=\"icon-heart\"></i>\n          <h4>\n            Has Consumido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <small>{{cal}} Kcal</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-violet\">\n          <i class=\"icon-stats-bars\"></i>\n          <h4>\n            Campaña Actual\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            {{user.campana_actual.nombre}}\n          </h2>\n        </div>\n      </div>\n    </ion-slide>\n  </ion-slides>\n  <!-- <hr class=\"degrade-orange\" style=\"height: 5px; width: 100%; border: 0; margin-top: 30px;\"> -->\n</ion-content>");
 
 /***/ }),
 

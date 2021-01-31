@@ -43,6 +43,20 @@
       </ng-container>
     </div>
     <ion-item color="secondary">
+      <ion-label position="floating">Ingresa tu Número de Identificación</ion-label>
+      <ion-input formControlName="usuario"></ion-input>
+    </ion-item>
+    <div class="validation-error">
+      <ng-container *ngFor="let validation of validation_messages.usuario">
+        <div *ngIf="
+            registerForm.get('usuario').hasError(validation.type) &&
+            (registerForm.get('usuario').dirty ||
+              registerForm.get('usuario').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    <ion-item color="secondary">
       <ion-label position="floating">Ingresa tu Número Celular</ion-label>
       <ion-input formControlName="celular"></ion-input>
     </ion-item>

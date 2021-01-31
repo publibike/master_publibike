@@ -5,6 +5,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <div class="title-publibike degrade-orange">
     <h2>INICIANDO NUEVO RECORRIDO</h2>
@@ -12,46 +13,32 @@
   <h3 class="title-campaing">
     Vas a iniciar tu recorrido con la siguiente campaña:
   </h3>
-  <div class="row logo-campaing">
-      <div class="column">
-        <img src="assets/img/logo-bancolombia.jpg">
-      </div>
+  <div class="row logo-campaing" *ngIf="campaing">
+    <div class="column">
+      <img src="{{campaing.imagen}}">
+    </div>
   </div>
   <div class="row begin-campaing">
-      <div class="column">
-        <div class="campaing-info">
-          <h4>Campaña <small>"Mira los ahorros crecer"</small></h4>
-        </div>
+    <div class="column">
+      <div class="campaing-info">
+        <h4>Campaña <small>{{campaing.nombre}}</small></h4>
       </div>
-      <div class="column">
-        <div class="campaing-info">
-          <h4>Zonas <small>Calle 72 - Calle 93</small></h4>
-        </div>
+    </div>
+    <div class="column">
+      <div class="campaing-info">
+        <h4>Zonas <small> {{campaing.zona}}</small></h4>
       </div>
-      <div class="column-full">
-        <div class="campaing-info">
-          <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>
-        </div>
+    </div>
+    <div class="column-full">
+      <div class="campaing-info">
+        <h4>Duración <small>{{campaing.fecha_inicio}} - {{campaing.fecha_final}}</small></h4>
       </div>
-      <div class="column">
-        <h4>Pago por Km Hora Valle (9am - 3pm)<small>$2.000</small></h4>	        		
-      </div>
-      <div class="column">
-        <h4>Pago por Km - Hora Pico (7am - 9am / 3pm - 7pm)<small>$2.000</small></h4>
-      </div>
+    </div>
+    <div class="column">
+      <h4>Pago por Km <small>{{campaing.pago_km}}</small></h4>
+    </div>
   </div>
-  <!-- <h3 class="title-campaing" style="font-weight: bold">
-    Sube la foto de tu bici, con la publicidad de la campaña
-  </h3>
-  <div class="row photo-campaing">
-      <i class="icon-camera">
-        
-      </i>
-  </div> -->
-  <!-- <h3 class="title-rute" style="font-weight: bold">
-    Tu recorrido iniciará en:
-    <small>Calle 72 # 15 - 24</small>
- </h3> -->
- <ion-button color="transparent" full outline class="ui button begin-activity" (click)="goToRute()">ESTOY LISTO</ion-button>
+  <ion-button color="transparent" full outline class="ui button begin-activity" (click)="goToRute()">ESTOY LISTO
+  </ion-button>
 
 </ion-content>

@@ -17,96 +17,74 @@
     Tus Campañas
   </h3>
   <div class="row">
-    <div class="column campaing">
-      <div class="state-campaing active">
-        <h3>ACTIVA</h3>
-      </div>
-      <img src="assets/img/logo-bancolombia.jpg">
-      <div class="campaing-info">
-        <h4>Campaña <small>"Mira los ahorros crecer"</small></h4>
-        <h4>Pago por Km <small>$2.000</small></h4>
-        <h4>Zonas <small>Calle 72 - Calle 93</small></h4>
-        <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>
-        <ion-button color="transparent" full outline class="start-campaing" (click)="goToStartCampaing()">Iniciar
-          Campaña</ion-button>
+    <ion-slides [options]="slideOps" *ngIf="campaings.length">
+      <ion-slide *ngFor="let campaing of campaings">
+        <div class="column campaing">
+          <div class="state-campaing active">
+            <h3>{{campaing.estado}}</h3>
+          </div>
+          <img src="{{campaing.imagen}}">
+          <div class="campaing-info">
+            <h4>Campaña <small>{{campaing.nombre}}</small></h4>
+            <h4>Pago por Km <small>{{campaing.pago_km}}</small></h4>
+            <h4>Zonas <small>{{campaing.zona}}</small></h4>
+            <h4>Duración <small>{{campaing.fecha_inicio}} - {{campaing.fecha_final}}</small></h4>
+            <div *ngIf="campaing.estado=='Activo'">
+              <ion-button color="transparent" full outline class="start-campaing"
+                (click)="goToStartCampaing(campaing.id)">Iniciar
+                Campaña</ion-button>
+            </div>
+            <div *ngIf="campaing.estado=='No_activo'">
+              <ion-button disabled="true" color="transparent" full outline class="start-campaing"
+                (click)="goToStartCampaing(campaing.id)">Iniciar
+                Campaña</ion-button>
+            </div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+    <div *ngIf="campaings.length===0">
+      <h4 class="campaing-info">No tienes campañas registradas</h4>
+    </div>
+    <h3 class="title-campaing">Campañas disponibles</h3>
+    <div *ngIf="companies.length">
+      <div *ngFor="let company of companies">
+        <div class="row">
+          <h3 class="title-campaing">{{company.nombre}}</h3>
+          <ion-slides [options]="slideOps" *ngIf="company.campanas.length">
+            <ion-slide *ngFor="let campaing of company.campanas">
+              <div class="column campaing">
+                <div class="state-campaing active">
+                  <h3>{{campaing.estado}}</h3>
+                </div>
+                <img src="{{campaing.imagen}}">
+                <div class="campaing-info">
+                  <h4>Campaña <small>{{campaing.nombre}}</small></h4>
+                  <h4>Pago por Km <small>{{campaing.pago_km}}</small></h4>
+                  <h4>Zonas <small>{{campaing.zona}}</small></h4>
+                  <h4>Duración <small>{{campaing.fecha_inicio}} - {{campaing.fecha_final}}</small></h4>
+                  <div *ngIf="campaing.estado=='Activo'">
+                    <ion-button color="transparent" full outline class="start-campaing"
+                      (click)="goToSubscribeCampaing(campaing.id)">
+                      Suscribir Campaña</ion-button>
+                  </div>
+                  <div *ngIf="campaing.estado=='No_activo'">
+                    <ion-button disabled="true" color="transparent" full outline class="start-campaing"
+                      (click)="goToSubscribeCampaing(campaing.id)">
+                      Suscribir Campaña</ion-button>
+                  </div>
+                </div>
+              </div>
+            </ion-slide>
+          </ion-slides>
+          <div *ngIf="company.campanas.length===0">
+            <h4 class="campaing-info">No existen campañas registradas</h4>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="column campaing">
-      <div class="state-campaing no-disponible">
-        <h3>NO DISPONIBLE</h3>
-      </div>
-      <img src="assets/img/logo-homecenter.jpg">
-      <div class="campaing-info">
-        <h4>Campaña <small>"Nuevo año, ahorra más"</small></h4>
-        <h4>Pago por Km <small>$1.500</small></h4>
-        <h4>Zonas <small>Calle 80 a Calle 72</small></h4>
-        <h4>Duración <small>10/01/2020 - 14/01/2020</small></h4>
-      </div>
-    </div>
-    <h3 class="title-campaing">
-      Otras campañas disponibles
-    </h3>
-    <div class="row">
-      <div class="column campaing">
-        <div class="state-campaing warning-date">
-          <h3>Terminará Pronto</h3>
-        </div>
-        <img src="assets/img/logo-banco-de-bogota.jpg">
-        <div class="campaing-info">
-          <h4>Campaña <small>"Conocer tu turno virtual"</small></h4>
-          <h4>Pago por Km <small>$2.000</small></h4>
-          <h4>Zonas <small>Calle 72 - Calle 93</small></h4>
-          <h4 class="warning-date">Duración <small>15/01/20220 - 24/01/2020</small></h4>
-          <h4>Cupos Disponibles <small>10 Ciclistas</small></h4>
-          <ion-button color="transparent" full outline class="start-campaing" (click)="goToStartCampaing()">Iniciar
-            Campaña</ion-button>
-        </div>
-      </div>
-      <div class="column campaing">
-        <div class="state-campaing warning-quotas">
-          <h3>Pocos Cupos</h3>
-        </div>
-        <img src="assets/img/logo-titan.jpg">
-        <div class="campaing-info">
-          <h4>Campaña <small>"Un Ambiente Grandioso"</small></h4>
-          <h4>Pago por Km <small>$1.500</small></h4>
-          <h4>Zonas <small>Calle 80 - Calle 72</small></h4>
-          <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>
-          <h4 class="warning-quotas">Cupos Disponibles <small>10 Ciclistas</small></h4>
-          <ion-button color="transparent" full outline class="suscribe-campaing" (click)="goToSubscribeCampaing()">
-            Suscribir Campaña</ion-button>
-        </div>
-      </div>
-      <div class="column campaing">
-        <div class="state-campaing active">
-          <h3>Activa</h3>
-        </div>
-        <img src="assets/img/logo-jumbo.jpg">
-        <div class="campaing-info">
-          <h4>Campaña <small>"Ahora el finde es más largo"</small></h4>
-          <h4>Pago por Km <small>$1.500</small></h4>
-          <h4>Zonas <small>Calle 80 - Calle 72</small></h4>
-          <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>
-          <h4>Cupos Disponibles <small>10 Ciclistas</small></h4>
-          <ion-button color="transparent" full outline class="suscribe-campaing" (click)="goToSubscribeCampaing()">
-            Suscribir Campaña</ion-button>
-        </div>
-      </div>
-      <div class="column campaing">
-        <div class="state-campaing warning-quotas">
-          <h3>Pocos Cupos</h3>
-        </div>
-        <img src="assets/img/logo-toyota.jpg">
-        <div class="campaing-info">
-          <h4>Campaña <small>“Nuevo Corolla 2020” </small></h4>
-          <h4>Pago por Km <small>$1.500</small></h4>
-          <h4>Zonas <small>Calle 100 - Calle 116</small></h4>
-          <h4>Duración <small>15/01/20220 - 24/01/2020</small></h4>
-          <h4 class="warning-quotas">Cupos Disponibles <small>2 Ciclistas</small></h4>
-          <ion-button color="transparent" full outline class="suscribe-campaing" (click)="goToSubscribeCampaing()">
-            Suscribir Campaña</ion-button>
-        </div>
-      </div>
+    <div *ngIf="companies.length===0">
+      <h4 class="campaing-info">Aun no hay empresas registradas</h4>
     </div>
   </div>
 </ion-content>

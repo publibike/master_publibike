@@ -25,6 +25,9 @@ export class RegisterPage implements OnInit {
         message: "El apellido debe tener mínimo tres letras."
       }
     ],
+    usuario: [
+      { type: "required", message: "El número de identificación es requerido" }
+    ],
     celular: [
       { type: "required", message: "El número celular es requerido" }
     ],
@@ -74,6 +77,10 @@ export class RegisterPage implements OnInit {
       apellido: new FormControl(
         "",
         Validators.compose([Validators.minLength(3), Validators.required])
+      ),
+      usuario: new FormControl(
+        "",
+        Validators.compose([ Validators.required])
       ),
       celular: new FormControl(
         "",

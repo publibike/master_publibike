@@ -46,7 +46,7 @@ HomePageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content [fullscreen]=\"true\" *ngIf=\"user\">\n  <div class=\"logo-publibike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <div class=\"welcome-main\">\n    <h2>\n      Hola {{user.nombre}} {{user.apellido}}\n    </h2>\n    <h4>\n      Esta es la información de tu cuenta\n    </h4>\n  </div>\n  <!-- <div class=\"date\">\n    <h3>13 de Enero - 18 de Enero <i class=\"icon-calendar\"></i></h3>\n  </div> -->\n  <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n    <div class=\"column data-main degrade-green\">\n      <i class=\"icon-stats-dots\"></i>\n      <h4>\n        Ingresos Generados\n      </h4>\n      <h2>\n        $ {{user.ganancia_total}}\n      </h2>\n    </div>\n    <div class=\"column data-main degrade-orange\">\n      <i class=\"icon-map\"></i>\n      <h4>\n        Kilometros Recorridos\n      </h4>\n      <h2>\n        {{user.km_total}} <small>KM</small>\n      </h2>\n    </div>\n    <div class=\"column data-main degrade-blue\">\n      <i class=\"icon-heart\"></i>\n      <h4>\n        Calorías Consumidas\n      </h4>\n      <h2>\n        {{user.cal_total}} <small>Kcal</small>\n      </h2>\n    </div>\n    <div class=\"column data-main degrade-violet\">\n      <i class=\"icon-stats-bars\"></i>\n      <h4>\n        Campañas Activas\n      </h4>\n      <h2>\n        2\n      </h2>\n    </div>\n  </div>\n  <div class=\"content-button\">\n    <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"goToRute()\">INICIAR NUEVO\n      RECORRIDO</ion-button>\n    <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"goToCampaings()\">VER NUEVAS\n      CAMPAÑAS</ion-button>\n\n  </div>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content [fullscreen]=\"true\" *ngIf=\"user\">\n  <div class=\"logo-publibike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <div class=\"welcome-main\">\n    <h2>\n      Hola {{user.nombre}} {{user.apellido}}\n    </h2>\n    <h4>\n      Esta es la información de tu cuenta\n    </h4>\n  </div>\n  <!-- <div class=\"date\">\n    <h3>13 de Enero - 18 de Enero <i class=\"icon-calendar\"></i></h3>\n  </div> -->\n  <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n    <div class=\"column data-main degrade-green\">\n      <i class=\"icon-stats-dots\"></i>\n      <h4>\n        Ingresos Generados\n      </h4>\n      <h2>\n        $ {{user.ganancia_total}}\n      </h2>\n    </div>\n    <div class=\"column data-main degrade-orange\">\n      <i class=\"icon-map\"></i>\n      <h4>\n        Kilometros Recorridos\n      </h4>\n      <h2>\n        {{user.km_total}} <small>KM</small>\n      </h2>\n    </div>\n    <div class=\"column data-main degrade-blue\">\n      <i class=\"icon-heart\"></i>\n      <h4>\n        Calorías Consumidas\n      </h4>\n      <h2>\n        {{user.cal_total}} <small>Kcal</small>\n      </h2>\n    </div>\n    <div class=\"column data-main degrade-violet\">\n      <i class=\"icon-stats-bars\"></i>\n      <h4>\n        Campañas \n      </h4>\n      <h2>\n        {{user.campanas.length}}\n      </h2>\n    </div>\n  </div>\n  <div class=\"content-button\">\n    <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"goToRute()\">INICIAR NUEVO\n      RECORRIDO</ion-button>\n    <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"goToCampaings()\">VER NUEVAS\n      CAMPAÑAS</ion-button>\n\n  </div>\n</ion-content>");
 
 /***/ }),
 
@@ -154,7 +154,8 @@ let HomePage = class HomePage {
             ganancia_total: 0,
             km_total: 0,
             cal_total: 0,
-            co2_total: 0
+            co2_total: 0,
+            campanas: []
         };
     }
     ionViewDidEnter() {
@@ -162,9 +163,11 @@ let HomePage = class HomePage {
             console.log("en home");
             this.presentLoading();
             this.userId = yield this.storage.get("userId");
-            this.apiService.getUserData(this.userId._id).then((res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            this.user = yield this.apiService.getUserData(this.userId._id);
+            yield this.apiService.getUserData(this.userId._id).then((res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 this.storage.set("userData", res);
                 this.user = yield this.storage.get("userData");
+                console.log(res);
                 this.loading.dismiss();
             }));
             // this.backgroundMode.enable();
@@ -175,6 +178,24 @@ let HomePage = class HomePage {
             // })
         });
     }
+    // async ionViewWillLeave() {
+    //   console.log("en home")
+    //   this.presentLoading()
+    //   this.userId = await this.storage.get("userId");
+    //   this.user = await this.apiService.getUserData(this.userId._id)
+    //   this.apiService.getUserData(this.userId._id).then(async (res) => {
+    //     this.storage.set("userData", res);
+    //     this.user = await this.storage.get("userData");
+    //     console.log(res)
+    //     this.loading.dismiss();
+    //   })
+    //   // this.backgroundMode.enable();
+    //   // this.backgroundMode.on("activate").subscribe(() => {
+    //   //   this.callNumber.callNumber('3507935088', true)
+    //   //     .then(res => console.log('Launched dialer!', res))
+    //   //     .catch(err => console.log('Error launching dialer', err));    
+    //   // })
+    // }
     presentLoading() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.loading = yield this.loadingCtrl.create({

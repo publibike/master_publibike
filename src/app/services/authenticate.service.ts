@@ -34,6 +34,7 @@ export class AuthenticateService {
     console.log(userData);
     const options = {
       method: 'POST',
+      mode: 'no-cors'as RequestMode,
       body: JSON.stringify(userData),
       headers: new Headers({
         'Content-Type': 'application/json'
