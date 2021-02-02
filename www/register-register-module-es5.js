@@ -207,17 +207,6 @@
             vehiculo: [{
               type: "required",
               message: "El vehiculo a usar es requerido"
-            }],
-            banco: [{
-              type: "required",
-              message: "El banco es requerido"
-            }],
-            cuenta: [{
-              type: "required",
-              message: "El número de cuenta es necesario"
-            }, {
-              type: "pattern",
-              message: "Ingresa la cuenta sin guiones solo números"
             }]
           };
           this.errorMessage = "";
@@ -232,8 +221,8 @@
             estatura: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
             peso: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
             vehiculo: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
-            banco: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required])),
-            cuenta: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].pattern("^[0-9]*$"), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]))
+            banco: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"](""),
+            cuenta: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("")
           });
         }
 
@@ -245,6 +234,7 @@
           value: function register(userData) {
             var _this = this;
 
+            console.log(userData);
             this.authService.registerUser(userData).then(function () {
               _this.navCtrl.navigateBack("/login");
             });
@@ -293,7 +283,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "img {\n  width: 30%;\n  text-align: center;\n}\n\nion-title {\n  text-align: center;\n}\n\nh2 {\n  color: #01d9ad;\n}\n\nh4,\nion-label,\nion-input {\n  color: #606060 !important;\n}\n\nion-button {\n  color: #01d9ad;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVnaXN0ZXIvcmVnaXN0ZXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtFQUNBLGtCQUFBO0FBQ0o7O0FBRUE7RUFDSSxrQkFBQTtBQUNKOztBQUNBO0VBQ0ksY0FBQTtBQUVKOztBQUFBOzs7RUFHSSx5QkFBQTtBQUdKOztBQURBO0VBQ0ksY0FBQTtBQUlKIiwiZmlsZSI6InNyYy9hcHAvcmVnaXN0ZXIvcmVnaXN0ZXIucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW1nIHtcclxuICAgIHdpZHRoOiAzMCU7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbmlvbi10aXRsZSB7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuaDIge1xyXG4gICAgY29sb3I6ICMwMWQ5YWQ7XHJcbn1cclxuaDQsXHJcbmlvbi1sYWJlbCxcclxuaW9uLWlucHV0IHtcclxuICAgIGNvbG9yOiAjNjA2MDYwICFpbXBvcnRhbnQ7XHJcbn1cclxuaW9uLWJ1dHRvbiB7XHJcbiAgICBjb2xvcjogIzAxZDlhZDtcclxufVxyXG4iXX0= */";
+      __webpack_exports__["default"] = "img {\n  width: 30%;\n  text-align: center;\n}\n\nion-title {\n  text-align: center;\n}\n\nh2 {\n  color: #01d9ad;\n}\n\nh4,\nion-label,\nion-input {\n  color: #606060 !important;\n}\n\nion-button {\n  color: #01d9ad;\n}\n\nion-select {\n  /* Applies to the value and placeholder color */\n  color: #000000;\n  /* Set a different placeholder color */\n  --placeholder-color: #606060;\n  /* Set full opacity on the placeholder */\n  --placeholder-opacity: 1;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVnaXN0ZXIvcmVnaXN0ZXIucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksVUFBQTtFQUNBLGtCQUFBO0FBQ0o7O0FBRUE7RUFDSSxrQkFBQTtBQUNKOztBQUNBO0VBQ0ksY0FBQTtBQUVKOztBQUFBOzs7RUFHSSx5QkFBQTtBQUdKOztBQURBO0VBQ0ksY0FBQTtBQUlKOztBQURBO0VBQ0ksK0NBQUE7RUFDQSxjQUFBO0VBRUEsc0NBQUE7RUFDQSw0QkFBQTtFQUVBLHdDQUFBO0VBQ0Esd0JBQUE7QUFFSiIsImZpbGUiOiJzcmMvYXBwL3JlZ2lzdGVyL3JlZ2lzdGVyLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImltZyB7XHJcbiAgICB3aWR0aDogMzAlO1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG5pb24tdGl0bGUge1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbmgyIHtcclxuICAgIGNvbG9yOiAjMDFkOWFkO1xyXG59XHJcbmg0LFxyXG5pb24tbGFiZWwsXHJcbmlvbi1pbnB1dCB7XHJcbiAgICBjb2xvcjogIzYwNjA2MCAhaW1wb3J0YW50O1xyXG59XHJcbmlvbi1idXR0b24ge1xyXG4gICAgY29sb3I6ICMwMWQ5YWQ7XHJcbn1cclxuXHJcbmlvbi1zZWxlY3Qge1xyXG4gICAgLyogQXBwbGllcyB0byB0aGUgdmFsdWUgYW5kIHBsYWNlaG9sZGVyIGNvbG9yICovXHJcbiAgICBjb2xvcjogIzAwMDAwMDtcclxuICBcclxuICAgIC8qIFNldCBhIGRpZmZlcmVudCBwbGFjZWhvbGRlciBjb2xvciAqL1xyXG4gICAgLS1wbGFjZWhvbGRlci1jb2xvcjogIzYwNjA2MDtcclxuICBcclxuICAgIC8qIFNldCBmdWxsIG9wYWNpdHkgb24gdGhlIHBsYWNlaG9sZGVyICovXHJcbiAgICAtLXBsYWNlaG9sZGVyLW9wYWNpdHk6IDE7XHJcbiAgfVxyXG4iXX0= */";
       /***/
     },
 

@@ -54,13 +54,13 @@ export class RegisterPage implements OnInit {
     vehiculo: [
       { type: "required", message: "El vehiculo a usar es requerido" }
     ],
-    banco: [
-      { type: "required", message: "El banco es requerido" }
-    ],
-    cuenta: [
-      { type: "required", message: "El número de cuenta es necesario" },
-      { type: "pattern", message: "Ingresa la cuenta sin guiones solo números" }
-    ]
+    // banco: [
+    //   { type: "required", message: "El banco es requerido" }
+    // ],
+    // cuenta: [
+    //   // { type: "required", message: "El número de cuenta es necesario" },
+    //   { type: "pattern", message: "Ingresa la cuenta sin guiones solo números" }
+    // ]
   };
   errorMessage: string = "";
 
@@ -115,11 +115,11 @@ export class RegisterPage implements OnInit {
       ),
       banco: new FormControl(
         "",
-        Validators.compose([ Validators.required])
+        // Validators.compose([ Validators.required])
       ),
       cuenta:new FormControl(
         "",
-        Validators.compose([Validators.pattern("^[0-9]*$"), Validators.required])
+        // Validators.compose([Validators.pattern("^[0-9]*$"), Validators.required])
       ),
     });
   }
@@ -128,6 +128,7 @@ export class RegisterPage implements OnInit {
   }
 
   register(userData){
+    console.log(userData)
     this.authService.registerUser(userData).then(()=>{
       this.navCtrl.navigateBack("/login");
     });

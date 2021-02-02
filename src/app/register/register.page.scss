@@ -17,3 +17,14 @@ ion-input {
 ion-button {
     color: #01d9ad;
 }
+
+ion-select {
+    /* Applies to the value and placeholder color */
+    color: #000000;
+  
+    /* Set a different placeholder color */
+    --placeholder-color: #606060;
+  
+    /* Set full opacity on the placeholder */
+    --placeholder-opacity: 1;
+  }
