@@ -270,6 +270,7 @@ export class MapModalPage implements OnInit {
     let params = {
       location: this._pointGC
     }
+    //cálculo de distancia cuando se esta en movimiento
     this._track.on("track", async (position) => {
       // this.backgroundGeolocation.start();
       this.recorrido.push(position);
@@ -290,8 +291,6 @@ export class MapModalPage implements OnInit {
         console.log(totalMin)
         this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
         console.log(this.km)
-
-        // this.ingresos = this.km * this.user.campana_actual.pago_km;
       }
     })
     let geocoder = this._locator;
@@ -301,11 +300,6 @@ export class MapModalPage implements OnInit {
         console.log(address)
         address = address.split(",");
         this.fstDirection = address[0];
-        // this.currentDirection = address[0];
-        // this.km = position.coords.speed;
-
-        // console.log(this.currentDirection)
-
       }).catch(err => console.log(err))
     //Se inicializa el contador  
     this.startCounter();
@@ -319,15 +313,7 @@ export class MapModalPage implements OnInit {
         this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
         console.log(this.time)
         clearInterval(this.contador);
-        // this.minutos = 0;
-        // this.segundos = 0;
-        // this.centesimas = 0;
-        // this.horas = 0;
 
-        // this._centesimas = '00';
-        // this._segundos = '00';
-        // this._minutos = '00';
-        // this._horas = '00';
         this.isRun = false;
         // this.contador = null;
 
@@ -343,23 +329,19 @@ export class MapModalPage implements OnInit {
           location: this._pointGC
         }
         let geocoder = this._locator;
+        //Se obtiene la posición actual
         geocoder.locationToAddress(params)
           .then((response) => {
             address = response.address;
             console.log(address);
             address = address.split(",")
             this.fnlDirection = address[0];
-            // this.currentDirection = address[0];
-            // console.log(this.currentDirection)
             let kms = this.km;
             let cal = this.cal;
             let co2 = this.co2;
             // co2 = kms * 0.3;
             let totalMin = (parseInt(this._horas) * 60) + (parseInt(this._minutos)) + (parseInt(this._segundos) * 0.0166667);
-            // console.log(totalMin)
-            // cal = 0.071*(this.user.peso*2.2) *totalMin;
-            console.log(this.cal, typeof (this.cal))
-            console.log(this.user.peso, typeof (this.user.peso))
+
             this.ruteData = {
               fecha: this.fecha,
               inicio: this.fstDirection,
@@ -444,70 +426,79 @@ export class MapModalPage implements OnInit {
   }
   async riesgoCovid(vel) {
     let alert;
-    if (vel < 2) {
+    // Riesgo Covid menor a 2 km
+    // if (vel < 2) {
+    //   //Bandera para activar el riesgo
+    //   this.flagCovid += 1;
+    //   console.log(this.flagCovid)
+    //   if (this.flagCovid >= 10) {
+    //     //Pausa el seguimiento del recorrido
+    //     this._track.stop();
+    //     clearInterval(this.contador);
+    //     //Muestra el mensaje de alerta
+    //     alert = await this.alertController.create({
+    //       cssClass: 'my-custom-class',
+    //       header: 'Atención',
+    //       subHeader: '¿Estas movilizandote a pie?',
+    //       message: 'Te recomendamos guardar el distanciamiento social y las medidas de protección necesarias',
+    //       buttons: [{
+    //         text: 'Ok',
+    //         handler: () => {
+    //           this._track.start()
+    //           this.startCounter();
+    //           this.flagCovid = 0;
+    //         }
+    //       }]
+    //     });
+    //     await alert.present();
+    //     this.riesgo_covid = 40;
+    //     await this.apiService.sendCovidRisk(this.riesgo_covid);
+    //   }
+
+    // } else
+    //Riesgo COVID mayor a 50 km
+    if (vel > 50) {
+      //Bandera para activar el riesgo
       this.flagCovid += 1;
-      console.log(this.flagCovid)
       if (this.flagCovid >= 10) {
-        this._track.stop();
-        clearInterval(this.contador);
+        // this._track.stop();
         alert = await this.alertController.create({
           cssClass: 'my-custom-class',
           header: 'Atención',
-          subHeader: '¿Estas movilizandote a pie?',
-          message: 'Te recomendamos guardar el distanciamiento social y las medidas de protección necesarias',
+          subHeader: '¿Estas movilizandote en?',
+          message: 'Te recomendamos aguardar el distanciamiento social y las medidas de protección necesarias',
+          inputs: [
+            {
+              name: 'radio1',
+              type: 'radio',
+              label: 'Vehiculo Particular',
+              value: 'Vehiculo_Particular',
+              checked: true
+            },
+            {
+              name: 'radio2',
+              type: 'radio',
+              label: 'Taxi,Uber,Beat,...',
+              value: 'Vehiculo_independiente'
+            },
+            {
+              name: 'radio3',
+              type: 'radio',
+              label: 'Transporte Público',
+              value: 'Transporte_Publico'
+            }
+          ],
           buttons: [{
             text: 'Ok',
-            handler: () => {
-              this._track.start()
-              this.startCounter();
-              this.flagCovid=0;
-            }
+            // handler: () => {
+            //   this._track.start();
+            // }
           }]
         });
         await alert.present();
-        this.riesgo_covid = 40;
-        await this.apiService.sendCovidRisk(this.riesgo_covid);
+        this.riesgo_covid = 60;
+        // await this.apiService.sendCovidRisk(this.riesgo_covid);
       }
-
-    } else if (vel > 50) {
-      this._track.stop();
-      alert = await this.alertController.create({
-        cssClass: 'my-custom-class',
-        header: 'Atención',
-        subHeader: '¿Estas movilizandote en?',
-        message: 'Te recomendamos aguardar el distanciamiento social y las medidas de protección necesarias',
-        inputs: [
-          {
-            name: 'radio1',
-            type: 'radio',
-            label: 'Vehiculo Particular',
-            value: 'Vehiculo_Particular',
-            checked: true
-          },
-          {
-            name: 'radio2',
-            type: 'radio',
-            label: 'Taxi,Uber,Beat,...',
-            value: 'Vehiculo_independiente'
-          },
-          {
-            name: 'radio3',
-            type: 'radio',
-            label: 'Transporte Público',
-            value: 'Transporte_Publico'
-          }
-        ],
-        buttons: [{
-          text: 'Ok',
-          handler: () => {
-            this._track.start();
-          }
-        }]
-      });
-      await alert.present();
-      this.riesgo_covid = 60;
-      await this.apiService.sendCovidRisk(this.riesgo_covid);
-
     }
 
   }
