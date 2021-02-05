@@ -135,6 +135,8 @@ module.exports.register = async server => {
             usuario.co2_total = usuario.co2_total.toFixed(2)
             usuario.cal_total = usuario.cal_total.toFixed(2)
             usuario.km_total = usuario.km_total.toFixed(2)
+
+
             return h.view('usuario', {
                 title: `Usuario: ${usuario.usuario}`,
                 usuario: usuario,

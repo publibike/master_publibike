@@ -402,15 +402,20 @@ module.exports.register = async server => {
         options: {
             cors: true
         },
-        handler: (req, h) => {
-
-            const id = req.params.id;
-            const ObjectID = req.mongo.ObjectID;
-
-            const usuario = req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
-
-            return usuario;
+        handler: async (req, h) => {
+            try {
+                const id = req.params.id;
+                const ObjectID = req.mongo.ObjectID;
+    
+                const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
+    
+                return usuario;
+            } catch (error) {
+                console.log(error)
+            }
+           
         }
+
     });
     //Obtiene los reconocimientos de un usuario
     server.route({
@@ -447,7 +452,7 @@ module.exports.register = async server => {
             return reconocimientos;
         }
     });
-    //Obtiene los reconocimientos
+    //Obtiene un reconocimiento
     server.route({
         method: 'GET',
         path: '/Bienestar/api/movil/reconocimiento/{id}',

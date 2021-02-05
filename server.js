@@ -5,6 +5,7 @@ const path = require('path');
 const handlebars = require('handlebars');
 const plugins = require("./app/plugins");
 const routes = require("./app/routes");
+const moment = require('moment');
 
 const app = async config => {
 
@@ -46,6 +47,15 @@ const app = async config => {
         layout: true,
         layoutPath: 'views'
     })
+
+    //Se configuran helpers de handlebars
+    handlebars.registerHelper('formatDate', function (dateString) {
+        moment.locale('es');
+        console.log(moment.locale());
+        return new handlebars.SafeString(
+            moment(dateString).format("D MMM Y")
+        );
+    });
 
 
     //Se registran las rutas
