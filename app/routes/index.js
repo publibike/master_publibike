@@ -127,7 +127,7 @@ module.exports.register = async server => {
             const ObjectID = req.mongo.ObjectID;
 
             const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
-            console.log(usuario)
+            // console.log(usuario)
             const arrayRecorridos = Object.values(usuario.recorridos);
             const tamRecorrido = arrayRecorridos.length;
             const ultRecorrido = arrayRecorridos[tamRecorrido - 1];
@@ -156,7 +156,7 @@ module.exports.register = async server => {
 
             const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
             const total = await req.mongo.db.collection('Empresa').aggregate([{ $group: { _id: new ObjectID(id), km: { $sum: "usuarios.km" }, cal: { $sum: "usuarios.cal" }, co2: { $sum: "usuarios.co2" } } }]);
-            console.log(total)
+            // console.log(total)
             return h.view('dashboardEmpresaSuper', {
                 title: `Empresa: ${empresa.nombre}`,
                 empresa: empresa
