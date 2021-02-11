@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Publibike</title>
+	<link rel="stylesheet" type="text/css" href="../../css/semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/publibike-admin.css">
+	<style type="text/css">
+    body {
+      background-color: #001434;
+    }
+    body > .grid {
+      height: 100%;
+    }
+    .image img{
+      margin-top: -200px;
+      width: 150px !important;
+    }
+    .column {
+      max-width: 450px;
+    }
+  </style>
+  <script>
+  $(document)
+    .ready(function() {
+      $('.ui.form')
+        .form({
+          fields: {
+            email: {
+              identifier  : 'email',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your e-mail'
+                },
+                {
+                  type   : 'email',
+                  prompt : 'Please enter a valid e-mail'
+                }
+              ]
+            },
+            password: {
+              identifier  : 'password',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your password'
+                },
+                {
+                  type   : 'length[6]',
+                  prompt : 'Your password must be at least 6 characters'
+                }
+              ]
+            }
+          }
+        })
+      ;
+    })
+  ;
+  </script>
+</head>
+<body>
+	<div class="ui middle aligned center aligned grid">
+	  <div class="column">
+	    <h2 class="ui teal image header">
+	      <img src="../../img/logo-publibike.png" class="image">
+	    </h2>
+	    <form class="ui large form">
+	      <div class="ui stacked segment">
+	        <div class="field">
+	          <div class="ui left icon input">
+	            <i class="user icon"></i>
+	            <input type="text" name="email" placeholder="Usuario">
+	          </div>
+	        </div>
+	        <div class="field">
+	          <div class="ui left icon input">
+	            <i class="lock icon"></i>
+	            <input type="password" name="password" placeholder="Contraseña">
+	          </div>
+	        </div>
+	        <a class="ui fluid large yellow submit button" href="dashboard.html">Iniciar Sesión</a>
+	      </div>
+
+	      <div class="ui error message"></div>
+
+	    </form>
+	  </div>
+	</div>
+
+</body>
+
+<script>
+
+</script>
+
+</html>

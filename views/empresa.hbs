@@ -1,0 +1,130 @@
+<div class="ui two column grid content">
+    <div class="column">
+        <div class="inside-column campanas">
+            <div class="titulos-campanas">
+                <h3>Última Campaña Activa</h3>
+                <h4>“Mira los ahorros crecer”</h4>
+            </div>
+            <div class="top attached ui statistics">
+                <div class="data-statistics">
+                    Km Recorridos
+                </div>
+                <div class="ui progress violet graphic-statistics" data-percent="20">
+                    <div class="bar" style="transition-duration: 300ms; width: 20%;">
+                        <div class="progress">120</div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="top attached ui statistics">
+                <div class="data-statistics">
+                    Usuarios Registrados
+                </div>
+                <div class="ui progress yellow graphic-statistics" data-percent="50">
+                    <div class="bar" style="transition-duration: 300ms; width: 50%;">
+                        <div class="progress">20</div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="top attached ui statistics">
+                <div class="data-statistics">
+                    Duración de Campaña
+                </div>
+                <div class="graphic-statistics">
+                    <b>Inicio:</b> 15/01/2020<br>
+                    <b>Fin:</b> 24/01/2020
+                </div>
+            </div>
+            <br>
+            <hr>
+            <div class="top attached ui statistics">
+                <div class="data-statistics">
+                    Presupuesto
+                </div>
+                <div class="graphic-statistics">
+                    $ 10.000.000
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+    <div class="column">
+        <div class="inside-column campanas">
+            <div class="titulos-campanas">
+                <h3>Mejor Campaña</h3>
+                <h4>“Proyecta tus Ahorros”</h4>
+            </div>
+            <div class="top attached ui statistics">
+                <div class="data-statistics">
+                    Km Recorridos
+                </div>
+                <div class="ui progress green graphic-statistics" data-percent="80">
+                    <div class="bar" style="transition-duration: 300ms; width: 80%;">
+                        <div class="progress">2500</div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="top attached ui statistics">
+                <div class="data-statistics">
+                    Usuarios Registrados
+                </div>
+                <div class="ui progress orange graphic-statistics" data-percent="60">
+                    <div class="bar" style="transition-duration: 300ms; width: 60%;">
+                        <div class="progress">60</div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="top attached ui statistics">
+                <div class="data-statistics">
+                    Duración de Campaña
+                </div>
+                <div class="graphic-statistics">
+                    <b>Inicio:</b> 12/12/2019<br>
+                    <b>Fin:</b> 24/12/2019
+                </div>
+            </div>
+            <br>
+            <hr>
+            <div class="top attached ui statistics">
+                <div class="data-statistics">
+                    Presupuesto
+                </div>
+                <div class="graphic-statistics">
+                    $ 20.000.000
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+<div class="ui one column grid content user-data">
+    <div class="column">
+        <div class="inside-column">
+            <h3>
+                Campañas Realizadas
+            </h3>
+            <div class="row">
+                <div class="row">
+                    {{#each empresa.campanas}}
+                    <div class="column campaing">
+                        <div class="state-campaing warning-date">
+                            <h3>{{this.estado}}</h3>
+                        </div>
+                        <img class="logo-campaing" src="{{this.imagen}}">
+                        <div class="campaing-info">
+                            <h4>Campaña <small>{{this.nombre}}</small></h4>
+                            <h4>Pago por Km <small>{{this.pago_km}}</small></h4>
+                            <h4>Zonas <small>{{this.zona}}</small></h4>
+                            <h4 class="warning-date">Duración <small>{{this.fecha_inicio}} -- {{this.fecha_final}}</small></h4>
+                            <h4>Cupos Disponibles <small>{{this.cupos}} Ciclistas</small></h4>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

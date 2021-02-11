@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uflou</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/publibike-admin.css">
+</head>
+
+<body>
+    <div class="ui visible inverted left vertical sidebar menu menu-side">
+        <div class="logo-publibike">
+            <a href="/marca/admin/dashboard">
+                <img src="/assets/img/logo-publibike.png">
+            </a>
+        </div>
+        <a class="item" href="/marca/admin/dashboard">
+            <i class="home icon"></i>
+            Dashboard
+        </a>
+        <a class="item" href="/marca/admin/usuarios">
+            <i class="user circle outline layout icon"></i>
+            Usuarios Registrados
+        </a>
+        <a class="item" href="/marca/admin/empresas">
+            <i class="building outline icon"></i>
+            Empresas Registradas
+        </a>
+        {{!-- <a class="item" href="/marca/admin/campanas">
+            <i class="chart line icon"></i>
+            Campañas
+        </a> --}}
+        <a class="item" href="/marca/admin/registro">
+            <i class="id badge outline"></i>
+            Registrar Administrador
+        </a>
+        <a class="item" href="/marca/admin/registro/empresa">
+            <i class="id badge outline"></i>
+            Registrar Empresa
+        </a>
+         <a class="item" href="/marca/admin/registro/campana">
+            <i class="id badge outline"></i>
+            Registrar Campaña
+        </a>
+    </div>
+    <div class="wrapper pusher">
+        <div class="ui secondary menu">
+            <h3>
+                {{title}}
+            </h3>
+            <div class="right menu">
+                {{!-- <div class="item">
+                    <div class="ui icon input">
+                        <input type="text" placeholder="Buscar...">
+                        <i class="search link icon"></i>
+                    </div>
+                </div> --}}
+                <a class="ui item" href="/marca/admin/logout">
+                    Cerrar Sesión
+                </a>
+            </div>
+        </div>
+       {{{content}}}
+    </div>
+</body>
+
+<script>
+
+</script>
+
+</html>

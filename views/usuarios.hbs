@@ -1,0 +1,26 @@
+<div class="ui one column grid content">
+	<div class="column">
+		<div class="inside-column">
+			<table class="ui very basic table tabla-publibike">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Usuario</th>
+						<th>Email</th>
+						<th>Campañas Suscritas</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each usuarios}}
+					<tr>
+						<td>{{this.nombre}}</td>
+						<td><a href="/marca/admin/usuario/{{this._id}}">{{this.usuario}}</a></td>
+						<td>{{this.email}}</td>
+						<td>{{this.campanas.length}}</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

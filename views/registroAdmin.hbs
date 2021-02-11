@@ -1,0 +1,26 @@
+<form class="ui form" style="margin: 0px 30px 30px 30px " method="POST" action="/api/bienestar/admin/createadmin">
+    <h4 class="ui dividing header">Datos Principales</h4>
+    <div class="field">
+        <label>Usuario</label>
+        <div class="field">
+            <input type="text" name="usuario" placeholder="Documento de identidad">
+        </div>
+    </div>
+    <div class="two fields">
+        <div class="field">
+            <label>Contraseña</label>
+            <input type="text" name="password" placeholder="Digite una Constraseña">
+        </div>        
+    </div>
+    {{#with success}}
+    <div class="ui green inverted segment" role="alert">
+        {{this}}
+    </div>
+    {{/with}}
+    {{#with error}}
+    <div class="ui red inverted segment" role="alert">
+        {{this}}
+    </div>
+    {{/with}}
+    <button type="submit" class="ui fluid large yellow submit button">Registrar</button>
+</form>
