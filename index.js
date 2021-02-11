@@ -17,10 +17,10 @@ const startServer = async () => {
     }
 };
 //Manejo de errores generales
-process.on('unhandledRejection', error =>{
-    console.error('unhandledRejection',error.message,error)
+process.on('unhandledRejection', error => {
+    console.error('unhandledRejection', error.message, error)
 })
-process.on('unhandledException', error =>{
-    console.error('unhandledException',error.message,error)
+process.on('unhandledException', error => {
+    console.error('unhandledException', error.message, error)
 })
 startServer();

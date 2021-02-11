@@ -2,29 +2,27 @@
 
 const api = require("./api");
 
-/****************************************
-* RUTAS DE VISUALIZACIÓN DE LA APLICACIÓN
-* **************************************/
-
 module.exports.register = async server => {
     //registra la ruta api
     await api.register(server);
 
     /************************************
-     * Rutas para el perfil Admin General
-     * ***********************************/
+    * Rutas para el perfil Admin 
+    * ***********************************/
+
+    /**Rutas de Acceso al portal */
     //Ruta de login del admin
     server.route({
         method: "GET",
-        path: "/admin",
-        handler: async (request, h) => {
-            if (request.state.session) {
-                if (request.state.session === 'super') {
-                    return h.redirect('/admin/dashboard')
-                } else if (request.state.session === 'empresa') {
-                    return h.redirect('/admin/empresa')
-                }
-            }
+        path: "/marca/admin",
+        handler: (request, h) => {
+            // if (request.state.session) {
+            //     if (request.state.session == 'super') {
+            //         return h.redirect('marca/admin/dashboard')
+            //     } else if (request.state.session === 'empresa') {
+            //         return h.redirect('marca/admin/empresa')
+            //     }
+            // }
             return h.view('index', null,
                 {
                     layout: 'index'
@@ -35,82 +33,46 @@ module.exports.register = async server => {
     //Ruta de logout del admin
     server.route({
         method: "GET",
-        path: "/admin/logout",
-        handler: async (request, h) => {
-            return h.redirect('/admin').unstate('admin')
+        path: "/marca/admin/logout",
+        handler: (request, h) => {
+            return h.redirect('/marca/admin').unstate('admin')
         }
     });
+
+    /**Rutas de vistas*/
 
     //Ruta que muestra el home del administrador o dashboard
     server.route({
         method: "GET",
-        path: "/admin/dashboard",
+        path: "/marca/admin/dashboard",
         handler: async (request, h) => {
 
             const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
             const empresas = await request.mongo.db.collection('Empresa').find({}).toArray();
+            const campanas = await request.mongo.db.collection('Campañas').find({}).toArray();
 
             return h.view('dashboard', {
                 title: 'Bienvenido',
                 admin: request.state.session,
                 usuarios: usuarios,
-                empresas: empresas
+                empresas: empresas,
+                campanas: campanas
             })
         }
     });
-
-    //Ruta para registrar administrador
-    server.route({
-        method: "GET",
-        path: "/admin/registro",
-        handler: async (request, h) => {
-
-            const empresas = await request.mongo.db.collection('Empresa').find({}).toArray();
-            return h.view('registroAdmin', {
-                title: 'Registrar Administrador',
-                empresas: empresas
-            })
-        }
-    });
-
-    //Ruta para registrar empresa
-    server.route({
-        method: "GET",
-        path: "/admin/registro/empresa",
-        handler: async (request, h) => {
-            return h.view('registroEmpresa', {
-                title: 'Registrar Empresa'
-            })
-        }
-    });
-
-
 
     //Ruta que muestra el home del administrador o dashboard
     server.route({
         method: "GET",
-        path: "/admin/usuarios",
-        handler: async (request, h) => {
-            const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
-            return h.view('usuarios', {
-                title: 'Usuarios Registrados',
-                usuarios: usuarios
-            })
-        }
-    });
-
-    //Ruta que muestra las empresas registradas
-    server.route({
-        method: "GET",
-        path: "/admin/empresas",
+        path: "/marca/admin/usuarios",
         handler: async (request, h) => {
             try {
 
-                const empresas = await request.mongo.db.collection('Empresa').find({}).toArray();
-                console.log(empresas)
-                return h.view('empresas', {
-                    title: 'Empresas Registradas',
-                    empresa: empresas
+                const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
+
+                return h.view('usuarios', {
+                    title: 'Usuarios Registrados',
+                    usuarios: usuarios
                 })
             } catch (error) {
                 console.log(error)
@@ -121,27 +83,47 @@ module.exports.register = async server => {
     //Ruta que muestra un usuario
     server.route({
         method: "GET",
-        path: "/admin/usuario/{id}",
+        path: "/marca/admin/usuario/{id}",
         handler: async (req, h) => {
+
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
-
+console.log(id)
             const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
             // console.log(usuario)
-            const arrayRecorridos = Object.values(usuario.recorridos);
-            const tamRecorrido = arrayRecorridos.length;
-            const ultRecorrido = arrayRecorridos[tamRecorrido - 1];
+            const arrayCampanas = Object.values(usuario.campanas);
+            // console.log(arrayCampanas)
+            const tamCampanas = arrayCampanas.length;
+            const ultCampana = arrayCampanas[tamCampanas - 1];
             usuario.tiempo_total = usuario.tiempo_total.toFixed(2)
             usuario.co2_total = usuario.co2_total.toFixed(2)
             usuario.cal_total = usuario.cal_total.toFixed(2)
             usuario.km_total = usuario.km_total.toFixed(2)
-
-
             return h.view('usuario', {
                 title: `Usuario: ${usuario.usuario}`,
                 usuario: usuario,
-                ultRecorrido: ultRecorrido
+                ultCampana: ultCampana
             })
+        }
+    });
+
+    //Ruta que muestra las empresas registradas
+    server.route({
+        method: "GET",
+        path: "/marca/admin/empresas",
+        handler: async (req, h) => {
+            try {
+
+                const empresas = await req.mongo.db.collection('Empresa').find({}).toArray();
+
+                return h.view('empresas', {
+                    title: 'Empresas Registradas',
+                    empresa: empresas
+                })
+            } catch (error) {
+                console.log(error)
+
+            }
         }
     });
 
@@ -149,140 +131,90 @@ module.exports.register = async server => {
     //Ruta que muestra un usuario
     server.route({
         method: "GET",
-        path: "/admin/empresadetalle/{id}",
+        path: "/marca/admin/empresadetalle/{id}",
+        // options:{
+        //     parse: true
+        // },
         handler: async (req, h) => {
-            const id = req.params.id;
-            const ObjectID = req.mongo.ObjectID;
+            try {
 
-            const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
-            const total = await req.mongo.db.collection('Empresa').aggregate([{ $group: { _id: new ObjectID(id), km: { $sum: "usuarios.km" }, cal: { $sum: "usuarios.cal" }, co2: { $sum: "usuarios.co2" } } }]);
-            // console.log(total)
-            return h.view('dashboardEmpresaSuper', {
-                title: `Empresa: ${empresa.nombre}`,
-                empresa: empresa
+                const id = req.params.id;
+                const ObjectID = req.mongo.ObjectID;
+                const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
+                // const total = await req.mongo.db.collection('Empresa').aggregate([{ $group: { _id: new ObjectID(id), km: { $sum: "usuarios.km" }, cal: { $sum: "usuarios.cal" }, co2: { $sum: "usuarios.co2" } } }]);
+                // console.log(total)
+                return h.view('empresa', {
+                    title: `Empresa: ${empresa.nombre}`,
+                    empresa: empresa
+                })
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    });
+
+    //Ruta que muestra las empresas registradas
+    server.route({
+        method: "GET",
+        path: "/marca/admin/campanas",
+        handler: async (req, h) => {
+            const campana = await req.mongo.db.collection('Campaña').findOne({ _id: new ObjectID(id) });
+
+            return h.view('campanas', {
+                title: 'Campañas Registradas',
+                campana: camapana
             })
         }
     });
 
-    /********************************************
-     * Rutas para el perfil Admin de empresa
-     ********************************************/
 
-    //Ruta que muestra la empresa
+    /**Rutas de registros */
+
+    //Ruta para registrar administrador
     server.route({
         method: "GET",
-        path: "/admin/empresa/{id}",
-        handler: async (req, h) => {
-            const id = req.params.id;
-            console.log(id)
-            const ObjectID = req.mongo.ObjectID;
-            const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
-            console.log(empresa)
-            return h.view('dashboardEmpresa', {
-                admin: req.state.admin,
-                empresa: empresa
-            },
-                {
-                    layout: 'layoutEmpresa'
-                })
+        path: "/marca/admin/registro",
+        handler: (request, h) => {
+            return h.view('registroAdmin', {
+                title: 'Registrar Administrador'
+            })
         }
     });
 
-    //Ruta que muestra los usuarios de una empresa
+    //Ruta para registrar empresa
     server.route({
         method: "GET",
-        path: "/admin/empresa/{id}/usuarios",
-        handler: async (req, h) => {
-            const id = req.params.id;
-            const ObjectID = req.mongo.ObjectID;
-            const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
-            const usuarios = await req.mongo.db.collection('Usuario').find({ "empresa.id": new ObjectID(id) }).toArray();
-            console.log(usuarios)
-            return h.view('usuariosEmpresa', {
-                admin: req.state.admin,
-                empresa: empresa,
-                usuarios: usuarios
-            },
-                {
-                    layout: 'layoutEmpresa'
-                })
+        path: "/marca/admin/registro/empresa",
+        handler: (request, h) => {
+            return h.view('registroEmpresa', {
+                title: 'Registrar Empresa'
+            })
         }
     });
 
-    //Ruta que permite ver el registro de usuarios
+    //Ruta para registrar campaña
     server.route({
         method: "GET",
-        path: "/admin/empresa/{id}/registro/usuarios",
+        path: "/marca/admin/registro/campana",
         handler: async (req, h) => {
-            console.log(h.response)
-            const id = req.params.id;
-            const ObjectID = req.mongo.ObjectID;
-            const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
 
-            return h.view('registroUsuarios', {
-                admin: req.state.admin,
-                empresa: empresa
-            },
-                {
-                    layout: 'layoutEmpresa'
-                })
+            const empresas = await req.mongo.db.collection('Empresa').find({}).toArray();
+
+            return h.view('registroCampana', {
+                title: 'Registrar Camapaña',
+                empresas: empresas
+            })
         }
     });
 
-    //Ruta que permite ver el registro de reconocimientos
-    server.route({
-        method: "GET",
-        path: "/admin/empresa/{id}/registro/reconocimiento",
-        handler: async (req, h) => {
-            const id = req.params.id;
-            const ObjectID = req.mongo.ObjectID;
-            const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
 
-            return h.view('registroReconocimiento', {
-                admin: req.state.admin,
-                empresa: empresa
-            },
-                {
-                    layout: 'layoutEmpresa'
-                })
-        }
-    });
-
-    //Ruta que muestra un usuario
-    server.route({
-        method: "GET",
-        path: "/admin/empresa/usuario/{id}",
-        handler: async (req, h) => {
-            const id = req.params.id;
-            const ObjectID = req.mongo.ObjectID;
-
-            const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
-            console.log(usuario)
-            const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(usuario.empresa.id) })
-
-            const arrayRecorridos = Object.values(usuario.recorridos);
-            const tamRecorrido = arrayRecorridos.length;
-            const ultRecorrido = arrayRecorridos[tamRecorrido - 1];
-
-            return h.view('usuario', {
-                title: req.state.admin,
-                usuario: usuario,
-                empresa: empresa,
-                ultRecorrido: ultRecorrido
-
-            },
-                {
-                    layout: 'layoutEmpresa'
-                })
-        }
-    });
 
     //Ruta que redirecciona al index
     server.route({
         method: "GET",
         path: "/",
-        handler: async (request, h) => {
-            return h.redirect('/admin')
+        handler: (request, h) => {
+            return h.redirect('/marca/admin')
         }
     });
     //Ruta que permite cargar los diferentes assets de las vistas

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
 
 /******ICONS PUBLIBIKE******/
 
@@ -71,12 +71,12 @@
 
 
 h1, h2, h3, h4, h5, h6, p, a, li, input, button{
-	font-family: 'Quicksand', sans-serif !important;
+	font-family: 'Roboto', sans-serif !important;
 
 }
 
 body{
-	background-color: #f4f4f4;
+	background-color: #001434;
 	height: auto;
 }
 
@@ -99,19 +99,14 @@ img{
 	margin-top: -100px;
 }
 
-.form-login{
-	padding-top: 50px;
-}
-
 .form-login input{
 	background-color: transparent !important;
-	border: 0 !important;
-	border-bottom: 1px solid #01D9AD !important;
-	color: #606060 !important;
+	border-bottom: 1px solid #f9b410 !important;
+	color: #fff !important;
 }
 
 .form-login input::placeholder{
-	color: #01D9AD !important;
+	color: #f9b410 !important;
 	font-size: 18px !important;
 
 }
@@ -129,18 +124,15 @@ img{
 }
 
 .button-login .button{
-	background: rgb(0,179,216);
-	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%);
+	background-color: #f9b410;
 	width: 100%;
-	padding: 20px 10px;
-	color: #fff;
-	border-radius: 20px;
 }
 
 .form-login h4{
-	color: #01D9AD;
+	color: #f9b410;
 	margin-top: 20px;
 	text-align: center;
+	font-weight: lighter;
 }
 
 .login-social{
@@ -179,7 +171,7 @@ img{
 }
 
 .header-inside ul li i{
-	color: #01D9AD;
+	color: #f9b410;
 	font-size: 30px;
 }
 
@@ -202,7 +194,7 @@ img{
     top: 0;
     left: 0;
     z-index: 1;
-    background-color: #020202;
+    background-color: #f9b410;
     overflow-x: hidden;
     transition: 0.4s;
     box-sizing: border-box;
@@ -234,12 +226,12 @@ img{
 }
 
 .ui.form select{
-	color: #606060 !important;
+	color: #fff !important;
 	font-size: 20px;
 }
 
 #sidebar-menu a:hover{
-    color:#01D9AD;
+    color:#f9b410;
     background-color: #001434;
 }
 
@@ -263,7 +255,7 @@ img{
 
 #sidebar-menu li a{
 	font-size: 18px;
-	color: #fff;
+	color: #001434;
 	padding: 10px;
 }
 
@@ -277,8 +269,7 @@ img{
 
 .data-main{
 	text-align: center;
-	padding: 60px;
-	border-radius: 20px;
+	padding: 40px;
 	background-color: gray;
 	color: #fff;
 	margin: 5px;
@@ -302,23 +293,23 @@ img{
 }
 
 .degrade-green{
-	background: rgb(10,222,234);
-	background: linear-gradient(180deg, rgba(10,222,234,1) 0%, rgba(1,233,173,1) 100%);
+	background: rgb(0,106,15);
+	background: linear-gradient(90deg, rgba(0,106,15,1) 0%, rgba(141,201,53,1) 100%);
 }
 
 .degrade-orange{
-	background: rgb(10,222,234);
-	background: linear-gradient(43deg, rgba(10,222,234,1) 0%, rgba(1,233,173,1) 100%);
+	background: rgb(254,52,44);
+	background: linear-gradient(90deg, rgba(254,52,44,1) 0%, rgba(253,201,53,1) 100%);
 }
 
 .degrade-blue{
-	background: rgb(10,222,234);
-	background: linear-gradient(131deg, rgba(10,222,234,1) 0%, rgba(1,233,173,1) 100%);
+	background: rgb(1,74,253);
+	background: linear-gradient(90deg, rgba(1,74,253,1) 0%, rgba(16,202,215,1) 100%);
 }
 
 .degrade-violet{
-	background: rgb(10,222,234);
-	background: linear-gradient(309deg, rgba(10,222,234,1) 0%, rgba(1,233,173,1) 100%);
+	background: rgb(164,0,212);
+	background: linear-gradient(90deg, rgba(164,0,212,1) 0%, rgba(106,0,148,1) 100%);
 }
 
 .welcome-main{
@@ -326,11 +317,11 @@ img{
 }
 
 .welcome-main h2{
-	color: #01D9AD;
+	color: #f9b410;
 }
 
 .welcome-main h4{
-	color: #606060;
+	color: #fff;
 	font-size: 16px;
 	margin: 0;
 }
@@ -341,13 +332,7 @@ img{
 }
 
 .date h3{
-	color: #606060;
-	font-size: 25px;
-}
-
-
-.date i{
-	color: #01D9AD;
+	color: #fff;
 	font-size: 25px;
 }
 
@@ -357,36 +342,33 @@ img{
 
 .begin-activity{
 	width: 100%;
-	background-color: #020202 !important;
+	background-color: #fe342c !important;
 	color: #fff !important;
 	border-radius: 0px !important;
-	padding: 20px 10px !important;
-	border-radius: 20px !important;
+	padding: 10px !important;
 	margin: 10px 0 !important;
 	display: block !important;
-	font-size: 16px !important;
+	font-size: 20px !important;
 }
 
 .go-campaings{
-	font-size: 16px !important;
+	font-size: 20px !important;
 	width: 100%;
-	background: rgb(0,179,216);
-	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%) !important;
+	background-color: #6c0097 !important;
 	color: #fff !important;
-	border-radius: 20px !important;
-	padding: 20px 10px !important;
+	border-radius: 0px !important;
+	padding: 10px !important;
 	margin: 10px 0 !important;
 	display: block !important;
 }
 
 .stop-activity{
-	font-size: 16px !important;
+	font-size: 20px !important;
 	width: 100%;
-	background: rgb(0,179,216);
-	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%) !important;
-	color: #fff !important;
-	border-radius: 20px !important;
-	padding: 20px 10px !important;
+	background-color: #fff !important;
+	color: #fe342c !important;
+	border-radius: 0px !important;
+	padding: 10px !important;
 	margin: 10px 0 !important;
 	display: block !important;
 }
@@ -397,7 +379,7 @@ img{
 }
 
 .chrono h2, .chrono h3, .chrono h4{
-	color: #FFF !important;
+	color: #fff !important;
 }
 
 .chrono h4{
@@ -409,26 +391,23 @@ img{
 }
 
 .chrono .four{
-	border-right: 1px solid #01D9AD;
+	border-right: 1px solid #f9b410;
 }
 
 .data-rute{
 	width: 50% !important;
 	display: inline-block !important;
-	color: #606060;
-	margin-bottom: 5px;
+	color: #fff; 
 }
 
 .data-rute i{
 	font-size: 30px;
-	color: #fff
 }
 
 .data-rute h4{
 	font-size: 12px;
 	font-weight: lighter;
 	margin: 0;
-	color: #fff
 }
 
 .data-rute h2{
@@ -440,7 +419,6 @@ img{
 	margin: 5px;
 	padding: 10px;
 	width: 46%;
-	border-radius: 20px;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -457,7 +435,7 @@ img{
 
 .title-publibike{
 	padding: 10px;
-	color: #606060;
+	color: #fff;
 }
 
 .title-publibike h2{
@@ -465,7 +443,8 @@ img{
 }
 
 .title-campaing{
-	color: #01D9AD;
+	color: #f9b410;
+	font-weight: lighter;
 }
 
 .state-campaing h3:before{
@@ -499,20 +478,18 @@ img{
 }
 
 .suscribe-campaing{
-	background-color: #020202;
-	color: #fff;
+	background-color: #f1a30c;
+	color: #001434;
 	padding: 10px;
 	text-align: center;
 	width: 100%;
 	font-weight: bold;
 	margin-bottom: 5px;
 	display: block;
-	border-radius: 20px;
 }
 
 .start-campaing{
-	background: rgb(0,179,216);
-	background: linear-gradient(90deg, rgba(0,179,216,1) 0%, rgba(1,217,173,1) 100%);
+	background-color: #fe342c;
 	color: #fff;
 	padding: 10px;
 	text-align: center;
@@ -520,7 +497,6 @@ img{
 	font-weight: bold;
 	margin-bottom: 5px;
 	display: block;
-	border-radius: 20px;
 }
 
 .logo-campaing{
@@ -533,9 +509,6 @@ img{
 
 .begin-campaing, .logo-campaing{
 	background-color: #fff;
-	border-radius: 20px;
-	padding: 10px;
-	margin: 10px 0;
 }
 
 .begin-campaing .column{
@@ -572,12 +545,12 @@ img{
 }
 
 .title-rute{
-	color: #01D9AD;
+	color: #f9b410;
 	text-align: center;
 }
 
 .title-rute small{
-	color: #606060;
+	color: #fff;
 	display: block;
 }
 
@@ -590,12 +563,11 @@ img{
 }
 
 .table-routes .row{
-	border-bottom: 1px solid #01D9AD;
-	background-color: #020202;
+	border-bottom: 1px solid #f9b410;
 }
 
 .table-routes .header-table div{
-	color: #01D9AD;
+	color: #f9b410;
 }
 
 .route-column{
@@ -626,19 +598,19 @@ img{
 }
 
 .content-profile ul li h2{
-	color: #01D9AD;
+	color: #f9b410;
 	font-size: 20px;
 	margin: 0;
 }
 
 .content-profile ul li h4{
-	color: #606060;
+	color: #fff;
 	margin: 0;
 	font-size: 16px;
 }
 
 .info-profile h2{
-	color: #01D9AD;
+	color: #f9b410;
 }
 
 .data-profile.ui.grid>.column:not(.row), .data-profile.ui.grid>.row>.column{
@@ -647,11 +619,11 @@ img{
 
 .data-profile.ui.grid>.column:not(.row) input, .data-profile.ui.grid>.row>.column input, .data-profile.ui.grid>.column:not(.row) select, .data-profile.ui.grid>.row>.column select{
 	background-color: transparent !important;
-	border-bottom: 1px solid #01D9AD !important;
+	border-bottom: 1px solid #f9b410 !important;
 }
 
 .data-profile.ui.grid>.column h4{
-	color: #606060;
+	color: #fff;
 	font-size: 16px;
 	margin-bottom: 0;
 	font-weight: lighter;
@@ -659,7 +631,7 @@ img{
 
 .data-profile.ui.grid>.column input, .data-profile.ui.grid>.column input::placeholder, .data-profile.ui.grid>.column select option:not(:checked){
 	font-size: 20px;
-	color: #606060;
+	color: #fff;
 }
 
 .data-profile.ui.grid>.column input, .data-profile.ui.grid>.column select{

@@ -1,0 +1,66 @@
+<form enctype="multipart/form-data"
+ class="ui form" style="margin: 0px 30px 30px 30px " method="POST"
+    action="/api/marca/admin/createcampaign">
+    <h4 class="ui dividing header">Datos Principales</h4>
+    <div id="empresas" class="field">
+        <label>Empresa</label>
+        <select name="empresaId" class="ui fluid dropdown">
+            <option value="">Seleccione</option>
+            {{#each empresas}}
+            <option value="{{this._id}}">{{this.nombre}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="field">
+        <label>Nombre</label>
+        <input type="text" name="nombre" placeholder="Nombre" required> 
+    </div>
+    <div class="field">
+        <label>Imagen (PNG)</label>
+        <input type="file" name="imagen" id="imagen" required>
+    </div>
+    <div class="field">
+        <label>Zona: </label>
+        <input type="text" name="zona" placeholder="Especifique la zona" required>
+    </div>
+    <div class="field">
+        <label>Pago por Km: </label>
+        <input type="text" name="pago_km" placeholder="Especifique el valor del kilometro">
+    </div>
+    <div class="field">
+        <label>Fecha Inicio: </label>
+        <input type="date" name="fecha_inicio">
+    </div>
+    <div class="field">
+        <label>Fecha Final: </label>
+        <input type="date" name="fecha_final">
+    </div>
+    <div class="field">
+        <label>Estado</label>
+        <select name="estado" class="ui fluid dropdown">
+            <option value="">Seleccione</option>
+            <option value="Activo">Activo</option>
+            <option value="No_activo">No activo</option>
+        </select>
+    </div>
+    <div class="field">
+        <label>Cupos: </label>
+        <input type="number" name="cupos" placeholder="Ingrese cupo máximo de usuarios">
+    </div>
+    <div class="field">
+        <label>Presupuesto: </label>
+        <input type="number" name="presupuesto" placeholder="Ingrese el presupuesto de la campaña">
+    </div>
+   {{#with success}}
+    <div class="ui green inverted segment" role="alert">
+        {{this}}
+    </div>
+    {{/with}}
+    {{#with error}}
+    <div class="ui red inverted segment" role="alert">
+        {{this}}
+    </div>
+    {{/with}}
+    <button type="submit" class="ui fluid large yellow submit button">Registrar</button>
+
+</form>

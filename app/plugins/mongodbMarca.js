@@ -10,12 +10,14 @@ module.exports.register = async server => {
     await server.register({
         plugin: mongoDB,
         options: {
-            url: `mongodb+srv://${config.user}:${config.password}@${config.server}.mongodb.net/${config.database1}?retryWrites=true&w=majority`,
+            url: `mongodb+srv://${config.user}:${config.password}@${config.server}.mongodb.net/${config.database2}?retryWrites=true&w=majority`,
             settings: {
                 useUnifiedTopology: true
             },
             decorate: true
 
         }
-    });
+    })
+
+
 };

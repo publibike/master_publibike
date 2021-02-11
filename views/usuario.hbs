@@ -9,23 +9,22 @@
                     <h4><small>Correo Electrónico</small>{{usuario.email}}</h4>
                 </div>
                 <div class="column">
-                    <h4><small>Empresa</small>{{usuario.empresa.nombre}}</h4>
+                    <h4><small>Campañas Suscritas</small>{{usuario.campanas.length}}</h4>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <div class="ui three column equal height grid content">
-    <div class="column">
+    {{!-- <div class="column">
         <div class="inside-column">
             <div class="content-activity ui one column grid">
                 <h2>
                     Ultimo recorrido realizado
                 </h2>
-
                 <div class="ui internally celled grid historic">
                     <div class="date-rute">
-                        <h3>{{formatDate ultRecorrido.fecha}}</h3>
+                        <h3>18 Ene 2020</h3>
                     </div>
                     <div class="row">
                         <div class="six wide column">
@@ -33,10 +32,8 @@
                         </div>
                         <div class="ten wide column">
                             <div class="ui violet progress">
-                                {{!-- <div class="bar"
-                                    style="transition-duration: 300ms; display: block; width: {{ultRecorrido.kms}}%; height: 20px;">
-                                </div> --}}
-                                <div class="progress">{{ultRecorrido.kms}} Kms</div>
+                                <div class="bar"
+                                    style="transition-duration: 300ms; display: block; width: 90%; height: 20px;"></div>
                             </div>
                         </div>
                     </div>
@@ -46,10 +43,8 @@
                         </div>
                         <div class="ten wide column">
                             <div class="ui yellow progress" data-percent="60">
-                                {{!-- <div class="bar"
-                                    style="transition-duration: 300ms; display: block; width: {{ultRecorrido.co2}}%; height: 20px;">
-                                </div> --}}
-                                <div class="progress">{{ultRecorrido.co2}} Kgr</div>
+                                <div class="bar"
+                                    style="transition-duration: 300ms; display: block; width: 60%; height: 20px;"></div>
                             </div>
                         </div>
                     </div>
@@ -59,10 +54,8 @@
                         </div>
                         <div class="ten wide column">
                             <div class="ui orange progress">
-                                {{!-- <div class="bar"
-                                    style="transition-duration: 300ms; display: block; width: {{ultRecorrido.cal}}%; height: 20px;">
-                                </div> --}}
-                                <div class="progress">{{ultRecorrido.cal}} Kcal</div>
+                                <div class="bar"
+                                    style="transition-duration: 300ms; display: block; width: 80%; height: 20px;"></div>
                             </div>
                         </div>
                     </div>
@@ -72,14 +65,12 @@
                         </div>
                         <div class="ten wide column">
                             <div class="ui blue progress">
-                                {{!-- <div class="bar"
-                                    style="transition-duration: 300ms; display: block; width: {{ultRecorrido.tiempo}}%; height: 20px;">
-                                </div> --}}
-                                <div class="progress">{{ultRecorrido.tiempo}} </div>
+                                <div class="bar"
+                                    style="transition-duration: 300ms; display: block; width: 50%; height: 20px;"></div>
                             </div>
                         </div>
                     </div>
-                    {{!-- <div class="row">
+                    <div class="row">
                         <div class="six wide column">
                             <h4>Velocidad Máxima</h4>
                         </div>
@@ -89,12 +80,11 @@
                                     style="transition-duration: 300ms; display: block; width: 60%; height: 20px;"></div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>  
-
+    </div> --}}
     <div class="column">
         <div class="inside-column">
             <div class="content-activity ui one column grid">
@@ -120,7 +110,6 @@
                     <div class="data-activity">
                         <h3>
                             {{usuario.cal_total}}
-
                         </h3>
                         <h5>Kcal</h5>
                     </div>
@@ -261,24 +250,33 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div> --}}
+        </div> --}}
+    </div>
 </div>
 <div class="ui one column grid content user-data">
     <div class="column">
         <div class="inside-column">
             <h3>
-                Reconocimientos del Usuario
+                Campañas Suscritas
             </h3>
-            <div class="prize-content">
-                <ul>
-                    {{#each usuario.reconocimientos}}
-                    <li>
-                        <i class="icon-tools-2"></i>
-                        {{this.categoria}}
-                    </li>
+            <div class="row">
+                <div class="row">
+                    {{#each usuario.campanas}}
+                    <div class="column campaing">
+                        <div class="state-campaing warning-date">
+                            <h3>{{this.estado}}</h3>
+                        </div>
+                        <img class="logo-campaing" src="{{this.imagen}}">
+                        <div class="campaing-info">
+                            <h4>Campaña <small>{{this.nombre}}</small></h4>
+                            <h4>Pago por Km <small>{{this.pago_km}}</small></h4>
+                            <h4>Zonas <small>{{this.zona}}</small></h4>
+                            <h4 class="warning-date">Duración <small>{{this.fecha_inicio}} - {{this.fecha_fin}}</small></h4>
+                            <h4>Cupos Disponibles <small>{{this.cupos}} Ciclistas</small></h4>
+                        </div>
+                    </div>
                     {{/each}}
-                </ul>
+                </div>
             </div>
         </div>
     </div>

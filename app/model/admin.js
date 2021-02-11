@@ -16,7 +16,7 @@ class Admin {
         return hashedPwd;
 
     }
-
+    
     async validateAdmin(data, password){
         if(data){
             const passwordRight = await bcrypt.compare(password,data.password)
@@ -26,5 +26,4 @@ class Admin {
         return false
     }
 }
-
 module.exports = Admin

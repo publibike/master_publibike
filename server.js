@@ -5,11 +5,10 @@ const path = require('path');
 const handlebars = require('handlebars');
 const plugins = require("./app/plugins");
 const routes = require("./app/routes");
-const moment = require('moment');
 
-const app = async config => {
+const app = async config =>{
 
-    const { host, port } = config;
+    const {host, port} = config;
 
     //Crea una ejemplificacion de Hapi
     const server = Hapi.server({
@@ -29,13 +28,12 @@ const app = async config => {
     await plugins.register(server);
 
     //Se configura es estado para mantener la sesión
-    server.state('admin',{
+    server.state('sesion',{
         ttl: 1000*60*60,
         // isSecure: process.env.NODE_ENV === 'prod',
         isSecure: false,
         encoding: 'base64json'
     })
-
 
     //Se configura por medio de inert las vistas renderizadas
     server.views({
@@ -47,16 +45,6 @@ const app = async config => {
         layout: true,
         layoutPath: 'views'
     })
-
-    //Se configuran helpers de handlebars
-    handlebars.registerHelper('formatDate', function (dateString) {
-        moment.locale('es');
-        console.log(moment.locale());
-        return new handlebars.SafeString(
-            moment(dateString).format("D MMM Y")
-        );
-    });
-
 
     //Se registran las rutas
     await routes.register(server);

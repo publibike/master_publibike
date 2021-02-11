@@ -1,7 +1,7 @@
 "use strict";
 
-const bienestar = require("./bienestar/index");
+const marca = require("./marca/index");
 
 module.exports.register = async server => {
-    await bienestar.register(server);
+    await marca.register(server);
 };

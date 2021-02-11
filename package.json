@@ -1,11 +1,12 @@
 {
-  "name": "Publibike-Bienestar",
+  "name": "Publibike-Marca",
   "version": "1.0.0",
   "description": "Aplicación Publibike",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --ext js,hbs"
+    "dev": "nodemon --ext js,hbs",
+    "start": "node index.js"
   },
   "keywords": [
     "backend",
@@ -25,8 +26,9 @@
     "hapi-mongodb": "^9.0.1",
     "inert": "^5.1.3",
     "joi": "^17.2.1",
-    "moment": "^2.29.1",
+    "joi-objectid": "^3.0.1",
     "nvm": "0.0.4",
+    "uuid": "^8.3.2",
     "vision": "^5.4.4"
   },
   "devDependencies": {
