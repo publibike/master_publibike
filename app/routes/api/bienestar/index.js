@@ -358,7 +358,7 @@ module.exports.register = async server => {
     //Permite el acceso al usuario
     server.route({
         method: 'POST',
-        path: '/Bienestar/api/movil/login',
+        path: '/api/movil/login',
         options: {
             cors: true
         },
@@ -398,7 +398,7 @@ module.exports.register = async server => {
     //Obtiene los datos del usuario 
     server.route({
         method: 'GET',
-        path: '/Bienestar/api/movil/usuario/{id}',
+        path: '/api/movil/usuario/{id}',
         options: {
             cors: true
         },
@@ -420,7 +420,7 @@ module.exports.register = async server => {
     //Obtiene los reconocimientos de un usuario
     server.route({
         method: 'GET',
-        path: '/Bienestar/api/movil/usuario/{id}/reconocimientos',
+        path: '/api/movil/usuario/{id}/reconocimientos',
         options: {
             cors: true
         },
@@ -438,7 +438,7 @@ module.exports.register = async server => {
     //Obtiene los reconocimientos de una empresa
     server.route({
         method: 'GET',
-        path: '/Bienestar/api/movil/empresa/{id}/reconocimientos',
+        path: '/api/movil/empresa/{id}/reconocimientos',
         options: {
             cors: true
         },
@@ -455,7 +455,7 @@ module.exports.register = async server => {
     //Obtiene un reconocimiento
     server.route({
         method: 'GET',
-        path: '/Bienestar/api/movil/reconocimiento/{id}',
+        path: '/api/movil/reconocimiento/{id}',
         options: {
             cors: true
         },
@@ -473,7 +473,7 @@ module.exports.register = async server => {
     //Actualiza a un usuario 
     server.route({
         method: 'PUT',
-        path: '/Bienestar/api/movil/usuario/{id}',
+        path: '/api/movil/usuario/{id}',
         options: {
             cors: true
         },
@@ -498,7 +498,7 @@ module.exports.register = async server => {
     //Envia el recorrido
     server.route({
         method: 'PUT',
-        path: '/Bienestar/api/movil/usuario/{id}/recorrido',
+        path: '/api/movil/usuario/{id}/recorrido',
         options: {
             cors: true
         },
@@ -590,7 +590,7 @@ module.exports.register = async server => {
     //Actualiza el riesgo COVID del usuario
     server.route({
         method: 'PUT',
-        path: '/Bienestar/api/movil/usuario/{id}/riesgocovid',
+        path: '/api/movil/usuario/{id}/riesgocovid',
         options: {
             cors: true
         },
