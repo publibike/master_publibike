@@ -1,7 +1,7 @@
 {
-  "name": "Publibike-Marca",
+  "name": "uflou",
   "version": "1.0.0",
-  "description": "Aplicación Publibike",
+  "description": "Aplicación web de administración y API de Plataforma Uflou",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
