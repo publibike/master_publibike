@@ -1,6 +1,7 @@
 # Publibike Bienestar Web
 Repositorio de producción de publibike
-Es necesario tener nodeJS en el servidor y ejecutar los siguientes pasos:
+Es necesario tener nodeJS en el servidor y el archivo .env con las variables de entorno necesarias
+de forma seguida ejecutar los siguientes pasos:
 
 1. Para instalar los paquetes de la aplicación:
     npm install 
