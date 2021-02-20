@@ -14,13 +14,13 @@ module.exports.register = async server => {
     //Ruta de login del admin
     server.route({
         method: "GET",
-        path: "/marca/admin",
+        path: "/admin",
         handler: (request, h) => {
             // if (request.state.session) {
             //     if (request.state.session == 'super') {
-            //         return h.redirect('marca/admin/dashboard')
+            //         return h.redirect('admin/dashboard')
             //     } else if (request.state.session === 'empresa') {
-            //         return h.redirect('marca/admin/empresa')
+            //         return h.redirect('admin/empresa')
             //     }
             // }
             return h.view('index', null,
@@ -33,9 +33,9 @@ module.exports.register = async server => {
     //Ruta de logout del admin
     server.route({
         method: "GET",
-        path: "/marca/admin/logout",
+        path: "/admin/logout",
         handler: (request, h) => {
-            return h.redirect('/marca/admin').unstate('admin')
+            return h.redirect('/admin').unstate('admin')
         }
     });
 
@@ -44,7 +44,7 @@ module.exports.register = async server => {
     //Ruta que muestra el home del administrador o dashboard
     server.route({
         method: "GET",
-        path: "/marca/admin/dashboard",
+        path: "/admin/dashboard",
         handler: async (request, h) => {
 
             const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
@@ -64,7 +64,7 @@ module.exports.register = async server => {
     //Ruta que muestra el home del administrador o dashboard
     server.route({
         method: "GET",
-        path: "/marca/admin/usuarios",
+        path: "/admin/usuarios",
         handler: async (request, h) => {
             try {
 
@@ -83,7 +83,7 @@ module.exports.register = async server => {
     //Ruta que muestra un usuario
     server.route({
         method: "GET",
-        path: "/marca/admin/usuario/{id}",
+        path: "/admin/usuario/{id}",
         handler: async (req, h) => {
 
             const id = req.params.id;
@@ -110,7 +110,7 @@ console.log(id)
     //Ruta que muestra las empresas registradas
     server.route({
         method: "GET",
-        path: "/marca/admin/empresas",
+        path: "/admin/empresas",
         handler: async (req, h) => {
             try {
 
@@ -131,7 +131,7 @@ console.log(id)
     //Ruta que muestra un usuario
     server.route({
         method: "GET",
-        path: "/marca/admin/empresadetalle/{id}",
+        path: "/admin/empresadetalle/{id}",
         // options:{
         //     parse: true
         // },
@@ -156,7 +156,7 @@ console.log(id)
     //Ruta que muestra las empresas registradas
     server.route({
         method: "GET",
-        path: "/marca/admin/campanas",
+        path: "/admin/campanas",
         handler: async (req, h) => {
             const campana = await req.mongo.db.collection('Campaña').findOne({ _id: new ObjectID(id) });
 
@@ -173,7 +173,7 @@ console.log(id)
     //Ruta para registrar administrador
     server.route({
         method: "GET",
-        path: "/marca/admin/registro",
+        path: "/admin/registro",
         handler: (request, h) => {
             return h.view('registroAdmin', {
                 title: 'Registrar Administrador'
@@ -184,7 +184,7 @@ console.log(id)
     //Ruta para registrar empresa
     server.route({
         method: "GET",
-        path: "/marca/admin/registro/empresa",
+        path: "/admin/registro/empresa",
         handler: (request, h) => {
             return h.view('registroEmpresa', {
                 title: 'Registrar Empresa'
@@ -195,7 +195,7 @@ console.log(id)
     //Ruta para registrar campaña
     server.route({
         method: "GET",
-        path: "/marca/admin/registro/campana",
+        path: "/admin/registro/campana",
         handler: async (req, h) => {
 
             const empresas = await req.mongo.db.collection('Empresa').find({}).toArray();
@@ -214,7 +214,7 @@ console.log(id)
         method: "GET",
         path: "/",
         handler: (request, h) => {
-            return h.redirect('/marca/admin')
+            return h.redirect('/admin')
         }
     });
     //Ruta que permite cargar los diferentes assets de las vistas

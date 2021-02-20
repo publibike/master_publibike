@@ -10,7 +10,7 @@ Es necesario tener nodeJS en el servidor y ejecutar los siguientes pasos:
     pm2 start index.js --watch
 4. Para verificar el estado del proceso:
     pm2 list
-Si se desea ver datos mas precisos del proceso el siguiente comando permite verlos
+Si se desea ver datos más precisos del proceso el siguiente comando permite verlos:
     pm2 monit
 
 Para mayor información frente al manejador de procesos ir a https://pm2.keymetrics.io

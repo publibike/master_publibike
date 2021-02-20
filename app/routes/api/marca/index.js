@@ -24,7 +24,7 @@ module.exports.register = async server => {
     //Permite el acceso al administrador
     server.route({
         method: 'POST',
-        path: '/api/marca/admin/login',
+        path: '/api/admin/login',
         options: {
             // cors: true,
             // validate:{
@@ -80,14 +80,14 @@ module.exports.register = async server => {
             //   cookie.lastVisit = Date.now()
 
             // console.log('cookie',cookie)         
-            return h.redirect('/marca/admin/dashboard').state('session', cookie);
+            return h.redirect('/admin/dashboard').state('session', cookie);
 
         }
     });
     //Agrega un administrador 
     server.route({
         method: 'POST',
-        path: '/api/marca/admin/createadmin',
+        path: '/api/admin/createadmin',
         handler: async (req, h) => {
             let result = {};
             try {
@@ -117,7 +117,7 @@ module.exports.register = async server => {
     //Obtiene todos los datos para el admin
     server.route({
         method: 'GET',
-        path: '/api/marca/admin/{id}',
+        path: '/api/admin/{id}',
         handler: async (req, h) => {
             const id = request.params.id;
             const ObjectID = req.mongo.ObjectID;
@@ -131,7 +131,7 @@ module.exports.register = async server => {
     //Obtiene todos los usuarios registrados
     server.route({
         method: 'GET',
-        path: '/api/marca/admin/usuarios',
+        path: '/api/admin/usuarios',
         handler: (req, h) => {
 
             const usuarios = req.mongo.db.collection('Usuario').find().toArray();
@@ -142,7 +142,7 @@ module.exports.register = async server => {
     //Obtiene datos por usuario
     server.route({
         method: 'GET',
-        path: '/api/marca/admin/usuario/{id}',
+        path: '/api/admin/usuario/{id}',
         handler: (req, h) => {
 
             const id = req.params.id;
@@ -157,7 +157,7 @@ module.exports.register = async server => {
     //Obtiene los datos de todas las empresas
     server.route({
         method: 'GET',
-        path: '/api/marca/admin/empresas',
+        path: '/api/admin/empresas',
         handler: (req, h) => {
 
             const empresas = req.mongo.db.collection('Empresa').find().toArray();
@@ -168,7 +168,7 @@ module.exports.register = async server => {
     //Obtiene datos por empresa
     server.route({
         method: 'GET',
-        path: '/api/marca/admin/empresa/{id}',
+        path: '/api/admin/empresa/{id}',
         handler: (req, h) => {
 
             const id = req.params.id;
@@ -222,7 +222,7 @@ module.exports.register = async server => {
     //Agrega un nuevo usuario
     server.route({
         method: 'POST',
-        path: '/api/marca/admin/usuarios',
+        path: '/api/admin/usuarios',
         handler: async (req, h) => {
 
             const payload = req.payload
@@ -236,7 +236,7 @@ module.exports.register = async server => {
     //Agrega una nueva empresa
     server.route({
         method: 'POST',
-        path: '/api/marca/admin/createcompany',
+        path: '/api/admin/createcompany',
         handler: async (req, h) => {
             let result = {};
             try {
@@ -268,7 +268,7 @@ module.exports.register = async server => {
     //Agrega un nueva campaña
     server.route({
         method: 'POST',
-        path: '/api/marca/admin/createcampaign',
+        path: '/api/admin/createcampaign',
         options: {
             payload: {
                 parse: true,
@@ -337,7 +337,7 @@ module.exports.register = async server => {
     //Permite el acceso al usuario
     server.route({
         method: 'POST',
-        path: '/api/marca/movil/login',
+        path: '/api/movil/login',
         options: {
             cors: true
             // validate:{
@@ -378,7 +378,7 @@ module.exports.register = async server => {
     //Agrega un usuario
     server.route({
         method: 'POST',
-        path: '/api/marca/movil/registerUser',
+        path: '/api/movil/registerUser',
         options: {
             cors: true
         },
@@ -410,7 +410,7 @@ module.exports.register = async server => {
     //Obtiene los datos del usuario 
     server.route({
         method: 'GET',
-        path: '/api/marca/movil/usuario/{id}',
+        path: '/api/movil/usuario/{id}',
         options: {
             cors: true
         },
@@ -428,7 +428,7 @@ module.exports.register = async server => {
     //Obtiene las campañas 
     server.route({
         method: 'GET',
-        path: '/api/marca/movil/usuario/{id}/campanas',
+        path: '/api/movil/usuario/{id}/campanas',
         handler: async (req, h) => {
             try {
 
@@ -442,7 +442,7 @@ module.exports.register = async server => {
     //Obtiene las campañas del usuario
     server.route({
         method: 'GET',
-        path: '/api/marca/movil/campanas',
+        path: '/api/movil/campanas',
         options: {
             cors: true
         },
@@ -460,7 +460,7 @@ module.exports.register = async server => {
     //Obtiene una campaña por id
     server.route({
         method: 'GET',
-        path: '/api/marca/movil/campana/{id}',
+        path: '/api/movil/campana/{id}',
         options: {
             cors: true
         },
@@ -480,7 +480,7 @@ module.exports.register = async server => {
     //Obtiene las empresas registradas
     server.route({
         method: 'GET',
-        path: '/api/marca/movil/empresas',
+        path: '/api/movil/empresas',
         options: {
             cors: true
         },
@@ -498,7 +498,7 @@ module.exports.register = async server => {
     //Actualiza a un usuario 
     server.route({
         method: 'PUT',
-        path: '/api/marca/movil/usuario/{id}',
+        path: '/api/movil/usuario/{id}',
         options: {
             //     validate: {
             //         params: Joi.object({
@@ -527,7 +527,7 @@ module.exports.register = async server => {
     //Envia el recorrido
     server.route({
         method: 'PUT',
-        path: '/api/marca/movil/usuario/{id}/recorrido',
+        path: '/api/movil/usuario/{id}/recorrido',
         options: {
             cors: true
         },
@@ -623,7 +623,7 @@ module.exports.register = async server => {
     //Suscribe una campaña
     server.route({
         method: 'PUT',
-        path: '/api/marca/movil/usuario/{id}/campana',
+        path: '/api/movil/usuario/{id}/campana',
         options: {
             cors: true
         },
@@ -726,7 +726,7 @@ module.exports.register = async server => {
     //Actualiza la campaña actual
     server.route({
         method: 'PUT',
-        path: '/api/marca/movil/usuario/{id}/actualcampana',
+        path: '/api/movil/usuario/{id}/actualcampana',
         options: {
             cors: true
         },
