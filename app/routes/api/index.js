@@ -1,6 +1,6 @@
 "use strict";
 
-const marca = require("./index");
+const marca = require("./marca/index");
 
 module.exports.register = async server => {
     await marca.register(server);

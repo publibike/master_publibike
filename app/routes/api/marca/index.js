@@ -180,45 +180,45 @@ module.exports.register = async server => {
     });
 
     //Agrega un administrador 
-    server.route({
-        method: 'POST',
-        path: '/api/admin/createadmin',
-        options: {
-            cors: true
-        },
-        handler: async (req, h) => {
-            let result = {};
-            try {
-                let ad = req.payload
-                // ad = JSON.parse(ad)
-                const ObjectID = req.mongo.ObjectID;
-                console.log(ad)
-                //crea el administrador con el password cifrado
-                ad = await admin.create(ad);
-                console.log(ad)
+    // server.route({
+    //     method: 'POST',
+    //     path: '/api/admin/createadmin',
+    //     options: {
+    //         cors: true
+    //     },
+    //     handler: async (req, h) => {
+    //         let result = {};
+    //         try {
+    //             let ad = req.payload
+    //             // ad = JSON.parse(ad)
+    //             const ObjectID = req.mongo.ObjectID;
+    //             console.log(ad)
+    //             //crea el administrador con el password cifrado
+    //             ad = await admin.create(ad);
+    //             console.log(ad)
 
-                result = await req.mongo.db.collection('Administrador').insertOne(ad);
-                // console.log(result)
+    //             result = await req.mongo.db.collection('Administrador').insertOne(ad);
+    //             // console.log(result)
 
-            } catch (error) {
+    //         } catch (error) {
 
-                if (error.code == 11000) {
-                    // return h.response(`Administrador ${error.keyValue.usuario} ya se encuentra registrado`).code(500)
-                    return h.view('registroAdmin', {
-                        error: `Administrador ${error.keyValue.usuario} ya se encuentra registrado`
-                    })
-                }
-                console.log(error)
-                // return h.response('Problemas creando el administrador').code(500)
+    //             if (error.code == 11000) {
+    //                 // return h.response(`Administrador ${error.keyValue.usuario} ya se encuentra registrado`).code(500)
+    //                 return h.view('registroAdmin', {
+    //                     error: `Administrador ${error.keyValue.usuario} ya se encuentra registrado`
+    //                 })
+    //             }
+    //             console.log(error)
+    //             // return h.response('Problemas creando el administrador').code(500)
 
-            }
+    //         }
 
-            // return h.response(`Administrador creado con ID: ${result.ops[0]._id}`).redirect('/admin/registro')
-            return h.view('registroAdmin', {
-                success: `Administrador ${result.ops[0].usuario} Registrado`
-            });
-        }
-    });
+    //         // return h.response(`Administrador creado con ID: ${result.ops[0]._id}`).redirect('/admin/registro')
+    //         return h.view('registroAdmin', {
+    //             success: `Administrador ${result.ops[0].usuario} Registrado`
+    //         });
+    //     }
+    // });
     //Agrega un nuevo usuario
     server.route({
         method: 'POST',
