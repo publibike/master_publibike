@@ -184,7 +184,7 @@
     };
     var drawChart = function (startDate, endDate, id) {
         $.ajax({
-            url: `http://${window.location.host}/api/admin/empresa/${id}/estadisticas`,
+            url: `https://${window.location.host}/api/admin/empresa/${id}/estadisticas`,
             success: function (respuesta) {
                 let mayores = respuesta.filter((obj)=>{
                     dateObj = new Date(obj.fecha)
