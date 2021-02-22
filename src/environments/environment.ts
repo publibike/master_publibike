@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // publibikeApi: "http://142.93.44.192/Bienestar"
-  publibikeApi: "https://geoapps.esri.co/Bienestar"
+  publibikeApi: "https://plus.uflou.com.co"
+  // publibikeApi: "http://localhost:3002"
 };
 
 /*

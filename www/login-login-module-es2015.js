@@ -229,7 +229,7 @@ let AuthenticateService = class AuthenticateService {
                     'Content-Type': 'application/json'
                 })
             };
-            return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/login`, options).then(response => response.json());
+            return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/login`, options).then(response => response.json());
         });
     }
 };

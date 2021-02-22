@@ -76,8 +76,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    // publibikeApi: "http://142.93.44.192/Bienestar"
-    publibikeApi: "https://geoapps.esri.co/Bienestar"
+    publibikeApi: "https://plus.uflou.com.co"
+    // publibikeApi: "http://localhost:3002"
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -196,7 +196,7 @@ let ApiPublibikeBienestarService = class ApiPublibikeBienestarService {
                     'Content-Type': 'application/json'
                 })
             };
-            return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}`, options).then(response => response.json());
+            return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}`, options).then(response => response.json());
         }
         catch (error) {
         }
@@ -214,19 +214,19 @@ let ApiPublibikeBienestarService = class ApiPublibikeBienestarService {
                     'Content-Type': 'application/json'
                 })
             };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}`, options).then(response => {
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}`, options).then(response => {
                 console.log(response.text());
             }).catch(error => console.log(error));
         });
     }
     getRecognitions(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/reconocimiento/${id}`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/reconocimiento/${id}`).then(response => response.json());
     }
     getUserRecognition(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}/reconocimientos`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}/reconocimientos`).then(response => response.json());
     }
     getCompanyRecognitios(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/empresa/${id}/reconocimientos`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/empresa/${id}/reconocimientos`).then(response => response.json());
     }
     ;
     sendRute(ruteData) {
@@ -242,7 +242,7 @@ let ApiPublibikeBienestarService = class ApiPublibikeBienestarService {
                     'Content-Type': 'application/json'
                 })
             };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}/recorrido`, options).then(response => {
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}/recorrido`, options).then(response => {
                 console.log("rutaResponde", response.text());
             }).catch(error => console.log(error));
         });
@@ -259,7 +259,7 @@ let ApiPublibikeBienestarService = class ApiPublibikeBienestarService {
                     'Content-Type': 'application/json'
                 })
             };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/bienestar/movil/usuario/${id}/riesgocovid`, options).then(response => {
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}/riesgocovid`, options).then(response => {
                 console.log(response.text());
             }).catch(error => console.log(error));
         });
@@ -568,6 +568,7 @@ let MapModalPage = class MapModalPage {
             let params = {
                 location: this._pointGC
             };
+            //cálculo de distancia cuando se esta en movimiento
             this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 // this.backgroundGeolocation.start();
                 this.recorrido.push(position);
@@ -589,7 +590,6 @@ let MapModalPage = class MapModalPage {
                     console.log(totalMin);
                     this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
                     console.log(this.km);
-                    // this.ingresos = this.km * this.user.campana_actual.pago_km;
                 }
             }));
             let geocoder = this._locator;
@@ -599,9 +599,7 @@ let MapModalPage = class MapModalPage {
                 console.log(address);
                 address = address.split(",");
                 this.fstDirection = address[0];
-                // this.currentDirection = address[0];
-                // this.km = position.coords.speed;
-                // console.log(this.currentDirection)
+                this.fstPosition = params;
             }).catch(err => console.log(err));
             //Se inicializa el contador  
             this.startCounter();
@@ -617,14 +615,6 @@ let MapModalPage = class MapModalPage {
                     this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
                     console.log(this.time);
                     clearInterval(this.contador);
-                    // this.minutos = 0;
-                    // this.segundos = 0;
-                    // this.centesimas = 0;
-                    // this.horas = 0;
-                    // this._centesimas = '00';
-                    // this._segundos = '00';
-                    // this._minutos = '00';
-                    // this._horas = '00';
                     this.isRun = false;
                     // this.contador = null;
                     //se toma la posicion y se geocodifica
@@ -639,27 +629,25 @@ let MapModalPage = class MapModalPage {
                         location: this._pointGC
                     };
                     let geocoder = this._locator;
+                    //Se obtiene la posición actual
                     geocoder.locationToAddress(params)
                         .then((response) => {
                         address = response.address;
                         console.log(address);
                         address = address.split(",");
                         this.fnlDirection = address[0];
-                        // this.currentDirection = address[0];
-                        // console.log(this.currentDirection)
+                        this.fnlPosition = params;
                         let kms = this.km;
                         let cal = this.cal;
                         let co2 = this.co2;
                         // co2 = kms * 0.3;
                         let totalMin = (parseInt(this._horas) * 60) + (parseInt(this._minutos)) + (parseInt(this._segundos) * 0.0166667);
-                        // console.log(totalMin)
-                        // cal = 0.071*(this.user.peso*2.2) *totalMin;
-                        console.log(this.cal, typeof (this.cal));
-                        console.log(this.user.peso, typeof (this.user.peso));
                         this.ruteData = {
                             fecha: this.fecha,
                             inicio: this.fstDirection,
+                            inicioGeo: this.fstPosition,
                             final: this.fnlDirection,
+                            finalGeo: this.fnlPosition,
                             tiempo: this.time,
                             minutos: totalMin,
                             kms: kms,
@@ -753,69 +741,75 @@ let MapModalPage = class MapModalPage {
     riesgoCovid(vel) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             let alert;
-            if (vel < 2) {
+            // Riesgo Covid menor a 2 km
+            // if (vel < 2) {
+            //   //Bandera para activar el riesgo
+            //   this.flagCovid += 1;
+            //   console.log(this.flagCovid)
+            //   if (this.flagCovid >= 10) {
+            //     //Pausa el seguimiento del recorrido
+            //     this._track.stop();
+            //     clearInterval(this.contador);
+            //     //Muestra el mensaje de alerta
+            //     alert = await this.alertController.create({
+            //       cssClass: 'my-custom-class',
+            //       header: 'Atención',
+            //       subHeader: '¿Estas movilizandote a pie?',
+            //       message: 'Te recomendamos guardar el distanciamiento social y las medidas de protección necesarias',
+            //       buttons: [{
+            //         text: 'Ok',
+            //         handler: () => {
+            //           this._track.start()
+            //           this.startCounter();
+            //           this.flagCovid = 0;
+            //         }
+            //       }]
+            //     });
+            //     await alert.present();
+            //     this.riesgo_covid = 40;
+            //     await this.apiService.sendCovidRisk(this.riesgo_covid);
+            //   }
+            // } else
+            //Riesgo COVID mayor a 50 km
+            if (vel > 50) {
+                //Bandera para activar el riesgo
                 this.flagCovid += 1;
-                console.log(this.flagCovid);
                 if (this.flagCovid >= 10) {
-                    this._track.stop();
-                    clearInterval(this.contador);
+                    // this._track.stop();
                     alert = yield this.alertController.create({
                         cssClass: 'my-custom-class',
                         header: 'Atención',
-                        subHeader: '¿Estas movilizandote a pie?',
-                        message: 'Te recomendamos guardar el distanciamiento social y las medidas de protección necesarias',
+                        subHeader: '¿Estas movilizandote en?',
+                        message: 'Te recomendamos aguardar el distanciamiento social y las medidas de protección necesarias',
+                        inputs: [
+                            {
+                                name: 'radio1',
+                                type: 'radio',
+                                label: 'Vehiculo Particular',
+                                value: 'Vehiculo_Particular',
+                                checked: true
+                            },
+                            {
+                                name: 'radio2',
+                                type: 'radio',
+                                label: 'Taxi,Uber,Beat,...',
+                                value: 'Vehiculo_independiente'
+                            },
+                            {
+                                name: 'radio3',
+                                type: 'radio',
+                                label: 'Transporte Público',
+                                value: 'Transporte_Publico'
+                            }
+                        ],
                         buttons: [{
                                 text: 'Ok',
-                                handler: () => {
-                                    this._track.start();
-                                    this.startCounter();
-                                    this.flagCovid = 0;
-                                }
                             }]
                     });
                     yield alert.present();
-                    this.riesgo_covid = 40;
-                    yield this.apiService.sendCovidRisk(this.riesgo_covid);
+                    this.riesgo_covid = 60;
+                    // await this.apiService.sendCovidRisk(this.riesgo_covid);
                 }
-            }
-            else if (vel > 50) {
-                this._track.stop();
-                alert = yield this.alertController.create({
-                    cssClass: 'my-custom-class',
-                    header: 'Atención',
-                    subHeader: '¿Estas movilizandote en?',
-                    message: 'Te recomendamos aguardar el distanciamiento social y las medidas de protección necesarias',
-                    inputs: [
-                        {
-                            name: 'radio1',
-                            type: 'radio',
-                            label: 'Vehiculo Particular',
-                            value: 'Vehiculo_Particular',
-                            checked: true
-                        },
-                        {
-                            name: 'radio2',
-                            type: 'radio',
-                            label: 'Taxi,Uber,Beat,...',
-                            value: 'Vehiculo_independiente'
-                        },
-                        {
-                            name: 'radio3',
-                            type: 'radio',
-                            label: 'Transporte Público',
-                            value: 'Transporte_Publico'
-                        }
-                    ],
-                    buttons: [{
-                            text: 'Ok',
-                            handler: () => {
-                                this._track.start();
-                            }
-                        }]
-                });
-                yield alert.present();
-                this.riesgo_covid = 60;
-                yield this.apiService.sendCovidRisk(this.riesgo_covid);
             }
         });
     }

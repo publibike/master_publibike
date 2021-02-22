@@ -18,7 +18,7 @@ export class AuthenticateService {
         'Content-Type': 'application/json'
       })
     }
-    return fetch(`${environment.publibikeApi}/api/bienestar/movil/login`,options).then(
+    return fetch(`${environment.publibikeApi}/api/movil/login`,options).then(
       response => response.json()
     )
   }

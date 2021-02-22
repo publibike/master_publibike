@@ -163,8 +163,8 @@
 
       var environment = {
         production: false,
-        // publibikeApi: "http://142.93.44.192/Bienestar"
-        publibikeApi: "https://geoapps.esri.co/Bienestar"
+        publibikeApi: "https://plus.uflou.com.co" // publibikeApi: "http://localhost:3002"
+
       };
       /*
        * For easier debugging in development mode, you can import the following file
@@ -360,7 +360,7 @@
                   'Content-Type': 'application/json'
                 })
               };
-              return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/bienestar/movil/usuario/").concat(id), options).then(function (response) {
+              return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id), options).then(function (response) {
                 return response.json();
               });
             } catch (error) {}
@@ -392,7 +392,7 @@
                         })
                       };
                       _context2.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/bienestar/movil/usuario/").concat(id), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id), options).then(function (response) {
                         console.log(response.text());
                       })["catch"](function (error) {
                         return console.log(error);
@@ -412,21 +412,21 @@
         }, {
           key: "getRecognitions",
           value: function getRecognitions(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/bienestar/movil/reconocimiento/").concat(id)).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/reconocimiento/").concat(id)).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getUserRecognition",
           value: function getUserRecognition(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/bienestar/movil/usuario/").concat(id, "/reconocimientos")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/reconocimientos")).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getCompanyRecognitios",
           value: function getCompanyRecognitios(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/bienestar/movil/empresa/").concat(id, "/reconocimientos")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/empresa/").concat(id, "/reconocimientos")).then(function (response) {
               return response.json();
             });
           }
@@ -457,7 +457,7 @@
                         })
                       };
                       _context3.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/bienestar/movil/usuario/").concat(id, "/recorrido"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/recorrido"), options).then(function (response) {
                         console.log("rutaResponde", response.text());
                       })["catch"](function (error) {
                         return console.log(error);
@@ -500,7 +500,7 @@
                         })
                       };
                       _context4.next = 8;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/bienestar/movil/usuario/").concat(id, "/riesgocovid"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/riesgocovid"), options).then(function (response) {
                         console.log(response.text());
                       })["catch"](function (error) {
                         return console.log(error);
@@ -961,7 +961,7 @@
                       this._pointGC.longitude = position.coords.longitude;
                       params = {
                         location: this._pointGC
-                      };
+                      }; //cálculo de distancia cuando se esta en movimiento
 
                       this._track.on("track", function (position) {
                         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
@@ -989,7 +989,7 @@
                                     totalMin = parseInt(this._horas) * 60 + parseInt(this._minutos) + parseInt(this._segundos) * 0.0166667;
                                     console.log(totalMin);
                                     this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
-                                    console.log(this.km); // this.ingresos = this.km * this.user.campana_actual.pago_km;
+                                    console.log(this.km);
                                   }
 
                                 case 8:
@@ -1006,9 +1006,8 @@
                         address = response.address;
                         console.log(address);
                         address = address.split(",");
-                        _this2.fstDirection = address[0]; // this.currentDirection = address[0];
-                        // this.km = position.coords.speed;
-                        // console.log(this.currentDirection)
+                        _this2.fstDirection = address[0];
+                        _this2.fstPosition = params;
                       })["catch"](function (err) {
                         return console.log(err);
                       }); //Se inicializa el contador  
@@ -1047,15 +1046,7 @@
 
                       this.time = "".concat(this._horas, ":").concat(this._minutos, ":").concat(this._segundos, ".").concat(this._centesimas);
                       console.log(this.time);
-                      clearInterval(this.contador); // this.minutos = 0;
-                      // this.segundos = 0;
-                      // this.centesimas = 0;
-                      // this.horas = 0;
-                      // this._centesimas = '00';
-                      // this._segundos = '00';
-                      // this._minutos = '00';
-                      // this._horas = '00';
-
+                      clearInterval(this.contador);
                       this.isRun = false; // this.contador = null;
                       //se toma la posicion y se geocodifica
 
@@ -1072,27 +1063,25 @@
                       params = {
                         location: this._pointGC
                       };
-                      geocoder = this._locator;
+                      geocoder = this._locator; //Se obtiene la posición actual
+
                       geocoder.locationToAddress(params).then(function (response) {
                         address = response.address;
                         console.log(address);
                         address = address.split(",");
-                        _this3.fnlDirection = address[0]; // this.currentDirection = address[0];
-                        // console.log(this.currentDirection)
-
+                        _this3.fnlDirection = address[0];
+                        _this3.fnlPosition = params;
                         var kms = _this3.km;
                         var cal = _this3.cal;
                         var co2 = _this3.co2; // co2 = kms * 0.3;
 
-                        var totalMin = parseInt(_this3._horas) * 60 + parseInt(_this3._minutos) + parseInt(_this3._segundos) * 0.0166667; // console.log(totalMin)
-                        // cal = 0.071*(this.user.peso*2.2) *totalMin;
-
-                        console.log(_this3.cal, typeof _this3.cal);
-                        console.log(_this3.user.peso, typeof _this3.user.peso);
+                        var totalMin = parseInt(_this3._horas) * 60 + parseInt(_this3._minutos) + parseInt(_this3._segundos) * 0.0166667;
                         _this3.ruteData = {
                           fecha: _this3.fecha,
                           inicio: _this3.fstDirection,
+                          inicioGeo: _this3.fstPosition,
                           "final": _this3.fnlDirection,
+                          finalGeo: _this3.fnlPosition,
                           tiempo: _this3.time,
                           minutos: totalMin,
                           kms: kms,
@@ -1235,70 +1224,25 @@
           key: "riesgoCovid",
           value: function riesgoCovid(vel) {
             return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-              var _this5 = this;
-
               var alert;
               return regeneratorRuntime.wrap(function _callee13$(_context13) {
                 while (1) {
                   switch (_context13.prev = _context13.next) {
                     case 0:
-                      if (!(vel < 2)) {
-                        _context13.next = 16;
+                      if (!(vel > 50)) {
+                        _context13.next = 9;
                         break;
                       }
 
+                      //Bandera para activar el riesgo
                       this.flagCovid += 1;
-                      console.log(this.flagCovid);
 
                       if (!(this.flagCovid >= 10)) {
-                        _context13.next = 14;
+                        _context13.next = 9;
                         break;
                       }
 
-                      this._track.stop();
-
-                      clearInterval(this.contador);
-                      _context13.next = 8;
-                      return this.alertController.create({
-                        cssClass: 'my-custom-class',
-                        header: 'Atención',
-                        subHeader: '¿Estas movilizandote a pie?',
-                        message: 'Te recomendamos guardar el distanciamiento social y las medidas de protección necesarias',
-                        buttons: [{
-                          text: 'Ok',
-                          handler: function handler() {
-                            _this5._track.start();
-
-                            _this5.startCounter();
-
-                            _this5.flagCovid = 0;
-                          }
-                        }]
-                      });
-
-                    case 8:
-                      alert = _context13.sent;
-                      _context13.next = 11;
-                      return alert.present();
-
-                    case 11:
-                      this.riesgo_covid = 40;
-                      _context13.next = 14;
-                      return this.apiService.sendCovidRisk(this.riesgo_covid);
-
-                    case 14:
-                      _context13.next = 26;
-                      break;
-
-                    case 16:
-                      if (!(vel > 50)) {
-                        _context13.next = 26;
-                        break;
-                      }
-
-                      this._track.stop();
-
-                      _context13.next = 20;
+                      _context13.next = 5;
                       return this.alertController.create({
                         cssClass: 'my-custom-class',
                         header: 'Atención',
@@ -1322,24 +1266,19 @@
                           value: 'Transporte_Publico'
                         }],
                         buttons: [{
-                          text: 'Ok',
-                          handler: function handler() {
-                            _this5._track.start();
-                          }
+                          text: 'Ok'
                         }]
                       });
 
-                    case 20:
+                    case 5:
                       alert = _context13.sent;
-                      _context13.next = 23;
+                      _context13.next = 8;
                       return alert.present();
 
-                    case 23:
-                      this.riesgo_covid = 60;
-                      _context13.next = 26;
-                      return this.apiService.sendCovidRisk(this.riesgo_covid);
+                    case 8:
+                      this.riesgo_covid = 60; // await this.apiService.sendCovidRisk(this.riesgo_covid);
 
-                    case 26:
+                    case 9:
                     case "end":
                       return _context13.stop();
                   }
@@ -1495,12 +1434,12 @@
         _createClass(AppComponent, [{
           key: "initializeApp",
           value: function initializeApp() {
-            var _this6 = this;
+            var _this5 = this;
 
             this.platform.ready().then(function () {
-              _this6.statusBar.styleDefault();
+              _this5.statusBar.styleDefault();
 
-              _this6.splashScreen.hide();
+              _this5.splashScreen.hide();
             });
           }
         }]);

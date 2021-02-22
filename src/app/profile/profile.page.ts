@@ -91,9 +91,10 @@ export class ProfilePage implements OnInit {
 
     // console.log(this.userId)
     this.apiService.getUserData(this.userId._id).then(async (res) => {
-      console.log(res)
+      console.log(res)  
       this.storage.set("userData", res);
-      this.user = await this.storage.get("userData");
+      // this.user = await this.storage.get("userData");
+      this.user = res
       console.log(this.user);
       this.updateForm.patchValue(this.user)
     })

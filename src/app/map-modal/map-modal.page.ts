@@ -69,7 +69,9 @@ export class MapModalPage implements OnInit {
   ruteData: object = {};
   fecha: any;
   fstDirection: any;
+  fstPosition:{};
   fnlDirection: any;
+  fnlPosition: {};
   flagCovid: number = 0;
   time: any;
   km: number = 0.0;
@@ -300,6 +302,7 @@ export class MapModalPage implements OnInit {
         console.log(address)
         address = address.split(",");
         this.fstDirection = address[0];
+        this.fstPosition = params;
       }).catch(err => console.log(err))
     //Se inicializa el contador  
     this.startCounter();
@@ -336,6 +339,7 @@ export class MapModalPage implements OnInit {
             console.log(address);
             address = address.split(",")
             this.fnlDirection = address[0];
+            this.fnlPosition = params;
             let kms = this.km;
             let cal = this.cal;
             let co2 = this.co2;
@@ -345,7 +349,9 @@ export class MapModalPage implements OnInit {
             this.ruteData = {
               fecha: this.fecha,
               inicio: this.fstDirection,
+              inicioGeo: this.fstPosition,
               final: this.fnlDirection,
+              finalGeo:this.fnlPosition,
               tiempo: this.time,
               minutos: totalMin,
               kms: kms,

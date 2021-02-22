@@ -18,7 +18,7 @@ export class ApiPublibikeBienestarService {
           'Content-Type': 'application/json'
         })
       }
-      return fetch(`${environment.publibikeApi}/api/bienestar/movil/usuario/${id}`, options).then(
+      return fetch(`${environment.publibikeApi}/api/movil/usuario/${id}`, options).then(
         response => response.json()
       )
     } catch (error) {
@@ -37,7 +37,7 @@ export class ApiPublibikeBienestarService {
         'Content-Type': 'application/json'
       })
     }
-    return await fetch(`${environment.publibikeApi}/api/bienestar/movil/usuario/${id}`, options).then(
+    return await fetch(`${environment.publibikeApi}/api/movil/usuario/${id}`, options).then(
       response => {
         console.log(response.text())
       }
@@ -45,17 +45,17 @@ export class ApiPublibikeBienestarService {
   }
 
   getRecognitions(id){
-    return fetch(`${environment.publibikeApi}/api/bienestar/movil/reconocimiento/${id}`).then(
+    return fetch(`${environment.publibikeApi}/api/movil/reconocimiento/${id}`).then(
       response => response.json()
     )
   }
   getUserRecognition(id){
-    return fetch(`${environment.publibikeApi}/api/bienestar/movil/usuario/${id}/reconocimientos`).then(
+    return fetch(`${environment.publibikeApi}/api/movil/usuario/${id}/reconocimientos`).then(
       response => response.json()
     )
   }
   getCompanyRecognitios(id){
-    return fetch(`${environment.publibikeApi}/api/bienestar/movil/empresa/${id}/reconocimientos`).then(
+    return fetch(`${environment.publibikeApi}/api/movil/empresa/${id}/reconocimientos`).then(
       response => response.json()
     )
   };
@@ -72,7 +72,7 @@ export class ApiPublibikeBienestarService {
       })
     }
 
-    return await fetch(`${environment.publibikeApi}/api/bienestar/movil/usuario/${id}/recorrido`, options).then(
+    return await fetch(`${environment.publibikeApi}/api/movil/usuario/${id}/recorrido`, options).then(
       response => {
         console.log("rutaResponde",response.text())
       }
@@ -91,7 +91,7 @@ export class ApiPublibikeBienestarService {
       })
     }
 
-    return await fetch(`${environment.publibikeApi}/api/bienestar/movil/usuario/${id}/riesgocovid`, options).then(
+    return await fetch(`${environment.publibikeApi}/api/movil/usuario/${id}/riesgocovid`, options).then(
       response => {
         console.log(response.text())
       }

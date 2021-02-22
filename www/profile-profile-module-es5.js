@@ -234,16 +234,13 @@
                               switch (_context.prev = _context.next) {
                                 case 0:
                                   console.log(res);
-                                  this.storage.set("userData", res);
-                                  _context.next = 4;
-                                  return this.storage.get("userData");
+                                  this.storage.set("userData", res); // this.user = await this.storage.get("userData");
 
-                                case 4:
-                                  this.user = _context.sent;
+                                  this.user = res;
                                   console.log(this.user);
                                   this.updateForm.patchValue(this.user);
 
-                                case 7:
+                                case 5:
                                 case "end":
                                   return _context.stop();
                               }

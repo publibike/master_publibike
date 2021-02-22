@@ -130,7 +130,8 @@ let ProfilePage = class ProfilePage {
             this.apiService.getUserData(this.userId._id).then((res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 console.log(res);
                 this.storage.set("userData", res);
-                this.user = yield this.storage.get("userData");
+                // this.user = await this.storage.get("userData");
+                this.user = res;
                 console.log(this.user);
                 this.updateForm.patchValue(this.user);
             }));
