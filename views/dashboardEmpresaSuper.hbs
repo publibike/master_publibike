@@ -94,12 +94,10 @@
     let meshoy = hoy.getMonth(); //mes actual
     let annohoy = hoy.getFullYear(); //año actual
     let emId = "{{empresa._id}}"
-    console.log(hoy)
     moment.locale('es')
     hoy = moment(hoy).format("l")
-    console.log(typeof (hoy))
-    const START_DATE = "01/01/2021";
-    const END_DATE = hoy;
+    const START_DATE = new Date("01/01/2021");
+    const END_DATE = new Date(hoy);
     let result;
 
     $('input[name="dates"]').daterangepicker(
@@ -108,7 +106,7 @@
             endDate: END_DATE
         },
         function (start, end) {
-            drawChart(start, end, emId);
+            drawChart(start._d, end._d, emId);
         }
     );
     
@@ -116,7 +114,6 @@
     //Se configuran los datos del ChartJS
 
     var chartJsDatas = function (resultSet) {
-        console.log("resultSetD", resultSet)
         return {
             datasets: [
                 {
@@ -124,7 +121,7 @@
                     fill: false,
                     backgroundColor: window.chartColors.orange,
                     borderColor: window.chartColors.orange,
-                    data: resultSet.datosHistoricos.map(function (r) {
+                    data: resultSet.map(function (r) {
                         return r.min;
                     })
                 },
@@ -133,7 +130,7 @@
                     fill: false,
                     backgroundColor: window.chartColors.green,
                     borderColor: window.chartColors.green,
-                    data: resultSet.datosHistoricos.map(function (r) {
+                    data: resultSet.map(function (r) {
                         return r.co2;
                     }),
                 },
@@ -142,7 +139,7 @@
                     fill: false,
                     backgroundColor: window.chartColors.blue,
                     borderColor: window.chartColors.blue,
-                    data: resultSet.datosHistoricos.map(function (r) {
+                    data: resultSet.map(function (r) {
                         return r.kms;
                     }),
                 },
@@ -150,13 +147,13 @@
                     label: 'Calorías Reducidas',
                     backgroundColor: window.chartColors.red,
                     borderColor: window.chartColors.red,
-                    data: resultSet.datosHistoricos.map(function (r) {
+                    data: resultSet.map(function (r) {
                         return r.cal;
                     }),
                     fill: false,
                 }
             ],
-            labels: resultSet.datosHistoricos.map(function (c) {
+            labels: resultSet.map(function (c) {
                 c.x = moment(c.fecha).format("l")
                 return c.x;
             })
@@ -186,11 +183,23 @@
         }
     };
     var drawChart = function (startDate, endDate, id) {
-        console.log(id)
         $.ajax({
             url: `http://${window.location.host}/api/admin/empresa/${id}/estadisticas`,
             success: function (respuesta) {
-                let data = chartJsDatas(respuesta);
+                let mayores = respuesta.filter((obj)=>{
+                    dateObj = new Date(obj.fecha)
+                    if (dateObj.getTime()>startDate.getTime()){
+                        return true
+                    }
+                })
+
+                let finales = mayores.filter((obj)=>{
+                    dateObj = new Date(obj.fecha)
+                    if (dateObj.getTime()<endDate.getTime()){
+                        return true
+                    }
+                })
+                let data = chartJsDatas(finales);
                 if (window.chart) {
                     window.chart.data = data;
                     window.chart.update();
@@ -207,8 +216,6 @@
             }
         });
     };
-    
-    console.log(window.location.host)
 
     drawChart(START_DATE, END_DATE, emId);
 </script>

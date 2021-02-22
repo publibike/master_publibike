@@ -342,46 +342,58 @@ module.exports.register = async server => {
         }
     });
 
-    //Obtiene datos por empresa
+    //Obtiene datos estadisticos por empresa
     server.route({
         method: 'GET',
         path: '/api/admin/empresa/{id}/estadisticas',
         handler: async (req, h) => {
+            try {
 
-            const id = req.params.id;
-            const ObjectID = req.mongo.ObjectID;
+                const id = req.params.id;
+                const ObjectID = req.mongo.ObjectID;
 
-            const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
-            const historico = await req.mongo.db.collection('Empresa').aggregate([
-                {
-                    $match: {
-                        _id: new ObjectID(id)
-                    }
-                },
-                {
-                    $unwid: "$datosHistoricos"
-                },
-                {
-                    $group: {
-                        fecha: "$datosHistoricos.fecha",
-                        kms: {
-                            $sum: '$datosHistoricos.kms'
-                        },
-                        co2: {
-                            $sum: '$datosHistoricos.co2'
-                        },
-                        cal: {
-                            $sum: '$datosHistoricos.cal'
-                        },
-                        tiempo: {
-                            $sum: '$datosHistoricos.tiempo'
+                const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
+                const historico = await req.mongo.db.collection('Empresa').aggregate([
+                    {
+                        $match: {
+                            _id: ObjectID(id)
+                        }
+                    },
+                    {
+                        $unwind: "$datosHistoricos"
+                    },
+                    {
+                        $group: {
+                            _id: "$datosHistoricos.fecha",
+                            kms: {
+                                $sum: '$datosHistoricos.kms'
+                            },
+                            co2: {
+                                $sum: '$datosHistoricos.co2'
+                            },
+                            cal: {
+                                $sum: '$datosHistoricos.cal'
+                            },
+                            min: {
+                                $sum: '$datosHistoricos.min'
+                            }
                         }
                     }
-                }])
-            return empresa;
+                ]).toArray()
+                let historico2 = historico.map((data)=> {
+                    data.fecha=new Date(data._id)
+                })
+                // let arrayFechas = fechas.map((fechaActual) => new Date(fechaActual) );
+                let historico1 = historico.sort((a, b) => {
+                    return a.fecha - b.fecha
+                })
+                return historico1;
+            } catch (error) {
+                console.log(error)
+            }
         }
     });
-    
+
 
 
     /*********************************
@@ -565,13 +577,18 @@ module.exports.register = async server => {
                 let cal_C = company.cal;
                 let tiempo_C = company.tiempo;
 
+                let fechaHora = new Date(payload.fecha);
+                let fecha = `${fechaHora.getMonth() + 1}/${fechaHora.getDate()}/${fechaHora.getFullYear()}`;
+
+
                 //Se crean el objeto de datos históricos
                 let hisData = {
-                    fecha: payload.fecha,
+                    fechaCom: payload.fecha,
+                    fecha: fecha,
                     kms: payload.kms,
                     co2: payload.co2,
                     cal: payload.cal,
-                    minutos: payload.minutos
+                    min: payload.minutos
                 }
 
                 //se suman los valores a los totales
