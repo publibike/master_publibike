@@ -122,6 +122,9 @@ module.exports.register = async server => {
     server.route({
         method: 'POST',
         path: '/api/admin/createadmin/empresa',
+        options: {
+            cors: true
+        },
         handler: async (req, h) => {
             let result = {};
             try {
@@ -157,6 +160,9 @@ module.exports.register = async server => {
     server.route({
         method: 'POST',
         path: '/api/admin/empresa/{id}/createusuario',
+        options: {
+            cors: true
+        },
         handler: async (req, h) => {
             try {
                 let us = req.payload;
@@ -209,6 +215,9 @@ module.exports.register = async server => {
     server.route({
         method: 'POST',
         path: '/api/admin/createcompany',
+        options: {
+            cors: true
+        },
         handler: async (req, h) => {
             try {
                 let comp = req.payload
@@ -242,6 +251,9 @@ module.exports.register = async server => {
     server.route({
         method: 'POST',
         path: '/api/admin/empresa/{id}/createreconocimiento',
+        options: {
+            cors: true
+        },
         handler: async (req, h) => {
 
             try {
@@ -288,13 +300,13 @@ module.exports.register = async server => {
         }
     });
 
-
-
-
     //Obtiene todos los usuarios registrados
     server.route({
         method: 'GET',
         path: '/api/admin/usuarios',
+        options: {
+            cors: true
+        },
         handler: (req, h) => {
 
             const usuario = req.mongo.db.collection('Usuario').find({}, { "nombre": 1, "usuario": 1, "email": 1, "empresa": 1 }).toArray();
@@ -306,6 +318,9 @@ module.exports.register = async server => {
     server.route({
         method: 'GET',
         path: '/api/admin/usuario/{id}',
+        options: {
+            cors: true
+        },
         handler: (req, h) => {
 
             const id = req.params.id;
@@ -321,6 +336,9 @@ module.exports.register = async server => {
     server.route({
         method: 'GET',
         path: '/api/admin/empresas',
+        options: {
+            cors: true
+        },
         handler: (req, h) => {
 
             const empresas = req.mongo.db.collection('Empresa').find().toArray();
@@ -332,6 +350,9 @@ module.exports.register = async server => {
     server.route({
         method: 'GET',
         path: '/api/admin/empresa/{id}',
+        options: {
+            cors: true
+        },
         handler: (req, h) => {
 
             const id = req.params.id;
@@ -346,6 +367,9 @@ module.exports.register = async server => {
     server.route({
         method: 'GET',
         path: '/api/admin/empresa/{id}/estadisticas',
+        options: {
+            cors: true
+        },
         handler: async (req, h) => {
             try {
 
