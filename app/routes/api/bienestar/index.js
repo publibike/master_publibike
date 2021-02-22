@@ -29,7 +29,7 @@ module.exports.register = async server => {
                 const data = await req.mongo.db.collection('Administrador').findOne({ "usuario": admini.usuario });
 
                 result = await admin.validateAdmin(data, admini.password);
-                console.log(result)
+
                 //Si no existe registro envia mensaje
                 if (!result) {
                     // return h.response("Usuario y/o contraseña incorrecta").code(401)
@@ -52,7 +52,6 @@ module.exports.register = async server => {
 
             //Se configura la redireccion y se crea la cookie
             let cookie = req.state.admin;
-            console.log('cookie', cookie)
             // if (!cookie) {
             //     cookie = {
             //       usuario: result.usuario,
@@ -63,11 +62,9 @@ module.exports.register = async server => {
 
             //   cookie.lastVisit = Date.now()
 
-            // console.log('cookie',cookie)
 
 
             if (result.tipo === "super") {
-                console.log(result)
                 return h.redirect('/admin/dashboard').state('session', cookie);
             } else if (result.tipo === "empresa") {
                 return h.redirect(`/admin/empresa/${result.empresaId}`).state('session', cookie);
@@ -89,10 +86,8 @@ module.exports.register = async server => {
                 let ad = req.payload
                 // ad = JSON.parse(ad)
                 const ObjectID = req.mongo.ObjectID;
-                console.log(ad)
                 //crea el administrador con el password cifrado
                 ad = await admin.create(ad);
-                console.log(ad)
                 if (ad.tipo == "empresa") {
 
                     const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(ad.empresaId) });
@@ -101,7 +96,7 @@ module.exports.register = async server => {
                 }
 
                 result = await req.mongo.db.collection('Administrador').insertOne(ad);
-                // console.log(result)
+
 
             } catch (error) {
 
@@ -143,7 +138,6 @@ module.exports.register = async server => {
                 ad = await admin.create(ad);
 
                 result = await req.mongo.db.collection('Administrador').insertOne(ad);
-                console.log(result.ops[0])
 
             } catch (error) {
 
@@ -165,8 +159,7 @@ module.exports.register = async server => {
         path: '/api/admin/empresa/{id}/createusuario',
         handler: async (req, h) => {
             try {
-                let us = req.payload
-                console.log(us)
+                let us = req.payload;
                 const id = req.params.id;
                 const ObjectID = req.mongo.ObjectID;
                 const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) }, { "_id": 1, "nombre": 1 });
@@ -259,9 +252,7 @@ module.exports.register = async server => {
 
                 let rec = payload;
                 rec.empresaId = new ObjectID(id);
-                console.log(id, rec)
                 // rec = JSON.stringify(rec)
-                console.log("rec final", rec)
                 const status = await req.mongo.db.collection('Reconocimiento').insertOne(rec);
 
                 const recEmp = {
@@ -274,22 +265,22 @@ module.exports.register = async server => {
 
                 const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) }, { "_id": 1, "nombre": 1 });
                 // return h.response(result.ok).redirect(`/admin/empresa/${id}/registro/reconocimiento`);
-                return h.view('registroReconocimiento',{
+                return h.view('registroReconocimiento', {
                     success: `Reconocimiento ${status.ops[0].nombre} registrado satisfactoriamente`,
                     empresa: empresa
                 },
-                {
-                    layout: 'layoutEmpresa'
-                })
+                    {
+                        layout: 'layoutEmpresa'
+                    })
             } catch (error) {
                 if (error.code == 11000) {
                     // return h.response(`Usuario ${error.keyValue.usuario} ya se encuentra registrado`).code(500)
                     return h.view('registroReconocimiento', {
                         error: `Reconocimiento ${error.keyValue.nombre} ya se encuentra registrado`
                     },
-                    {
-                        layout: 'layoutEmpresa'
-                    })
+                        {
+                            layout: 'layoutEmpresa'
+                        })
                 }
                 console.log(error)
             }
@@ -351,6 +342,47 @@ module.exports.register = async server => {
         }
     });
 
+    //Obtiene datos por empresa
+    server.route({
+        method: 'GET',
+        path: '/api/admin/empresa/{id}/estadisticas',
+        handler: async (req, h) => {
+
+            const id = req.params.id;
+            const ObjectID = req.mongo.ObjectID;
+
+            const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
+            const historico = await req.mongo.db.collection('Empresa').aggregate([
+                {
+                    $match: {
+                        _id: new ObjectID(id)
+                    }
+                },
+                {
+                    $unwid: "$datosHistoricos"
+                },
+                {
+                    $group: {
+                        fecha: "$datosHistoricos.fecha",
+                        kms: {
+                            $sum: '$datosHistoricos.kms'
+                        },
+                        co2: {
+                            $sum: '$datosHistoricos.co2'
+                        },
+                        cal: {
+                            $sum: '$datosHistoricos.cal'
+                        },
+                        tiempo: {
+                            $sum: '$datosHistoricos.tiempo'
+                        }
+                    }
+                }])
+            return empresa;
+        }
+    });
+    
+
 
     /*********************************
      * RUTAS PARA LA APLICACION MOVIL
@@ -366,15 +398,12 @@ module.exports.register = async server => {
             let result;
             try {
                 let us = req.payload;
-                console.log(us)
                 const usuario = Number.parseInt(us.user, '10')
-                console.log(typeof (1010187957))
 
                 // let email = (us.email)
 
                 result = await req.mongo.db.collection('Usuario').findOne({ "usuario": usuario });
 
-                console.log("result", result)
                 // result = await user.validateUser(data, us.password);
 
                 //Si no existe registro envia mensaje
@@ -388,7 +417,6 @@ module.exports.register = async server => {
                 // return h.response('Problemas validando el usuario').code(500)
                 return h.response("Problemas validando el usuario")
             }
-            console.log(result)
             return h.response(result).code(200)
 
         }
@@ -406,14 +434,14 @@ module.exports.register = async server => {
             try {
                 const id = req.params.id;
                 const ObjectID = req.mongo.ObjectID;
-    
+
                 const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
-    
+
                 return usuario;
             } catch (error) {
                 console.log(error)
             }
-           
+
         }
 
     });
@@ -434,7 +462,7 @@ module.exports.register = async server => {
             return reconocimientos;
         }
     });
-    
+
     //Obtiene los reconocimientos de una empresa
     server.route({
         method: 'GET',
@@ -505,14 +533,11 @@ module.exports.register = async server => {
         handler: async (req, h) => {
             let status, statusUser, reconocimientos, rec;
             try {
-                console.log("HOLA")
                 const id = req.params.id
                 const ObjectID = req.mongo.ObjectID;
                 const payload = req.payload;
-
+                console.log(payload)
                 status = await req.mongo.db.collection('Usuario').updateOne({ _id: ObjectID(id) }, { $push: { recorridos: payload } });
-
-                // console.log(status)
 
                 let user = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) })
                 //Se obtienes los datos totales
@@ -540,11 +565,21 @@ module.exports.register = async server => {
                 let cal_C = company.cal;
                 let tiempo_C = company.tiempo;
 
+                //Se crean el objeto de datos históricos
+                let hisData = {
+                    fecha: payload.fecha,
+                    kms: payload.kms,
+                    co2: payload.co2,
+                    cal: payload.cal,
+                    minutos: payload.minutos
+                }
+
                 //se suman los valores a los totales
                 company.km = km_C + payload.kms;
                 company.co2 = co2_C + payload.co2;
                 company.cal = cal_C + payload.cal;
                 company.tiempo = tiempo_C + payload.minutos;
+                company.datosHistoricos.push(hisData);
 
                 statusUser = await req.mongo.db.collection('Empresa').updateOne({ _id: ObjectID(idEmpresa) }, { $set: company });
 
@@ -600,16 +635,62 @@ module.exports.register = async server => {
 
                 const id = req.params.id
                 const ObjectID = req.mongo.ObjectID;
-                const payload = req.payload
-                console.log(payload)
+                const payload = req.payload;
 
                 status = await req.mongo.db.collection('Usuario').updateOne({ _id: ObjectID(id) }, { $push: { riesgo_COVID: payload } });
 
             } catch (error) {
                 console.log(error)
             }
-            console.log(status)
             return h.response(status).code(200)
+        }
+    });
+
+    //Alimenta el campo historico de la empresa
+    server.route({
+        method: 'GET',
+        path: '/api/historicos/{id}',
+        options: {
+            cors: true
+        },
+        handler: async (req, h) => {
+            let datosHistoricos = [];
+            let status;
+            try {
+
+                const id = req.params.id
+                const ObjectID = req.mongo.ObjectID;
+
+                const usuarios = await req.mongo.db.collection('Usuario').find({}, { "nombre": 1, "usuario": 1, "email": 1, "empresa": 1 }).toArray();
+
+                for (let i = 0; i < usuarios.length; i++) {
+                    const usuario = usuarios[i];
+                    const recorridos = usuario.recorridos;
+                    for (let j = 0; j < recorridos.length; j++) {
+                        const recorrido = recorridos[j];
+                        let fechaHora = new Date(recorrido.fecha);
+                        let fecha = `${fechaHora.getMonth() + 1}/${fechaHora.getDate()}/${fechaHora.getFullYear()}`;
+
+                        const datos = {
+                            fechaCom: recorrido.fecha,
+                            fecha: fecha,
+                            kms: recorrido.kms,
+                            co2: recorrido.co2,
+                            cal: recorrido.cal,
+                            min: recorrido.minutos
+                        }
+                        datosHistoricos.push(datos)
+
+                    }
+
+                }
+                status = await req.mongo.db.collection('Empresa').updateOne({ _id: ObjectID(id) }, { $set: { datosHistoricos: datosHistoricos } })
+
+
+            } catch (error) {
+                console.log(error)
+            }
+            return datosHistoricos
         }
     });
 

@@ -26,6 +26,7 @@
     <div class="column">
         <div class="inside-column">
             <h3>Resultados Generales</h3>
+            <input name="dates" />
             <div style="width:100%;">
                 <canvas id="coResultados"></canvas>
             </div>
@@ -87,147 +88,127 @@
 </div>
 
 <script>
+    let hoy = new Date(); //objeto fecha actual
+    let diasemhoy = hoy.getDay(); //dia semana actual
+    let diahoy = hoy.getDate(); //dia mes actual
+    let meshoy = hoy.getMonth(); //mes actual
+    let annohoy = hoy.getFullYear(); //año actual
+    let emId = "{{empresa._id}}"
+    console.log(hoy)
+    moment.locale('es')
+    hoy = moment(hoy).format("l")
+    console.log(typeof (hoy))
+    const START_DATE = "01/01/2021";
+    const END_DATE = hoy;
+    let result;
 
-    $('#resultados .menu .item')
-        .tab({
-            // special keyword works same as above
-            context: 'parent'
-        })
-        ;
+    $('input[name="dates"]').daterangepicker(
+        {
+            startDate: START_DATE,
+            endDate: END_DATE
+        },
+        function (start, end) {
+            drawChart(start, end, emId);
+        }
+    );
+    
 
-    /*GRÁFICA CO2*/
-    var MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    //Se configuran los datos del ChartJS
 
-    var config = {
-        type: 'line',
-        data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    var chartJsDatas = function (resultSet) {
+        console.log("resultSetD", resultSet)
+        return {
             datasets: [
                 {
+                    label: "Tiempo",
+                    fill: false,
+                    backgroundColor: window.chartColors.orange,
+                    borderColor: window.chartColors.orange,
+                    data: resultSet.datosHistoricos.map(function (r) {
+                        return r.min;
+                    })
+                },
+                {
                     label: 'CO2 Reducido',
+                    fill: false,
                     backgroundColor: window.chartColors.green,
                     borderColor: window.chartColors.green,
-                    data: [
-                        {{ empresa.co2 }}
-            ],
-            fill: false,
-        }, 
-            {
-        label: 'Kilometros Recorridos',
-            fill: false,
-                backgroundColor: window.chartColors.blue,
+                    data: resultSet.datosHistoricos.map(function (r) {
+                        return r.co2;
+                    }),
+                },
+                {
+                    label: 'Kilometros Recorridos',
+                    fill: false,
+                    backgroundColor: window.chartColors.blue,
                     borderColor: window.chartColors.blue,
-                        data: [
-                            10
-                        ],
-            },
-    {
-        label: 'Calorías Reducidas',
-            backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
-                    data: [
-                        15
-                    ],
-                        fill: false,
-            }
-            ]
-        },
-    options: {
-        responsive: true,
-            title: {
-            display: true,
-                text: ' '
-        },
-        tooltips: {
-            mode: 'index',
-                intersect: false,
-            },
-        hover: {
-            mode: 'nearest',
-                intersect: true
-        },
-        scales: {
-            x: {
-                display: true,
-                    scaleLabel: {
-                    display: true,
-                        labelString: 'Month'
+                    data: resultSet.datosHistoricos.map(function (r) {
+                        return r.kms;
+                    }),
+                },
+                {
+                    label: 'Calorías Reducidas',
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    data: resultSet.datosHistoricos.map(function (r) {
+                        return r.cal;
+                    }),
+                    fill: false,
                 }
-            },
-            y: {
-                display: true,
-                    scaleLabel: {
-                    display: true,
-                        labelString: 'Value'
-                }
-            }
-        }
-    }
-    };
-
-
-    window.onload = function () {
-        var ctx = document.getElementById('coResultados').getContext('2d');
-        window.myLine = new Chart(ctx, config);
-    };
-
-    document.getElementById('randomizeData').addEventListener('click', function () {
-        config.data.datasets.forEach(function (dataset) {
-            dataset.data = dataset.data.map(function () {
-                return randomScalingFactor();
-            });
-
-        });
-
-        window.myLine.update();
-    });
-
-    var colorNames = Object.keys(window.chartColors);
-    document.getElementById('addDataset').addEventListener('click', function () {
-        var colorName = colorNames[config.data.datasets.length % colorNames.length];
-        var newColor = window.chartColors[colorName];
-        var newDataset = {
-            label: 'Dataset ' + config.data.datasets.length,
-            backgroundColor: newColor,
-            borderColor: newColor,
-            data: [],
-            fill: false
+            ],
+            labels: resultSet.datosHistoricos.map(function (c) {
+                c.x = moment(c.fecha).format("l")
+                return c.x;
+            })
         };
+    };
 
-        for (var index = 0; index < config.data.labels.length; ++index) {
-            newDataset.data.push(randomScalingFactor());
+    var options = {
+        scales: {
+            xAxes: [
+                {
+                    type: "time",
+                    time: {
+                        displayFormats: {
+                            hour: "MMM DD"
+                        },
+                        tooltipFormat: "MMM D"
+                    }
+                }
+            ],
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }
+            ]
         }
-
-        config.data.datasets.push(newDataset);
-        window.myLine.update();
-    });
-
-    document.getElementById('addData').addEventListener('click', function () {
-        if (config.data.datasets.length > 0) {
-            var month = MONTHS[config.data.labels.length % MONTHS.length];
-            config.data.labels.push(month);
-
-            config.data.datasets.forEach(function (dataset) {
-                dataset.data.push(randomScalingFactor());
-            });
-
-            window.myLine.update();
-        }
-    });
-
-    document.getElementById('removeDataset').addEventListener('click', function () {
-        config.data.datasets.splice(0, 1);
-        window.myLine.update();
-    });
-
-    document.getElementById('removeData').addEventListener('click', function () {
-        config.data.labels.splice(-1, 1); // remove the label first
-
-        config.data.datasets.forEach(function (dataset) {
-            dataset.data.pop();
+    };
+    var drawChart = function (startDate, endDate, id) {
+        console.log(id)
+        $.ajax({
+            url: `http://${window.location.host}/api/admin/empresa/${id}/estadisticas`,
+            success: function (respuesta) {
+                let data = chartJsDatas(respuesta);
+                if (window.chart) {
+                    window.chart.data = data;
+                    window.chart.update();
+                } else {
+                    window.chart = new Chart(document.getElementById("coResultados"), {
+                        type: "line",
+                        options: options,
+                        data: data
+                    });
+                }
+            },
+            error: function () {
+                console.log("No se ha podido obtener la información");
+            }
         });
+    };
+    
+    console.log(window.location.host)
 
-        window.myLine.update();
-    });
-
+    drawChart(START_DATE, END_DATE, emId);
 </script>

@@ -107,7 +107,6 @@ module.exports.register = async server => {
             try {
 
                 const empresas = await request.mongo.db.collection('Empresa').find({}).toArray();
-                console.log(empresas)
                 return h.view('empresas', {
                     title: 'Empresas Registradas',
                     empresa: empresas
@@ -127,7 +126,6 @@ module.exports.register = async server => {
             const ObjectID = req.mongo.ObjectID;
 
             const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
-            // console.log(usuario)
             const arrayRecorridos = Object.values(usuario.recorridos);
             const tamRecorrido = arrayRecorridos.length;
             const ultRecorrido = arrayRecorridos[tamRecorrido - 1];
@@ -156,13 +154,15 @@ module.exports.register = async server => {
 
             const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
             const total = await req.mongo.db.collection('Empresa').aggregate([{ $group: { _id: new ObjectID(id), km: { $sum: "usuarios.km" }, cal: { $sum: "usuarios.cal" }, co2: { $sum: "usuarios.co2" } } }]);
-            // console.log(total)
+
             return h.view('dashboardEmpresaSuper', {
                 title: `Empresa: ${empresa.nombre}`,
                 empresa: empresa
             })
         }
     });
+    
+
 
     /********************************************
      * Rutas para el perfil Admin de empresa
@@ -174,10 +174,9 @@ module.exports.register = async server => {
         path: "/admin/empresa/{id}",
         handler: async (req, h) => {
             const id = req.params.id;
-            console.log(id)
             const ObjectID = req.mongo.ObjectID;
             const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
-            console.log(empresa)
+
             return h.view('dashboardEmpresa', {
                 admin: req.state.admin,
                 empresa: empresa
@@ -197,7 +196,7 @@ module.exports.register = async server => {
             const ObjectID = req.mongo.ObjectID;
             const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
             const usuarios = await req.mongo.db.collection('Usuario').find({ "empresa.id": new ObjectID(id) }).toArray();
-            console.log(usuarios)
+
             return h.view('usuariosEmpresa', {
                 admin: req.state.admin,
                 empresa: empresa,
@@ -214,7 +213,6 @@ module.exports.register = async server => {
         method: "GET",
         path: "/admin/empresa/{id}/registro/usuarios",
         handler: async (req, h) => {
-            console.log(h.response)
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
             const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
@@ -257,7 +255,7 @@ module.exports.register = async server => {
             const ObjectID = req.mongo.ObjectID;
 
             const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
-            console.log(usuario)
+
             const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(usuario.empresa.id) })
 
             const arrayRecorridos = Object.values(usuario.recorridos);

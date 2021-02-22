@@ -51,7 +51,6 @@ const app = async config => {
     //Se configuran helpers de handlebars
     handlebars.registerHelper('formatDate', function (dateString) {
         moment.locale('es');
-        console.log(moment.locale());
         return new handlebars.SafeString(
             moment(dateString).format("D MMM Y")
         );

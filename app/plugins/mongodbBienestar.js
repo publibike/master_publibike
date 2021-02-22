@@ -5,7 +5,6 @@ const mongoDB = require("hapi-mongodb");
 module.exports.register = async server => {
 
     const config = server.app.config.mongo;
-    // console.log(server)
 
     await server.register({
         plugin: mongoDB,
