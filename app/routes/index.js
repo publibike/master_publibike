@@ -129,6 +129,10 @@ module.exports.register = async server => {
             const arrayRecorridos = Object.values(usuario.recorridos);
             const tamRecorrido = arrayRecorridos.length;
             const ultRecorrido = arrayRecorridos[tamRecorrido - 1];
+            ultRecorrido.minutos=ultRecorrido.minutos.toFixed(1)
+            ultRecorrido.kms=ultRecorrido.kms.toFixed(1)
+            ultRecorrido.cal=ultRecorrido.cal.toFixed(1)
+            ultRecorrido.co2=ultRecorrido.co2.toFixed(1)
             usuario.tiempo_total = usuario.tiempo_total.toFixed(2)
             usuario.co2_total = usuario.co2_total.toFixed(2)
             usuario.cal_total = usuario.cal_total.toFixed(2)
@@ -155,6 +159,10 @@ module.exports.register = async server => {
             const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
             const total = await req.mongo.db.collection('Empresa').aggregate([{ $group: { _id: new ObjectID(id), km: { $sum: "usuarios.km" }, cal: { $sum: "usuarios.cal" }, co2: { $sum: "usuarios.co2" } } }]);
 
+            empresa.tiempo = empresa.tiempo.toFixed(2)
+            empresa.co2 = empresa.co2.toFixed(2)
+            empresa.cal = empresa.cal.toFixed(2)
+            empresa.km = empresa.km.toFixed(2)
             return h.view('dashboardEmpresaSuper', {
                 title: `Empresa: ${empresa.nombre}`,
                 empresa: empresa
