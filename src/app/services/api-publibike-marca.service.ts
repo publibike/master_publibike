@@ -20,7 +20,7 @@ export class ApiPublibikeMarcaService {
           'Content-Type': 'application/json'
         })
       }
-      return fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}`,options).then(
+      return fetch(`${environment.publibikeApi}/api/movil/usuario/${id}`,options).then(
         response => response.json()
       )
     } catch (error) {
@@ -28,27 +28,27 @@ export class ApiPublibikeMarcaService {
     }
   }
   getUserRoutes(id) {
-    return fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}/recorridos`).then(
+    return fetch(`${environment.publibikeApi}/api/movil/usuario/${id}/recorridos`).then(
       response => response.json()
     )
   }
   getUserCampaings(id) {
-    return fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}/campanas`).then(
+    return fetch(`${environment.publibikeApi}/api/movil/usuario/${id}/campanas`).then(
       response => response.json()
     )
   }
   getCampaings() {
-    return fetch(`${environment.publibikeApi}/api/marca/movil/campanas`).then(
+    return fetch(`${environment.publibikeApi}/api/movil/campanas`).then(
       response => response.json()
     )
   }
   getCampaing(id) {
-    return fetch(`${environment.publibikeApi}/api/marca/movil/campana/${id}`).then(
+    return fetch(`${environment.publibikeApi}/api/movil/campana/${id}`).then(
       response => response.json()
     )
   }
   getCompanies() {
-    return fetch(`${environment.publibikeApi}/api/marca/movil/empresas`).then(
+    return fetch(`${environment.publibikeApi}/api/movil/empresas`).then(
       response => response.json()
     )
   }
@@ -66,7 +66,7 @@ export class ApiPublibikeMarcaService {
       })
     }
 
-    return await fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}/recorrido`, options).then(
+    return await fetch(`${environment.publibikeApi}/api/movil/usuario/${id}/recorrido`, options).then(
       response => {
         console.log(response.text())
       }
@@ -104,7 +104,7 @@ export class ApiPublibikeMarcaService {
       })
     }
 
-    return await fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}/campana`, options).then(
+    return await fetch(`${environment.publibikeApi}/api/movil/usuario/${id}/campana`, options).then(
       response => response.text()
     ).catch(error => console.log(error))
   }
@@ -121,7 +121,7 @@ export class ApiPublibikeMarcaService {
       })
     }
 
-    return await fetch(`${environment.publibikeApi}/api/marca/movil/usuario/${id}/actualcampana`, options).then(
+    return await fetch(`${environment.publibikeApi}/api/movil/usuario/${id}/actualcampana`, options).then(
       response => response.text()
     ).catch(error => console.log(error))
   }

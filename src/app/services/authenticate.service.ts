@@ -22,7 +22,7 @@ export class AuthenticateService {
           'Content-Type': 'application/json'
         })
       }
-      return fetch(`${environment.publibikeApi}/api/marca/movil/login`, options).then(
+      return fetch(`${environment.publibikeApi}/api/movil/login`, options).then(
         response => response.json()
       )
     } catch (error) {
@@ -40,7 +40,7 @@ export class AuthenticateService {
         'Content-Type': 'application/json'
       })
     }
-    return await fetch(`${environment.publibikeApi}/api/marca/movil/registerUser`, options).then(
+    return await fetch(`${environment.publibikeApi}/api/movil/registerUser`, options).then(
       response => response
     )
   }

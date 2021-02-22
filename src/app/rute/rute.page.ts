@@ -125,7 +125,9 @@ export class RutePage {
   ruteData: object = {};
   fecha: any;
   fstDirection: any;
+  fstPosition: {};
   fnlDirection: any;
+  fnlPosition: {};
   time: any;
   km: number = 0.0;
   ingresos: number = 0;
@@ -365,11 +367,8 @@ export class RutePage {
         console.log(address)
         address = address.split(",");
         this.fstDirection = address[0];
+        this.fstPosition = params;
         this.currentDirection = address[0];
-        // this.km = position.coords.speed;
-
-        console.log(this.currentDirection)
-
       }).catch(err => console.log(err))
     //Se inicializa el contador  
     this.startCounter();
@@ -408,22 +407,27 @@ export class RutePage {
             console.log(address);
             address = address.split(",")
             this.fnlDirection = address[0];
+            this.fnlPosition = params;
             this.currentDirection = address[0];
             console.log(this.currentDirection)
             let kms = this.km;
             let co2 = this.co2;
             let cal = this.cal;
             let totalMin = (this.horas * 60) + (this.minutos) + (this.segundos * 0.0166667);
-            console.log("totalMin",totalMin)
+            console.log("totalMin", totalMin)
             //Se calaulan las calorias
             this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+            this.ingresos = this.km * this.user.campana_actual.pago_km;
+            console.log(this.ingresos)
             //Se construye la ruta a enviar
             this.ruteData = {
               fecha: this.fecha,
               inicio: this.fstDirection,
+              inicioGeo: this.fstPosition,
               final: this.fnlDirection,
+              finalGeo: this.fnlPosition,
               tiempo: this.time,
-              minutos:totalMin,
+              minutos: totalMin,
               kms: this.km,
               cal: this.cal,
               co2: this.co2,
