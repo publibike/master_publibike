@@ -340,12 +340,6 @@ module.exports.register = async server => {
         path: '/api/movil/login',
         options: {
             cors: true
-            // validate:{
-            //     payload:{
-            //         email: Joi.string().required(),
-            //         password: Joi.string().required()
-            //     }
-            // }
         },
         handler: async (req, h) => {
             let result;
@@ -429,6 +423,9 @@ module.exports.register = async server => {
     server.route({
         method: 'GET',
         path: '/api/movil/usuario/{id}/campanas',
+        options: {
+            cors: true
+        },
         handler: async (req, h) => {
             try {
 
@@ -500,11 +497,7 @@ module.exports.register = async server => {
         method: 'PUT',
         path: '/api/movil/usuario/{id}',
         options: {
-            //     validate: {
-            //         params: Joi.object({
-            //             id: Joi.objectId()
-            //         })
-            //     }
+            cors: true
         },
         handler: async (req, h) => {
 
