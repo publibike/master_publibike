@@ -22,6 +22,13 @@ Para ejecutar xCode desde el proyecto ejecutar:
 
 npx cap open ios
 
+Para iOS si presenta error al construir la app ir a la ruta ios/app y desde consola ejecutar
+
+pod install
+
+Enseguida volver a abrir xCode
+
+
 Para crear el icono y el splash :
 
 1. En la carpeta "resources" pegar un archivo llamado "icon.png" de 1024x1024 px y otro llamado "splash.png" de 2732x2732 px
