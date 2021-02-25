@@ -418,6 +418,22 @@ module.exports.register = async server => {
             return usuario;
         }
     });
+    //Obtiene las campañas del usuario
+    server.route({
+        method: 'GET',
+        path: '/api/movil/usuario/{id}/recorridos',
+        options: {
+            cors: true
+        },
+        handler: (req, h) => {
+
+            const id = req.params.id
+            const ObjectID = req.mongo.ObjectID;
+            const recorridos = req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) }, { recorridos: 1 });
+            console.log(recorridos)
+            return recorridos;
+        }
+    });
 
     //Obtiene las campañas 
     server.route({
