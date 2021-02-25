@@ -381,7 +381,7 @@ module.exports.register = async server => {
             try {
                 let us = req.payload
                 console.log(us)
-                // us = JSON.parse(us)
+                us = JSON.parse(us)
                 //crea el administrador con el password cifrado
                 us = await user.create(us);
                 // console.log(us)
