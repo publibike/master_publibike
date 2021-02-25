@@ -328,25 +328,25 @@ let ApiPublibikeMarcaService = class ApiPublibikeMarcaService {
                     'Content-Type': 'application/json'
                 })
             };
-            return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}`, options).then(response => response.json());
+            return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}`, options).then(response => response.json());
         }
         catch (error) {
         }
     }
     getUserRoutes(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/recorridos`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}/recorridos`).then(response => response.json());
     }
     getUserCampaings(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/campanas`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}/campanas`).then(response => response.json());
     }
     getCampaings() {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/campanas`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/campanas`).then(response => response.json());
     }
     getCampaing(id) {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/campana/${id}`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/campana/${id}`).then(response => response.json());
     }
     getCompanies() {
-        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/empresas`).then(response => response.json());
+        return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/empresas`).then(response => response.json());
     }
     sendRute(ruteData) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -361,7 +361,7 @@ let ApiPublibikeMarcaService = class ApiPublibikeMarcaService {
                     'Content-Type': 'application/json'
                 })
             };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/recorrido`, options).then(response => {
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}/recorrido`, options).then(response => {
                 console.log(response.text());
             }).catch(error => console.log(error));
         });
@@ -397,7 +397,7 @@ let ApiPublibikeMarcaService = class ApiPublibikeMarcaService {
                     'Content-Type': 'application/json'
                 })
             };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/campana`, options).then(response => response.text()).catch(error => console.log(error));
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}/campana`, options).then(response => response.text()).catch(error => console.log(error));
         });
     }
     updateActualCampaing(campData) {
@@ -413,7 +413,7 @@ let ApiPublibikeMarcaService = class ApiPublibikeMarcaService {
                     'Content-Type': 'application/json'
                 })
             };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/usuario/${id}/actualcampana`, options).then(response => response.text()).catch(error => console.log(error));
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/usuario/${id}/actualcampana`, options).then(response => response.text()).catch(error => console.log(error));
         });
     }
 };
@@ -544,7 +544,7 @@ let AuthenticateService = class AuthenticateService {
                         'Content-Type': 'application/json'
                     })
                 };
-                return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/login`, options).then(response => response.json());
+                return fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/login`, options).then(response => response.json());
             }
             catch (error) {
                 return error;
@@ -562,7 +562,7 @@ let AuthenticateService = class AuthenticateService {
                     'Content-Type': 'application/json'
                 })
             };
-            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/marca/movil/registerUser`, options).then(response => response);
+            return yield fetch(`${src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi}/api/movil/registerUser`, options).then(response => response);
         });
     }
 };

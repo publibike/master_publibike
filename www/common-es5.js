@@ -482,7 +482,7 @@
                   'Content-Type': 'application/json'
                 })
               };
-              return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id), options).then(function (response) {
+              return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id), options).then(function (response) {
                 return response.json();
               });
             } catch (error) {}
@@ -490,35 +490,35 @@
         }, {
           key: "getUserRoutes",
           value: function getUserRoutes(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/recorridos")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/recorridos")).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getUserCampaings",
           value: function getUserCampaings(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/campanas")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/campanas")).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getCampaings",
           value: function getCampaings() {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/campanas")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/campanas")).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getCampaing",
           value: function getCampaing(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/campana/").concat(id)).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/campana/").concat(id)).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getCompanies",
           value: function getCompanies() {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/empresas")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/empresas")).then(function (response) {
               return response.json();
             });
           }
@@ -549,7 +549,7 @@
                         })
                       };
                       _context2.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/recorrido"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/recorrido"), options).then(function (response) {
                         console.log(response.text());
                       })["catch"](function (error) {
                         return console.log(error);
@@ -637,7 +637,7 @@
                         })
                       };
                       _context4.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/campana"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/campana"), options).then(function (response) {
                         return response.text();
                       })["catch"](function (error) {
                         return console.log(error);
@@ -681,7 +681,7 @@
                         })
                       };
                       _context5.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/actualcampana"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/actualcampana"), options).then(function (response) {
                         return response.text();
                       })["catch"](function (error) {
                         return console.log(error);
@@ -910,7 +910,7 @@
                           'Content-Type': 'application/json'
                         })
                       };
-                      return _context6.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login"), options).then(function (response) {
+                      return _context6.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/login"), options).then(function (response) {
                         return response.json();
                       }));
 
@@ -946,7 +946,7 @@
                         })
                       };
                       _context7.next = 4;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/registerUser"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/registerUser"), options).then(function (response) {
                         return response;
                       });
 

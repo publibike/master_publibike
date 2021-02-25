@@ -76,9 +76,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    // publibikeApi: "https://geoapps.esri.co/Marca",
-    // publibikeApi: "http://127.0.0.1:3002",
-    publibikeApi: "http://142.93.44.192/Marca"
+    publibikeApi: "https://app.uflou.com.co"
+    // publibikeApi: "http://127.0.0.1:3002"
 };
 /*
  * For easier debugging in development mode, you can import the following file
