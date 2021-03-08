@@ -128,7 +128,17 @@ module.exports.register = async server => {
             const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
             const arrayRecorridos = Object.values(usuario.recorridos);
             const tamRecorrido = arrayRecorridos.length;
-            const ultRecorrido = arrayRecorridos[tamRecorrido - 1];
+            let ultRecorrido = arrayRecorridos[tamRecorrido - 1];
+            if (ultRecorrido===undefined){
+                console.log("hola")
+                ultRecorrido={
+                    minutos:0,
+                    kms:0,
+                    cal:0,
+                    co2:0
+                }
+                
+            }
             ultRecorrido.minutos=ultRecorrido.minutos.toFixed(1)
             ultRecorrido.kms=ultRecorrido.kms.toFixed(1)
             ultRecorrido.cal=ultRecorrido.cal.toFixed(1)
