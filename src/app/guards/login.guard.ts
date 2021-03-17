@@ -3,9 +3,9 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root'
+// })
 export class LoginGuard implements CanActivate {
   constructor(private storage: Storage, private router: Router) { }
   async canActivate() {
