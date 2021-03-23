@@ -90,9 +90,9 @@
       /* harmony import */
 
 
-      var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-      /*! ./overlays-2cc140a1.js */
-      "ja7u");
+      var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ./overlays-c5d9d644.js */
+      "d1dm");
       /* harmony import */
 
 
@@ -116,6 +116,10 @@
         var getValue = getValueFromFormat(date, format);
 
         if (getValue !== undefined) {
+          if (format === FORMAT_A || format === FORMAT_a) {
+            date.ampm = getValue;
+          }
+
           return getValue;
         }
 
@@ -336,8 +340,7 @@
           minute: parse[5],
           second: parse[6],
           millisecond: parse[7],
-          tzOffset: tzOffset,
-          ampm: parse[4] >= 12 ? 'pm' : 'am'
+          tzOffset: tzOffset
         };
       };
       /**
@@ -419,30 +422,12 @@
             // newData is from the datetime picker's selected values
             // update the existing datetimeValue with the new values
             if (newData.ampm !== undefined && newData.hour !== undefined) {
-              // If the date we came from exists, we need to change the meridiem value when
-              // going to and from 12
-              if (existingData.ampm !== undefined && existingData.hour !== undefined) {
-                // If the existing meridiem is am, we want to switch to pm if it is either
-                // A) coming from 0 (12 am)
-                // B) going to 12 (12 pm)
-                if (existingData.ampm === 'am' && (existingData.hour === 0 || newData.hour.value === 12)) {
-                  newData.ampm.value = 'pm';
-                } // If the existing meridiem is pm, we want to switch to am if it is either
-                // A) coming from 12 (12 pm)
-                // B) going to 12 (12 am)
-
-
-                if (existingData.ampm === 'pm' && (existingData.hour === 12 || newData.hour.value === 12)) {
-                  newData.ampm.value = 'am';
-                }
-              } // change the value of the hour based on whether or not it is am or pm
+              // change the value of the hour based on whether or not it is am or pm
               // if the meridiem is pm and equal to 12, it remains 12
               // otherwise we add 12 to the hour value
               // if the meridiem is am and equal to 12, we change it to 0
               // otherwise we use its current hour value
               // for example: 8 pm becomes 20, 12 am becomes 0, 4 am becomes 4
-
-
               newData.hour.value = newData.ampm.value === 'pm' ? newData.hour.value === 12 ? 12 : newData.hour.value + 12 : newData.hour.value === 12 ? 0 : newData.hour.value;
             } // merge new values from the picker's selection
             // to the existing DatetimeData values
@@ -876,7 +861,7 @@
                     case 2:
                       pickerOptions = this.generatePickerOptions();
                       _context2.next = 5;
-                      return _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["p"].create(pickerOptions);
+                      return _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["p"].create(pickerOptions);
 
                     case 5:
                       picker = _context2.sent;
@@ -1430,13 +1415,13 @@
           this.animated = true;
 
           this.onBackdropTap = function () {
-            _this6.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["B"]);
+            _this6.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["B"]);
           };
 
           this.dispatchCancelHandler = function (ev) {
             var role = ev.detail.role;
 
-            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
+            if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
               var cancelButton = _this6.buttons.find(function (b) {
                 return b.role === 'cancel';
               });
@@ -1449,7 +1434,7 @@
         _createClass(Picker, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["e"])(this.el);
+            Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["e"])(this.el);
           }
           /**
            * Present the picker overlay after it has been created.
@@ -1466,7 +1451,7 @@
                   switch (_context3.prev = _context3.next) {
                     case 0:
                       _context3.next = 2;
-                      return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this, 'pickerEnter', iosEnterAnimation, iosEnterAnimation, undefined);
+                      return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this, 'pickerEnter', iosEnterAnimation, iosEnterAnimation, undefined);
 
                     case 2:
                       if (this.duration > 0) {
@@ -1506,7 +1491,7 @@
               clearTimeout(this.durationTimeout);
             }
 
-            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["f"])(this, data, role, 'pickerLeave', iosLeaveAnimation, iosLeaveAnimation);
+            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["f"])(this, data, role, 'pickerLeave', iosLeaveAnimation, iosLeaveAnimation);
           }
           /**
            * Returns a promise that resolves when the picker did dismiss.
@@ -1515,7 +1500,7 @@
         }, {
           key: "onDidDismiss",
           value: function onDidDismiss() {
-            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerDidDismiss');
+            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerDidDismiss');
           }
           /**
            * Returns a promise that resolves when the picker will dismiss.
@@ -1524,7 +1509,7 @@
         }, {
           key: "onWillDismiss",
           value: function onWillDismiss() {
-            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerWillDismiss');
+            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerWillDismiss');
           }
           /**
            * Get the column that matches the specified name.
@@ -1550,7 +1535,7 @@
                     case 0:
                       role = button.role;
 
-                      if (!Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
+                      if (!Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
                         _context4.next = 3;
                         break;
                       }
@@ -1603,7 +1588,7 @@
                       }
 
                       _context5.next = 3;
-                      return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["s"])(button.handler, this.getSelected());
+                      return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["s"])(button.handler, this.getSelected());
 
                     case 3:
                       rtn = _context5.sent;
@@ -1990,7 +1975,10 @@
             // We have to prevent default in order to block scrolling under the picker
             // but we DO NOT have to stop propagation, since we still want
             // some "click" events to capture
-            detail.event.preventDefault();
+            if (detail.event.cancelable) {
+              detail.event.preventDefault();
+            }
+
             detail.event.stopPropagation();
             Object(_haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_6__["a"])(); // reset everything
 
@@ -2012,7 +2000,10 @@
         }, {
           key: "onMove",
           value: function onMove(detail) {
-            detail.event.preventDefault();
+            if (detail.event.cancelable) {
+              detail.event.preventDefault();
+            }
+
             detail.event.stopPropagation(); // update the scroll position relative to pointer start position
 
             var y = this.y + detail.deltaY;

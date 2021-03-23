@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_eea61379_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-eea61379.js */ "ItpF");
 /* harmony import */ var _index_79d74e0b_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index-79d74e0b.js */ "PQ8F");
 /* harmony import */ var _hardware_back_button_7b6ede21_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./hardware-back-button-7b6ede21.js */ "x/Nk");
-/* harmony import */ var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overlays-2cc140a1.js */ "ja7u");
+/* harmony import */ var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overlays-c5d9d644.js */ "d1dm");
 /* harmony import */ var _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./haptic-7b8ba70a.js */ "2c9M");
 /* harmony import */ var _button_active_5da929d4_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./button-active-5da929d4.js */ "U/uv");
 /* harmony import */ var _theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./theme-5641d27f.js */ "sPtc");
@@ -173,15 +173,56 @@ const Alert = class {
          */
         this.animated = true;
         this.onBackdropTap = () => {
-            this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["B"]);
+            this.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["B"]);
         };
         this.dispatchCancelHandler = (ev) => {
             const role = ev.detail.role;
-            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
+            if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
                 const cancelButton = this.processedButtons.find(b => b.role === 'cancel');
                 this.callButtonHandler(cancelButton);
             }
         };
+    }
+    onKeydown(ev) {
+        const inputTypes = new Set(this.processedInputs.map(i => i.type));
+        // The only inputs we want to navigate between using arrow keys are the radios
+        // ignore the keydown event if it is not on a radio button
+        if (!inputTypes.has('radio')
+            || (ev.target && !this.el.contains(ev.target))
+            || ev.target.classList.contains('alert-button')) {
+            return;
+        }
+        // Get all radios inside of the radio group and then
+        // filter out disabled radios since we need to skip those
+        const query = this.el.querySelectorAll('.alert-radio');
+        const radios = Array.from(query).filter(radio => !radio.disabled);
+        // The focused radio is the one that shares the same id as
+        // the event target
+        const index = radios.findIndex(radio => radio.id === ev.target.id);
+        // We need to know what the next radio element should
+        // be in order to change the focus
+        let nextEl;
+        // If hitting arrow down or arrow right, move to the next radio
+        // If we're on the last radio, move to the first radio
+        if (['ArrowDown', 'ArrowRight'].includes(ev.key)) {
+            nextEl = (index === radios.length - 1)
+                ? radios[0]
+                : radios[index + 1];
+        }
+        // If hitting arrow up or arrow left, move to the previous radio
+        // If we're on the first radio, move to the last radio
+        if (['ArrowUp', 'ArrowLeft'].includes(ev.key)) {
+            nextEl = (index === 0)
+                ? radios[radios.length - 1]
+                : radios[index - 1];
+        }
+        if (nextEl && radios.includes(nextEl)) {
+            const nextProcessed = this.processedInputs.find(input => input.id === (nextEl === null || nextEl === void 0 ? void 0 : nextEl.id));
+            if (nextProcessed) {
+                this.rbClick(nextProcessed);
+                nextEl.focus();
+            }
+        }
     }
     buttonsChanged() {
         const buttons = this.buttons;
@@ -193,6 +234,13 @@ const Alert = class {
     }
     inputsChanged() {
         const inputs = this.inputs;
+        // Get the first input that is not disabled and the checked one
+        // If an enabled checked input exists, set it to be the focusable input
+        // otherwise we default to focus the first input
+        // This will only be used when the input is type radio
+        const first = inputs.find(input => !input.disabled);
+        const checked = inputs.find(input => input.checked && !input.disabled);
+        const focusable = checked || first;
         // An alert can be created with several different inputs. Radios,
         // checkboxes and inputs are all accepted, but they cannot be mixed.
         const inputTypes = new Set(inputs.map(i => i.type));
@@ -214,10 +262,11 @@ const Alert = class {
             max: i.max,
             cssClass: i.cssClass || '',
             attributes: i.attributes || {},
+            tabindex: (i.type === 'radio' && i !== focusable) ? -1 : 0
         }));
     }
     connectedCallback() {
-        Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["e"])(this.el);
+        Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["e"])(this.el);
     }
     componentWillLoad() {
         this.inputsChanged();
@@ -246,7 +295,7 @@ const Alert = class {
      * Present the alert overlay after it has been created.
      */
     present() {
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this, 'alertEnter', iosEnterAnimation, mdEnterAnimation);
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this, 'alertEnter', iosEnterAnimation, mdEnterAnimation);
     }
     /**
      * Dismiss the alert overlay after it has been presented.
@@ -258,37 +307,38 @@ const Alert = class {
      * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
      */
     dismiss(data, role) {
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["f"])(this, data, role, 'alertLeave', iosLeaveAnimation, mdLeaveAnimation);
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["f"])(this, data, role, 'alertLeave', iosLeaveAnimation, mdLeaveAnimation);
     }
     /**
      * Returns a promise that resolves when the alert did dismiss.
      */
     onDidDismiss() {
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertDidDismiss');
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertDidDismiss');
     }
     /**
      * Returns a promise that resolves when the alert will dismiss.
      */
     onWillDismiss() {
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertWillDismiss');
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionAlertWillDismiss');
     }
     rbClick(selectedInput) {
         for (const input of this.processedInputs) {
             input.checked = input === selectedInput;
+            input.tabindex = input === selectedInput ? 0 : -1;
         }
         this.activeId = selectedInput.id;
-        Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
+        Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
         Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
     }
     cbClick(selectedInput) {
         selectedInput.checked = !selectedInput.checked;
-        Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
+        Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["s"])(selectedInput.handler, selectedInput);
         Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
     }
     buttonClick(button) {
         const role = button.role;
         const values = this.getValues();
-        if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
+        if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
             return this.dismiss({ values }, role);
         }
         const returnData = this.callButtonHandler(button, values);
@@ -301,7 +351,7 @@ const Alert = class {
         if (button && button.handler) {
             // a handler has been provided, execute it
             // pass the handler the values from the inputs
-            const returnData = Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["s"])(button.handler, data);
+            const returnData = Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_8__["s"])(button.handler, data);
             if (returnData === false) {
                 // if the return value of the handler is false then do not dismiss
                 return false;
@@ -349,14 +399,14 @@ const Alert = class {
         if (inputs.length === 0) {
             return null;
         }
-        return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-checkbox-group", "aria-labelledby": labelledby }, inputs.map(i => (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { type: "button", onClick: () => this.cbClick(i), "aria-checked": `${i.checked}`, id: i.id, disabled: i.disabled, tabIndex: 0, role: "checkbox", class: Object.assign(Object.assign({}, Object(_theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__["g"])(i.cssClass)), { 'alert-tappable': true, 'alert-checkbox': true, 'alert-checkbox-button': true, 'ion-focusable': true, 'alert-checkbox-button-disabled': i.disabled || false }) }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-button-inner" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-checkbox-icon" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-checkbox-inner" })), Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-checkbox-label" }, i.label)), mode === 'md' && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-ripple-effect", null))))));
+        return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-checkbox-group", "aria-labelledby": labelledby }, inputs.map(i => (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { type: "button", onClick: () => this.cbClick(i), "aria-checked": `${i.checked}`, id: i.id, disabled: i.disabled, tabIndex: i.tabindex, role: "checkbox", class: Object.assign(Object.assign({}, Object(_theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__["g"])(i.cssClass)), { 'alert-tappable': true, 'alert-checkbox': true, 'alert-checkbox-button': true, 'ion-focusable': true, 'alert-checkbox-button-disabled': i.disabled || false }) }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-button-inner" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-checkbox-icon" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-checkbox-inner" })), Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-checkbox-label" }, i.label)), mode === 'md' && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-ripple-effect", null))))));
     }
     renderRadio(labelledby) {
         const inputs = this.processedInputs;
         if (inputs.length === 0) {
             return null;
         }
-        return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-radio-group", role: "radiogroup", "aria-labelledby": labelledby, "aria-activedescendant": this.activeId }, inputs.map(i => (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { type: "button", onClick: () => this.rbClick(i), "aria-checked": `${i.checked}`, disabled: i.disabled, id: i.id, tabIndex: 0, class: Object.assign(Object.assign({}, Object(_theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__["g"])(i.cssClass)), { 'alert-radio-button': true, 'alert-tappable': true, 'alert-radio': true, 'ion-focusable': true, 'alert-radio-button-disabled': i.disabled || false }), role: "radio" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-button-inner" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-radio-icon" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-radio-inner" })), Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-radio-label" }, i.label)))))));
+        return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-radio-group", role: "radiogroup", "aria-labelledby": labelledby, "aria-activedescendant": this.activeId }, inputs.map(i => (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { type: "button", onClick: () => this.rbClick(i), "aria-checked": `${i.checked}`, disabled: i.disabled, id: i.id, tabIndex: i.tabindex, class: Object.assign(Object.assign({}, Object(_theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__["g"])(i.cssClass)), { 'alert-radio-button': true, 'alert-tappable': true, 'alert-radio': true, 'ion-focusable': true, 'alert-radio-button-disabled': i.disabled || false }), role: "radio" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-button-inner" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-radio-icon" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-radio-inner" })), Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-radio-label" }, i.label)))))));
     }
     renderInput(labelledby) {
         const inputs = this.processedInputs;
@@ -366,7 +416,7 @@ const Alert = class {
         return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-input-group", "aria-labelledby": labelledby }, inputs.map(i => {
             var _a, _b, _c, _d;
             if (i.type === 'textarea') {
-                return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-input-wrapper" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("textarea", Object.assign({ placeholder: i.placeholder, value: i.value, id: i.id, tabIndex: 0 }, i.attributes, { disabled: (_b = (_a = i.attributes) === null || _a === void 0 ? void 0 : _a.disabled) !== null && _b !== void 0 ? _b : i.disabled, class: inputClass(i), onInput: e => {
+                return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-input-wrapper" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("textarea", Object.assign({ placeholder: i.placeholder, value: i.value, id: i.id, tabIndex: i.tabindex }, i.attributes, { disabled: (_b = (_a = i.attributes) === null || _a === void 0 ? void 0 : _a.disabled) !== null && _b !== void 0 ? _b : i.disabled, class: inputClass(i), onInput: e => {
                         var _a;
                         i.value = e.target.value;
                         if ((_a = i.attributes) === null || _a === void 0 ? void 0 : _a.onInput) {
@@ -375,7 +425,7 @@ const Alert = class {
                     } }))));
             }
             else {
-                return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-input-wrapper" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("input", Object.assign({ placeholder: i.placeholder, type: i.type, min: i.min, max: i.max, value: i.value, id: i.id, tabIndex: 0 }, i.attributes, { disabled: (_d = (_c = i.attributes) === null || _c === void 0 ? void 0 : _c.disabled) !== null && _d !== void 0 ? _d : i.disabled, class: inputClass(i), onInput: e => {
+                return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "alert-input-wrapper" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("input", Object.assign({ placeholder: i.placeholder, type: i.type, min: i.min, max: i.max, value: i.value, id: i.id, tabIndex: i.tabindex }, i.attributes, { disabled: (_d = (_c = i.attributes) === null || _c === void 0 ? void 0 : _c.disabled) !== null && _d !== void 0 ? _d : i.disabled, class: inputClass(i), onInput: e => {
                         var _a;
                         i.value = e.target.value;
                         if ((_a = i.attributes) === null || _a === void 0 ? void 0 : _a.onInput) {

@@ -12,8 +12,7 @@ import { ApiPublibikeMarcaService } from '../services/api-publibike-marca.servic
 export class ProfilePage {
  
 
-
-  user: {nombre: String,email:String} = {nombre:"",email:""};
+  user: {nombre: String, apellido:String, email:String} = {nombre:"", apellido:"", email:""};
   updaterForm: FormGroup;
   validation_messages = {
     nombre: [

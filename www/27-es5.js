@@ -69,8 +69,13 @@
         _createClass(Reorder, [{
           key: "onClick",
           value: function onClick(ev) {
-            ev.preventDefault();
-            ev.stopImmediatePropagation();
+            var reorderGroup = this.el.closest('ion-reorder-group');
+            ev.preventDefault(); // Only stop event propagation if the reorder is inside of an enabled
+            // reorder group. This allows interaction with clickable children components.
+
+            if (!reorderGroup || !reorderGroup.disabled) {
+              ev.stopImmediatePropagation();
+            }
           }
         }, {
           key: "render",
@@ -85,6 +90,11 @@
               "class": "reorder-icon",
               part: "icon"
             })));
+          }
+        }, {
+          key: "el",
+          get: function get() {
+            return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
           }
         }]);
 

@@ -479,7 +479,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -791,7 +791,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -882,7 +882,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -1009,7 +1009,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -1655,7 +1655,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -1818,7 +1818,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -2057,7 +2057,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 50%;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.ui.grid {\n  padding: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcnV0ZS9ydXRlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQUE7RUFDQSxTQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7QUFDRjs7QUFDQTtFQUNFLFdBQUE7RUFDQSxtQkFBQTtBQUVGOztBQUFBO0VBQ0Usb0NBQUE7RUFDQSx5QkFBQTtBQUdGOztBQURBO0VBQ0UsZUFBQTtFQUNBLFdBQUE7QUFJRjs7QUFEQTtFQUNFLGVBQUE7QUFJRjs7QUFGQTtFQUNFLFlBQUE7QUFLRjs7QUFIQTtFQUNFLFlBQUE7QUFNRiIsImZpbGUiOiJzcmMvYXBwL3J1dGUvcnV0ZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjdmlld0RpdiB7XHJcbiAgcGFkZGluZzogMDtcclxuICBtYXJnaW46IDA7XHJcbiAgaGVpZ2h0OiA1MCU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuLmVzcmktdmlldy13aWR0aC14c21hbGwgLmVzcmktZXhwYW5kLS1hdXRvIC5lc3JpLWV4cGFuZF9fY29udGFpbmVyLS1leHBhbmRlZCB7XHJcbiAgaGVpZ2h0OiAzNCU7XHJcbiAgYmFja2dyb3VuZDogIzAwMTQzNDtcclxufVxyXG4uZXNyaS13aWRnZXQtLWJ1dHRvbntcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjliNDEwICFpbXBvcnRhbnQ7XHJcbiAgY29sb3I6ICMwMDE0MzQgIWltcG9ydGFudDtcclxufVxyXG4uZXNyaS12aWV3IC5lc3JpLWRpcmVjdGlvbnMge1xyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICByaWdodDogMTVweDtcclxufVxyXG5cclxuLmVzcmktdmlldyAuZXNyaS1jb21wb25lbnQuZXNyaS1hdHRyaWJ1dGlvbiB7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG59XHJcbi5lc3JpLXNlYXJjaF9fc3VnZ2VzdGlvbnMtbGlzdCA+IGxpe1xyXG4gIHBhZGRpbmc6IDFlbTtcclxufVxyXG4udWkuZ3JpZHtcclxuICBwYWRkaW5nOiAwcHg7XHJcbn0iXX0= */";
+      __webpack_exports__["default"] = "#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 50%;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.ui.grid {\n  padding: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcnV0ZS9ydXRlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQUE7RUFDQSxTQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7QUFDRjs7QUFDQTtFQUNFLFdBQUE7RUFDQSxtQkFBQTtBQUVGOztBQUFBO0VBQ0Usb0NBQUE7RUFDQSx5QkFBQTtBQUdGOztBQURBO0VBQ0UsZUFBQTtFQUNBLFdBQUE7QUFJRjs7QUFEQTtFQUNFLGVBQUE7QUFJRjs7QUFGQTtFQUNFLFlBQUE7QUFLRjs7QUFIQTtFQUNFLFlBQUE7QUFNRiIsImZpbGUiOiJzcmMvYXBwL3J1dGUvcnV0ZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjdmlld0RpdiB7XG4gIHBhZGRpbmc6IDA7XG4gIG1hcmdpbjogMDtcbiAgaGVpZ2h0OiA1MCU7XG4gIHdpZHRoOiAxMDAlO1xufVxuLmVzcmktdmlldy13aWR0aC14c21hbGwgLmVzcmktZXhwYW5kLS1hdXRvIC5lc3JpLWV4cGFuZF9fY29udGFpbmVyLS1leHBhbmRlZCB7XG4gIGhlaWdodDogMzQlO1xuICBiYWNrZ3JvdW5kOiAjMDAxNDM0O1xufVxuLmVzcmktd2lkZ2V0LS1idXR0b257XG4gIGJhY2tncm91bmQtY29sb3I6ICNmOWI0MTAgIWltcG9ydGFudDtcbiAgY29sb3I6ICMwMDE0MzQgIWltcG9ydGFudDtcbn1cbi5lc3JpLXZpZXcgLmVzcmktZGlyZWN0aW9ucyB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgcmlnaHQ6IDE1cHg7XG59XG5cbi5lc3JpLXZpZXcgLmVzcmktY29tcG9uZW50LmVzcmktYXR0cmlidXRpb24ge1xuICBwb3NpdGlvbjogZml4ZWQ7XG59XG4uZXNyaS1zZWFyY2hfX3N1Z2dlc3Rpb25zLWxpc3QgPiBsaXtcbiAgcGFkZGluZzogMWVtO1xufVxuLnVpLmdyaWR7XG4gIHBhZGRpbmc6IDBweDtcbn0iXX0= */";
       /***/
     },
 
@@ -2091,7 +2091,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -2154,7 +2154,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -2224,7 +2224,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -2324,7 +2324,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -2801,7 +2801,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -2999,7 +2999,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -3564,9 +3564,8 @@
                         console.log(address);
                         address = address.split(",");
                         _this4.fstDirection = address[0];
-                        _this4.currentDirection = address[0]; // this.km = position.coords.speed;
-
-                        console.log(_this4.currentDirection);
+                        _this4.fstPosition = params;
+                        _this4.currentDirection = address[0];
                       })["catch"](function (err) {
                         return console.log(err);
                       }); //Se inicializa el contador  
@@ -3632,6 +3631,7 @@
                         console.log(address);
                         address = address.split(",");
                         _this5.fnlDirection = address[0];
+                        _this5.fnlPosition = params;
                         _this5.currentDirection = address[0];
                         console.log(_this5.currentDirection);
                         var kms = _this5.km;
@@ -3640,12 +3640,16 @@
                         var totalMin = _this5.horas * 60 + _this5.minutos + _this5.segundos * 0.0166667;
                         console.log("totalMin", totalMin); //Se calaulan las calorias
 
-                        _this5.cal = 0.071 * (_this5.user.peso * 2.2) * totalMin; //Se construye la ruta a enviar
+                        _this5.cal = 0.071 * (_this5.user.peso * 2.2) * totalMin;
+                        _this5.ingresos = _this5.km * _this5.user.campana_actual.pago_km;
+                        console.log(_this5.ingresos); //Se construye la ruta a enviar
 
                         _this5.ruteData = {
                           fecha: _this5.fecha,
                           inicio: _this5.fstDirection,
+                          inicioGeo: _this5.fstPosition,
                           "final": _this5.fnlDirection,
+                          finalGeo: _this5.fnlPosition,
                           tiempo: _this5.time,
                           minutos: totalMin,
                           kms: _this5.km,
@@ -3857,7 +3861,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -4144,7 +4148,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -5600,7 +5604,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header color=\"secondary\">\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div id=\"viewDiv\" #map></div>\n  <div class=\"degrade-green\" style=\"height: 5px; width: 100%; margin-top: -4px;\">\n  </div>\n  <ion-slides>\n    <ion-slide>\n      <!-- <div class=\"ui divided grid chrono\">\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Tiempo Recorrido</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Punto Actual</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h3>{{currentDirection}}</h3>\n          </div>\n        </div>\n        <div class=\"content-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER\n            RECORRIDO\n          </ion-button>\n        </div>\n      </div> -->\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"stopwatch icon\"></i>\n          <h4>Tiempo Recorrido</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n        </div>\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"map marker alternate icon\"></i>\n          <h4>Punto Actual</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h3>{{currentDirection}}</h3>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER RECORRIDO </ion-button>\n        </div>\n      </div>\n    </ion-slide>\n    <ion-slide>\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"icon-stats-dots\"></i>\n          <h4>\n            Estás Generado\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            $ {{ingresos}}\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-orange\">\n          <i class=\"icon-map\"></i>\n          <h4>\n            Has Recorrido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <span id=\"km\">{{km}}</span><small> KM</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-blue\">\n          <i class=\"icon-heart\"></i>\n          <h4>\n            Has Consumido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <small>{{cal}} Kcal</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-violet\">\n          <i class=\"icon-stats-bars\"></i>\n          <h4>\n            Campaña Actual\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            {{user.campana_actual.nombre}}\n          </h2>\n        </div>\n      </div>\n    </ion-slide>\n  </ion-slides>\n  <!-- <hr class=\"degrade-orange\" style=\"height: 5px; width: 100%; border: 0; margin-top: 30px;\"> -->\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header color=\"secondary\">\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div id=\"viewDiv\" #map></div>\n  <div class=\"degrade-green\" style=\"height: 5px; width: 100%; margin-top: -4px;\">\n  </div>\n  <ion-slides>\n    <ion-slide>\n      <!-- <div class=\"ui divided grid chrono\">\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Tiempo Recorrido</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Punto Actual</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h3>{{currentDirection}}</h3>\n          </div>\n        </div>\n        <div class=\"content-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER\n            RECORRIDO\n          </ion-button>\n        </div>\n      </div> -->\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"stopwatch icon\"></i>\n          <h4>Tiempo Recorrido</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n        </div>\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"map marker alternate icon\"></i>\n          <h4>Punto Actual</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h3>{{currentDirection}}</h3>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER RECORRIDO </ion-button>\n        </div>\n      </div>\n    </ion-slide>\n    <ion-slide>\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"icon-stats-dots\"></i>\n          <h4>\n            Estás Generado\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            $ {{ingresos | number}}\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-orange\">\n          <i class=\"icon-map\"></i>\n          <h4>\n            Has Recorrido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <span id=\"km\">{{km | number}}</span><small> KM</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-blue\">\n          <i class=\"icon-heart\"></i>\n          <h4>\n            Has Consumido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <small>{{cal | number}} Kcal</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-violet\">\n          <i class=\"icon-stats-bars\"></i>\n          <h4>\n            Campaña Actual\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            {{user.campana_actual.nombre}}\n          </h2>\n        </div>\n      </div>\n    </ion-slide>\n  </ion-slides>\n  <!-- <hr class=\"degrade-orange\" style=\"height: 5px; width: 100%; border: 0; margin-top: 30px;\"> -->\n</ion-content>";
       /***/
     },
 
@@ -5634,7 +5638,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -5780,7 +5784,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 
@@ -5857,7 +5861,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "O1h7");
+      "NfBk");
       /* harmony import */
 
 

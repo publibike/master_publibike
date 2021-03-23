@@ -187,7 +187,7 @@ RutePageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SplashScreenPluginWeb", function() { return SplashScreenPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SplashScreen", function() { return SplashScreen; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -396,7 +396,7 @@ var mergeWebPlugin = function (knownPlugins, plugin) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserPluginWeb", function() { return BrowserPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Browser", function() { return Browser; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -452,7 +452,7 @@ var Browser = new BrowserPluginWeb();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastPluginWeb", function() { return ToastPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Toast", function() { return Toast; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -530,7 +530,7 @@ var Plugins = Capacitor.Plugins;
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClipboardPluginWeb", function() { return ClipboardPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Clipboard", function() { return Clipboard; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -918,7 +918,7 @@ var CapacitorWeb = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkPluginWeb", function() { return NetworkPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Network", function() { return Network; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -1021,7 +1021,7 @@ RutePageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalNotificationsPluginWeb", function() { return LocalNotificationsPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalNotifications", function() { return LocalNotifications; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -1189,7 +1189,7 @@ var uuid4 = function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 50%;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.ui.grid {\n  padding: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcnV0ZS9ydXRlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQUE7RUFDQSxTQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7QUFDRjs7QUFDQTtFQUNFLFdBQUE7RUFDQSxtQkFBQTtBQUVGOztBQUFBO0VBQ0Usb0NBQUE7RUFDQSx5QkFBQTtBQUdGOztBQURBO0VBQ0UsZUFBQTtFQUNBLFdBQUE7QUFJRjs7QUFEQTtFQUNFLGVBQUE7QUFJRjs7QUFGQTtFQUNFLFlBQUE7QUFLRjs7QUFIQTtFQUNFLFlBQUE7QUFNRiIsImZpbGUiOiJzcmMvYXBwL3J1dGUvcnV0ZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjdmlld0RpdiB7XHJcbiAgcGFkZGluZzogMDtcclxuICBtYXJnaW46IDA7XHJcbiAgaGVpZ2h0OiA1MCU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuLmVzcmktdmlldy13aWR0aC14c21hbGwgLmVzcmktZXhwYW5kLS1hdXRvIC5lc3JpLWV4cGFuZF9fY29udGFpbmVyLS1leHBhbmRlZCB7XHJcbiAgaGVpZ2h0OiAzNCU7XHJcbiAgYmFja2dyb3VuZDogIzAwMTQzNDtcclxufVxyXG4uZXNyaS13aWRnZXQtLWJ1dHRvbntcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjliNDEwICFpbXBvcnRhbnQ7XHJcbiAgY29sb3I6ICMwMDE0MzQgIWltcG9ydGFudDtcclxufVxyXG4uZXNyaS12aWV3IC5lc3JpLWRpcmVjdGlvbnMge1xyXG4gIHBvc2l0aW9uOiBmaXhlZDtcclxuICByaWdodDogMTVweDtcclxufVxyXG5cclxuLmVzcmktdmlldyAuZXNyaS1jb21wb25lbnQuZXNyaS1hdHRyaWJ1dGlvbiB7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG59XHJcbi5lc3JpLXNlYXJjaF9fc3VnZ2VzdGlvbnMtbGlzdCA+IGxpe1xyXG4gIHBhZGRpbmc6IDFlbTtcclxufVxyXG4udWkuZ3JpZHtcclxuICBwYWRkaW5nOiAwcHg7XHJcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 50%;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.ui.grid {\n  padding: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcnV0ZS9ydXRlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQUE7RUFDQSxTQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7QUFDRjs7QUFDQTtFQUNFLFdBQUE7RUFDQSxtQkFBQTtBQUVGOztBQUFBO0VBQ0Usb0NBQUE7RUFDQSx5QkFBQTtBQUdGOztBQURBO0VBQ0UsZUFBQTtFQUNBLFdBQUE7QUFJRjs7QUFEQTtFQUNFLGVBQUE7QUFJRjs7QUFGQTtFQUNFLFlBQUE7QUFLRjs7QUFIQTtFQUNFLFlBQUE7QUFNRiIsImZpbGUiOiJzcmMvYXBwL3J1dGUvcnV0ZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIjdmlld0RpdiB7XG4gIHBhZGRpbmc6IDA7XG4gIG1hcmdpbjogMDtcbiAgaGVpZ2h0OiA1MCU7XG4gIHdpZHRoOiAxMDAlO1xufVxuLmVzcmktdmlldy13aWR0aC14c21hbGwgLmVzcmktZXhwYW5kLS1hdXRvIC5lc3JpLWV4cGFuZF9fY29udGFpbmVyLS1leHBhbmRlZCB7XG4gIGhlaWdodDogMzQlO1xuICBiYWNrZ3JvdW5kOiAjMDAxNDM0O1xufVxuLmVzcmktd2lkZ2V0LS1idXR0b257XG4gIGJhY2tncm91bmQtY29sb3I6ICNmOWI0MTAgIWltcG9ydGFudDtcbiAgY29sb3I6ICMwMDE0MzQgIWltcG9ydGFudDtcbn1cbi5lc3JpLXZpZXcgLmVzcmktZGlyZWN0aW9ucyB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgcmlnaHQ6IDE1cHg7XG59XG5cbi5lc3JpLXZpZXcgLmVzcmktY29tcG9uZW50LmVzcmktYXR0cmlidXRpb24ge1xuICBwb3NpdGlvbjogZml4ZWQ7XG59XG4uZXNyaS1zZWFyY2hfX3N1Z2dlc3Rpb25zLWxpc3QgPiBsaXtcbiAgcGFkZGluZzogMWVtO1xufVxuLnVpLmdyaWR7XG4gIHBhZGRpbmc6IDBweDtcbn0iXX0= */");
 
 /***/ }),
 
@@ -1204,7 +1204,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MotionPluginWeb", function() { return MotionPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Motion", function() { return Motion; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -1238,7 +1238,7 @@ var Motion = new MotionPluginWeb();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharePluginWeb", function() { return SharePluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Share", function() { return Share; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -1280,7 +1280,7 @@ var Share = new SharePluginWeb();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GeolocationPluginWeb", function() { return GeolocationPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Geolocation", function() { return Geolocation; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ "U+rf");
 
@@ -1346,7 +1346,7 @@ var Geolocation = new GeolocationPluginWeb();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppPluginWeb", function() { return AppPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "App", function() { return App; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -1536,7 +1536,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DevicePluginWeb", function() { return DevicePluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Device", function() { return Device; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util */ "U+rf");
 
@@ -1679,7 +1679,7 @@ var Device = new DevicePluginWeb();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StoragePluginWeb", function() { return StoragePluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Storage", function() { return Storage; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -2072,9 +2072,8 @@ let RutePage = class RutePage {
                 console.log(address);
                 address = address.split(",");
                 this.fstDirection = address[0];
+                this.fstPosition = params;
                 this.currentDirection = address[0];
-                // this.km = position.coords.speed;
-                console.log(this.currentDirection);
             }).catch(err => console.log(err));
             //Se inicializa el contador  
             this.startCounter();
@@ -2113,6 +2112,7 @@ let RutePage = class RutePage {
                         console.log(address);
                         address = address.split(",");
                         this.fnlDirection = address[0];
+                        this.fnlPosition = params;
                         this.currentDirection = address[0];
                         console.log(this.currentDirection);
                         let kms = this.km;
@@ -2122,11 +2122,15 @@ let RutePage = class RutePage {
                         console.log("totalMin", totalMin);
                         //Se calaulan las calorias
                         this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+                        this.ingresos = this.km * this.user.campana_actual.pago_km;
+                        console.log(this.ingresos);
                         //Se construye la ruta a enviar
                         this.ruteData = {
                             fecha: this.fecha,
                             inicio: this.fstDirection,
+                            inicioGeo: this.fstPosition,
                             final: this.fnlDirection,
+                            finalGeo: this.fnlPosition,
                             tiempo: this.time,
                             minutos: totalMin,
                             kms: this.km,
@@ -2244,7 +2248,7 @@ RutePage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CameraPluginWeb", function() { return CameraPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Camera", function() { return Camera; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 /* harmony import */ var _core_plugin_definitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core-plugin-definitions */ "I2A1");
 
@@ -2439,7 +2443,7 @@ var Camera = new CameraPluginWeb();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilesystemPluginWeb", function() { return FilesystemPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Filesystem", function() { return Filesystem; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 /* harmony import */ var _core_plugin_definitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core-plugin-definitions */ "I2A1");
 
@@ -3463,7 +3467,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header color=\"secondary\">\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div id=\"viewDiv\" #map></div>\n  <div class=\"degrade-green\" style=\"height: 5px; width: 100%; margin-top: -4px;\">\n  </div>\n  <ion-slides>\n    <ion-slide>\n      <!-- <div class=\"ui divided grid chrono\">\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Tiempo Recorrido</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Punto Actual</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h3>{{currentDirection}}</h3>\n          </div>\n        </div>\n        <div class=\"content-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER\n            RECORRIDO\n          </ion-button>\n        </div>\n      </div> -->\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"stopwatch icon\"></i>\n          <h4>Tiempo Recorrido</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n        </div>\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"map marker alternate icon\"></i>\n          <h4>Punto Actual</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h3>{{currentDirection}}</h3>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER RECORRIDO </ion-button>\n        </div>\n      </div>\n    </ion-slide>\n    <ion-slide>\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"icon-stats-dots\"></i>\n          <h4>\n            Estás Generado\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            $ {{ingresos}}\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-orange\">\n          <i class=\"icon-map\"></i>\n          <h4>\n            Has Recorrido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <span id=\"km\">{{km}}</span><small> KM</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-blue\">\n          <i class=\"icon-heart\"></i>\n          <h4>\n            Has Consumido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <small>{{cal}} Kcal</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-violet\">\n          <i class=\"icon-stats-bars\"></i>\n          <h4>\n            Campaña Actual\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            {{user.campana_actual.nombre}}\n          </h2>\n        </div>\n      </div>\n    </ion-slide>\n  </ion-slides>\n  <!-- <hr class=\"degrade-orange\" style=\"height: 5px; width: 100%; border: 0; margin-top: 30px;\"> -->\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header color=\"secondary\">\n  <ion-toolbar>\n    <ion-buttons slot>\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div id=\"viewDiv\" #map></div>\n  <div class=\"degrade-green\" style=\"height: 5px; width: 100%; margin-top: -4px;\">\n  </div>\n  <ion-slides>\n    <ion-slide>\n      <!-- <div class=\"ui divided grid chrono\">\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Tiempo Recorrido</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"five wide column\">\n            <h4>Punto Actual</h4>\n          </div>\n          <div class=\"nine wide column\">\n            <h3>{{currentDirection}}</h3>\n          </div>\n        </div>\n        <div class=\"content-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER\n            RECORRIDO\n          </ion-button>\n        </div>\n      </div> -->\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"stopwatch icon\"></i>\n          <h4>Tiempo Recorrido</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n        </div>\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"map marker alternate icon\"></i>\n          <h4>Punto Actual</h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h3>{{currentDirection}}</h3>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button begin-activity\" (click)=\"startRute()\">{{estado}}</ion-button>\n        </div>\n        <div class=\"column data-button\">\n          <ion-button color=\"transparent\" full outline class=\"ui button go-campaings\" (click)=\"stopRute()\">DETENER RECORRIDO </ion-button>\n        </div>\n      </div>\n    </ion-slide>\n    <ion-slide>\n      <div class=\"ui grid\" style=\"text-align: center; padding: 20px;\">\n        <div class=\"column data-rute degrade-green\">\n          <i class=\"icon-stats-dots\"></i>\n          <h4>\n            Estás Generado\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            $ {{ingresos | number}}\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-orange\">\n          <i class=\"icon-map\"></i>\n          <h4>\n            Has Recorrido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <span id=\"km\">{{km | number}}</span><small> KM</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-blue\">\n          <i class=\"icon-heart\"></i>\n          <h4>\n            Has Consumido\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            <small>{{cal | number}} Kcal</small>\n          </h2>\n        </div>\n        <div class=\"column data-rute degrade-violet\">\n          <i class=\"icon-stats-bars\"></i>\n          <h4>\n            Campaña Actual\n          </h4>\n        </div>\n        <div class=\"column data-rute\">\n          <h2>\n            {{user.campana_actual.nombre}}\n          </h2>\n        </div>\n      </div>\n    </ion-slide>\n  </ion-slides>\n  <!-- <hr class=\"degrade-orange\" style=\"height: 5px; width: 100%; border: 0; margin-top: 30px;\"> -->\n</ion-content>");
 
 /***/ }),
 
@@ -3478,7 +3482,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModalsPluginWeb", function() { return ModalsPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Modals", function() { return Modals; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -3573,7 +3577,7 @@ var Modals = new ModalsPluginWeb();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccessibilityPluginWeb", function() { return AccessibilityPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Accessibility", function() { return Accessibility; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 
 
@@ -3619,7 +3623,7 @@ var Accessibility = new AccessibilityPluginWeb();
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PermissionsPluginWeb", function() { return PermissionsPluginWeb; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Permissions", function() { return Permissions; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "O1h7");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "NfBk");
 /* harmony import */ var _index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index */ "6Fjf");
 /* harmony import */ var _core_plugin_definitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../core-plugin-definitions */ "I2A1");
 

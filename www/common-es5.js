@@ -448,21 +448,12 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! @angular/core */
-      "8Y7J");
-      /* harmony import */
-
-
-      var _ionic_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! @ionic/storage */
-      "xgBC");
-      /* harmony import */
-
-
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! src/environments/environment */
-      "AytR");
+      "AytR"); //@Injectable({
+      //  providedIn: 'root'
+      //})
+
 
       var ApiPublibikeMarcaService = /*#__PURE__*/function () {
         function ApiPublibikeMarcaService(storage) {
@@ -482,7 +473,7 @@
                   'Content-Type': 'application/json'
                 })
               };
-              return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id), options).then(function (response) {
+              return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/usuario/").concat(id), options).then(function (response) {
                 return response.json();
               });
             } catch (error) {}
@@ -490,35 +481,35 @@
         }, {
           key: "getUserRoutes",
           value: function getUserRoutes(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/recorridos")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/recorridos")).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getUserCampaings",
           value: function getUserCampaings(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/campanas")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/campanas")).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getCampaings",
           value: function getCampaings() {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/campanas")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/campanas")).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getCampaing",
           value: function getCampaing(id) {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/campana/").concat(id)).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/campana/").concat(id)).then(function (response) {
               return response.json();
             });
           }
         }, {
           key: "getCompanies",
           value: function getCompanies() {
-            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/empresas")).then(function (response) {
+            return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/empresas")).then(function (response) {
               return response.json();
             });
           }
@@ -549,7 +540,7 @@
                         })
                       };
                       _context2.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/recorrido"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/recorrido"), options).then(function (response) {
                         console.log(response.text());
                       })["catch"](function (error) {
                         return console.log(error);
@@ -593,7 +584,7 @@
                         })
                       };
                       _context3.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id), options).then(function (response) {
                         console.log(response.text());
                       })["catch"](function (error) {
                         return console.log(error);
@@ -637,7 +628,7 @@
                         })
                       };
                       _context4.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/campana"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/campana"), options).then(function (response) {
                         return response.text();
                       })["catch"](function (error) {
                         return console.log(error);
@@ -681,7 +672,7 @@
                         })
                       };
                       _context5.next = 9;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/usuario/").concat(id, "/actualcampana"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/usuario/").concat(id, "/actualcampana"), options).then(function (response) {
                         return response.text();
                       })["catch"](function (error) {
                         return console.log(error);
@@ -702,17 +693,8 @@
 
         return ApiPublibikeMarcaService;
       }();
-
-      ApiPublibikeMarcaService.ctorParameters = function () {
-        return [{
-          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"]
-        }];
-      };
-
-      ApiPublibikeMarcaService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-      })], ApiPublibikeMarcaService);
       /***/
+
     },
 
     /***/
@@ -865,21 +847,12 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! @angular/core */
-      "8Y7J");
-      /* harmony import */
-
-
-      var _ionic_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! @ionic/storage */
-      "xgBC");
-      /* harmony import */
-
-
-      var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var src_environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! src/environments/environment */
-      "AytR");
+      "AytR"); //@Injectable({
+      //  providedIn: 'root'
+      //})
+
 
       var AuthenticateService = /*#__PURE__*/function () {
         function AuthenticateService(storage) {
@@ -910,7 +883,7 @@
                           'Content-Type': 'application/json'
                         })
                       };
-                      return _context6.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/login"), options).then(function (response) {
+                      return _context6.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/login"), options).then(function (response) {
                         return response.json();
                       }));
 
@@ -946,7 +919,7 @@
                         })
                       };
                       _context7.next = 4;
-                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/marca/movil/registerUser"), options).then(function (response) {
+                      return fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].publibikeApi, "/api/movil/registerUser"), options).then(function (response) {
                         return response;
                       });
 
@@ -965,17 +938,8 @@
 
         return AuthenticateService;
       }();
-
-      AuthenticateService.ctorParameters = function () {
-        return [{
-          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_2__["Storage"]
-        }];
-      };
-
-      AuthenticateService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-      })], AuthenticateService);
       /***/
+
     },
 
     /***/

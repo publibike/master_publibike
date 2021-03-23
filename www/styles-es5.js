@@ -11,11 +11,11 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
-      /*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeMarca-APP\PublibikeMarcaApp\src\theme\variables.scss */
+      /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/theme/variables.scss */
       "fFqt");
 
       module.exports = __webpack_require__(
-      /*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeMarca-APP\PublibikeMarcaApp\src\global.scss */
+      /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/global.scss */
       "8oQk");
       /***/
     },

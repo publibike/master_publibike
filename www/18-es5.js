@@ -70,9 +70,9 @@
       /* harmony import */
 
 
-      var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
-      /*! ./overlays-2cc140a1.js */
-      "ja7u");
+      var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ./overlays-c5d9d644.js */
+      "d1dm");
       /* harmony import */
 
 
@@ -217,14 +217,14 @@
           this.animated = true;
 
           this.onBackdropTap = function () {
-            _this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["B"]);
+            _this.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["B"]);
           };
         }
 
         _createClass(Loading, [{
           key: "connectedCallback",
           value: function connectedCallback() {
-            Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["e"])(this.el);
+            Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["e"])(this.el);
           }
         }, {
           key: "componentWillLoad",
@@ -249,7 +249,7 @@
                   switch (_context.prev = _context.next) {
                     case 0:
                       _context.next = 2;
-                      return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this, 'loadingEnter', iosEnterAnimation, mdEnterAnimation, undefined);
+                      return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this, 'loadingEnter', iosEnterAnimation, mdEnterAnimation, undefined);
 
                     case 2:
                       if (this.duration > 0) {
@@ -289,7 +289,7 @@
               clearTimeout(this.durationTimeout);
             }
 
-            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["f"])(this, data, role, 'loadingLeave', iosLeaveAnimation, mdLeaveAnimation);
+            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["f"])(this, data, role, 'loadingLeave', iosLeaveAnimation, mdLeaveAnimation);
           }
           /**
            * Returns a promise that resolves when the loading did dismiss.
@@ -298,7 +298,7 @@
         }, {
           key: "onDidDismiss",
           value: function onDidDismiss() {
-            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingDidDismiss');
+            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingDidDismiss');
           }
           /**
            * Returns a promise that resolves when the loading will dismiss.
@@ -307,7 +307,7 @@
         }, {
           key: "onWillDismiss",
           value: function onWillDismiss() {
-            return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingWillDismiss');
+            return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingWillDismiss');
           }
         }, {
           key: "render",

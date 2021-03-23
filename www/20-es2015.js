@@ -19,7 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _gesture_controller_89173521_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./gesture-controller-89173521.js */ "rxGk");
 /* harmony import */ var _index_eea61379_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./index-eea61379.js */ "ItpF");
 /* harmony import */ var _hardware_back_button_7b6ede21_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./hardware-back-button-7b6ede21.js */ "x/Nk");
-/* harmony import */ var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./overlays-2cc140a1.js */ "ja7u");
+/* harmony import */ var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./overlays-c5d9d644.js */ "d1dm");
 /* harmony import */ var _theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./theme-5641d27f.js */ "sPtc");
 /* harmony import */ var _framework_delegate_d1eb6504_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./framework-delegate-d1eb6504.js */ "NqGI");
 
@@ -366,7 +366,7 @@ const Modal = class {
          */
         this.swipeToClose = false;
         this.onBackdropTap = () => {
-            this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["B"]);
+            this.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["B"]);
         };
         this.onDismiss = (ev) => {
             ev.stopPropagation();
@@ -395,7 +395,7 @@ const Modal = class {
         }
     }
     connectedCallback() {
-        Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["e"])(this.el);
+        Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["e"])(this.el);
     }
     /**
      * Present the modal overlay after it has been created.
@@ -412,7 +412,7 @@ const Modal = class {
         this.usersElement = await Object(_framework_delegate_d1eb6504_js__WEBPACK_IMPORTED_MODULE_11__["a"])(this.delegate, container, this.component, ['ion-page'], componentProps);
         await Object(_index_9b2fc761_js__WEBPACK_IMPORTED_MODULE_4__["e"])(this.usersElement);
         Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(() => this.el.classList.add('show-modal'));
-        await Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["d"])(this, 'modalEnter', iosEnterAnimation, mdEnterAnimation, this.presentingElement);
+        await Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["d"])(this, 'modalEnter', iosEnterAnimation, mdEnterAnimation, this.presentingElement);
         if (this.swipeToClose) {
             this.initSwipeToClose();
         }
@@ -455,8 +455,8 @@ const Modal = class {
         if (this.gestureAnimationDismissing && role !== 'gesture') {
             return false;
         }
-        const enteringAnimation = _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["h"].get(this) || [];
-        const dismissed = await Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["f"])(this, data, role, 'modalLeave', iosLeaveAnimation, mdLeaveAnimation, this.presentingElement);
+        const enteringAnimation = _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["h"].get(this) || [];
+        const dismissed = await Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["f"])(this, data, role, 'modalLeave', iosLeaveAnimation, mdLeaveAnimation, this.presentingElement);
         if (dismissed) {
             await Object(_framework_delegate_d1eb6504_js__WEBPACK_IMPORTED_MODULE_11__["d"])(this.delegate, this.usersElement);
             if (this.animation) {
@@ -471,13 +471,13 @@ const Modal = class {
      * Returns a promise that resolves when the modal did dismiss.
      */
     onDidDismiss() {
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["g"])(this.el, 'ionModalDidDismiss');
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["g"])(this.el, 'ionModalDidDismiss');
     }
     /**
      * Returns a promise that resolves when the modal will dismiss.
      */
     onWillDismiss() {
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_9__["g"])(this.el, 'ionModalWillDismiss');
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_9__["g"])(this.el, 'ionModalWillDismiss');
     }
     render() {
         const mode = Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);

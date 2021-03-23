@@ -17,7 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_5c745fbd_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-5c745fbd.js */ "gHap");
 /* harmony import */ var _animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./animation-a635a2fc.js */ "XnfD");
 /* harmony import */ var _hardware_back_button_7b6ede21_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./hardware-back-button-7b6ede21.js */ "x/Nk");
-/* harmony import */ var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./overlays-2cc140a1.js */ "ja7u");
+/* harmony import */ var _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./overlays-c5d9d644.js */ "d1dm");
 /* harmony import */ var _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./haptic-7b8ba70a.js */ "2c9M");
 /* harmony import */ var _theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./theme-5641d27f.js */ "sPtc");
 
@@ -37,6 +37,9 @@ __webpack_require__.r(__webpack_exports__);
 const getDateValue = (date, format) => {
     const getValue = getValueFromFormat(date, format);
     if (getValue !== undefined) {
+        if (format === FORMAT_A || format === FORMAT_a) {
+            date.ampm = getValue;
+        }
         return getValue;
     }
     const defaultDate = parseDate(new Date().toISOString());
@@ -232,7 +235,6 @@ const parseDate = (val) => {
         second: parse[6],
         millisecond: parse[7],
         tzOffset,
-        ampm: parse[4] >= 12 ? 'pm' : 'am'
     };
 };
 /**
@@ -298,22 +300,6 @@ const updateDate = (existingData, newData, displayTimezone) => {
             // newData is from the datetime picker's selected values
             // update the existing datetimeValue with the new values
             if (newData.ampm !== undefined && newData.hour !== undefined) {
-                // If the date we came from exists, we need to change the meridiem value when
-                // going to and from 12
-                if (existingData.ampm !== undefined && existingData.hour !== undefined) {
-                    // If the existing meridiem is am, we want to switch to pm if it is either
-                    // A) coming from 0 (12 am)
-                    // B) going to 12 (12 pm)
-                    if (existingData.ampm === 'am' && (existingData.hour === 0 || newData.hour.value === 12)) {
-                        newData.ampm.value = 'pm';
-                    }
-                    // If the existing meridiem is pm, we want to switch to am if it is either
-                    // A) coming from 12 (12 pm)
-                    // B) going to 12 (12 am)
-                    if (existingData.ampm === 'pm' && (existingData.hour === 12 || newData.hour.value === 12)) {
-                        newData.ampm.value = 'am';
-                    }
-                }
                 // change the value of the hour based on whether or not it is am or pm
                 // if the meridiem is pm and equal to 12, it remains 12
                 // otherwise we add 12 to the hour value
@@ -690,7 +676,7 @@ const Datetime = class {
             return;
         }
         const pickerOptions = this.generatePickerOptions();
-        const picker = await _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["p"].create(pickerOptions);
+        const picker = await _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["p"].create(pickerOptions);
         this.isExpanded = true;
         picker.onDidDismiss().then(() => {
             this.isExpanded = false;
@@ -1109,24 +1095,24 @@ const Picker = class {
          */
         this.animated = true;
         this.onBackdropTap = () => {
-            this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["B"]);
+            this.dismiss(undefined, _overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["B"]);
         };
         this.dispatchCancelHandler = (ev) => {
             const role = ev.detail.role;
-            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
+            if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
                 const cancelButton = this.buttons.find(b => b.role === 'cancel');
                 this.callButtonHandler(cancelButton);
             }
         };
     }
     connectedCallback() {
-        Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["e"])(this.el);
+        Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["e"])(this.el);
     }
     /**
      * Present the picker overlay after it has been created.
      */
     async present() {
-        await Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this, 'pickerEnter', iosEnterAnimation, iosEnterAnimation, undefined);
+        await Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["d"])(this, 'pickerEnter', iosEnterAnimation, iosEnterAnimation, undefined);
         if (this.duration > 0) {
             this.durationTimeout = setTimeout(() => this.dismiss(), this.duration);
         }
@@ -1144,19 +1130,19 @@ const Picker = class {
         if (this.durationTimeout) {
             clearTimeout(this.durationTimeout);
         }
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["f"])(this, data, role, 'pickerLeave', iosLeaveAnimation, iosLeaveAnimation);
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["f"])(this, data, role, 'pickerLeave', iosLeaveAnimation, iosLeaveAnimation);
     }
     /**
      * Returns a promise that resolves when the picker did dismiss.
      */
     onDidDismiss() {
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerDidDismiss');
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerDidDismiss');
     }
     /**
      * Returns a promise that resolves when the picker will dismiss.
      */
     onWillDismiss() {
-        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerWillDismiss');
+        return Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["g"])(this.el, 'ionPickerWillDismiss');
     }
     /**
      * Get the column that matches the specified name.
@@ -1168,7 +1154,7 @@ const Picker = class {
     }
     async buttonClick(button) {
         const role = button.role;
-        if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
+        if (Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["i"])(role)) {
             return this.dismiss(undefined, role);
         }
         const shouldDismiss = await this.callButtonHandler(button);
@@ -1181,7 +1167,7 @@ const Picker = class {
         if (button) {
             // a handler has been provided, execute it
             // pass the handler the values from the inputs
-            const rtn = await Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_5__["s"])(button.handler, this.getSelected());
+            const rtn = await Object(_overlays_c5d9d644_js__WEBPACK_IMPORTED_MODULE_5__["s"])(button.handler, this.getSelected());
             if (rtn === false) {
                 // if the return value of the handler is false then do not dismiss
                 return false;
@@ -1420,7 +1406,9 @@ const PickerColumnCmp = class {
         // We have to prevent default in order to block scrolling under the picker
         // but we DO NOT have to stop propagation, since we still want
         // some "click" events to capture
-        detail.event.preventDefault();
+        if (detail.event.cancelable) {
+            detail.event.preventDefault();
+        }
         detail.event.stopPropagation();
         Object(_haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_6__["a"])();
         // reset everything
@@ -1438,7 +1426,9 @@ const PickerColumnCmp = class {
         this.maxY = -(maxY * this.optHeight);
     }
     onMove(detail) {
-        detail.event.preventDefault();
+        if (detail.event.cancelable) {
+            detail.event.preventDefault();
+        }
         detail.event.stopPropagation();
         // update the scroll position relative to pointer start position
         let y = this.y + detail.deltaY;
