@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   publibikeApi: "https://app.uflou.com.co"
-  // publibikeApi: "http://127.0.0.1:3002"
+  // publibikeApi: "http://127.0.0.1:3010"
 
 };
 

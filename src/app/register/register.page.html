@@ -186,7 +186,11 @@
         <ion-select-option value="Scotiabank Colpatria">Scotiabank Colpatria</ion-select-option>
       </ion-select>
     </ion-item>
+<<<<<<< HEAD
     <!--<div class="validation-error">
+=======
+    <!-- <div class="validation-error">
+>>>>>>> bbebfeb6b81e361fbddb641de4265c9fa555cfef
       <ng-container *ngFor="let validation of validation_messages.banco">
         <div *ngIf="
             registerForm.get('banco').hasError(validation.type) &&
@@ -194,13 +198,22 @@
               registerForm.get('banco').touched)">
           {{ validation.message }}
         </div>
+<<<<<<< HEAD
       </ng-container>
     </div>-->
+=======
+      </ng-container> 
+    </div> -->
+>>>>>>> bbebfeb6b81e361fbddb641de4265c9fa555cfef
     <ion-item color="secondary">
       <ion-label position="floating">Ingresa tu Cuenta Bancaria</ion-label>
       <ion-input formControlName="cuenta"></ion-input>
     </ion-item>
+<<<<<<< HEAD
     <!--<div class="validation-error">
+=======
+    <!-- <div class="validation-error">
+>>>>>>> bbebfeb6b81e361fbddb641de4265c9fa555cfef
       <ng-container *ngFor="let validation of validation_messages.cuenta">
         <div *ngIf="
             registerForm.get('cuenta').hasError(validation.type) &&
@@ -208,8 +221,13 @@
               registerForm.get('cuenta').touched)">
           {{ validation.message }}
         </div>
+<<<<<<< HEAD
       </ng-container>
     </div>-->
+=======
+      </ng-container> 
+    </div> -->
+>>>>>>> bbebfeb6b81e361fbddb641de4265c9fa555cfef
     {{ errorMessage }}
     <ion-button color="transparent" full outline class="ui button go-campaings"  [disabled]="!registerForm.valid" type="submit">
       REGISTRARME
