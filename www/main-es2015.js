@@ -11,11 +11,14 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginGuard", function() { return LoginGuard; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "8Y7J");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "iInd");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
 
-//@Injectable({
-//  providedIn: 'root'
-//})
-class LoginGuard {
+
+
+
+let LoginGuard = class LoginGuard {
     constructor(storage, router) {
         this.storage = storage;
         this.router = router;
@@ -31,7 +34,17 @@ class LoginGuard {
             }
         });
     }
-}
+};
+LoginGuard.ctorParameters = () => [
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+];
+LoginGuard = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    })
+], LoginGuard);
+
 
 
 /***/ }),
@@ -64,7 +77,7 @@ __webpack_require__.r(__webpack_exports__);
 const environment = {
     production: false,
     publibikeApi: "https://app.uflou.com.co"
-    // publibikeApi: "http://127.0.0.1:3002"
+    // publibikeApi: "http://127.0.0.1:3010"
 };
 /*
  * For easier debugging in development mode, you can import the following file

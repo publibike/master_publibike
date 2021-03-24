@@ -30,10 +30,25 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "mrSG"); //@Injectable({
-      //  providedIn: 'root'
-      //})
+      "mrSG");
+      /* harmony import */
 
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "8Y7J");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @angular/router */
+      "iInd");
+      /* harmony import */
+
+
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @ionic/storage */
+      "xgBC");
 
       var LoginGuard = /*#__PURE__*/function () {
         function LoginGuard(storage, router) {
@@ -80,8 +95,19 @@
 
         return LoginGuard;
       }();
-      /***/
 
+      LoginGuard.ctorParameters = function () {
+        return [{
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
+        }];
+      };
+
+      LoginGuard = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], LoginGuard);
+      /***/
     },
 
     /***/
@@ -125,7 +151,7 @@
 
       var environment = {
         production: false,
-        publibikeApi: "https://app.uflou.com.co" // publibikeApi: "http://127.0.0.1:3002"
+        publibikeApi: "https://app.uflou.com.co" // publibikeApi: "http://127.0.0.1:3010"
 
       };
       /*
