@@ -3,15 +3,10 @@ import { ControlContainer } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { environment } from 'src/environments/environment';
 
-<<<<<<< HEAD
-//@Injectable({
-//  providedIn: 'root'
-//})
-=======
-// @Injectable({
-//   providedIn: 'root'
-// })
->>>>>>> bbebfeb6b81e361fbddb641de4265c9fa555cfef
+
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticateService {
 
 
