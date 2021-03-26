@@ -1,7 +1,6 @@
 "use strict";
 
 const api = require("./api");
-const $ = require("jquery")
 /****************************************
 * RUTAS DE VISUALIZACIÓN DE LA APLICACIÓN
 * **************************************/
