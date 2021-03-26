@@ -24,9 +24,16 @@
                 </h2>
 
                 <div class="ui internally celled grid historic">
-                    <div class="date-rute">
-                        <h3>{{formatDate ultRecorrido.fecha}}</h3>
-                    </div>
+                    <form action="/api/admin/sumar/{{id}}" method="POST">
+                        <select class="form-select" id="valortomado" name="resultado">
+                            {{#each recorridos}}
+                            <option value={{@index}}>{{formatDate this.fecha}}</option>
+                            {{/each}}
+                        </select>
+                        <div class="date-rute">
+                            <button type="submit">mostrar datos</button>
+                        </div>
+                    </form>
                     <div class="row">
                         <div class="six wide column">
                             <h4>Kilometros Recorridos</h4>
@@ -93,7 +100,7 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 
     <div class="column">
         <div class="inside-column">

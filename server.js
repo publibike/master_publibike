@@ -29,8 +29,8 @@ const app = async config => {
     await plugins.register(server);
 
     //Se configura es estado para mantener la sesión
-    server.state('admin',{
-        ttl: 1000*60*60,
+    server.state('admin', {
+        ttl: 1000 * 60 * 60,
         // isSecure: process.env.NODE_ENV === 'prod',
         isSecure: false,
         encoding: 'base64json'
@@ -56,6 +56,11 @@ const app = async config => {
         );
     });
 
+    handlebars.registerHelper('select', function(selected, options) {
+        return options.fn(this).replace(
+            new RegExp(' value=\"' + selected + '\"'),
+            '$& selected="selected"');
+    });
 
     //Se registran las rutas
     await routes.register(server);

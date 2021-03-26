@@ -1,7 +1,7 @@
 "use strict";
 
 const api = require("./api");
-
+const $ = require("jquery")
 /****************************************
 * RUTAS DE VISUALIZACIÓN DE LA APLICACIÓN
 * **************************************/
@@ -116,6 +116,46 @@ module.exports.register = async server => {
             }
         }
     });
+    server.route({
+        method: 'POST',
+        path: '/api/admin/sumar/{id}',
+        options: {
+            cors: true
+        },
+        handler: async (req, h) => {
+            let ad = req.payload
+            const id = req.params.id;
+            const ObjectID = req.mongo.ObjectID;
+            const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
+            const arrayRecorridos = Object.values(usuario.recorridos);
+            let ultRecorrido = arrayRecorridos[ad.resultado];
+            if (ultRecorrido === undefined) {
+                ultRecorrido = {
+                    minutos: 0,
+                    kms: 0,
+                    cal: 0,
+                    co2: 0
+                }
+            }
+
+            ultRecorrido.minutos = ultRecorrido.minutos.toFixed(1)
+            ultRecorrido.kms = ultRecorrido.kms.toFixed(1)
+            ultRecorrido.cal = ultRecorrido.cal.toFixed(1)
+            ultRecorrido.co2 = ultRecorrido.co2.toFixed(1)
+            usuario.tiempo_total = usuario.tiempo_total.toFixed(2)
+            usuario.co2_total = usuario.co2_total.toFixed(2)
+            usuario.cal_total = usuario.cal_total.toFixed(2)
+            usuario.km_total = usuario.km_total.toFixed(2)
+
+            return h.view('usuario', {
+                title: `Usuario: ${usuario.usuario}`,
+                usuario: usuario,
+                ultRecorrido: ultRecorrido,
+                recorridos: arrayRecorridos,
+                id:id
+            })
+        }
+    });
 
     //Ruta que muestra un usuario
     server.route({
@@ -124,35 +164,32 @@ module.exports.register = async server => {
         handler: async (req, h) => {
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
-
             const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
             const arrayRecorridos = Object.values(usuario.recorridos);
-            const tamRecorrido = arrayRecorridos.length;
-            let ultRecorrido = arrayRecorridos[tamRecorrido - 1];
-            if (ultRecorrido===undefined){
-                console.log("hola")
-                ultRecorrido={
-                    minutos:0,
-                    kms:0,
-                    cal:0,
-                    co2:0
+            let ultRecorrido = arrayRecorridos[0];
+            if (ultRecorrido === undefined) {
+                ultRecorrido = {
+                    minutos: 0,
+                    kms: 0,
+                    cal: 0,
+                    co2: 0
                 }
-                
             }
-            ultRecorrido.minutos=ultRecorrido.minutos.toFixed(1)
-            ultRecorrido.kms=ultRecorrido.kms.toFixed(1)
-            ultRecorrido.cal=ultRecorrido.cal.toFixed(1)
-            ultRecorrido.co2=ultRecorrido.co2.toFixed(1)
+
+            ultRecorrido.minutos = ultRecorrido.minutos.toFixed(1)
+            ultRecorrido.kms = ultRecorrido.kms.toFixed(1)
+            ultRecorrido.cal = ultRecorrido.cal.toFixed(1)
+            ultRecorrido.co2 = ultRecorrido.co2.toFixed(1)
             usuario.tiempo_total = usuario.tiempo_total.toFixed(2)
             usuario.co2_total = usuario.co2_total.toFixed(2)
             usuario.cal_total = usuario.cal_total.toFixed(2)
             usuario.km_total = usuario.km_total.toFixed(2)
-
-
             return h.view('usuario', {
                 title: `Usuario: ${usuario.usuario}`,
                 usuario: usuario,
-                ultRecorrido: ultRecorrido
+                ultRecorrido: ultRecorrido,
+                recorridos: arrayRecorridos,
+                id:id
             })
         }
     });
@@ -179,7 +216,7 @@ module.exports.register = async server => {
             })
         }
     });
-    
+
 
 
     /********************************************
