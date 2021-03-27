@@ -2,12 +2,13 @@
   <ion-slides pager="true" [options]="slideOpts">
     <ion-slide *ngFor="let slide of slides">
       <ion-icon name="close" (click)="finish()"></ion-icon>
-      <img text-center src="assets/img/logo-publibike-dark.png" alt="Platzi Music Logo" />
+      <!-- <img text-center src="assets/img/logo-publibike-dark.png" alt="Platzi Music Logo" />
       <h1>{{ slide.title }}</h1>
       <h2>{{ slide.subTitle }}</h2>
       <p>
         {{ slide.description }}
-      </p>
+      </p> -->
+      <img text-center src="{{slide.imagen}}"/>
       <ion-icon name="{{ slide.icon }}"></ion-icon>
     </ion-slide>
   </ion-slides>

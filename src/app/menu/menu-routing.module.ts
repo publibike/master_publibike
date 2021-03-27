@@ -39,10 +39,10 @@ const routes: Routes = [
         path: 'subscribe-campaing/:id',
         loadChildren: () => import('../subscribe-campaing/subscribe-campaing.module').then(m => m.SubscribeCampaingPageModule)
       },
-      {
-        path: 'intro',
-        loadChildren: () => import('../intro/intro.module').then( m => m.IntroPageModule)
-      },
+      // {
+      //   path: 'intro',
+      //   loadChildren: () => import('../intro/intro.module').then( m => m.IntroPageModule)
+      // },
       {
         path: "",
         redirectTo: "home",

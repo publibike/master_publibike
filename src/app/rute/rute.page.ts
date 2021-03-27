@@ -180,10 +180,72 @@ export class RutePage {
         map: map
       });
 
+      const template = {
+        title: "Cicloparqueadero",
+        content: [
+          {
+            //Formato tipo fila
+
+            type: "fields", //FieldsContentElement
+            //Sirve para proporcionar información en vistas y capas
+            fieldInfos: [
+              {
+                fieldName: "COD_CICP",
+                visible: false,
+                label: "Codigo_Cicloparqueadero",
+              },
+              {
+                fieldName: "NOMBRE_CICP",
+                visible: true,
+                label: "Nombre",
+              },
+              {
+                fieldName: "HORARIO_CICP",
+                visible: true,
+                label: "Horario",
+              },
+              {
+                fieldName: "DIRECCION",
+                visible: true,
+                label: "Dirección",
+              },
+              {
+                fieldName: "LOCALIDAD",
+                visible: true,
+                label: "Localidad",
+              },
+              {
+                fieldName: "CUPOS",
+                visible: true,
+                label: "Cupos",
+              },
+              {
+                fieldName: "TIPOLOGIA_CICP",
+                visible: true,
+                label: "Servicio",
+              },
+              {
+                fieldName: "SELLO",
+                visible: false,
+                label: "SELLO_TIPO",
+              },
+            ],
+          },
+        ],
+      };
       const parkingLayer = new FeatureLayer({
-        url: "https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/Cicloparqueaderos_Certificados_Bogota_D_C/FeatureServer/0"
-      })
+        url:
+          "https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/Cicloparqueaderos_Certificados_Bogota_D_C/FeatureServer/0",
+        outFields: ["*"],
+        popupTemplate: template,
+      });
       map.add(parkingLayer);
+      const customPoint = new FeatureLayer({
+        url:
+          "https://serviciosgis.catastrobogota.gov.co/arcgis/rest/services/movilidad/cicloparqueadero/MapServer",
+      });
+      map.add(customPoint);
+
       //Se configura y crea el widget de busqueda
       this._search = new LocatorSearchSource({
         view: this._view,

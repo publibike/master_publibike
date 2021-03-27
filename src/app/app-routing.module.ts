@@ -6,7 +6,7 @@ import { LoginGuard } from './guards/login.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'intro',
     pathMatch: 'full'
   },
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
     path: 'menu',
     // loadChildren: "./menu/menu.module#MenuPageModule",
     loadChildren: () => import('./menu/menu.module').then(m => m.MenuPageModule),
-    canActivate: [LoginGuard]
+    canActivate: [IntroGuard, LoginGuard]
   },  
   {
     path: 'register',
