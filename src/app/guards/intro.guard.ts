@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class IntroGuard implements CanActivate {
   constructor(private storage: Storage, private router: Router) {}
   async canActivate() {
