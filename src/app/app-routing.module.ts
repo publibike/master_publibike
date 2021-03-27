@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { IntroGuard } from './guards/intro.guard';
 import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'intro',
     pathMatch: 'full',
     // loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
@@ -16,7 +17,7 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
-    canActivate: [LoginGuard]
+    canActivate: [IntroGuard, LoginGuard]
   },
   {
     path: 'recognition-modal',
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'map-modal',
     loadChildren: () => import('./map-modal/map-modal.module').then( m => m.MapModalPageModule)
+  },
+  {
+    path: 'intro',
+    loadChildren: () => import('./intro/intro.module').then( m => m.IntroPageModule)
   }
 ];
 @NgModule({
