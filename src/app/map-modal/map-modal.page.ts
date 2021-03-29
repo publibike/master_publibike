@@ -127,10 +127,14 @@ export class MapModalPage implements OnInit {
         map: map
       });
 
-      const parkingLayer = new FeatureLayer({
-        url: "https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/Cicloparqueaderos_Certificados_Bogota_D_C/FeatureServer/0"
-      })
-      map.add(parkingLayer);
+      // const parkingLayer = new FeatureLayer({
+      //   url: "https://services2.arcgis.com/NEwhEo9GGSHXcRXV/arcgis/rest/services/Cicloparqueaderos_Certificados_Bogota_D_C/FeatureServer/0"
+      // })
+      const customPoint = new FeatureLayer({
+        url: "https://serviciosgis.catastrobogota.gov.co/arcgis/rest/services/movilidad/cicloparqueadero/MapServer"
+      });
+      // map.add(parkingLayer);
+      map.add(customPoint);
       //Se configura y crea el widget de busqueda
       this._search = new LocatorSearchSource({
         view: this._view,
@@ -204,26 +208,6 @@ export class MapModalPage implements OnInit {
 
       return this._view;
 
-      // function getRoute() {
-      //   // Setup the route parameters
-      //   var routeParams = new RouteParameters({
-      //     stops: new FeatureSet({
-      //       features: this._view.graphics.toArray()
-      //     }),
-      //     // returnDirections: true
-      //   });
-      //   // Get the route
-      //   routeTask.solve(routeParams).then(function (data) {
-      //     data.routeResults.forEach(function (result) {
-      //       result.route.symbol = {
-      //         type: "simple-line",
-      //         color: [5, 150, 255],
-      //         width: 3
-      //       };
-      //       this._view.graphics.add(result.route);
-      //     });
-      //   });
-      // }
     } catch (error) {
       console.log(error)
     }
