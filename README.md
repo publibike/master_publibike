@@ -13,6 +13,7 @@ Para construir las aplicaciones de android y de iOS ejecutar:
 npm run build
 npx cap copy android
 npx cap copy ios
+npx cap sync
 
 Para ejecutar Android studio desde el proyecto ejecutar:
 
