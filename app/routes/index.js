@@ -1,6 +1,7 @@
 "use strict";
 
 const api = require("./api");
+const moment = require("moment");
 /****************************************
 * RUTAS DE VISUALIZACIÓN DE LA APLICACIÓN
 * **************************************/
@@ -84,6 +85,107 @@ module.exports.register = async server => {
     });
 
 
+    server.route({
+        method: "POST",
+        path: "/admin/usuarios/filtrados",
+        handler: async (request, h) => {
+            const datos = request.payload
+            let usuarios = []
+            if (datos.texto) {
+                var regex = new RegExp(["^", datos.texto, "$"].join(""), "i");
+                usuarios = await request.mongo.db.collection('Usuario').find({ nombre: regex }).toArray();
+                if (usuarios.length === 0) {
+                    usuarios = await request.mongo.db.collection('Usuario').find({ usuario: parseInt(datos.texto) }).toArray();
+                }
+                if (usuarios.length === 0) {
+                    usuarios = await request.mongo.db.collection('Usuario').find({ email: regex }).toArray();
+                }
+            }
+            if (datos.recorridos) {
+                if (datos.recorridos == 'Mayor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { recorridos: -1 } }]).limit(10).toArray();
+
+                }
+                if (datos.recorridos == 'Menor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { recorridos: 1 } }]).limit(10).toArray();
+                }
+            }
+
+            if (datos.kilometros) {
+                if (datos.kilometros == 'Mayor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { km_total: -1 } }]).limit(10).toArray();
+                }
+                if (datos.kilometros == 'Menor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { km_total: 1 } }]).limit(10).toArray();
+                }
+
+            }
+            if (datos.calorias) {
+                if (datos.calorias == 'Mayor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { cal_total: -1 } }]).limit(10).toArray();
+                }
+                if (datos.calorias == 'Menor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { cal_total: 1 } }]).limit(10).toArray();
+                }
+            }
+            if (datos.co2) {
+                if (datos.co2 == 'Mayor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { co2_total: -1 } }]).limit(10).toArray();
+                }
+                if (datos.co2 == 'Menor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { co2_total: 1 } }]).limit(10).toArray();
+                }
+            }
+            if (datos.tiempo) {
+                if (datos.tiempo == 'Mayor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { tiempo_total: -1 } }]).limit(10).toArray();
+                }
+                if (datos.tiempo == 'Menor') {
+                    usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { tiempo_total: 1 } }]).limit(10).toArray();
+                }
+            }
+
+            if (datos.FechaInicio) {
+                let datapert = []
+                const datosConsulta = await request.mongo.db.collection('Usuario').find({}).toArray();
+                datosConsulta.filter((datosfiltrados) => {
+                    datosfiltrados.recorridos.map((valor) => {
+                        if (moment(valor.fecha).isBetween(moment(datos.FechaInicio), moment(datos.FechaFin))) {
+                            datapert.push(datosfiltrados)
+                        }
+                    })
+                })
+
+                var hash = {};
+                datapert = datapert.filter(function (current) {
+                    var exists = !hash[current.nombre];
+                    hash[current.nombre] = true;
+                    return exists;
+                });
+
+                usuarios = datapert
+            }
+
+
+
+
+            if (usuarios.length === 0) {
+                usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
+            }
+
+            usuarios.map((usu, i) => {
+                usu.Nrecorridos = usu.recorridos.length
+                usu.tiempo_total = parseInt(usu.tiempo_total).toFixed(1)
+                usu.co2_total = parseInt(usu.co2_total).toFixed(1)
+                usu.cal_total = parseInt(usu.cal_total).toFixed(1)
+                usu.km_total = parseInt(usu.km_total).toFixed(1)
+            })
+            return h.view('usuarios', {
+                title: 'Usuarios Registrados',
+                usuarios: usuarios
+            })
+        }
+    });
 
     //Ruta que muestra el home del administrador o dashboard
     server.route({
@@ -91,6 +193,13 @@ module.exports.register = async server => {
         path: "/admin/usuarios",
         handler: async (request, h) => {
             const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
+            usuarios.map((usu, i) => {
+                usu.Nrecorridos = usu.recorridos.length
+                usu.tiempo_total = usu.tiempo_total.toFixed(1)
+                usu.co2_total = usu.co2_total.toFixed(1)
+                usu.cal_total = usu.cal_total.toFixed(1)
+                usu.km_total = usu.km_total.toFixed(1)
+            })
             return h.view('usuarios', {
                 title: 'Usuarios Registrados',
                 usuarios: usuarios
@@ -117,17 +226,34 @@ module.exports.register = async server => {
     });
     server.route({
         method: 'POST',
-        path: '/api/admin/sumar/{id}',
+        path: '/api/admin/filtrarRecorrido/{id}',
         options: {
             cors: true
         },
         handler: async (req, h) => {
-            let ad = req.payload
+            let datos = req.payload
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
             const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
             const arrayRecorridos = Object.values(usuario.recorridos);
-            let ultRecorrido = arrayRecorridos[ad.resultado];
+            let ultRecorrido = {};
+            if (datos.FechaInicio) {
+                let ususfiltred = []
+                usuario.recorridos.map((valor) => {
+                    if (moment(valor.fecha).isBetween(moment(datos.FechaInicio), moment(datos.FechaFin))) {
+                        ususfiltred.push(valor)
+                    }
+                })
+                var minutos = ususfiltred.reduce((sum, value) => (sum + value.minutos), 0);
+                var kms = ususfiltred.reduce((sum, value) => (sum + value.kms), 0);
+                var cal = ususfiltred.reduce((sum, value) => (sum + value.cal), 0);
+                var co2 = ususfiltred.reduce((sum, value) => (sum + value.co2), 0);
+                ultRecorrido = { minutos, kms, cal, co2 }
+                console.log(ultRecorrido)
+            }
+
+
+
             if (ultRecorrido === undefined) {
                 ultRecorrido = {
                     minutos: 0,
@@ -151,11 +277,69 @@ module.exports.register = async server => {
                 usuario: usuario,
                 ultRecorrido: ultRecorrido,
                 recorridos: arrayRecorridos,
-                id:id
+                id: id
             })
         }
     });
 
+
+    server.route({
+        method: 'GET',
+        path: '/api/admin/filtrarRecorrido/{id}',
+        options: {
+            cors: true
+        },
+        handler: async (req, h) => {
+            let datos = req.payload
+            const id = req.params.id;
+            const ObjectID = req.mongo.ObjectID;
+            const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
+            const arrayRecorridos = Object.values(usuario.recorridos);
+            let ultRecorrido = {};
+
+            if (datos !== null) {
+                let ususfiltred = []
+                usuario.recorridos.map((valor) => {
+                    if (moment(valor.fecha).isBetween(moment(datos.FechaInicio), moment(datos.FechaFin))) {
+                        ususfiltred.push(valor)
+                    }
+                })
+                var minutos = ususfiltred.reduce((sum, value) => (sum + value.minutos), 0);
+                var kms = ususfiltred.reduce((sum, value) => (sum + value.kms), 0);
+                var cal = ususfiltred.reduce((sum, value) => (sum + value.cal), 0);
+                var co2 = ususfiltred.reduce((sum, value) => (sum + value.co2), 0);
+                ultRecorrido = { minutos, kms, cal, co2 }
+            }else{
+                ultRecorrido = arrayRecorridos[0];
+            }
+
+            if (Object.entries(ultRecorrido).length === 0) {
+                ultRecorrido = {
+                    minutos: 0,
+                    kms: 0,
+                    cal: 0,
+                    co2: 0
+                }
+            }
+
+            ultRecorrido.minutos = ultRecorrido.minutos.toFixed(1)
+            ultRecorrido.kms = ultRecorrido.kms.toFixed(1)
+            ultRecorrido.cal = ultRecorrido.cal.toFixed(1)
+            ultRecorrido.co2 = ultRecorrido.co2.toFixed(1)
+            usuario.tiempo_total = usuario.tiempo_total.toFixed(2)
+            usuario.co2_total = usuario.co2_total.toFixed(2)
+            usuario.cal_total = usuario.cal_total.toFixed(2)
+            usuario.km_total = usuario.km_total.toFixed(2)
+
+            return h.view('usuario', {
+                title: `Usuario: ${usuario.usuario}`,
+                usuario: usuario,
+                ultRecorrido: ultRecorrido,
+                recorridos: arrayRecorridos,
+                id: id
+            })
+        }
+    });
     //Ruta que muestra un usuario
     server.route({
         method: "GET",
@@ -188,7 +372,7 @@ module.exports.register = async server => {
                 usuario: usuario,
                 ultRecorrido: ultRecorrido,
                 recorridos: arrayRecorridos,
-                id:id
+                id: id
             })
         }
     });

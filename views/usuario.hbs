@@ -17,23 +17,28 @@
 </div>
 <div class="ui three column equal height grid content">
     <div class="column">
-        <div class="inside-column">
-            <div class="content-activity ui one column grid">
+        <div class="content-activity ui one column grid">
+            <div class="inside-column">
+                <form class="ui form center" method="POST" action="/api/admin/filtrarRecorrido/{{this.id}}">
+                    <h2 class="ui dividing header">Filtrar Por rango de Fechas</h2>
+                    <div class="fields">
+                        <div class="eight wide field">
+                            <label>Fecha Inicio</label>
+                            <input type="date" name="FechaInicio" required>
+                        </div>
+                        <div class="eight wide field">
+                            <label>Fecha Fin</label>
+                            <input type="date" name="FechaFin" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button type="submit" class="ui fluid large teal submit button">Filtar</button>
+                    </div>
+                </form>
                 <h2>
                     Ultimo recorrido realizado
                 </h2>
-
                 <div class="ui internally celled grid historic">
-                    <form action="/api/admin/sumar/{{id}}" method="POST">
-                        <select class="form-select" id="valortomado" name="resultado">
-                            {{#each recorridos}}
-                            <option value={{@index}}>{{formatDate this.fecha}}</option>
-                            {{/each}}
-                        </select>
-                        <div class="date-rute">
-                            <button type="submit">mostrar datos</button>
-                        </div>
-                    </form>
                     <div class="row">
                         <div class="six wide column">
                             <h4>Kilometros Recorridos</h4>
@@ -82,7 +87,7 @@
                                 {{!-- <div class="bar"
                                     style="transition-duration: 300ms; display: block; width: {{ultRecorrido.tiempo}}%; height: 20px;">
                                 </div> --}}
-                                <div class="progress">{{ultRecorrido.tiempo}} </div>
+                                <div class="progress">{{ultRecorrido.minutos}} Mins </div>
                             </div>
                         </div>
                     </div>
