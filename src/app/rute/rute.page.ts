@@ -345,7 +345,7 @@ export class RutePage {
   }
 
   async ionViewWillEnter() {
-    this.presentLoading();
+    // this.presentLoading();
     this.backgroundMode.enable();
     const user = await this.storage.get("userData");
     this.user = await this.apiService.getUserData(user._id)
@@ -357,8 +357,9 @@ export class RutePage {
         let position = await this._locate.locate();
         console.log("position", position)
         mapView.goTo({
-          center: this._locate.locate(),
-          zoom: 6,
+          // center: this._locate.locate(),
+          center: [-74.1031289, 4.6625514],
+          zoom: 12,
           tilt: 40
         })
           .then(() => {
@@ -379,7 +380,7 @@ export class RutePage {
                 this.currentDirection = address[0];
                 // this.currentDirection = this.currentDirection.split(",")
                 console.log(this.currentDirection)
-                this.loading.dismiss();
+                // this.loading.dismiss();
 
               }).catch(err => console.log(err))
 

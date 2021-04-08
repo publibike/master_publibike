@@ -80,11 +80,11 @@ export class RegisterPage implements OnInit {
       ),
       usuario: new FormControl(
         "",
-        Validators.compose([ Validators.required])
+        // Validators.compose([ Validators.required])
       ),
       celular: new FormControl(
         "",
-        Validators.compose([ Validators.required])
+        // Validators.compose([ Validators.required])
       ),
       email: new FormControl(
         "",
@@ -99,19 +99,19 @@ export class RegisterPage implements OnInit {
       ),
       genero: new FormControl(
         "",
-        Validators.compose([ Validators.required])
+        // Validators.compose([ Validators.required])
       ),
       estatura: new FormControl(
         "",
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       peso: new FormControl(
         "",
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       vehiculo: new FormControl(
         "",
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       banco: new FormControl(
         "",
