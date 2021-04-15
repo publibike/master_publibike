@@ -913,6 +913,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
 /* harmony import */ var _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/splash-screen/ngx */ "y2f/");
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "p74H");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
 
 
 
@@ -920,6 +921,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+// Events (iOS only)
+window.addEventListener('statusTap', function () {
+    console.log("statusbar tapped");
+});
+const { StatusBarCap } = _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Plugins"];
 let AppComponent = class AppComponent {
     constructor(platform, splashScreen, statusBar) {
         this.platform = platform;
@@ -930,7 +937,9 @@ let AppComponent = class AppComponent {
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
+            this.statusBar.hide();
             this.splashScreen.hide();
+            StatusBarCap.hide();
         });
     }
 };

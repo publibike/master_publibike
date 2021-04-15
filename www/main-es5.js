@@ -1501,6 +1501,18 @@
       var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @ionic-native/status-bar/ngx */
       "p74H");
+      /* harmony import */
+
+
+      var _capacitor_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @capacitor/core */
+      "gcOT"); // Events (iOS only)
+
+
+      window.addEventListener('statusTap', function () {
+        console.log("statusbar tapped");
+      });
+      var StatusBarCap = _capacitor_core__WEBPACK_IMPORTED_MODULE_7__["Plugins"].StatusBarCap;
 
       var AppComponent = /*#__PURE__*/function () {
         function AppComponent(platform, splashScreen, statusBar) {
@@ -1520,7 +1532,11 @@
             this.platform.ready().then(function () {
               _this7.statusBar.styleDefault();
 
+              _this7.statusBar.hide();
+
               _this7.splashScreen.hide();
+
+              StatusBarCap.hide();
             });
           }
         }]);
