@@ -2,6 +2,7 @@
 
 const api = require("./api");
 const moment = require("moment");
+
 /****************************************
 * RUTAS DE VISUALIZACIÓN DE LA APLICACIÓN
 * **************************************/
@@ -224,6 +225,24 @@ module.exports.register = async server => {
             }
         }
     });
+
+    server.route({
+        method: "GET",
+        path: "/admin/RiesgoCovid",
+        handler: async (request, h) => {
+            try {
+                const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
+                return h.view('riesgo', {
+                    title: 'Habitos de movilidad',
+                    valor:JSON.stringify(usuarios)
+                   
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    });
+
     server.route({
         method: 'POST',
         path: '/api/admin/filtrarRecorrido/{id}',

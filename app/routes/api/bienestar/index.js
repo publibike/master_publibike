@@ -372,10 +372,8 @@ module.exports.register = async server => {
         },
         handler: async (req, h) => {
             try {
-
                 const id = req.params.id;
                 const ObjectID = req.mongo.ObjectID;
-
                 const empresa = await req.mongo.db.collection('Empresa').findOne({ _id: new ObjectID(id) });
                 const historico = await req.mongo.db.collection('Empresa').aggregate([
                     {

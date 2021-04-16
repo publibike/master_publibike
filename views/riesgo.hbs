@@ -1,0 +1,53 @@
+<input id="titulo" type="hidden" value="{{valor}}">
+<div class="ui two column grid content">
+	<div class="column">
+		<div id="chartContainer" style="height:100%; width: 100%;"></div>
+	</div>
+</div>
+
+
+
+
+<script>
+	window.onload = function () {
+		var asociado = $('#titulo').val();
+		let datos = JSON.parse(asociado)
+		let Movilidad = datos.filter((usuario) => {
+			if (usuario.riesgo_COVID === 0) {
+				return usuario
+			}
+		})
+		let MovilidadPrivada = datos.filter((usuario) => {
+			if (usuario.riesgo_COVID === 40) {
+				return usuario
+			}
+		})
+		let MovilidadPublica = datos.filter((usuario) => {
+			if (usuario.riesgo_COVID === 60) {
+				return usuario
+			}
+		})
+
+		Movilidad = Movilidad.length * 100 / datos.length
+		MovilidadPrivada = MovilidadPrivada.length * 100 / datos.length
+		MovilidadPublica = MovilidadPublica.length * 100 / datos.length
+
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			data: [{
+				type: "pie",
+				startAngle: 240,
+				yValueFormatString: "##0.00\"%\"",
+				indexLabel: "{label} {y}",
+				dataPoints: [
+					{ y: MovilidadPublica, label: "Transporte Publico" },
+					{ y: MovilidadPrivada, label: "Transporte Privado" },
+					{ y: Movilidad, label: "Movilidad Limpia" }
+				]
+			}]
+		});
+		chart.render();
+	}
+</script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

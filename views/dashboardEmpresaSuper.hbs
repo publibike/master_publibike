@@ -26,7 +26,14 @@
     <div class="column">
         <div class="inside-column">
             <h3>Resultados Generales</h3>
-            <input name="dates" />
+            <form class="ui form" style="margin: 0px 30px 30px 30px ">
+                {{!-- <h4 class="ui dividing header">Datos Principales</h4> --}}
+                <div class="field">
+                    <div class="field">
+                        <input name="dates" />
+                    </div>
+                </div>
+            </form>
             <div style="width:100%;">
                 <canvas id="coResultados"></canvas>
             </div>
@@ -109,7 +116,7 @@
             drawChart(start._d, end._d, emId);
         }
     );
-    
+
 
     //Se configuran los datos del ChartJS
 
@@ -119,8 +126,8 @@
                 {
                     label: "Tiempo",
                     fill: false,
-                    backgroundColor: window.chartColors.orange,
-                    borderColor: window.chartColors.orange,
+                    backgroundColor: 'rgb(255,165,0)',
+                    borderColor: 'rgb(255,165,0)',
                     data: resultSet.map(function (r) {
                         return r.min;
                     })
@@ -128,8 +135,8 @@
                 {
                     label: 'CO2 Reducido',
                     fill: false,
-                    backgroundColor: window.chartColors.green,
-                    borderColor: window.chartColors.green,
+                    backgroundColor: "rgb(0,128,0)",
+                    borderColor: "rgb(0,128,0)",
                     data: resultSet.map(function (r) {
                         return r.co2;
                     }),
@@ -137,16 +144,16 @@
                 {
                     label: 'Kilometros Recorridos',
                     fill: false,
-                    backgroundColor: window.chartColors.blue,
-                    borderColor: window.chartColors.blue,
+                    backgroundColor: "rgb(0,0,255)",
+                    borderColor: "rgb(0,0,255)",
                     data: resultSet.map(function (r) {
                         return r.kms;
                     }),
                 },
                 {
                     label: 'Calorías Reducidas',
-                    backgroundColor: window.chartColors.red,
-                    borderColor: window.chartColors.red,
+                    backgroundColor: "rgb(255,0,0)",
+                    borderColor: "rgb(255,0,0)",
                     data: resultSet.map(function (r) {
                         return r.cal;
                     }),
@@ -184,18 +191,18 @@
     };
     var drawChart = function (startDate, endDate, id) {
         $.ajax({
-            url: `https://${window.location.host}/api/admin/empresa/${id}/estadisticas`,
+            url: `https://plus.uflou.com.co/api/admin/empresa/${id}/estadisticas`,
             success: function (respuesta) {
-                let mayores = respuesta.filter((obj)=>{
+                let mayores = respuesta.filter((obj) => {
                     dateObj = new Date(obj.fecha)
-                    if (dateObj.getTime()>startDate.getTime()){
+                    if (dateObj.getTime() > startDate.getTime()) {
                         return true
                     }
                 })
 
-                let finales = mayores.filter((obj)=>{
+                let finales = mayores.filter((obj) => {
                     dateObj = new Date(obj.fecha)
-                    if (dateObj.getTime()<endDate.getTime()){
+                    if (dateObj.getTime() < endDate.getTime()) {
                         return true
                     }
                 })
@@ -205,7 +212,7 @@
                     window.chart.update();
                 } else {
                     window.chart = new Chart(document.getElementById("coResultados"), {
-                        type: "line",
+                        type: "bar",
                         options: options,
                         data: data
                     });
