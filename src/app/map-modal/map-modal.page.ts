@@ -292,7 +292,9 @@ export class MapModalPage implements OnInit {
               console.log(`posicion ${this.recorrido.length}`, this.recorrido);
               console.log("vel", position.position.coords.speed);
               this.vel = position.position.coords.speed;
-              this.riesgoCovid(this.vel);
+              // this.riesgoCovid(this.vel);
+              this.riesgoCovid(51);
+              console.log('SISA WENTOR ------------------------------------------------------>')
               let ult = this.recorrido.length - 1;
               if (this.recorrido.length == 1) {
                 this.km = this.calculateDistance(
@@ -331,6 +333,7 @@ export class MapModalPage implements OnInit {
       console.log(`posicion ${this.recorrido.length}`, this.recorrido);
       console.log("vel", position.position.coords.speed);
       this.vel = position.position.coords.speed;
+
       this.riesgoCovid(this.vel);
       let ult = this.recorrido.length - 1;
       if (this.recorrido.length == 1) {
@@ -402,7 +405,7 @@ export class MapModalPage implements OnInit {
           .locationToAddress(params)
           .then((response) => {
             address = response.address;
-            console.log(address);
+            // console.log(address);
             address = address.split(",");
             this.fnlDirection = address[0];
             this.fnlPosition = params;
@@ -426,6 +429,7 @@ export class MapModalPage implements OnInit {
               kms: kms,
               cal: this.cal,
               co2: this.co2,
+              riesgo_covid:this.riesgo_covid
             };
             console.log("ruteData", this.ruteData);
             this.apiService.sendRute(this.ruteData);

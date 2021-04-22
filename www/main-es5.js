@@ -133,7 +133,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeBienestar-APP\PublibikeBienestarApp\PublibikeBienestarApp2\src\main.ts */
+      /*! C:\Users\ivanc\OneDrive\Escritorio\Trabajo\master_publibike\src\main.ts */
       "zUnb");
       /***/
     },
@@ -1014,8 +1014,10 @@
                                                               this.positionAct = position.position;
                                                               console.log("posicion ".concat(this.recorrido.length), this.recorrido);
                                                               console.log("vel", position.position.coords.speed);
-                                                              this.vel = position.position.coords.speed;
-                                                              this.riesgoCovid(this.vel);
+                                                              this.vel = position.position.coords.speed; // this.riesgoCovid(this.vel);
+
+                                                              this.riesgoCovid(51);
+                                                              console.log('SISA WENTOR ------------------------------------------------------>');
                                                               ult = this.recorrido.length - 1;
 
                                                               if (this.recorrido.length == 1) {
@@ -1031,7 +1033,7 @@
                                                                 console.log(this.km);
                                                               }
 
-                                                            case 8:
+                                                            case 9:
                                                             case "end":
                                                               return _context8.stop();
                                                           }
@@ -1147,8 +1149,8 @@
                       geocoder = this._locator; //Se obtiene la posición actual
 
                       geocoder.locationToAddress(params).then(function (response) {
-                        address = response.address;
-                        console.log(address);
+                        address = response.address; // console.log(address);
+
                         address = address.split(",");
                         _this5.fnlDirection = address[0];
                         _this5.fnlPosition = params;
@@ -1167,7 +1169,8 @@
                           minutos: totalMin,
                           kms: kms,
                           cal: _this5.cal,
-                          co2: _this5.co2
+                          co2: _this5.co2,
+                          riesgo_covid: _this5.riesgo_covid
                         };
                         console.log("ruteData", _this5.ruteData);
 
@@ -1436,7 +1439,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"end\">\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div class=\"logo-ekobike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <!-- <div id=\"viewDiv\" #map></div> -->\n  <div class=\"content-map\">\n    <div class=\"ui grid content-play\">\n      <div class=\"column distance\">\n        <h5>Distancia Recorrida</h5>\n        <h3 id=\"km\">{{km | number}}</h3>\n        <h4> Km</h4>\n      </div>\n    </div>\n    <div id=\"viewDiv\" #map></div>\n    <div class=\"chrono\">\n      <div class=\"time-elapsed\">\n        <h4>\n          Tiempo Recorrido\n        </h4>\n        <h2 id=time>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n      </div>\n      <div class=\"calories-co2\">\n        <div class=\"calories\">\n          <h4>\n            Consumo de Calorías\n          </h4>\n          <h2>\n            {{cal | number}}\n          </h2>\n          <h5>Kcal</h5>\n        </div>\n        <div class=\"co2\">\n          <h4>CO2 Reducido</h4>\n          <h2>\n            {{co2 | number}}\n          </h2>\n          <h5>Kgr</h5>\n        </div>\n      </div>\n      <div class=\"max-speed\">\n        <h4>\n          Velocidad Máxima\n        </h4>\n        <h2>\n          {{vel}}\n        </h2>\n        <h5>Km/h</h5>\n      </div>\n    </div>\n  </div>\n</ion-content>\n<ion-footer color=\"primary\">\n  <ion-toolbar>\n    <img class=\"play\" src=\"assets/img/button-start-29.png\" (click)=\"startRute()\" *ngIf=\"!isRun\">\n    <img class=\"play\" src=\"assets/img/button-stop-29.png\" (click)=\"stopRute()\" *ngIf=\"isRun\">\n    <!-- <ion-buttons slot=\"end\">\n      <ion-button shape=\"round\" color=\"secondary\" >\n      </ion-button>\n    </ion-buttons> -->\n  </ion-toolbar>\n</ion-footer>";
+      __webpack_exports__["default"] = "<ion-header>\r\n  <ion-toolbar>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content>\r\n  <div class=\"logo-ekobike-in\">\r\n    <img src=\"assets/img/logo-ekobike.png\">\r\n  </div>\r\n  <!-- <div id=\"viewDiv\" #map></div> -->\r\n  <div class=\"content-map\">\r\n    <div class=\"ui grid content-play\">\r\n      <div class=\"column distance\">\r\n        <h5>Distancia Recorrida</h5>\r\n        <h3 id=\"km\">{{km | number}}</h3>\r\n        <h4> Km</h4>\r\n      </div>\r\n    </div>\r\n    <div id=\"viewDiv\" #map></div>\r\n    <div class=\"chrono\">\r\n      <div class=\"time-elapsed\">\r\n        <h4>\r\n          Tiempo Recorrido\r\n        </h4>\r\n        <h2 id=time>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\r\n      </div>\r\n      <div class=\"calories-co2\">\r\n        <div class=\"calories\">\r\n          <h4>\r\n            Consumo de Calorías\r\n          </h4>\r\n          <h2>\r\n            {{cal | number}}\r\n          </h2>\r\n          <h5>Kcal</h5>\r\n        </div>\r\n        <div class=\"co2\">\r\n          <h4>CO2 Reducido</h4>\r\n          <h2>\r\n            {{co2 | number}}\r\n          </h2>\r\n          <h5>Kgr</h5>\r\n        </div>\r\n      </div>\r\n      <div class=\"max-speed\">\r\n        <h4>\r\n          Velocidad Máxima\r\n        </h4>\r\n        <h2>\r\n          {{vel}}\r\n        </h2>\r\n        <h5>Km/h</h5>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</ion-content>\r\n<ion-footer color=\"primary\">\r\n  <ion-toolbar>\r\n    <img class=\"play\" src=\"assets/img/button-start-29.png\" (click)=\"startRute()\" *ngIf=\"!isRun\">\r\n    <img class=\"play\" src=\"assets/img/button-stop-29.png\" (click)=\"stopRute()\" *ngIf=\"isRun\">\r\n    <!-- <ion-buttons slot=\"end\">\r\n      <ion-button shape=\"round\" color=\"secondary\" >\r\n      </ion-button>\r\n    </ion-buttons> -->\r\n  </ion-toolbar>\r\n</ion-footer>";
       /***/
     },
 
@@ -1598,7 +1601,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-app>\n";
+      __webpack_exports__["default"] = "<ion-app>\r\n  <ion-router-outlet></ion-router-outlet>\r\n</ion-app>\r\n";
       /***/
     },
 
