@@ -578,7 +578,7 @@ export class MapModalPage implements OnInit {
         });
         await alert.present();
         this.riesgo_covid = 60;
-        // await this.apiService.sendCovidRisk(this.riesgo_covid);
+        await this.apiService.sendCovidRisk(this.riesgo_covid);
       }
     }
   }
