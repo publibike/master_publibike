@@ -203,8 +203,13 @@ module.exports = function (it, TAG, STATIC) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! /Users/imac/Desktop/master_publibike/src/polyfills.ts */"hN/g");
 module.exports = __webpack_require__(/*! /Users/imac/Desktop/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"LEsg");
+=======
+__webpack_require__(/*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */"LEsg");
+>>>>>>> 0483196dac8c4cf92cd83002bc79eaf74e17696f
 
 
 /***/ }),

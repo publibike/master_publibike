@@ -56,7 +56,11 @@ LoginGuard = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! /Users/imac/Desktop/master_publibike/src/main.ts */"zUnb");
+=======
+module.exports = __webpack_require__(/*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/main.ts */"zUnb");
+>>>>>>> 0483196dac8c4cf92cd83002bc79eaf74e17696f
 
 
 /***/ }),
@@ -842,7 +846,7 @@ let MapModalPage = class MapModalPage {
                     });
                     yield alert.present();
                     this.riesgo_covid = 60;
-                    // await this.apiService.sendCovidRisk(this.riesgo_covid);
+                    yield this.apiService.sendCovidRisk(this.riesgo_covid);
                 }
             }
         });

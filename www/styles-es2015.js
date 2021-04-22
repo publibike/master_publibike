@@ -7,8 +7,13 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! /Users/imac/Desktop/master_publibike/src/theme/variables.scss */"fFqt");
 module.exports = __webpack_require__(/*! /Users/imac/Desktop/master_publibike/src/global.scss */"8oQk");
+=======
+__webpack_require__(/*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/theme/variables.scss */"fFqt");
+module.exports = __webpack_require__(/*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/global.scss */"8oQk");
+>>>>>>> 0483196dac8c4cf92cd83002bc79eaf74e17696f
 
 
 /***/ }),

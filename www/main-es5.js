@@ -133,7 +133,11 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
+<<<<<<< HEAD
       /*! /Users/imac/Desktop/master_publibike/src/main.ts */
+=======
+      /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/main.ts */
+>>>>>>> 0483196dac8c4cf92cd83002bc79eaf74e17696f
       "zUnb");
       /***/
     },
@@ -1311,7 +1315,7 @@
                   switch (_context15.prev = _context15.next) {
                     case 0:
                       if (!(vel > 50)) {
-                        _context15.next = 9;
+                        _context15.next = 11;
                         break;
                       }
 
@@ -1319,7 +1323,7 @@
                       this.flagCovid += 1;
 
                       if (!(this.flagCovid >= 10)) {
-                        _context15.next = 9;
+                        _context15.next = 11;
                         break;
                       }
 
@@ -1357,9 +1361,11 @@
                       return alert.present();
 
                     case 8:
-                      this.riesgo_covid = 60; // await this.apiService.sendCovidRisk(this.riesgo_covid);
+                      this.riesgo_covid = 60;
+                      _context15.next = 11;
+                      return this.apiService.sendCovidRisk(this.riesgo_covid);
 
-                    case 9:
+                    case 11:
                     case "end":
                       return _context15.stop();
                   }
