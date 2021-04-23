@@ -1,8 +1,6 @@
 <div class="ui one column grid content">
 	<div class="column">
 		<div class="inside-column">
-
-
 			<form class="ui form" method="POST" action="/admin/usuarios/filtrados">
 				<h2 class="ui dividing header">Filtrar Datos</h2>
 				<div class="fields">
@@ -61,7 +59,7 @@
 				<div class="fields">
 					<div class="eight wide field">
 						<label>Fecha Inicio</label>
-						<input type="date" name="FechaInicio" required >
+						<input type="date" name="FechaInicio" required>
 					</div>
 					<div class="eight wide field">
 						<label>Fecha Fin</label>
@@ -106,6 +104,30 @@
 					{{/each}}
 				</tbody>
 			</table>
+
+
+			<form class="ui form" method="POST" action="/admin/usuarios/filtrados">
+				<h2 class="ui dividing header">Filtrar Filas</h2>
+				<div class="fields">
+					<div class="two wide field">
+						<label>Numero De Filas</label>
+						<select class="ui fluid search dropdown" name="Nfilas">
+							<option>Seleccionar...</option>
+							{{#each Nusuarios}}
+							<option value="{{this}}">
+								{{this}}
+							</option>
+							{{/each}}
+						</select>
+					</div>
+					<div class="two wide field">
+						<label>Filtrar</label>
+						<button type="submit" class="ui fluid large teal submit button">Filtar</button>
+					</div>
+				</div>
+			</form>
+
+
 		</div>
 	</div>
 </div>

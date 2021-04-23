@@ -91,6 +91,7 @@ module.exports.register = async server => {
         path: "/admin/usuarios/filtrados",
         handler: async (request, h) => {
             const datos = request.payload
+
             let usuarios = []
             if (datos.texto) {
                 var regex = new RegExp(["^", datos.texto, "$"].join(""), "i");
@@ -146,6 +147,10 @@ module.exports.register = async server => {
                 }
             }
 
+            if (datos.Nfilas > 0) {
+                usuarios = await request.mongo.db.collection('Usuario').aggregate([{ $sort: { tiempo_total: 1 } }]).limit(parseInt(datos.Nfilas)).toArray();
+            }
+
             if (datos.FechaInicio) {
                 let datapert = []
                 const datosConsulta = await request.mongo.db.collection('Usuario').find({}).toArray();
@@ -181,9 +186,21 @@ module.exports.register = async server => {
                 usu.cal_total = parseInt(usu.cal_total).toFixed(1)
                 usu.km_total = parseInt(usu.km_total).toFixed(1)
             })
+
+
+            let Nusuarios = []
+            let usuariosTotales = await request.mongo.db.collection('Usuario').find({}).toArray();
+            let numeroDivididoTres = usuariosTotales.length / 3
+            let numeroDivididodos = parseInt(usuariosTotales.length / 2)
+            let numeroTotales = usuariosTotales.length
+            Nusuarios.push(numeroDivididoTres)
+            Nusuarios.push(numeroDivididodos)
+            Nusuarios.push(numeroTotales)
+
             return h.view('usuarios', {
                 title: 'Usuarios Registrados',
-                usuarios: usuarios
+                usuarios: usuarios,
+                Nusuarios: Nusuarios
             })
         }
     });
@@ -201,9 +218,19 @@ module.exports.register = async server => {
                 usu.cal_total = usu.cal_total.toFixed(1)
                 usu.km_total = usu.km_total.toFixed(1)
             })
+            let Nusuarios = []
+            let numeroDivididoTres = usuarios.length / 3
+            let numeroDivididodos = parseInt(usuarios.length / 2)
+            let numeroTotales = usuarios.length
+            Nusuarios.push(numeroDivididoTres)
+            Nusuarios.push(numeroDivididodos)
+            Nusuarios.push(numeroTotales)
+
+
             return h.view('usuarios', {
                 title: 'Usuarios Registrados',
-                usuarios: usuarios
+                usuarios: usuarios,
+                Nusuarios: Nusuarios
             })
         }
     });
@@ -234,8 +261,8 @@ module.exports.register = async server => {
                 const usuarios = await request.mongo.db.collection('Usuario').find({}).toArray();
                 return h.view('riesgo', {
                     title: 'Habitos de movilidad',
-                    valor:JSON.stringify(usuarios)
-                   
+                    valor: JSON.stringify(usuarios)
+
                 })
             } catch (error) {
                 console.log(error)
@@ -328,7 +355,7 @@ module.exports.register = async server => {
                 var cal = ususfiltred.reduce((sum, value) => (sum + value.cal), 0);
                 var co2 = ususfiltred.reduce((sum, value) => (sum + value.co2), 0);
                 ultRecorrido = { minutos, kms, cal, co2 }
-            }else{
+            } else {
                 ultRecorrido = arrayRecorridos[0];
             }
 
