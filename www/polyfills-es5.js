@@ -506,15 +506,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
-<<<<<<< HEAD
-      /*! C:\Users\ivanc\OneDrive\Escritorio\Trabajo\master_publibike\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-polyfills.js */
-=======
-<<<<<<< HEAD
-      /*! /Users/imac/Desktop/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js */
-=======
       /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js */
->>>>>>> 0483196dac8c4cf92cd83002bc79eaf74e17696f
->>>>>>> eee3e90cb9d663b17dfe63088ee22256bfa28c60
       "mRIq");
 
       __webpack_require__(
@@ -522,28 +514,6 @@
       "R0gw");
 
       __webpack_require__(
-<<<<<<< HEAD
-      /*! C:\Users\ivanc\OneDrive\Escritorio\Trabajo\master_publibike\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */
-      "LEsg");
-
-      __webpack_require__(
-      /*! C:\Users\ivanc\OneDrive\Escritorio\Trabajo\master_publibike\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-jit-polyfills.js */
-      "YJXN");
-
-      module.exports = __webpack_require__(
-      /*! C:\Users\ivanc\OneDrive\Escritorio\Trabajo\master_publibike\src\polyfills.ts */
-=======
-<<<<<<< HEAD
-      /*! /Users/imac/Desktop/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */
-      "LEsg");
-
-      __webpack_require__(
-      /*! /Users/imac/Desktop/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-jit-polyfills.js */
-      "YJXN");
-
-      module.exports = __webpack_require__(
-      /*! /Users/imac/Desktop/master_publibike/src/polyfills.ts */
-=======
       /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */
       "LEsg");
 
@@ -553,8 +523,6 @@
 
       module.exports = __webpack_require__(
       /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/polyfills.ts */
->>>>>>> 0483196dac8c4cf92cd83002bc79eaf74e17696f
->>>>>>> eee3e90cb9d663b17dfe63088ee22256bfa28c60
       "hN/g");
       /***/
     },

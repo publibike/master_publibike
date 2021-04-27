@@ -299,7 +299,7 @@ export class RutePage implements OnInit {
     }
   }
   async ngOnInit() {
-    this.presentLoading();
+    // this.presentLoading();
     // this.backgroundMode.enable();
     this.user = await this.storage.get("userData");
     this.initializedMap().then(async (mapView) => {
@@ -313,7 +313,7 @@ export class RutePage implements OnInit {
       //   zoom: 6,
       //   tilt: 40
       // })
-      this.loading.dismiss();
+      // this.loading.dismiss();
     });
   }
   async startRute() {

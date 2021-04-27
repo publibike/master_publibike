@@ -234,7 +234,7 @@ export class MapModalPage implements OnInit {
     }
   }
   async ngOnInit() {
-    this.presentLoading();
+    // this.presentLoading();
     this.user = await this.storage.get("userData");
     console.log(this.user);
     //se usa localizacion en segundo plano
@@ -242,15 +242,15 @@ export class MapModalPage implements OnInit {
       console.log("mapView ready: ", this._view.ready);
       this._loaded = this._view.ready;
 
-      let position = await this._locate.locate();
-      console.log("position", position);
+      // let position = await this._locate.locate();
+      // console.log("position", position);
 
-      mapView.goTo({
-        center: this._locate.locate(),
-        zoom: 6,
-        tilt: 40,
-      });
-      this.loading.dismiss();
+      // mapView.goTo({
+      //   center: this._locate.locate(),
+      //   zoom: 6,
+      //   tilt: 40,
+      // });
+      // this.loading.dismiss();
     });
   }
   async startRute() {

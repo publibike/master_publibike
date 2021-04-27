@@ -1,6 +1,6 @@
 {
-  "appId": "com.Uflou.Bienestar",
-  "appName": "Uflou+",
+  "appId": "com.uflou.plus",
+  "appName": "Uflou Funcionarios",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

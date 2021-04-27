@@ -101,7 +101,7 @@ IntroPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-content padding >\r\n  <ion-slides pager=\"true\" [options]=\"slideOpts\">\r\n    <ion-slide *ngFor=\"let slide of slides\">\r\n      <ion-icon name=\"close\" (click)=\"finish()\"></ion-icon>\r\n      <img text-center src=\"{{slide.imagen}}\"/>\r\n      <ion-icon name=\"{{ slide.icon }}\"></ion-icon>\r\n    </ion-slide>\r\n  </ion-slides>\r\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content padding >\n  <ion-slides pager=\"true\" [options]=\"slideOpts\">\n    <ion-slide *ngFor=\"let slide of slides\">\n      <ion-icon name=\"close\" (click)=\"finish()\" style=\"margin-top: 35px;\"></ion-icon>\n      <img text-center src=\"{{slide.imagen}}\"/>\n      <ion-icon name=\"{{ slide.icon }}\"></ion-icon>\n    </ion-slide>\n  </ion-slides>\n</ion-content>");
 
 /***/ }),
 

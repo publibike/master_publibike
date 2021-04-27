@@ -507,12 +507,10 @@
                 while (1) {
                   switch (_context3.prev = _context3.next) {
                     case 0:
-                      this.presentLoading(); // this.backgroundMode.enable();
-
-                      _context3.next = 3;
+                      _context3.next = 2;
                       return this.storage.get("userData");
 
-                    case 3:
+                    case 2:
                       this.user = _context3.sent;
                       this.initializedMap().then(function (mapView) {
                         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
@@ -528,10 +526,9 @@
                                   //   zoom: 6,
                                   //   tilt: 40
                                   // })
+                                  // this.loading.dismiss();
 
-                                  this.loading.dismiss();
-
-                                case 3:
+                                case 2:
                                 case "end":
                                   return _context2.stop();
                               }
@@ -540,7 +537,7 @@
                         }));
                       });
 
-                    case 5:
+                    case 4:
                     case "end":
                       return _context3.stop();
                   }
@@ -853,7 +850,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\r\n  <div class=\"logo-ekobike-in\">    \r\n      <img src=\"assets/img/logo-ekobike.png\">\r\n  </div>\r\n    <!-- <div id=\"viewDiv\" #map></div> -->\r\n  <div class=\"content-map\">\r\n    <div class=\"ui grid content-play\">\r\n      <div class=\"column distance\">\r\n        <!-- <h5>Explora</h5>\r\n        <h3 id=\"km\">0</h3> -->\r\n        <h4>Explora</h4>\r\n      </div>\r\n    </div>\r\n    <div id=\"viewDiv\" #map></div>\r\n    <!-- <div class=\"chrono\">\r\n      <div class=\"time-elapsed\">\r\n        <h4>\r\n          Tiempo Recorrido\r\n        </h4>\r\n        <h2 id=time>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\r\n      </div>\r\n      <div class=\"calories-co2\">\r\n        <div class=\"calories\">\r\n          <h4>\r\n            Consumo de Calorías\r\n          </h4>\r\n          <h2>\r\n            0\r\n          </h2>\r\n          <h5>\r\n            Kcal\r\n          </h5>\r\n        </div>\r\n        <div class=\"co2\">\r\n          <h4>\r\n            CO2 Reducido\r\n          </h4>\r\n          <h2>\r\n            0\r\n          </h2>\r\n          <h5>\r\n            Kgr\r\n          </h5>\r\n        </div>\r\n      </div>\r\n      <div class=\"max-speed\">\r\n        <h4>\r\n          Velocidad Máxima\r\n        </h4>\r\n        <h2>\r\n          0\r\n        </h2>\r\n        <h5>\r\n          Km/h\r\n        </h5>\r\n      </div>\r\n    </div> -->\r\n  </div>\r\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n  <div class=\"logo-ekobike-in\">    \n      <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n    <!-- <div id=\"viewDiv\" #map></div> -->\n  <div class=\"content-map\">\n    <div class=\"ui grid content-play\">\n      <div class=\"column distance\">\n        <!-- <h5>Explora</h5>\n        <h3 id=\"km\">0</h3> -->\n        <h4>Explora</h4>\n      </div>\n    </div>\n    <div id=\"viewDiv\" #map></div>\n    <!-- <div class=\"chrono\">\n      <div class=\"time-elapsed\">\n        <h4>\n          Tiempo Recorrido\n        </h4>\n        <h2 id=time>{{_horas}}:{{_minutos}}:{{_segundos}}.{{_centesimas}}</h2>\n      </div>\n      <div class=\"calories-co2\">\n        <div class=\"calories\">\n          <h4>\n            Consumo de Calorías\n          </h4>\n          <h2>\n            0\n          </h2>\n          <h5>\n            Kcal\n          </h5>\n        </div>\n        <div class=\"co2\">\n          <h4>\n            CO2 Reducido\n          </h4>\n          <h2>\n            0\n          </h2>\n          <h5>\n            Kgr\n          </h5>\n        </div>\n      </div>\n      <div class=\"max-speed\">\n        <h4>\n          Velocidad Máxima\n        </h4>\n        <h2>\n          0\n        </h2>\n        <h5>\n          Km/h\n        </h5>\n      </div>\n    </div> -->\n  </div>\n</ion-content>";
       /***/
     }
   }]);
