@@ -10,8 +10,10 @@ import { ApiPublibikeBienestarService } from "../services/api-publibike-bienesta
 import { loadModules } from "esri-loader";
 import esri = __esri;
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { BackgroundMode } from '@ionic-native/background-mode/ngx'
+import { Geolocation } from '@ionic-native/geolocation/ngx'
 // import { type } from 'os';
-const { App, BackgroundTask,Geolocation } = Plugins;
+const { App } = Plugins;
 
 @Component({
   selector: "app-map-modal",
@@ -64,14 +66,14 @@ export class MapModalPage implements OnInit {
     co2_total: number;
     peso: number;
   } = {
-    nombre: "",
-    apellido: "",
-    ganancia_total: 0,
-    km_total: 0,
-    cal_total: 0,
-    co2_total: 0,
-    peso: 0,
-  };
+      nombre: "",
+      apellido: "",
+      ganancia_total: 0,
+      km_total: 0,
+      cal_total: 0,
+      co2_total: 0,
+      peso: 0,
+    };
   ruteData: object = {};
   fecha: any;
   fstDirection: any;
@@ -92,8 +94,10 @@ export class MapModalPage implements OnInit {
     private storage: Storage,
     private loadingCtrl: LoadingController,
     private modalController: ModalController,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    private backgroundMode: BackgroundMode,
+    private geolocation: Geolocation
+  ) { }
 
   async initializedMap() {
     try {
@@ -237,21 +241,10 @@ export class MapModalPage implements OnInit {
   async ngOnInit() {
     // this.presentLoading();
     this.user = await this.storage.get("userData");
-    console.log(this.user);
     //se usa localizacion en segundo plano
     this.initializedMap().then(async (mapView) => {
       console.log("mapView ready: ", this._view.ready);
       this._loaded = this._view.ready;
-      // this.getCurrentPosition();
-      let position = await Geolocation.getCurrentPosition();
-      console.log("position", position);
-
-      mapView.goTo({
-        center: Geolocation.getCurrentPosition(),
-        zoom: 15,
-        tilt: 40,
-      });
-      // this.loading.dismiss();
     });
   }
   // async getCurrentPosition() {
@@ -259,6 +252,10 @@ export class MapModalPage implements OnInit {
   //   console.log('Current', coordinates);
   // }
   async startRute() {
+    this.backgroundMode.enable();
+    let temp = 0
+    console.log(this.backgroundMode.isActive())
+
     this.km = 0;
     this.cal = 0;
     this.co2 = 0;
@@ -267,6 +264,11 @@ export class MapModalPage implements OnInit {
     this.urlButton = "button-stop-29.png";
     this.clearWindows();
     this._track.start();
+
+
+
+
+    this.startCounter();
     // await this._distance.start();
     // console.log(this._distance)
     const fechaActual = new Date();
@@ -275,100 +277,58 @@ export class MapModalPage implements OnInit {
     //se toma la posicion y se geocodifica
     let address;
     // let position = await this._locate.locate();
-    let position = await Geolocation.getCurrentPosition();
-    console.log(position);
+    let position = await this.geolocation.getCurrentPosition();
+
     this._pointGC.latitude = position.coords.latitude;
     this._pointGC.longitude = position.coords.longitude;
     let params = {
       location: this._pointGC,
     };
+
+
     //cálculo de distancia cuando se esta en movimiento
     this._track.on("track", async (position) => {
       console.log("Estado app", App.getState());
       //Funcion que evalua si se entra en Background
       //Esta logica solo se activa si se esta en Background
-      App.addListener("appStateChange", (state) => {
-        console.log("state", state);
-        //Si el estado es inactivo se continua con el el tracking
-        if (!state.isActive) {
-          console.log("state", state);
-          let taskId = BackgroundTask.beforeExit(async () => {
-            this._track.on("track", async (position) => {
-              this.recorrido.push(position);
-              this.positionAct = position.position;
-              console.log(`posicion ${this.recorrido.length}`, this.recorrido);
-              console.log("vel", position.position.coords.speed);
-              this.vel = position.position.coords.speed;
-              // this.riesgoCovid(this.vel);
-              this.riesgoCovid(51);
-              console.log('SISA WENTOR ------------------------------------------------------>')
-              let ult = this.recorrido.length - 1;
-              if (this.recorrido.length == 1) {
-                this.km = this.calculateDistance(
-                  this.recorrido[0].position.coords.longitude,
-                  this.recorrido[ult].position.coords.longitude,
-                  this.recorrido[0].position.coords.latitude,
-                  this.recorrido[ult].position.coords.latitude
-                );
-              } else if (this.recorrido.length > 1) {
-                let kmTemporal = this.km;
-                this.km = this.calculateDistance(
-                  this.recorrido[ult - 1].position.coords.longitude,
-                  this.recorrido[ult].position.coords.longitude,
-                  this.recorrido[ult - 1].position.coords.latitude,
-                  this.recorrido[ult].position.coords.latitude
-                );
-                this.km = kmTemporal + this.km;
-                this.co2 = this.km * 0.3;
-                let totalMin =
-                  parseInt(this._horas) * 60 +
-                  parseInt(this._minutos) +
-                  parseInt(this._segundos) * 0.0166667;
-                console.log(totalMin);
-                this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
-                console.log(this.km);
-              }
-            });
-            BackgroundTask.finish({
-              taskId,
-            });
-          });
-        }
-      });
-      this.recorrido.push(position);
-      this.positionAct = position.position;
-      console.log("positionActual",this.positionAct)
-      console.log(`posicion ${this.recorrido.length}`, this.recorrido);
-      console.log("vel", position.position.coords.speed);
-      this.vel = position.position.coords.speed;
 
-      this.riesgoCovid(this.vel);
-      let ult = this.recorrido.length - 1;
-      if (this.recorrido.length == 1) {
-        this.km = this.calculateDistance(
-          this.recorrido[0].position.coords.longitude,
-          this.recorrido[ult].position.coords.longitude,
-          this.recorrido[0].position.coords.latitude,
-          this.recorrido[ult].position.coords.latitude
-        );
-      } else if (this.recorrido.length > 1) {
-        let kmTemporal = this.km;
-        this.km = this.calculateDistance(
-          this.recorrido[ult - 1].position.coords.longitude,
-          this.recorrido[ult].position.coords.longitude,
-          this.recorrido[ult - 1].position.coords.latitude,
-          this.recorrido[ult].position.coords.latitude
-        );
-        this.km = kmTemporal + this.km;
-        this.co2 = this.km * 0.3;
-        let totalMin =
-          parseInt(this._horas) * 60 +
-          parseInt(this._minutos) +
-          parseInt(this._segundos) * 0.0166667;
-        console.log(totalMin);
-        this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
-        console.log(this.km);
-      }
+      this.backgroundMode.on('activate').subscribe(() => {
+        
+        this.recorrido.push(position);
+        this.positionAct = position.position;
+        console.log("positionActual", this.positionAct)
+        console.log(`posicion ${this.recorrido.length}`, this.recorrido);
+        console.log("vel", position.position.coords.speed);
+        this.vel = position.position.coords.speed;
+
+        this.riesgoCovid(this.vel);
+        let ult = this.recorrido.length - 1;
+        if (this.recorrido.length == 1) {
+          this.km = this.calculateDistance(
+            this.recorrido[0].position.coords.longitude,
+            this.recorrido[ult].position.coords.longitude,
+            this.recorrido[0].position.coords.latitude,
+            this.recorrido[ult].position.coords.latitude
+          );
+        } else if (this.recorrido.length > 1) {
+          let kmTemporal = this.km;
+          this.km = this.calculateDistance(
+            this.recorrido[ult - 1].position.coords.longitude,
+            this.recorrido[ult].position.coords.longitude,
+            this.recorrido[ult - 1].position.coords.latitude,
+            this.recorrido[ult].position.coords.latitude
+          );
+          this.km = kmTemporal + this.km;
+          this.co2 = this.km * 0.3;
+          let totalMin =
+            parseInt(this._horas) * 60 +
+            parseInt(this._minutos) +
+            parseInt(this._segundos) * 0.0166667;
+          console.log(totalMin);
+          this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+          console.log(this.km);
+        }
+      })
     });
     let geocoder = this._locator;
     geocoder
@@ -382,10 +342,11 @@ export class MapModalPage implements OnInit {
       })
       .catch((err) => console.log(err));
     //Se inicializa el contador
-    this.startCounter();
+
   }
   async stopRute() {
     try {
+      this.backgroundMode.disable();
       // this.presentLoading();
       if (this.isRun) {
         this._track.stop();
@@ -398,7 +359,7 @@ export class MapModalPage implements OnInit {
 
         //se toma la posicion y se geocodifica
         let address;
-        let position = await Geolocation.getCurrentPosition();
+        let position = await this.geolocation.getCurrentPosition();
         console.log(position);
         this._pointGC.latitude = position.coords.latitude;
         this._pointGC.longitude = position.coords.longitude;
@@ -437,7 +398,7 @@ export class MapModalPage implements OnInit {
               kms: kms,
               cal: this.cal,
               co2: this.co2,
-              riesgo_covid:this.riesgo_covid
+              riesgo_covid: this.riesgo_covid
             };
             console.log("ruteData", this.ruteData);
             this.apiService.sendRute(this.ruteData);
@@ -488,6 +449,7 @@ export class MapModalPage implements OnInit {
         }
       }
     }, 100);
+    console.log(this.contador)
   }
   clearWindows() {
     this.minutos = 0;
