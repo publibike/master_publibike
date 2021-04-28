@@ -564,6 +564,7 @@ let MapModalPage = class MapModalPage {
             this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 console.log("Estado app", App.getState());
                 //Funcion que evalua si se entra en Background
+                //Esta logica solo se activa si se esta en Background
                 App.addListener("appStateChange", (state) => {
                     console.log("state", state);
                     //Si el estado es inactivo se continua con el el tracking

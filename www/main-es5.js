@@ -993,6 +993,7 @@
                               switch (_context10.prev = _context10.next) {
                                 case 0:
                                   console.log("Estado app", App.getState()); //Funcion que evalua si se entra en Background
+                                  //Esta logica solo se activa si se esta en Background
 
                                   App.addListener("appStateChange", function (state) {
                                     console.log("state", state); //Si el estado es inactivo se continua con el el tracking
