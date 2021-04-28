@@ -286,6 +286,7 @@ export class MapModalPage implements OnInit {
     this._track.on("track", async (position) => {
       console.log("Estado app", App.getState());
       //Funcion que evalua si se entra en Background
+      //Esta logica solo se activa si se esta en Background
       App.addListener("appStateChange", (state) => {
         console.log("state", state);
         //Si el estado es inactivo se continua con el el tracking
