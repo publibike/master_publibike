@@ -11,7 +11,7 @@ import { loadModules } from "esri-loader";
 import esri = __esri;
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 // import { type } from 'os';
-const { App, BackgroundTask,Geolocation } = Plugins;
+const { App, BackgroundTask, Geolocation } = Plugins;
 
 @Component({
   selector: "app-map-modal",
@@ -247,7 +247,7 @@ export class MapModalPage implements OnInit {
       console.log("position", position);
 
       mapView.goTo({
-        center: Geolocation.getCurrentPosition(),
+        center: position,
         zoom: 15,
         tilt: 40,
       });
