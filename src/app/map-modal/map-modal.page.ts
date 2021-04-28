@@ -9,8 +9,9 @@ import { Storage } from "@ionic/storage";
 import { ApiPublibikeBienestarService } from "../services/api-publibike-bienestar.service";
 import { loadModules } from "esri-loader";
 import esri = __esri;
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 // import { type } from 'os';
-const { App, BackgroundTask } = Plugins;
+const { App, BackgroundTask,Geolocation } = Plugins;
 
 @Component({
   selector: "app-map-modal",
@@ -241,18 +242,22 @@ export class MapModalPage implements OnInit {
     this.initializedMap().then(async (mapView) => {
       console.log("mapView ready: ", this._view.ready);
       this._loaded = this._view.ready;
+      // this.getCurrentPosition();
+      let position = await Geolocation.getCurrentPosition();
+      console.log("position", position);
 
-      // let position = await this._locate.locate();
-      // console.log("position", position);
-
-      // mapView.goTo({
-      //   center: this._locate.locate(),
-      //   zoom: 6,
-      //   tilt: 40,
-      // });
+      mapView.goTo({
+        center: Geolocation.getCurrentPosition(),
+        zoom: 15,
+        tilt: 40,
+      });
       // this.loading.dismiss();
     });
   }
+  // async getCurrentPosition() {
+  //   const coordinates = await Geolocation.getCurrentPosition();
+  //   console.log('Current', coordinates);
+  // }
   async startRute() {
     this.km = 0;
     this.cal = 0;
@@ -269,7 +274,8 @@ export class MapModalPage implements OnInit {
     console.log(this.fecha);
     //se toma la posicion y se geocodifica
     let address;
-    let position = await this._locate.locate();
+    // let position = await this._locate.locate();
+    let position = await Geolocation.getCurrentPosition();
     console.log(position);
     this._pointGC.latitude = position.coords.latitude;
     this._pointGC.longitude = position.coords.longitude;
@@ -330,6 +336,7 @@ export class MapModalPage implements OnInit {
       });
       this.recorrido.push(position);
       this.positionAct = position.position;
+      console.log("positionActual",this.positionAct)
       console.log(`posicion ${this.recorrido.length}`, this.recorrido);
       console.log("vel", position.position.coords.speed);
       this.vel = position.position.coords.speed;
@@ -390,7 +397,7 @@ export class MapModalPage implements OnInit {
 
         //se toma la posicion y se geocodifica
         let address;
-        let position = await this._locate.locate();
+        let position = await Geolocation.getCurrentPosition();
         console.log(position);
         this._pointGC.latitude = position.coords.latitude;
         this._pointGC.longitude = position.coords.longitude;
