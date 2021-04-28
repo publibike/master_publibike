@@ -56,7 +56,11 @@ LoginGuard = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! /Users/imac/Desktop/master_publibike/src/main.ts */"zUnb");
+=======
+module.exports = __webpack_require__(/*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/main.ts */"zUnb");
+>>>>>>> 9c6391dd0cf4e3bb388b4fa708494cd5a02ab3c9
 
 
 /***/ }),
@@ -564,6 +568,7 @@ let MapModalPage = class MapModalPage {
                 console.log("Estado app", App.getState());
                 //Funcion que evalua si se entra en Background
                 //Esta logica solo se activa si se esta en Background
+<<<<<<< HEAD
                 this.backgroundMode.on('activate').subscribe(() => {
                     this.startCounter();
                     this.recorrido.push(position);
@@ -588,6 +593,44 @@ let MapModalPage = class MapModalPage {
                         console.log(totalMin);
                         this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
                         console.log(this.km);
+=======
+                App.addListener("appStateChange", (state) => {
+                    console.log("state", state);
+                    //Si el estado es inactivo se continua con el el tracking
+                    if (!state.isActive) {
+                        console.log("state", state);
+                        let taskId = BackgroundTask.beforeExit(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                            this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                                this.recorrido.push(position);
+                                this.positionAct = position.position;
+                                console.log(`posicion ${this.recorrido.length}`, this.recorrido);
+                                console.log("vel", position.position.coords.speed);
+                                this.vel = position.position.coords.speed;
+                                // this.riesgoCovid(this.vel);
+                                this.riesgoCovid(51);
+                                console.log('SISA WENTOR ------------------------------------------------------>');
+                                let ult = this.recorrido.length - 1;
+                                if (this.recorrido.length == 1) {
+                                    this.km = this.calculateDistance(this.recorrido[0].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[0].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                                }
+                                else if (this.recorrido.length > 1) {
+                                    let kmTemporal = this.km;
+                                    this.km = this.calculateDistance(this.recorrido[ult - 1].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[ult - 1].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                                    this.km = kmTemporal + this.km;
+                                    this.co2 = this.km * 0.3;
+                                    let totalMin = parseInt(this._horas) * 60 +
+                                        parseInt(this._minutos) +
+                                        parseInt(this._segundos) * 0.0166667;
+                                    console.log(totalMin);
+                                    this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+                                    console.log(this.km);
+                                }
+                            }));
+                            BackgroundTask.finish({
+                                taskId,
+                            });
+                        }));
+>>>>>>> 9c6391dd0cf4e3bb388b4fa708494cd5a02ab3c9
                     }
                 });
             }));

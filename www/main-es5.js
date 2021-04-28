@@ -133,7 +133,11 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
+<<<<<<< HEAD
       /*! /Users/imac/Desktop/master_publibike/src/main.ts */
+=======
+      /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/main.ts */
+>>>>>>> 9c6391dd0cf4e3bb388b4fa708494cd5a02ab3c9
       "zUnb");
       /***/
     },
@@ -994,6 +998,7 @@
                                   console.log("Estado app", App.getState()); //Funcion que evalua si se entra en Background
                                   //Esta logica solo se activa si se esta en Background
 
+<<<<<<< HEAD
                                   this.backgroundMode.on('activate').subscribe(function () {
                                     _this3.startCounter();
 
@@ -1020,6 +1025,72 @@
                                       console.log(totalMin);
                                       _this3.cal = 0.071 * (_this3.user.peso * 2.2) * totalMin;
                                       console.log(_this3.km);
+=======
+                                  App.addListener("appStateChange", function (state) {
+                                    console.log("state", state); //Si el estado es inactivo se continua con el el tracking
+
+                                    if (!state.isActive) {
+                                      console.log("state", state);
+                                      var taskId = BackgroundTask.beforeExit(function () {
+                                        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+                                          var _this4 = this;
+
+                                          return regeneratorRuntime.wrap(function _callee9$(_context9) {
+                                            while (1) {
+                                              switch (_context9.prev = _context9.next) {
+                                                case 0:
+                                                  this._track.on("track", function (position) {
+                                                    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this4, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+                                                      var ult, kmTemporal, totalMin;
+                                                      return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                                                        while (1) {
+                                                          switch (_context8.prev = _context8.next) {
+                                                            case 0:
+                                                              this.recorrido.push(position);
+                                                              this.positionAct = position.position;
+                                                              console.log("posicion ".concat(this.recorrido.length), this.recorrido);
+                                                              console.log("vel", position.position.coords.speed);
+                                                              this.vel = position.position.coords.speed; // this.riesgoCovid(this.vel);
+
+                                                              this.riesgoCovid(51);
+                                                              console.log('SISA WENTOR ------------------------------------------------------>');
+                                                              ult = this.recorrido.length - 1;
+
+                                                              if (this.recorrido.length == 1) {
+                                                                this.km = this.calculateDistance(this.recorrido[0].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[0].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                                                              } else if (this.recorrido.length > 1) {
+                                                                kmTemporal = this.km;
+                                                                this.km = this.calculateDistance(this.recorrido[ult - 1].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[ult - 1].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                                                                this.km = kmTemporal + this.km;
+                                                                this.co2 = this.km * 0.3;
+                                                                totalMin = parseInt(this._horas) * 60 + parseInt(this._minutos) + parseInt(this._segundos) * 0.0166667;
+                                                                console.log(totalMin);
+                                                                this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+                                                                console.log(this.km);
+                                                              }
+
+                                                            case 9:
+                                                            case "end":
+                                                              return _context8.stop();
+                                                          }
+                                                        }
+                                                      }, _callee8, this);
+                                                    }));
+                                                  });
+
+                                                  BackgroundTask.finish({
+                                                    taskId: taskId
+                                                  });
+
+                                                case 2:
+                                                case "end":
+                                                  return _context9.stop();
+                                              }
+                                            }
+                                          }, _callee9, this);
+                                        }));
+                                      });
+>>>>>>> 9c6391dd0cf4e3bb388b4fa708494cd5a02ab3c9
                                     }
                                   });
 

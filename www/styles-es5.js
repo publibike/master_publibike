@@ -11,11 +11,19 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
+<<<<<<< HEAD
       /*! /Users/imac/Desktop/master_publibike/src/theme/variables.scss */
       "fFqt");
 
       module.exports = __webpack_require__(
       /*! /Users/imac/Desktop/master_publibike/src/global.scss */
+=======
+      /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/theme/variables.scss */
+      "fFqt");
+
+      module.exports = __webpack_require__(
+      /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/global.scss */
+>>>>>>> 9c6391dd0cf4e3bb388b4fa708494cd5a02ab3c9
       "8oQk");
       /***/
     },
