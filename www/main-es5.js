@@ -659,47 +659,53 @@
       /* harmony import */
 
 
-      var _capacitor_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @ionic-native/background-mode/ngx */
+      "AcVp");
+      /* harmony import */
+
+
+      var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @capacitor/core */
       "gcOT");
       /* harmony import */
 
 
-      var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic/storage */
       "xgBC");
       /* harmony import */
 
 
-      var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! ../services/api-publibike-bienestar.service */
       "N/ei");
       /* harmony import */
 
 
-      var esri_loader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var esri_loader__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! esri-loader */
       "r6rm");
       /* harmony import */
 
 
-      var esri_loader__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(esri_loader__WEBPACK_IMPORTED_MODULE_8__); // import { type } from 'os';
+      var esri_loader__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(esri_loader__WEBPACK_IMPORTED_MODULE_9__); // import { type } from 'os';
 
 
-      var _capacitor_core__WEBP = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"],
+      var _capacitor_core__WEBP = _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"],
           App = _capacitor_core__WEBP.App,
-          BackgroundTask = _capacitor_core__WEBP.BackgroundTask,
           Geolocation = _capacitor_core__WEBP.Geolocation;
 
       var MapModalPage = /*#__PURE__*/function () {
-        function MapModalPage(apiService, storage, loadingCtrl, modalController, alertController) {
+        function MapModalPage(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode) {
           _classCallCheck(this, MapModalPage);
 
           this.apiService = apiService;
           this.storage = storage;
           this.loadingCtrl = loadingCtrl;
           this.modalController = modalController;
-          this.alertController = alertController; //Variables ArcGIS
+          this.alertController = alertController;
+          this.backgroundMode = backgroundMode; //Variables ArcGIS
 
           this._zoom = 10;
           this._center = [-74.090923, 4.694939];
@@ -757,7 +763,7 @@
                     case 0:
                       _context5.prev = 0;
                       _context5.next = 3;
-                      return Object(esri_loader__WEBPACK_IMPORTED_MODULE_8__["loadModules"])(["esri/Map", "esri/views/MapView", "esri/Graphic", "esri/tasks/RouteTask", "esri/tasks/support/RouteParameters", "esri/tasks/support/FeatureSet", "esri/widgets/Directions", "esri/widgets/Locate", "esri/widgets/Track", "esri/tasks/Locator", "esri/widgets/Search/LocatorSearchSource", "esri/widgets/Expand", "esri/geometry/Point", "esri/views/draw/Draw", "esri/geometry/geometryEngine", "esri/layers/FeatureLayer", "esri/widgets/DistanceMeasurement2D/DistanceMeasurement2DViewModel"]);
+                      return Object(esri_loader__WEBPACK_IMPORTED_MODULE_9__["loadModules"])(["esri/Map", "esri/views/MapView", "esri/Graphic", "esri/tasks/RouteTask", "esri/tasks/support/RouteParameters", "esri/tasks/support/FeatureSet", "esri/widgets/Directions", "esri/widgets/Locate", "esri/widgets/Track", "esri/tasks/Locator", "esri/widgets/Search/LocatorSearchSource", "esri/widgets/Expand", "esri/geometry/Point", "esri/views/draw/Draw", "esri/geometry/geometryEngine", "esri/layers/FeatureLayer", "esri/widgets/DistanceMeasurement2D/DistanceMeasurement2DViewModel"]);
 
                     case 3:
                       _yield$Object = _context5.sent;
@@ -899,8 +905,7 @@
 
                     case 2:
                       this.user = _context7.sent;
-                      console.log(this.user); //se usa localizacion en segundo plano
-
+                      //se usa localizacion en segundo plano
                       this.initializedMap().then(function (mapView) {
                         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
                           var position;
@@ -909,21 +914,19 @@
                               switch (_context6.prev = _context6.next) {
                                 case 0:
                                   console.log("mapView ready: ", this._view.ready);
-                                  this._loaded = this._view.ready; // this.getCurrentPosition();
-
+                                  this._loaded = this._view.ready;
                                   _context6.next = 4;
                                   return Geolocation.getCurrentPosition();
 
                                 case 4:
                                   position = _context6.sent;
-                                  console.log("position", position);
                                   mapView.goTo({
-                                    center: Geolocation.getCurrentPosition(),
+                                    center: position,
                                     zoom: 15,
                                     tilt: 40
                                   }); // this.loading.dismiss();
 
-                                case 7:
+                                case 6:
                                 case "end":
                                   return _context6.stop();
                               }
@@ -932,18 +935,14 @@
                         }));
                       });
 
-                    case 5:
+                    case 4:
                     case "end":
                       return _context7.stop();
                   }
                 }
               }, _callee7, this);
             }));
-          } // async getCurrentPosition() {
-          //   const coordinates = await Geolocation.getCurrentPosition();
-          //   console.log('Current', coordinates);
-          // }
-
+          }
         }, {
           key: "startRute",
           value: function startRute() {
@@ -955,6 +954,7 @@
                 while (1) {
                   switch (_context11.prev = _context11.next) {
                     case 0:
+                      this.backgroundMode.enable();
                       this.km = 0;
                       this.cal = 0;
                       this.co2 = 0;
@@ -963,44 +963,43 @@
                       this.urlButton = "button-stop-29.png";
                       this.clearWindows();
 
-                      this._track.start(); // await this._distance.start();
-                      // console.log(this._distance)
-
+                      this._track.start();
 
                       fechaActual = new Date();
-                      this.fecha = fechaActual;
-                      console.log(this.fecha); //se toma la posicion y se geocodifica
+                      this.fecha = fechaActual; //se toma la posicion y se geocodifica
 
                       _context11.next = 13;
                       return Geolocation.getCurrentPosition();
 
                     case 13:
                       position = _context11.sent;
-                      console.log(position);
+                      console.log("position", position);
                       this._pointGC.latitude = position.coords.latitude;
                       this._pointGC.longitude = position.coords.longitude;
                       params = {
                         location: this._pointGC
-                      }; //cálculo de distancia cuando se esta en movimiento
+                      }; //Se inicializa el contador
+
+                      this.startCounter(); //cálculo de distancia cuando se esta en movimiento
 
                       this._track.on("track", function (position) {
                         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
                           var _this3 = this;
 
-                          var ult, kmTemporal, totalMin;
+                          var state, ult, kmTemporal, totalMin;
                           return regeneratorRuntime.wrap(function _callee10$(_context10) {
                             while (1) {
                               switch (_context10.prev = _context10.next) {
                                 case 0:
-                                  console.log("Estado app", App.getState()); //Funcion que evalua si se entra en Background
-                                  //Esta logica solo se activa si se esta en Background
+                                  _context10.next = 2;
+                                  return App.getState();
 
+                                case 2:
+                                  state = _context10.sent;
+                                  console.log("Estado app", state);
                                   App.addListener("appStateChange", function (state) {
-                                    console.log("state", state); //Si el estado es inactivo se continua con el el tracking
-
                                     if (!state.isActive) {
-                                      console.log("state", state);
-                                      var taskId = BackgroundTask.beforeExit(function () {
+                                      _this3.backgroundMode.on("activate").subscribe(function () {
                                         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
                                           var _this4 = this;
 
@@ -1008,6 +1007,17 @@
                                             while (1) {
                                               switch (_context9.prev = _context9.next) {
                                                 case 0:
+                                                  _context9.t0 = console;
+                                                  _context9.next = 3;
+                                                  return App.getState();
+
+                                                case 3:
+                                                  _context9.t1 = _context9.sent;
+
+                                                  _context9.t0.log.call(_context9.t0, "Estado Back", _context9.t1);
+
+                                                  this.startCounter();
+
                                                   this._track.on("track", function (position) {
                                                     return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this4, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
                                                       var ult, kmTemporal, totalMin;
@@ -1015,14 +1025,11 @@
                                                         while (1) {
                                                           switch (_context8.prev = _context8.next) {
                                                             case 0:
+                                                              console.log("Estado app", App.getState());
                                                               this.recorrido.push(position);
                                                               this.positionAct = position.position;
-                                                              console.log("posicion ".concat(this.recorrido.length), this.recorrido);
-                                                              console.log("vel", position.position.coords.speed);
-                                                              this.vel = position.position.coords.speed; // this.riesgoCovid(this.vel);
-
-                                                              this.riesgoCovid(51);
-                                                              console.log('SISA WENTOR ------------------------------------------------------>');
+                                                              this.vel = position.position.coords.speed;
+                                                              this.riesgoCovid(this.vel);
                                                               ult = this.recorrido.length - 1;
 
                                                               if (this.recorrido.length == 1) {
@@ -1033,12 +1040,10 @@
                                                                 this.km = kmTemporal + this.km;
                                                                 this.co2 = this.km * 0.3;
                                                                 totalMin = parseInt(this._horas) * 60 + parseInt(this._minutos) + parseInt(this._segundos) * 0.0166667;
-                                                                console.log(totalMin);
                                                                 this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
-                                                                console.log(this.km);
                                                               }
 
-                                                            case 9:
+                                                            case 7:
                                                             case "end":
                                                               return _context8.stop();
                                                           }
@@ -1047,11 +1052,7 @@
                                                     }));
                                                   });
 
-                                                  BackgroundTask.finish({
-                                                    taskId: taskId
-                                                  });
-
-                                                case 2:
+                                                case 7:
                                                 case "end":
                                                   return _context9.stop();
                                               }
@@ -1063,9 +1064,6 @@
                                   });
                                   this.recorrido.push(position);
                                   this.positionAct = position.position;
-                                  console.log("positionActual", this.positionAct);
-                                  console.log("posicion ".concat(this.recorrido.length), this.recorrido);
-                                  console.log("vel", position.position.coords.speed);
                                   this.vel = position.position.coords.speed;
                                   this.riesgoCovid(this.vel);
                                   ult = this.recorrido.length - 1;
@@ -1078,9 +1076,7 @@
                                     this.km = kmTemporal + this.km;
                                     this.co2 = this.km * 0.3;
                                     totalMin = parseInt(this._horas) * 60 + parseInt(this._minutos) + parseInt(this._segundos) * 0.0166667;
-                                    console.log(totalMin);
                                     this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
-                                    console.log(this.km);
                                   }
 
                                 case 11:
@@ -1095,15 +1091,12 @@
                       geocoder = this._locator;
                       geocoder.locationToAddress(params).then(function (response) {
                         address = response.address;
-                        console.log(address);
                         address = address.split(",");
                         _this2.fstDirection = address[0];
                         _this2.fstPosition = params;
                       })["catch"](function (err) {
                         return console.log(err);
-                      }); //Se inicializa el contador
-
-                      this.startCounter();
+                      });
 
                     case 22:
                     case "end":
@@ -1125,16 +1118,16 @@
                   switch (_context12.prev = _context12.next) {
                     case 0:
                       _context12.prev = 0;
+                      this.backgroundMode.disable(); // this.presentLoading();
 
                       if (!this.isRun) {
-                        _context12.next = 16;
+                        _context12.next = 15;
                         break;
                       }
 
                       this._track.stop();
 
                       this.time = "".concat(this._horas, ":").concat(this._minutos, ":").concat(this._segundos, ".").concat(this._centesimas);
-                      console.log(this.time);
                       clearInterval(this.contador);
                       this.isRun = false; // this.contador = null;
                       //se toma la posicion y se geocodifica
@@ -1144,7 +1137,6 @@
 
                     case 9:
                       position = _context12.sent;
-                      console.log(position);
                       this._pointGC.latitude = position.coords.latitude;
                       this._pointGC.longitude = position.coords.longitude; // this.vel = position.coords.speed;
                       // this.vel= this.vel.toFixed(2);
@@ -1155,8 +1147,7 @@
                       geocoder = this._locator; //Se obtiene la posición actual
 
                       geocoder.locationToAddress(params).then(function (response) {
-                        address = response.address; // console.log(address);
-
+                        address = response.address;
                         address = address.split(",");
                         _this5.fnlDirection = address[0];
                         _this5.fnlPosition = params;
@@ -1178,7 +1169,6 @@
                           co2: _this5.co2,
                           riesgo_covid: _this5.riesgo_covid
                         };
-                        console.log("ruteData", _this5.ruteData);
 
                         _this5.apiService.sendRute(_this5.ruteData); // .then(()=>{this.loading.dismiss()});
 
@@ -1189,21 +1179,21 @@
                         return console.log(err);
                       });
 
-                    case 16:
-                      _context12.next = 21;
+                    case 15:
+                      _context12.next = 20;
                       break;
 
-                    case 18:
-                      _context12.prev = 18;
+                    case 17:
+                      _context12.prev = 17;
                       _context12.t0 = _context12["catch"](0);
                       console.log(_context12.t0);
 
-                    case 21:
+                    case 20:
                     case "end":
                       return _context12.stop();
                   }
                 }
-              }, _callee12, this, [[0, 18]]);
+              }, _callee12, this, [[0, 17]]);
             }));
           }
         }, {
@@ -1213,7 +1203,6 @@
             var c = Math.cos;
             var a = 0.5 - c((lat1 - lat2) * p) / 2 + c(lat2 * p) * c(lat1 * p) * (1 - c((lon1 - lon2) * p)) / 2;
             var dis = 12742 * Math.asin(Math.sqrt(a));
-            console.log(typeof dis);
             return dis;
           }
         }, {
@@ -1285,11 +1274,6 @@
                 }
               }, _callee13, this);
             }));
-          }
-        }, {
-          key: "logEvent",
-          value: function logEvent(event) {
-            console.log(event.target);
           }
         }, {
           key: "closeModal",
@@ -1385,15 +1369,17 @@
 
       MapModalPage.ctorParameters = function () {
         return [{
-          type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_7__["ApiPublibikeBienestarService"]
+          type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_8__["ApiPublibikeBienestarService"]
         }, {
-          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"]
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"]
+        }, {
+          type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_5__["BackgroundMode"]
         }];
       };
 
@@ -1724,6 +1710,12 @@
       var _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
       /*! ./map-modal/map-modal.module */
       "NfN8");
+      /* harmony import */
+
+
+      var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! @ionic-native/background-mode/ngx */
+      "AcVp");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -1733,7 +1725,7 @@
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
         entryComponents: [],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__["RecognitionModalPageModule"], _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__["MapModalPageModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], {
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
         }],

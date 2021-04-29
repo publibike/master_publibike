@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { RecognitionModalPageModule } from './recognition-modal/recognition-modal.module';
 import { MapModalPageModule } from './map-modal/map-modal.module';
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { MapModalPageModule } from './map-modal/map-modal.module';
     providers: [
       StatusBar,
       SplashScreen,
+      BackgroundMode,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -335,11 +335,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _map_modal_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./map-modal.page.scss */ "Qb6g");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "8Y7J");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
-/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
-/* harmony import */ var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/api-publibike-bienestar.service */ "N/ei");
-/* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! esri-loader */ "r6rm");
-/* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(esri_loader__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "AcVp");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
+/* harmony import */ var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/api-publibike-bienestar.service */ "N/ei");
+/* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! esri-loader */ "r6rm");
+/* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(esri_loader__WEBPACK_IMPORTED_MODULE_9__);
+
 
 
 
@@ -350,14 +352,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { type } from 'os';
-const { App, BackgroundTask, Geolocation } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
+const { App, Geolocation } = _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"];
 let MapModalPage = class MapModalPage {
-    constructor(apiService, storage, loadingCtrl, modalController, alertController) {
+    constructor(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode) {
         this.apiService = apiService;
         this.storage = storage;
         this.loadingCtrl = loadingCtrl;
         this.modalController = modalController;
         this.alertController = alertController;
+        this.backgroundMode = backgroundMode;
         //Variables ArcGIS
         this._zoom = 10;
         this._center = [-74.090923, 4.694939];
@@ -405,7 +408,7 @@ let MapModalPage = class MapModalPage {
     initializedMap() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             try {
-                const [Map, MapView, Graphic, RouteTask, RouteParameters, FeatureSet, Directions, Locate, Track, Locator, LocatorSearchSource, Expand, Point, Draw, geometryEngine, FeatureLayer, DistanceMeasurement2DViewModel,] = yield Object(esri_loader__WEBPACK_IMPORTED_MODULE_8__["loadModules"])([
+                const [Map, MapView, Graphic, RouteTask, RouteParameters, FeatureSet, Directions, Locate, Track, Locator, LocatorSearchSource, Expand, Point, Draw, geometryEngine, FeatureLayer, DistanceMeasurement2DViewModel,] = yield Object(esri_loader__WEBPACK_IMPORTED_MODULE_9__["loadModules"])([
                     "esri/Map",
                     "esri/views/MapView",
                     "esri/Graphic",
@@ -514,16 +517,13 @@ let MapModalPage = class MapModalPage {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             // this.presentLoading();
             this.user = yield this.storage.get("userData");
-            console.log(this.user);
             //se usa localizacion en segundo plano
             this.initializedMap().then((mapView) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 console.log("mapView ready: ", this._view.ready);
                 this._loaded = this._view.ready;
-                // this.getCurrentPosition();
                 let position = yield Geolocation.getCurrentPosition();
-                console.log("position", position);
                 mapView.goTo({
-                    center: Geolocation.getCurrentPosition(),
+                    center: position,
                     zoom: 15,
                     tilt: 40,
                 });
@@ -531,12 +531,9 @@ let MapModalPage = class MapModalPage {
             }));
         });
     }
-    // async getCurrentPosition() {
-    //   const coordinates = await Geolocation.getCurrentPosition();
-    //   console.log('Current', coordinates);
-    // }
     startRute() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            this.backgroundMode.enable();
             this.km = 0;
             this.cal = 0;
             this.co2 = 0;
@@ -545,41 +542,35 @@ let MapModalPage = class MapModalPage {
             this.urlButton = "button-stop-29.png";
             this.clearWindows();
             this._track.start();
-            // await this._distance.start();
-            // console.log(this._distance)
             const fechaActual = new Date();
             this.fecha = fechaActual;
-            console.log(this.fecha);
             //se toma la posicion y se geocodifica
             let address;
             // let position = await this._locate.locate();
             let position = yield Geolocation.getCurrentPosition();
-            console.log(position);
+            console.log("position", position);
             this._pointGC.latitude = position.coords.latitude;
             this._pointGC.longitude = position.coords.longitude;
             let params = {
                 location: this._pointGC,
             };
+            //Se inicializa el contador
+            this.startCounter();
             //cálculo de distancia cuando se esta en movimiento
             this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-                console.log("Estado app", App.getState());
-                //Funcion que evalua si se entra en Background
-                //Esta logica solo se activa si se esta en Background
+                let state = yield App.getState();
+                console.log("Estado app", state);
                 App.addListener("appStateChange", (state) => {
-                    console.log("state", state);
-                    //Si el estado es inactivo se continua con el el tracking
                     if (!state.isActive) {
-                        console.log("state", state);
-                        let taskId = BackgroundTask.beforeExit(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                        this.backgroundMode.on("activate").subscribe(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                            console.log("Estado Back", yield App.getState());
+                            this.startCounter();
                             this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                                console.log("Estado app", App.getState());
                                 this.recorrido.push(position);
                                 this.positionAct = position.position;
-                                console.log(`posicion ${this.recorrido.length}`, this.recorrido);
-                                console.log("vel", position.position.coords.speed);
                                 this.vel = position.position.coords.speed;
-                                // this.riesgoCovid(this.vel);
-                                this.riesgoCovid(51);
-                                console.log('SISA WENTOR ------------------------------------------------------>');
+                                this.riesgoCovid(this.vel);
                                 let ult = this.recorrido.length - 1;
                                 if (this.recorrido.length == 1) {
                                     this.km = this.calculateDistance(this.recorrido[0].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[0].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
@@ -592,22 +583,14 @@ let MapModalPage = class MapModalPage {
                                     let totalMin = parseInt(this._horas) * 60 +
                                         parseInt(this._minutos) +
                                         parseInt(this._segundos) * 0.0166667;
-                                    console.log(totalMin);
                                     this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
-                                    console.log(this.km);
                                 }
                             }));
-                            BackgroundTask.finish({
-                                taskId,
-                            });
                         }));
                     }
                 });
                 this.recorrido.push(position);
                 this.positionAct = position.position;
-                console.log("positionActual", this.positionAct);
-                console.log(`posicion ${this.recorrido.length}`, this.recorrido);
-                console.log("vel", position.position.coords.speed);
                 this.vel = position.position.coords.speed;
                 this.riesgoCovid(this.vel);
                 let ult = this.recorrido.length - 1;
@@ -622,9 +605,7 @@ let MapModalPage = class MapModalPage {
                     let totalMin = parseInt(this._horas) * 60 +
                         parseInt(this._minutos) +
                         parseInt(this._segundos) * 0.0166667;
-                    console.log(totalMin);
                     this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
-                    console.log(this.km);
                 }
             }));
             let geocoder = this._locator;
@@ -632,31 +613,27 @@ let MapModalPage = class MapModalPage {
                 .locationToAddress(params)
                 .then((response) => {
                 address = response.address;
-                console.log(address);
                 address = address.split(",");
                 this.fstDirection = address[0];
                 this.fstPosition = params;
             })
                 .catch((err) => console.log(err));
-            //Se inicializa el contador
-            this.startCounter();
         });
     }
     stopRute() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             try {
+                this.backgroundMode.disable();
                 // this.presentLoading();
                 if (this.isRun) {
                     this._track.stop();
                     this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
-                    console.log(this.time);
                     clearInterval(this.contador);
                     this.isRun = false;
                     // this.contador = null;
                     //se toma la posicion y se geocodifica
                     let address;
                     let position = yield Geolocation.getCurrentPosition();
-                    console.log(position);
                     this._pointGC.latitude = position.coords.latitude;
                     this._pointGC.longitude = position.coords.longitude;
                     // this.vel = position.coords.speed;
@@ -670,7 +647,6 @@ let MapModalPage = class MapModalPage {
                         .locationToAddress(params)
                         .then((response) => {
                         address = response.address;
-                        // console.log(address);
                         address = address.split(",");
                         this.fnlDirection = address[0];
                         this.fnlPosition = params;
@@ -692,9 +668,8 @@ let MapModalPage = class MapModalPage {
                             kms: kms,
                             cal: this.cal,
                             co2: this.co2,
-                            riesgo_covid: this.riesgo_covid
+                            riesgo_covid: this.riesgo_covid,
                         };
-                        console.log("ruteData", this.ruteData);
                         this.apiService.sendRute(this.ruteData);
                         // .then(()=>{this.loading.dismiss()});
                         this.flagCovid = 0;
@@ -715,7 +690,6 @@ let MapModalPage = class MapModalPage {
             c((lat1 - lat2) * p) / 2 +
             (c(lat2 * p) * c(lat1 * p) * (1 - c((lon1 - lon2) * p))) / 2;
         let dis = 12742 * Math.asin(Math.sqrt(a));
-        console.log(typeof dis);
         return dis;
     }
     startCounter() {
@@ -772,9 +746,6 @@ let MapModalPage = class MapModalPage {
             });
             yield this.loading.present();
         });
-    }
-    logEvent(event) {
-        console.log(event.target);
     }
     closeModal() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -860,11 +831,12 @@ let MapModalPage = class MapModalPage {
     }
 };
 MapModalPage.ctorParameters = () => [
-    { type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_7__["ApiPublibikeBienestarService"] },
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"] },
+    { type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_8__["ApiPublibikeBienestarService"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
+    { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_5__["BackgroundMode"] }
 ];
 MapModalPage.propDecorators = {
     mapEl: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"], args: ["map",] }]
@@ -1032,6 +1004,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
 /* harmony import */ var _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./recognition-modal/recognition-modal.module */ "lFiN");
 /* harmony import */ var _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./map-modal/map-modal.module */ "NfN8");
+/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "AcVp");
+
 
 
 
@@ -1061,6 +1035,7 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         providers: [
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
+            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
