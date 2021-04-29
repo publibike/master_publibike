@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-tabs >\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"profile\">\n      <ion-icon class=\"icon-profile-male\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"recognitions\">\n      <ion-icon class=\"icon-trophy\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button  (click)=\"showMap()\">\n      <!-- <ion-icon name=\"square\"></ion-icon> -->\n      <img src=\"assets/img/button-start-29.png\">\n    </ion-tab-button>\n    <ion-tab-button tab=\"record\">\n      <ion-icon class=\"icon-linegraph\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"rute\">\n      <ion-icon class=\"icon-map\"></ion-icon>\n    </ion-tab-button>    \n  </ion-tab-bar>\n</ion-tabs>\n";
+      __webpack_exports__["default"] = "<ion-tabs >\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"profile\">\n      <ion-icon class=\"icon-profile-male\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"recognitions\">\n      <ion-icon class=\"icon-trophy\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button  (click)=\"showMap()\">\n      <!-- <ion-icon name=\"square\"></ion-icon> -->\n      <img src=\"assets/img/button-start-29.png\">\n    </ion-tab-button>\n    <ion-tab-button tab=\"record\">\n      <ion-icon class=\"icon-linegraph\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"rute\">\n      <ion-icon class=\"icon-map\"></ion-icon>\n    </ion-tab-button>    \n\n  </ion-tab-bar>\n</ion-tabs>\n";
       /***/
     },
 

@@ -4,15 +4,17 @@ import {
   LoadingController,
   ModalController,
 } from "@ionic/angular";
-import { BackgroundMode } from "@ionic-native/background-mode/ngx";
 import { Plugins, AppState } from "@capacitor/core";
 import { Storage } from "@ionic/storage";
 import { ApiPublibikeBienestarService } from "../services/api-publibike-bienestar.service";
 import { loadModules } from "esri-loader";
 import esri = __esri;
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 // import { type } from 'os';
+
 const { App, Geolocation } = Plugins;
+
 
 @Component({
   selector: "app-map-modal",
@@ -65,14 +67,14 @@ export class MapModalPage implements OnInit {
     co2_total: number;
     peso: number;
   } = {
-    nombre: "",
-    apellido: "",
-    ganancia_total: 0,
-    km_total: 0,
-    cal_total: 0,
-    co2_total: 0,
-    peso: 0,
-  };
+      nombre: "",
+      apellido: "",
+      ganancia_total: 0,
+      km_total: 0,
+      cal_total: 0,
+      co2_total: 0,
+      peso: 0,
+    };
   ruteData: object = {};
   fecha: any;
   fstDirection: any;
@@ -96,6 +98,7 @@ export class MapModalPage implements OnInit {
     private alertController: AlertController,
     private backgroundMode: BackgroundMode
   ) {}
+
 
   async initializedMap() {
     try {
@@ -352,8 +355,7 @@ export class MapModalPage implements OnInit {
       }
     });
     let geocoder = this._locator;
-    geocoder
-      .locationToAddress(params)
+    geocoder.locationToAddress(params)
       .then((response) => {
         address = response.address;
         address = address.split(",");
@@ -361,7 +363,8 @@ export class MapModalPage implements OnInit {
         this.fstPosition = params;
       })
       .catch((err) => console.log(err));
-  }
+    }
+
   async stopRute() {
     try {
       this.backgroundMode.disable();
@@ -413,7 +416,7 @@ export class MapModalPage implements OnInit {
               kms: kms,
               cal: this.cal,
               co2: this.co2,
-              riesgo_covid: this.riesgo_covid,
+              riesgo_covid: this.riesgo_covid
             };
             this.apiService.sendRute(this.ruteData);
             // .then(()=>{this.loading.dismiss()});
@@ -426,6 +429,7 @@ export class MapModalPage implements OnInit {
       console.log(error);
     }
   }
+
   calculateDistance(lon1, lon2, lat1, lat2) {
     let p = 0.017453292519943295;
     let c = Math.cos;
@@ -462,6 +466,7 @@ export class MapModalPage implements OnInit {
         }
       }
     }, 100);
+    console.log(this.contador)
   }
   clearWindows() {
     this.minutos = 0;
