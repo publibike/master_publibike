@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-tabs >\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"profile\">\n      <ion-icon class=\"icon-profile-male\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"recognitions\">\n      <ion-icon class=\"icon-trophy\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button  (click)=\"showMap()\">\n      <!-- <ion-icon name=\"square\"></ion-icon> -->\n      <img src=\"assets/img/button-start-29.png\">\n    </ion-tab-button>\n    <ion-tab-button tab=\"record\">\n      <ion-icon class=\"icon-linegraph\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"rute\">\n      <ion-icon class=\"icon-map\"></ion-icon>\n    </ion-tab-button>    \n\n  </ion-tab-bar>\n</ion-tabs>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-tabs >\r\n  <ion-tab-bar slot=\"bottom\">\r\n    <ion-tab-button tab=\"profile\">\r\n      <ion-icon class=\"icon-profile-male\"></ion-icon>\r\n    </ion-tab-button>\r\n    <ion-tab-button tab=\"recognitions\">\r\n      <ion-icon class=\"icon-trophy\"></ion-icon>\r\n    </ion-tab-button>\r\n    <ion-tab-button  (click)=\"showMap()\">\r\n      <!-- <ion-icon name=\"square\"></ion-icon> -->\r\n      <img src=\"assets/img/button-start-29.png\">\r\n    </ion-tab-button>\r\n    <ion-tab-button tab=\"record\">\r\n      <ion-icon class=\"icon-linegraph\"></ion-icon>\r\n    </ion-tab-button>\r\n    <ion-tab-button tab=\"rute\">\r\n      <ion-icon class=\"icon-map\"></ion-icon>\r\n    </ion-tab-button>    \r\n\r\n  </ion-tab-bar>\r\n</ion-tabs>\r\n");
 
 /***/ }),
 
