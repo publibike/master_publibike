@@ -56,7 +56,11 @@ LoginGuard = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! /Users/imac/Desktop/master_publibike/src/main.ts */"zUnb");
+=======
+module.exports = __webpack_require__(/*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeBienestar-APP\PublibikeBienestarApp\PublibikeBienestarApp2\src\main.ts */"zUnb");
+>>>>>>> 6bde552b4c387ea9c1edb5a77e5fe0230a7b33a5
 
 
 /***/ }),
@@ -341,8 +345,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! esri-loader */ "r6rm");
 /* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(esri_loader__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "AcVp");
-/* harmony import */ var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/geolocation/ngx */ "gTw3");
-
 
 
 
@@ -354,16 +356,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { type } from 'os';
-const { App } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
+const { App, Geolocation } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
 let MapModalPage = class MapModalPage {
-    constructor(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode, geolocation) {
+    constructor(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode) {
         this.apiService = apiService;
         this.storage = storage;
         this.loadingCtrl = loadingCtrl;
         this.modalController = modalController;
         this.alertController = alertController;
         this.backgroundMode = backgroundMode;
-        this.geolocation = geolocation;
         //Variables ArcGIS
         this._zoom = 10;
         this._center = [-74.090923, 4.694939];
@@ -524,18 +525,19 @@ let MapModalPage = class MapModalPage {
             this.initializedMap().then((mapView) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
                 console.log("mapView ready: ", this._view.ready);
                 this._loaded = this._view.ready;
+                let position = yield Geolocation.getCurrentPosition();
+                mapView.goTo({
+                    center: position,
+                    zoom: 15,
+                    tilt: 40,
+                });
+                // this.loading.dismiss();
             }));
         });
     }
-    // async getCurrentPosition() {
-    //   const coordinates = await Geolocation.getCurrentPosition();
-    //   console.log('Current', coordinates);
-    // }
     startRute() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.backgroundMode.enable();
-            let temp = 0;
-            console.log(this.backgroundMode.isActive());
             this.km = 0;
             this.cal = 0;
             this.co2 = 0;
@@ -544,23 +546,23 @@ let MapModalPage = class MapModalPage {
             this.urlButton = "button-stop-29.png";
             this.clearWindows();
             this._track.start();
-            this.startCounter();
-            // await this._distance.start();
-            // console.log(this._distance)
             const fechaActual = new Date();
             this.fecha = fechaActual;
-            console.log(this.fecha);
             //se toma la posicion y se geocodifica
             let address;
             // let position = await this._locate.locate();
-            let position = yield this.geolocation.getCurrentPosition();
+            let position = yield Geolocation.getCurrentPosition();
+            console.log("position", position);
             this._pointGC.latitude = position.coords.latitude;
             this._pointGC.longitude = position.coords.longitude;
             let params = {
                 location: this._pointGC,
             };
+            //Se inicializa el contador
+            this.startCounter();
             //cálculo de distancia cuando se esta en movimiento
             this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+<<<<<<< HEAD
                 console.log("Estado app", App.getState());
                 //Funcion que evalua si se entra en Background
                 //Esta logica solo se activa si se esta en Background
@@ -587,21 +589,65 @@ let MapModalPage = class MapModalPage {
                         console.log(totalMin);
                         this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
                         console.log(this.km);
+=======
+                App.addListener("appStateChange", (state) => {
+                    if (!state.isActive) {
+                        this.backgroundMode.on("activate").subscribe(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                            console.log("Estado Back", yield App.getState());
+                            // this.startCounter();
+                            this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                                console.log("Estado app", App.getState());
+                                this.recorrido.push(position);
+                                this.positionAct = position.position;
+                                this.vel = position.position.coords.speed;
+                                this.riesgoCovid(this.vel);
+                                let ult = this.recorrido.length - 1;
+                                if (this.recorrido.length == 1) {
+                                    this.km = this.calculateDistance(this.recorrido[0].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[0].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                                }
+                                else if (this.recorrido.length > 1) {
+                                    let kmTemporal = this.km;
+                                    this.km = this.calculateDistance(this.recorrido[ult - 1].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[ult - 1].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                                    this.km = kmTemporal + this.km;
+                                    this.co2 = this.km * 0.3;
+                                    let totalMin = parseInt(this._horas) * 60 +
+                                        parseInt(this._minutos) +
+                                        parseInt(this._segundos) * 0.0166667;
+                                    this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+                                }
+                            }));
+                        }));
+>>>>>>> 6bde552b4c387ea9c1edb5a77e5fe0230a7b33a5
                     }
                 });
+                this.recorrido.push(position);
+                this.positionAct = position.position;
+                this.vel = position.position.coords.speed;
+                this.riesgoCovid(this.vel);
+                let ult = this.recorrido.length - 1;
+                if (this.recorrido.length == 1) {
+                    this.km = this.calculateDistance(this.recorrido[0].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[0].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                }
+                else if (this.recorrido.length > 1) {
+                    let kmTemporal = this.km;
+                    this.km = this.calculateDistance(this.recorrido[ult - 1].position.coords.longitude, this.recorrido[ult].position.coords.longitude, this.recorrido[ult - 1].position.coords.latitude, this.recorrido[ult].position.coords.latitude);
+                    this.km = kmTemporal + this.km;
+                    this.co2 = this.km * 0.3;
+                    let totalMin = parseInt(this._horas) * 60 +
+                        parseInt(this._minutos) +
+                        parseInt(this._segundos) * 0.0166667;
+                    this.cal = 0.071 * (this.user.peso * 2.2) * totalMin;
+                }
             }));
             let geocoder = this._locator;
-            geocoder
-                .locationToAddress(params)
+            geocoder.locationToAddress(params)
                 .then((response) => {
                 address = response.address;
-                console.log(address);
                 address = address.split(",");
                 this.fstDirection = address[0];
                 this.fstPosition = params;
             })
                 .catch((err) => console.log(err));
-            //Se inicializa el contador
         });
     }
     stopRute() {
@@ -612,14 +658,12 @@ let MapModalPage = class MapModalPage {
                 if (this.isRun) {
                     this._track.stop();
                     this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
-                    console.log(this.time);
                     clearInterval(this.contador);
                     this.isRun = false;
                     // this.contador = null;
                     //se toma la posicion y se geocodifica
                     let address;
-                    let position = yield this.geolocation.getCurrentPosition();
-                    console.log(position);
+                    let position = yield Geolocation.getCurrentPosition();
                     this._pointGC.latitude = position.coords.latitude;
                     this._pointGC.longitude = position.coords.longitude;
                     // this.vel = position.coords.speed;
@@ -633,7 +677,6 @@ let MapModalPage = class MapModalPage {
                         .locationToAddress(params)
                         .then((response) => {
                         address = response.address;
-                        // console.log(address);
                         address = address.split(",");
                         this.fnlDirection = address[0];
                         this.fnlPosition = params;
@@ -657,7 +700,6 @@ let MapModalPage = class MapModalPage {
                             co2: this.co2,
                             riesgo_covid: this.riesgo_covid
                         };
-                        console.log("ruteData", this.ruteData);
                         this.apiService.sendRute(this.ruteData);
                         // .then(()=>{this.loading.dismiss()});
                         this.flagCovid = 0;
@@ -678,7 +720,6 @@ let MapModalPage = class MapModalPage {
             c((lat1 - lat2) * p) / 2 +
             (c(lat2 * p) * c(lat1 * p) * (1 - c((lon1 - lon2) * p))) / 2;
         let dis = 12742 * Math.asin(Math.sqrt(a));
-        console.log(typeof dis);
         return dis;
     }
     startCounter() {
@@ -736,9 +777,6 @@ let MapModalPage = class MapModalPage {
             });
             yield this.loading.present();
         });
-    }
-    logEvent(event) {
-        console.log(event.target);
     }
     closeModal() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -829,8 +867,7 @@ MapModalPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
-    { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__["BackgroundMode"] },
-    { type: _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__["Geolocation"] }
+    { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__["BackgroundMode"] }
 ];
 MapModalPage.propDecorators = {
     mapEl: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"], args: ["map",] }]
@@ -856,7 +893,7 @@ MapModalPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\n.content-map {\n  height: 104%;\n}\n\n#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 340px;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.play {\n  height: 40px;\n  width: 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwLW1vZGFsL21hcC1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxnQkFBQTtBQUNKOztBQUNBO0VBQ0ksWUFBQTtBQUVKOztBQUFBO0VBQ0ksVUFBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtBQUdKOztBQURBO0VBQ0ksV0FBQTtFQUNBLG1CQUFBO0FBSUo7O0FBRkE7RUFDSSxvQ0FBQTtFQUNBLHlCQUFBO0FBS0o7O0FBSEE7RUFDSSxlQUFBO0VBQ0EsV0FBQTtBQU1KOztBQUhBO0VBQ0ksZUFBQTtBQU1KOztBQUpBO0VBQ0ksWUFBQTtBQU9KOztBQUxBO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUFRSiIsImZpbGUiOiJzcmMvYXBwL21hcC1tb2RhbC9tYXAtbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxvZ28tZWtvYmlrZS1pbiB7XG4gICAgcG9zaXRpb246IHVuc2V0O1xuICAgIG1hcmdpbi1ib3R0b206IDMwcHg7XG4gICAgbWFyZ2luLXRvcDogMjBweDtcbn1cbi5jb250ZW50LW1hcHtcbiAgICBoZWlnaHQ6IDEwNCU7XG59XG4jdmlld0RpdiB7XG4gICAgcGFkZGluZzogMDtcbiAgICBtYXJnaW46IDA7XG4gICAgaGVpZ2h0OiAzNDBweDtcbiAgICB3aWR0aDogMTAwJTtcbn1cbi5lc3JpLXZpZXctd2lkdGgteHNtYWxsIC5lc3JpLWV4cGFuZC0tYXV0byAuZXNyaS1leHBhbmRfX2NvbnRhaW5lci0tZXhwYW5kZWQge1xuICAgIGhlaWdodDogMzQlO1xuICAgIGJhY2tncm91bmQ6ICMwMDE0MzQ7XG59XG4uZXNyaS13aWRnZXQtLWJ1dHRvbiB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y5YjQxMCAhaW1wb3J0YW50O1xuICAgIGNvbG9yOiAjMDAxNDM0ICFpbXBvcnRhbnQ7XG59XG4uZXNyaS12aWV3IC5lc3JpLWRpcmVjdGlvbnMge1xuICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICByaWdodDogMTVweDtcbn1cblxuLmVzcmktdmlldyAuZXNyaS1jb21wb25lbnQuZXNyaS1hdHRyaWJ1dGlvbiB7XG4gICAgcG9zaXRpb246IGZpeGVkO1xufVxuLmVzcmktc2VhcmNoX19zdWdnZXN0aW9ucy1saXN0ID4gbGkge1xuICAgIHBhZGRpbmc6IDFlbTtcbn1cbi5wbGF5e1xuICAgIGhlaWdodDogNDBweDtcbiAgICB3aWR0aDogNDBweDtcbn1cbiJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\n.content-map {\n  height: 104%;\n}\n\n#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 340px;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.play {\n  height: 40px;\n  width: 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwLW1vZGFsL21hcC1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxnQkFBQTtBQUNKOztBQUNBO0VBQ0ksWUFBQTtBQUVKOztBQUFBO0VBQ0ksVUFBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtBQUdKOztBQURBO0VBQ0ksV0FBQTtFQUNBLG1CQUFBO0FBSUo7O0FBRkE7RUFDSSxvQ0FBQTtFQUNBLHlCQUFBO0FBS0o7O0FBSEE7RUFDSSxlQUFBO0VBQ0EsV0FBQTtBQU1KOztBQUhBO0VBQ0ksZUFBQTtBQU1KOztBQUpBO0VBQ0ksWUFBQTtBQU9KOztBQUxBO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUFRSiIsImZpbGUiOiJzcmMvYXBwL21hcC1tb2RhbC9tYXAtbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxvZ28tZWtvYmlrZS1pbiB7XHJcbiAgICBwb3NpdGlvbjogdW5zZXQ7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAzMHB4O1xyXG4gICAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG4uY29udGVudC1tYXB7XHJcbiAgICBoZWlnaHQ6IDEwNCU7XHJcbn1cclxuI3ZpZXdEaXYge1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIG1hcmdpbjogMDtcclxuICAgIGhlaWdodDogMzQwcHg7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG4uZXNyaS12aWV3LXdpZHRoLXhzbWFsbCAuZXNyaS1leHBhbmQtLWF1dG8gLmVzcmktZXhwYW5kX19jb250YWluZXItLWV4cGFuZGVkIHtcclxuICAgIGhlaWdodDogMzQlO1xyXG4gICAgYmFja2dyb3VuZDogIzAwMTQzNDtcclxufVxyXG4uZXNyaS13aWRnZXQtLWJ1dHRvbiB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjliNDEwICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogIzAwMTQzNCAhaW1wb3J0YW50O1xyXG59XHJcbi5lc3JpLXZpZXcgLmVzcmktZGlyZWN0aW9ucyB7XHJcbiAgICBwb3NpdGlvbjogZml4ZWQ7XHJcbiAgICByaWdodDogMTVweDtcclxufVxyXG5cclxuLmVzcmktdmlldyAuZXNyaS1jb21wb25lbnQuZXNyaS1hdHRyaWJ1dGlvbiB7XHJcbiAgICBwb3NpdGlvbjogZml4ZWQ7XHJcbn1cclxuLmVzcmktc2VhcmNoX19zdWdnZXN0aW9ucy1saXN0ID4gbGkge1xyXG4gICAgcGFkZGluZzogMWVtO1xyXG59XHJcbi5wbGF5e1xyXG4gICAgaGVpZ2h0OiA0MHB4O1xyXG4gICAgd2lkdGg6IDQwcHg7XHJcbn1cclxuIl19 */");
 
 /***/ }),
 
@@ -946,7 +983,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header color=\"primary\">\n  <ion-toolbar>\n    <ion-title color=\"secondary\">{{categoria}}</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content class=\"background-modal\">\n  <div class=\"logo-ekobike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <ion-list>\n    <ion-item>\n      <ion-label>\n        <h2>Nombre: </h2>\n        <p>{{ data.nombre }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Establecimiento: </h2>\n        <p>{{ data.establecimiento }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Beneficio: </h2>\n        <p>{{ data.beneficio }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Meta en km para activar: </h2>\n        <p>{{ data.activacion_km }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Estado: </h2>\n        <p>{{ data.estado  ? 'Activo' : 'Bloqueado' }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header color=\"primary\">\r\n  <ion-toolbar>\r\n    <ion-title color=\"secondary\">{{categoria}}</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content class=\"background-modal\">\r\n  <div class=\"logo-ekobike-in\">\r\n    <img src=\"assets/img/logo-ekobike.png\">\r\n  </div>\r\n  <ion-list>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Nombre: </h2>\r\n        <p>{{ data.nombre }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Establecimiento: </h2>\r\n        <p>{{ data.establecimiento }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Beneficio: </h2>\r\n        <p>{{ data.beneficio }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Meta en km para activar: </h2>\r\n        <p>{{ data.activacion_km }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Estado: </h2>\r\n        <p>{{ data.estado  ? 'Activo' : 'Bloqueado' }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n  </ion-list>\r\n</ion-content>");
 
 /***/ }),
 
@@ -972,7 +1009,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("h2 {\n  font-size: 15px;\n  color: var(--ion-color-secondary);\n}\n\np {\n  font-size: 15px;\n  color: var(--ion-color-tertiary);\n}\n\n.logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\nion-content {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n\napp-recognition-modal {\n  background-image: var(--ion-background-image);\n}\n\n.background-modal {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGlDQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsZ0NBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FBR0o7O0FBREE7RUFDSSx3RUFBQTtBQUlKOztBQUZBO0VBQ0ksNkNBQUE7QUFLSjs7QUFIQTtFQUNJLHdFQUFBO0FBTUoiLCJmaWxlIjoic3JjL2FwcC9yZWNvZ25pdGlvbi1tb2RhbC9yZWNvZ25pdGlvbi1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMiB7XG4gICAgZm9udC1zaXplOiAxNXB4O1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3Itc2Vjb25kYXJ5KTtcbn1cbnAge1xuICAgIGZvbnQtc2l6ZTogMTVweDtcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXRlcnRpYXJ5KTtcbn1cbi5sb2dvLWVrb2Jpa2UtaW4ge1xuICAgIHBvc2l0aW9uOiB1bnNldDtcbiAgICBtYXJnaW4tYm90dG9tOiAzMHB4O1xuICAgIG1hcmdpbi10b3A6IDIwcHg7XG59XG5pb24tY29udGVudCB7XG4gICAgLS1iYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1nL2JhY2tncm91bmQtZWtvYmlrZS5qcGdcIikgbm8tcmVwZWF0IGZpeGVkIGNlbnRlcjtcbn1cbmFwcC1yZWNvZ25pdGlvbi1tb2RhbHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB2YXIoLS1pb24tYmFja2dyb3VuZC1pbWFnZSk7XG59XG4uYmFja2dyb3VuZC1tb2RhbHtcbiAgICAtLWJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uL2Fzc2V0cy9pbWcvYmFja2dyb3VuZC1la29iaWtlLmpwZ1wiKSBuby1yZXBlYXQgZml4ZWQgY2VudGVyO1xufVxuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("h2 {\n  font-size: 15px;\n  color: var(--ion-color-secondary);\n}\n\np {\n  font-size: 15px;\n  color: var(--ion-color-tertiary);\n}\n\n.logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\nion-content {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n\napp-recognition-modal {\n  background-image: var(--ion-background-image);\n}\n\n.background-modal {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGlDQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsZ0NBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FBR0o7O0FBREE7RUFDSSx3RUFBQTtBQUlKOztBQUZBO0VBQ0ksNkNBQUE7QUFLSjs7QUFIQTtFQUNJLHdFQUFBO0FBTUoiLCJmaWxlIjoic3JjL2FwcC9yZWNvZ25pdGlvbi1tb2RhbC9yZWNvZ25pdGlvbi1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMiB7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXNlY29uZGFyeSk7XHJcbn1cclxucCB7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXRlcnRpYXJ5KTtcclxufVxyXG4ubG9nby1la29iaWtlLWluIHtcclxuICAgIHBvc2l0aW9uOiB1bnNldDtcclxuICAgIG1hcmdpbi1ib3R0b206IDMwcHg7XHJcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xyXG59XHJcbmlvbi1jb250ZW50IHtcclxuICAgIC0tYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vYXNzZXRzL2ltZy9iYWNrZ3JvdW5kLWVrb2Jpa2UuanBnXCIpIG5vLXJlcGVhdCBmaXhlZCBjZW50ZXI7XHJcbn1cclxuYXBwLXJlY29nbml0aW9uLW1vZGFse1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdmFyKC0taW9uLWJhY2tncm91bmQtaW1hZ2UpO1xyXG59XHJcbi5iYWNrZ3JvdW5kLW1vZGFse1xyXG4gICAgLS1iYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1nL2JhY2tncm91bmQtZWtvYmlrZS5qcGdcIikgbm8tcmVwZWF0IGZpeGVkIGNlbnRlcjtcclxufVxyXG4iXX0= */");
 
 /***/ }),
 
@@ -998,9 +1035,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
 /* harmony import */ var _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./recognition-modal/recognition-modal.module */ "lFiN");
 /* harmony import */ var _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./map-modal/map-modal.module */ "NfN8");
-/* harmony import */ var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/geolocation/ngx */ "gTw3");
-/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "AcVp");
-
+/* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "AcVp");
 
 
 
@@ -1029,10 +1064,9 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()
         ],
         providers: [
-            _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_12__["Geolocation"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
-            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_13__["BackgroundMode"],
+            _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
@@ -1497,7 +1531,7 @@ AppRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-modal {\n  --ion-background-image: url('background-ekobike.jpg') no-repeat fixed center !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUZBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tb2RhbHtcbiAgICAtLWlvbi1iYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi9hc3NldHMvaW1nL2JhY2tncm91bmQtZWtvYmlrZS5qcGdcIikgbm8tcmVwZWF0IGZpeGVkIGNlbnRlciAhaW1wb3J0YW50O1xufVxuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-modal {\n  --ion-background-image: url('background-ekobike.jpg') no-repeat fixed center !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUZBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tb2RhbHtcclxuICAgIC0taW9uLWJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9pbWcvYmFja2dyb3VuZC1la29iaWtlLmpwZ1wiKSBuby1yZXBlYXQgZml4ZWQgY2VudGVyICFpbXBvcnRhbnQ7XHJcbn1cclxuIl19 */");
 
 /***/ }),
 
