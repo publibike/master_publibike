@@ -11,14 +11,9 @@ import { loadModules } from "esri-loader";
 import esri = __esri;
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
+import { Geolocation } from '@ionic-native/geolocation/ngx'
 // import { type } from 'os';
-<<<<<<< HEAD
 const { App } = Plugins;
-=======
-
-const { App, Geolocation } = Plugins;
-
->>>>>>> 6bde552b4c387ea9c1edb5a77e5fe0230a7b33a5
 
 @Component({
   selector: "app-map-modal",
@@ -100,7 +95,8 @@ export class MapModalPage implements OnInit {
     private loadingCtrl: LoadingController,
     private modalController: ModalController,
     private alertController: AlertController,
-    private backgroundMode: BackgroundMode
+    private backgroundMode: BackgroundMode,
+    private geolocation: Geolocation
   ) {}
 
 
@@ -250,13 +246,6 @@ export class MapModalPage implements OnInit {
     this.initializedMap().then(async (mapView) => {
       console.log("mapView ready: ", this._view.ready);
       this._loaded = this._view.ready;
-      let position = await Geolocation.getCurrentPosition();
-
-      mapView.goTo({
-        center: position,
-        zoom: 15,
-        tilt: 40,
-      });
       // this.loading.dismiss();
     });
   }
@@ -276,7 +265,7 @@ export class MapModalPage implements OnInit {
     //se toma la posicion y se geocodifica
     let address;
     // let position = await this._locate.locate();
-    let position = await Geolocation.getCurrentPosition();
+    let position = await this.geolocation.getCurrentPosition();
     console.log("position", position);
     this._pointGC.latitude = position.coords.latitude;
     this._pointGC.longitude = position.coords.longitude;
@@ -383,7 +372,7 @@ export class MapModalPage implements OnInit {
 
         //se toma la posicion y se geocodifica
         let address;
-        let position = await Geolocation.getCurrentPosition();
+        let position = await this.geolocation.getCurrentPosition();
         this._pointGC.latitude = position.coords.latitude;
         this._pointGC.longitude = position.coords.longitude;
         // this.vel = position.coords.speed;

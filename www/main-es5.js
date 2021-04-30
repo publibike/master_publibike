@@ -133,11 +133,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-<<<<<<< HEAD
       /*! /Users/imac/Desktop/master_publibike/src/main.ts */
-=======
-      /*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeBienestar-APP\PublibikeBienestarApp\PublibikeBienestarApp2\src\main.ts */
->>>>>>> 6bde552b4c387ea9c1edb5a77e5fe0230a7b33a5
       "zUnb");
       /***/
     },
@@ -693,15 +689,19 @@
 
       var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @ionic-native/background-mode/ngx */
-      "AcVp"); // import { type } from 'os';
+      "AcVp");
+      /* harmony import */
 
 
-      var _capacitor_core__WEBP = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"],
-          App = _capacitor_core__WEBP.App,
-          Geolocation = _capacitor_core__WEBP.Geolocation;
+      var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @ionic-native/geolocation/ngx */
+      "gTw3"); // import { type } from 'os';
+
+
+      var App = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"].App;
 
       var MapModalPage = /*#__PURE__*/function () {
-        function MapModalPage(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode) {
+        function MapModalPage(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode, geolocation) {
           _classCallCheck(this, MapModalPage);
 
           this.apiService = apiService;
@@ -709,7 +709,8 @@
           this.loadingCtrl = loadingCtrl;
           this.modalController = modalController;
           this.alertController = alertController;
-          this.backgroundMode = backgroundMode; //Variables ArcGIS
+          this.backgroundMode = backgroundMode;
+          this.geolocation = geolocation; //Variables ArcGIS
 
           this._zoom = 10;
           this._center = [-74.090923, 4.694939];
@@ -912,25 +913,14 @@
                       //se usa localizacion en segundo plano
                       this.initializedMap().then(function (mapView) {
                         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-                          var position;
                           return regeneratorRuntime.wrap(function _callee6$(_context6) {
                             while (1) {
                               switch (_context6.prev = _context6.next) {
                                 case 0:
                                   console.log("mapView ready: ", this._view.ready);
-                                  this._loaded = this._view.ready;
-                                  _context6.next = 4;
-                                  return Geolocation.getCurrentPosition();
+                                  this._loaded = this._view.ready; // this.loading.dismiss();
 
-                                case 4:
-                                  position = _context6.sent;
-                                  mapView.goTo({
-                                    center: position,
-                                    zoom: 15,
-                                    tilt: 40
-                                  }); // this.loading.dismiss();
-
-                                case 6:
+                                case 2:
                                 case "end":
                                   return _context6.stop();
                               }
@@ -973,7 +963,7 @@
                       this.fecha = fechaActual; //se toma la posicion y se geocodifica
 
                       _context11.next = 13;
-                      return Geolocation.getCurrentPosition();
+                      return this.geolocation.getCurrentPosition();
 
                     case 13:
                       position = _context11.sent;
@@ -995,35 +985,6 @@
                             while (1) {
                               switch (_context10.prev = _context10.next) {
                                 case 0:
-<<<<<<< HEAD
-                                  console.log("Estado app", App.getState()); //Funcion que evalua si se entra en Background
-                                  //Esta logica solo se activa si se esta en Background
-
-                                  this.backgroundMode.on('activate').subscribe(function () {
-                                    _this3.recorrido.push(position);
-
-                                    _this3.positionAct = position.position;
-                                    console.log("positionActual", _this3.positionAct);
-                                    console.log("posicion ".concat(_this3.recorrido.length), _this3.recorrido);
-                                    console.log("vel", position.position.coords.speed);
-                                    _this3.vel = position.position.coords.speed;
-
-                                    _this3.riesgoCovid(_this3.vel);
-
-                                    var ult = _this3.recorrido.length - 1;
-
-                                    if (_this3.recorrido.length == 1) {
-                                      _this3.km = _this3.calculateDistance(_this3.recorrido[0].position.coords.longitude, _this3.recorrido[ult].position.coords.longitude, _this3.recorrido[0].position.coords.latitude, _this3.recorrido[ult].position.coords.latitude);
-                                    } else if (_this3.recorrido.length > 1) {
-                                      var kmTemporal = _this3.km;
-                                      _this3.km = _this3.calculateDistance(_this3.recorrido[ult - 1].position.coords.longitude, _this3.recorrido[ult].position.coords.longitude, _this3.recorrido[ult - 1].position.coords.latitude, _this3.recorrido[ult].position.coords.latitude);
-                                      _this3.km = kmTemporal + _this3.km;
-                                      _this3.co2 = _this3.km * 0.3;
-                                      var totalMin = parseInt(_this3._horas) * 60 + parseInt(_this3._minutos) + parseInt(_this3._segundos) * 0.0166667;
-                                      console.log(totalMin);
-                                      _this3.cal = 0.071 * (_this3.user.peso * 2.2) * totalMin;
-                                      console.log(_this3.km);
-=======
                                   App.addListener("appStateChange", function (state) {
                                     if (!state.isActive) {
                                       _this3.backgroundMode.on("activate").subscribe(function () {
@@ -1086,7 +1047,6 @@
                                           }, _callee9, this);
                                         }));
                                       });
->>>>>>> 6bde552b4c387ea9c1edb5a77e5fe0230a7b33a5
                                     }
                                   });
                                   this.recorrido.push(position);
@@ -1160,7 +1120,7 @@
                       //se toma la posicion y se geocodifica
 
                       _context12.next = 9;
-                      return Geolocation.getCurrentPosition();
+                      return this.geolocation.getCurrentPosition();
 
                     case 9:
                       position = _context12.sent;
@@ -1408,6 +1368,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"]
         }, {
           type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__["BackgroundMode"]
+        }, {
+          type: _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__["Geolocation"]
         }];
       };
 
@@ -1441,7 +1403,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\n.content-map {\n  height: 104%;\n}\n\n#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 340px;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.play {\n  height: 40px;\n  width: 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwLW1vZGFsL21hcC1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxnQkFBQTtBQUNKOztBQUNBO0VBQ0ksWUFBQTtBQUVKOztBQUFBO0VBQ0ksVUFBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtBQUdKOztBQURBO0VBQ0ksV0FBQTtFQUNBLG1CQUFBO0FBSUo7O0FBRkE7RUFDSSxvQ0FBQTtFQUNBLHlCQUFBO0FBS0o7O0FBSEE7RUFDSSxlQUFBO0VBQ0EsV0FBQTtBQU1KOztBQUhBO0VBQ0ksZUFBQTtBQU1KOztBQUpBO0VBQ0ksWUFBQTtBQU9KOztBQUxBO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUFRSiIsImZpbGUiOiJzcmMvYXBwL21hcC1tb2RhbC9tYXAtbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxvZ28tZWtvYmlrZS1pbiB7XHJcbiAgICBwb3NpdGlvbjogdW5zZXQ7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAzMHB4O1xyXG4gICAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG4uY29udGVudC1tYXB7XHJcbiAgICBoZWlnaHQ6IDEwNCU7XHJcbn1cclxuI3ZpZXdEaXYge1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIG1hcmdpbjogMDtcclxuICAgIGhlaWdodDogMzQwcHg7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG4uZXNyaS12aWV3LXdpZHRoLXhzbWFsbCAuZXNyaS1leHBhbmQtLWF1dG8gLmVzcmktZXhwYW5kX19jb250YWluZXItLWV4cGFuZGVkIHtcclxuICAgIGhlaWdodDogMzQlO1xyXG4gICAgYmFja2dyb3VuZDogIzAwMTQzNDtcclxufVxyXG4uZXNyaS13aWRnZXQtLWJ1dHRvbiB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjliNDEwICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogIzAwMTQzNCAhaW1wb3J0YW50O1xyXG59XHJcbi5lc3JpLXZpZXcgLmVzcmktZGlyZWN0aW9ucyB7XHJcbiAgICBwb3NpdGlvbjogZml4ZWQ7XHJcbiAgICByaWdodDogMTVweDtcclxufVxyXG5cclxuLmVzcmktdmlldyAuZXNyaS1jb21wb25lbnQuZXNyaS1hdHRyaWJ1dGlvbiB7XHJcbiAgICBwb3NpdGlvbjogZml4ZWQ7XHJcbn1cclxuLmVzcmktc2VhcmNoX19zdWdnZXN0aW9ucy1saXN0ID4gbGkge1xyXG4gICAgcGFkZGluZzogMWVtO1xyXG59XHJcbi5wbGF5e1xyXG4gICAgaGVpZ2h0OiA0MHB4O1xyXG4gICAgd2lkdGg6IDQwcHg7XHJcbn1cclxuIl19 */";
+      __webpack_exports__["default"] = ".logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\n.content-map {\n  height: 104%;\n}\n\n#viewDiv {\n  padding: 0;\n  margin: 0;\n  height: 340px;\n  width: 100%;\n}\n\n.esri-view-width-xsmall .esri-expand--auto .esri-expand__container--expanded {\n  height: 34%;\n  background: #001434;\n}\n\n.esri-widget--button {\n  background-color: #f9b410 !important;\n  color: #001434 !important;\n}\n\n.esri-view .esri-directions {\n  position: fixed;\n  right: 15px;\n}\n\n.esri-view .esri-component.esri-attribution {\n  position: fixed;\n}\n\n.esri-search__suggestions-list > li {\n  padding: 1em;\n}\n\n.play {\n  height: 40px;\n  width: 40px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWFwLW1vZGFsL21hcC1tb2RhbC5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxnQkFBQTtBQUNKOztBQUNBO0VBQ0ksWUFBQTtBQUVKOztBQUFBO0VBQ0ksVUFBQTtFQUNBLFNBQUE7RUFDQSxhQUFBO0VBQ0EsV0FBQTtBQUdKOztBQURBO0VBQ0ksV0FBQTtFQUNBLG1CQUFBO0FBSUo7O0FBRkE7RUFDSSxvQ0FBQTtFQUNBLHlCQUFBO0FBS0o7O0FBSEE7RUFDSSxlQUFBO0VBQ0EsV0FBQTtBQU1KOztBQUhBO0VBQ0ksZUFBQTtBQU1KOztBQUpBO0VBQ0ksWUFBQTtBQU9KOztBQUxBO0VBQ0ksWUFBQTtFQUNBLFdBQUE7QUFRSiIsImZpbGUiOiJzcmMvYXBwL21hcC1tb2RhbC9tYXAtbW9kYWwucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxvZ28tZWtvYmlrZS1pbiB7XG4gICAgcG9zaXRpb246IHVuc2V0O1xuICAgIG1hcmdpbi1ib3R0b206IDMwcHg7XG4gICAgbWFyZ2luLXRvcDogMjBweDtcbn1cbi5jb250ZW50LW1hcHtcbiAgICBoZWlnaHQ6IDEwNCU7XG59XG4jdmlld0RpdiB7XG4gICAgcGFkZGluZzogMDtcbiAgICBtYXJnaW46IDA7XG4gICAgaGVpZ2h0OiAzNDBweDtcbiAgICB3aWR0aDogMTAwJTtcbn1cbi5lc3JpLXZpZXctd2lkdGgteHNtYWxsIC5lc3JpLWV4cGFuZC0tYXV0byAuZXNyaS1leHBhbmRfX2NvbnRhaW5lci0tZXhwYW5kZWQge1xuICAgIGhlaWdodDogMzQlO1xuICAgIGJhY2tncm91bmQ6ICMwMDE0MzQ7XG59XG4uZXNyaS13aWRnZXQtLWJ1dHRvbiB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2Y5YjQxMCAhaW1wb3J0YW50O1xuICAgIGNvbG9yOiAjMDAxNDM0ICFpbXBvcnRhbnQ7XG59XG4uZXNyaS12aWV3IC5lc3JpLWRpcmVjdGlvbnMge1xuICAgIHBvc2l0aW9uOiBmaXhlZDtcbiAgICByaWdodDogMTVweDtcbn1cblxuLmVzcmktdmlldyAuZXNyaS1jb21wb25lbnQuZXNyaS1hdHRyaWJ1dGlvbiB7XG4gICAgcG9zaXRpb246IGZpeGVkO1xufVxuLmVzcmktc2VhcmNoX19zdWdnZXN0aW9ucy1saXN0ID4gbGkge1xuICAgIHBhZGRpbmc6IDFlbTtcbn1cbi5wbGF5e1xuICAgIGhlaWdodDogNDBweDtcbiAgICB3aWR0aDogNDBweDtcbn1cbiJdfQ== */";
       /***/
     },
 
@@ -1603,7 +1565,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-header color=\"primary\">\r\n  <ion-toolbar>\r\n    <ion-title color=\"secondary\">{{categoria}}</ion-title>\r\n    <ion-buttons slot=\"end\">\r\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\r\n    </ion-buttons>\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content class=\"background-modal\">\r\n  <div class=\"logo-ekobike-in\">\r\n    <img src=\"assets/img/logo-ekobike.png\">\r\n  </div>\r\n  <ion-list>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Nombre: </h2>\r\n        <p>{{ data.nombre }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Establecimiento: </h2>\r\n        <p>{{ data.establecimiento }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Beneficio: </h2>\r\n        <p>{{ data.beneficio }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Meta en km para activar: </h2>\r\n        <p>{{ data.activacion_km }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n    <ion-item>\r\n      <ion-label>\r\n        <h2>Estado: </h2>\r\n        <p>{{ data.estado  ? 'Activo' : 'Bloqueado' }}</p>\r\n      </ion-label>\r\n    </ion-item>\r\n  </ion-list>\r\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-header color=\"primary\">\n  <ion-toolbar>\n    <ion-title color=\"secondary\">{{categoria}}</ion-title>\n    <ion-buttons slot=\"end\">\n      <ion-button color=\"secondary\" (click)=\"closeModal()\">Cerrar</ion-button>\n    </ion-buttons>\n  </ion-toolbar>\n</ion-header>\n<ion-content class=\"background-modal\">\n  <div class=\"logo-ekobike-in\">\n    <img src=\"assets/img/logo-ekobike.png\">\n  </div>\n  <ion-list>\n    <ion-item>\n      <ion-label>\n        <h2>Nombre: </h2>\n        <p>{{ data.nombre }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Establecimiento: </h2>\n        <p>{{ data.establecimiento }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Beneficio: </h2>\n        <p>{{ data.beneficio }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Meta en km para activar: </h2>\n        <p>{{ data.activacion_km }}</p>\n      </ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label>\n        <h2>Estado: </h2>\n        <p>{{ data.estado  ? 'Activo' : 'Bloqueado' }}</p>\n      </ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>";
       /***/
     },
 
@@ -1643,7 +1605,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "h2 {\n  font-size: 15px;\n  color: var(--ion-color-secondary);\n}\n\np {\n  font-size: 15px;\n  color: var(--ion-color-tertiary);\n}\n\n.logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\nion-content {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n\napp-recognition-modal {\n  background-image: var(--ion-background-image);\n}\n\n.background-modal {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGlDQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsZ0NBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FBR0o7O0FBREE7RUFDSSx3RUFBQTtBQUlKOztBQUZBO0VBQ0ksNkNBQUE7QUFLSjs7QUFIQTtFQUNJLHdFQUFBO0FBTUoiLCJmaWxlIjoic3JjL2FwcC9yZWNvZ25pdGlvbi1tb2RhbC9yZWNvZ25pdGlvbi1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMiB7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXNlY29uZGFyeSk7XHJcbn1cclxucCB7XHJcbiAgICBmb250LXNpemU6IDE1cHg7XHJcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXRlcnRpYXJ5KTtcclxufVxyXG4ubG9nby1la29iaWtlLWluIHtcclxuICAgIHBvc2l0aW9uOiB1bnNldDtcclxuICAgIG1hcmdpbi1ib3R0b206IDMwcHg7XHJcbiAgICBtYXJnaW4tdG9wOiAyMHB4O1xyXG59XHJcbmlvbi1jb250ZW50IHtcclxuICAgIC0tYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vYXNzZXRzL2ltZy9iYWNrZ3JvdW5kLWVrb2Jpa2UuanBnXCIpIG5vLXJlcGVhdCBmaXhlZCBjZW50ZXI7XHJcbn1cclxuYXBwLXJlY29nbml0aW9uLW1vZGFse1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdmFyKC0taW9uLWJhY2tncm91bmQtaW1hZ2UpO1xyXG59XHJcbi5iYWNrZ3JvdW5kLW1vZGFse1xyXG4gICAgLS1iYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1nL2JhY2tncm91bmQtZWtvYmlrZS5qcGdcIikgbm8tcmVwZWF0IGZpeGVkIGNlbnRlcjtcclxufVxyXG4iXX0= */";
+      __webpack_exports__["default"] = "h2 {\n  font-size: 15px;\n  color: var(--ion-color-secondary);\n}\n\np {\n  font-size: 15px;\n  color: var(--ion-color-tertiary);\n}\n\n.logo-ekobike-in {\n  position: unset;\n  margin-bottom: 30px;\n  margin-top: 20px;\n}\n\nion-content {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n\napp-recognition-modal {\n  background-image: var(--ion-background-image);\n}\n\n.background-modal {\n  --background-image: url('background-ekobike.jpg') no-repeat fixed center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVjb2duaXRpb24tbW9kYWwvcmVjb2duaXRpb24tbW9kYWwucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBQTtFQUNBLGlDQUFBO0FBQ0o7O0FBQ0E7RUFDSSxlQUFBO0VBQ0EsZ0NBQUE7QUFFSjs7QUFBQTtFQUNJLGVBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FBR0o7O0FBREE7RUFDSSx3RUFBQTtBQUlKOztBQUZBO0VBQ0ksNkNBQUE7QUFLSjs7QUFIQTtFQUNJLHdFQUFBO0FBTUoiLCJmaWxlIjoic3JjL2FwcC9yZWNvZ25pdGlvbi1tb2RhbC9yZWNvZ25pdGlvbi1tb2RhbC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMiB7XG4gICAgZm9udC1zaXplOiAxNXB4O1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3Itc2Vjb25kYXJ5KTtcbn1cbnAge1xuICAgIGZvbnQtc2l6ZTogMTVweDtcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXRlcnRpYXJ5KTtcbn1cbi5sb2dvLWVrb2Jpa2UtaW4ge1xuICAgIHBvc2l0aW9uOiB1bnNldDtcbiAgICBtYXJnaW4tYm90dG9tOiAzMHB4O1xuICAgIG1hcmdpbi10b3A6IDIwcHg7XG59XG5pb24tY29udGVudCB7XG4gICAgLS1iYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1nL2JhY2tncm91bmQtZWtvYmlrZS5qcGdcIikgbm8tcmVwZWF0IGZpeGVkIGNlbnRlcjtcbn1cbmFwcC1yZWNvZ25pdGlvbi1tb2RhbHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB2YXIoLS1pb24tYmFja2dyb3VuZC1pbWFnZSk7XG59XG4uYmFja2dyb3VuZC1tb2RhbHtcbiAgICAtLWJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uL2Fzc2V0cy9pbWcvYmFja2dyb3VuZC1la29iaWtlLmpwZ1wiKSBuby1yZXBlYXQgZml4ZWQgY2VudGVyO1xufVxuIl19 */";
       /***/
     },
 
@@ -1744,6 +1706,12 @@
       var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @ionic-native/background-mode/ngx */
       "AcVp");
+      /* harmony import */
+
+
+      var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      /*! @ionic-native/geolocation/ngx */
+      "gTw3");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -1753,7 +1721,7 @@
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
         entryComponents: [],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__["RecognitionModalPageModule"], _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__["MapModalPageModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"], {
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"], _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_13__["Geolocation"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
         }],
@@ -2264,7 +2232,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "ion-modal {\n  --ion-background-image: url('background-ekobike.jpg') no-repeat fixed center !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUZBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tb2RhbHtcclxuICAgIC0taW9uLWJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uL2Fzc2V0cy9pbWcvYmFja2dyb3VuZC1la29iaWtlLmpwZ1wiKSBuby1yZXBlYXQgZml4ZWQgY2VudGVyICFpbXBvcnRhbnQ7XHJcbn1cclxuIl19 */";
+      __webpack_exports__["default"] = "ion-modal {\n  --ion-background-image: url('background-ekobike.jpg') no-repeat fixed center !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUZBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tb2RhbHtcbiAgICAtLWlvbi1iYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi9hc3NldHMvaW1nL2JhY2tncm91bmQtZWtvYmlrZS5qcGdcIikgbm8tcmVwZWF0IGZpeGVkIGNlbnRlciAhaW1wb3J0YW50O1xufVxuIl19 */";
       /***/
     },
 

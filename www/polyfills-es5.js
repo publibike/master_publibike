@@ -506,11 +506,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
-<<<<<<< HEAD
       /*! /Users/imac/Desktop/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-polyfills.js */
-=======
-      /*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeBienestar-APP\PublibikeBienestarApp\PublibikeBienestarApp2\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-polyfills.js */
->>>>>>> 6bde552b4c387ea9c1edb5a77e5fe0230a7b33a5
       "mRIq");
 
       __webpack_require__(
@@ -518,23 +514,15 @@
       "R0gw");
 
       __webpack_require__(
-<<<<<<< HEAD
       /*! /Users/imac/Desktop/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js */
-=======
-      /*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeBienestar-APP\PublibikeBienestarApp\PublibikeBienestarApp2\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */
->>>>>>> 6bde552b4c387ea9c1edb5a77e5fe0230a7b33a5
       "LEsg");
 
       __webpack_require__(
-      /*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeBienestar-APP\PublibikeBienestarApp\PublibikeBienestarApp2\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-jit-polyfills.js */
+      /*! /Users/imac/Desktop/master_publibike/node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/es5-jit-polyfills.js */
       "YJXN");
 
       module.exports = __webpack_require__(
-<<<<<<< HEAD
       /*! /Users/imac/Desktop/master_publibike/src/polyfills.ts */
-=======
-      /*! C:\Users\rider\Documents\Desarrollos Independientes\Publibike\PublibikeBienestar-APP\PublibikeBienestarApp\PublibikeBienestarApp2\src\polyfills.ts */
->>>>>>> 6bde552b4c387ea9c1edb5a77e5fe0230a7b33a5
       "hN/g");
       /***/
     },
