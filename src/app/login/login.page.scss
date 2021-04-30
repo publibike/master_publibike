@@ -4,8 +4,10 @@
 }
 
 ion-content{
-    --background: url("../../assets/img/dark-background-uflou-07.jpg") no-repeat fixed center !important;
+    
+   // --background: url("../../assets/img/dark-background-uflou-07.jpg") no-repeat  center !important;
     --background-position: top right;
+    --background: black;
 }
 
 ion-button{

@@ -13,11 +13,7 @@ import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { Geolocation } from '@ionic-native/geolocation/ngx'
 // import { type } from 'os';
-<<<<<<< HEAD
 const { App } = Plugins;
-=======
-const { App, BackgroundTask, Geolocation } = Plugins;
->>>>>>> 9c6391dd0cf4e3bb388b4fa708494cd5a02ab3c9
 
 @Component({
   selector: "app-map-modal",
