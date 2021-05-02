@@ -12,6 +12,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { RecognitionModalPageModule } from './recognition-modal/recognition-modal.module';
 import { MapModalPageModule } from './map-modal/map-modal.module';
 import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { BackgroundMode } from '@ionic-native/background-mode/ngx';
       StatusBar,
       SplashScreen,
       BackgroundMode,
+      Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

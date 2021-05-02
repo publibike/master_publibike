@@ -17,7 +17,6 @@ import * as moment from "moment";
 
 const { App, Geolocation, IOSAppTracking } = Plugins;
 
-
 @Component({
   selector: "app-map-modal",
   templateUrl: "./map-modal.page.html",
@@ -91,7 +90,7 @@ export class MapModalPage implements OnInit {
   fnlDirection: any;
   fnlPosition: {};
   flagCovid: number = 0;
-  time: any;
+  // time: any;
   km: number = 0.0;
   ingresos: any = 0;
   cal: number = 0;
@@ -107,6 +106,7 @@ export class MapModalPage implements OnInit {
     private alertController: AlertController,
     private backgroundMode: BackgroundMode
   ) { }
+
 
 
   async initializedMap() {
@@ -256,13 +256,6 @@ export class MapModalPage implements OnInit {
     this.initializedMap().then(async (mapView) => {
       console.log("mapView ready: ", this._view.ready);
       this._loaded = this._view.ready;
-      let position = await Geolocation.getCurrentPosition();
-
-      mapView.goTo({
-        center: position,
-        zoom: 15,
-        tilt: 40,
-      });
       // this.loading.dismiss();
     });
   }
