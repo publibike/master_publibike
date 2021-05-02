@@ -56,7 +56,7 @@ LoginGuard = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/imac/Desktop/master_publibike/src/main.ts */"zUnb");
+module.exports = __webpack_require__(/*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/main.ts */"zUnb");
 
 
 /***/ }),
@@ -341,8 +341,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! esri-loader */ "r6rm");
 /* harmony import */ var esri_loader__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(esri_loader__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "AcVp");
-/* harmony import */ var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/geolocation/ngx */ "gTw3");
-
 
 
 
@@ -354,16 +352,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { type } from 'os';
-const { App } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
+const { App, Geolocation, IOSAppTracking } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
 let MapModalPage = class MapModalPage {
-    constructor(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode, geolocation) {
+    constructor(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode) {
         this.apiService = apiService;
         this.storage = storage;
         this.loadingCtrl = loadingCtrl;
         this.modalController = modalController;
         this.alertController = alertController;
         this.backgroundMode = backgroundMode;
-        this.geolocation = geolocation;
         //Variables ArcGIS
         this._zoom = 10;
         this._center = [-74.090923, 4.694939];
@@ -378,6 +375,9 @@ let MapModalPage = class MapModalPage {
         this._draw = null;
         this._distance = null;
         //Variables del cronometro
+        this.transactionTime = 0;
+        this.timeStamp = Math.floor(Date.now() / 1000);
+        this.deltaDelay = 1;
         this.horas = 0;
         this.centesimas = 0;
         this.minutos = 59;
@@ -401,6 +401,7 @@ let MapModalPage = class MapModalPage {
         };
         this.ruteData = {};
         this.flagCovid = 0;
+        // time: any;
         this.km = 0.0;
         this.ingresos = 0;
         this.cal = 0;
@@ -519,6 +520,7 @@ let MapModalPage = class MapModalPage {
     ngOnInit() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             // this.presentLoading();
+            // this.pruebaTemp();
             this.user = yield this.storage.get("userData");
             //se usa localizacion en segundo plano
             this.initializedMap().then((mapView) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -544,7 +546,7 @@ let MapModalPage = class MapModalPage {
             //se toma la posicion y se geocodifica
             let address;
             // let position = await this._locate.locate();
-            let position = yield this.geolocation.getCurrentPosition();
+            let position = yield Geolocation.getCurrentPosition();
             console.log("position", position);
             this._pointGC.latitude = position.coords.latitude;
             this._pointGC.longitude = position.coords.longitude;
@@ -553,8 +555,12 @@ let MapModalPage = class MapModalPage {
             };
             //Se inicializa el contador
             this.startCounter();
+            // this.pruebaTemp()
             //cálculo de distancia cuando se esta en movimiento
             this._track.on("track", (position) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                //Permiso solo para iOS para permitir tracking
+                // IOSAppTracking.getTrackingStatus().then((res: Response) => console.log(res))
+                // IOSAppTracking.requestPermission().then((res: Response) => console.log(res))
                 App.addListener("appStateChange", (state) => {
                     if (!state.isActive) {
                         this.backgroundMode.on("activate").subscribe(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
@@ -627,7 +633,7 @@ let MapModalPage = class MapModalPage {
                     // this.contador = null;
                     //se toma la posicion y se geocodifica
                     let address;
-                    let position = yield this.geolocation.getCurrentPosition();
+                    let position = yield Geolocation.getCurrentPosition();
                     this._pointGC.latitude = position.coords.latitude;
                     this._pointGC.longitude = position.coords.longitude;
                     // this.vel = position.coords.speed;
@@ -687,7 +693,15 @@ let MapModalPage = class MapModalPage {
         return dis;
     }
     startCounter() {
+        // let startMoment = moment();
+        // this.time = moment.utc(moment().diff(startMoment)).format('HH : mm : ss');
+        // console.log(this.time)
         this.contador = setInterval(() => {
+            // console.log(this.time)
+            if (this.transactionTime != 0 && (Math.floor(Date.now() / 1000) - this.timeStamp) > this.deltaDelay) {
+                this.transactionTime += (Math.floor(Date.now() / 1000) - this.timeStamp);
+            }
+            this.timeStamp = Math.floor(Date.now() / 1000);
             this.centesimas += 1;
             if (this.centesimas < 10)
                 this._centesimas = "0" + this.centesimas;
@@ -722,6 +736,66 @@ let MapModalPage = class MapModalPage {
         }, 100);
         console.log(this.contador);
     }
+    // pruebaTemp() {
+    //   this.time = moment.utc(moment().diff(this.startMoment)).format('HH : mm : ss');
+    //   setInterval(function () {
+    //     if (this.transactionTime != 0 && (Math.floor(Date.now() / 1000) - this.timeStamp) > this.deltaDelay) {
+    //       console.log("if time")
+    //       this.transactionTime += (Math.floor(Date.now() / 1000) - this.timeStamp);
+    //       this.centesimas += 1;
+    //       if (this.centesimas < 10) this._centesimas = "0" + this.centesimas;
+    //       else this._centesimas = "" + this.centesimas;
+    //       if (this.centesimas == 10) {
+    //         this.centesimas = 0;
+    //         this.segundos += 1;
+    //         if (this.segundos < 10) this._segundos = "0" + this.segundos;
+    //         else this._segundos = this.segundos + "";
+    //         if (this.segundos == 60) {
+    //           this.segundos = 0;
+    //           this.minutos += 1;
+    //           if (this.minutos < 10) this._minutos = "0" + this.minutos;
+    //           else this._minutos = this.minutos + "";
+    //           this._segundos = "00";
+    //           if (this.minutos == 60) {
+    //             this.minutos = 0;
+    //             this.minutos += 1;
+    //             if (this.horas < 10) this._horas = "0" + this.horas;
+    //             else this._horas = this.horas + "";
+    //             this._minutos = "00";
+    //           }
+    //         }
+    //       }
+    //     }
+    //     // console.log("no if time")
+    //     this.timeStamp = Math.floor(Date.now() / 1000);
+    //     this.centesimas += 1;
+    //     if (this.centesimas < 10) this._centesimas = "0" + this.centesimas;
+    //     else this._centesimas = "" + this.centesimas;
+    //     if (this.centesimas == 10) {
+    //       this.centesimas = 0;
+    //       this.segundos += 1;
+    //       if (this.segundos < 10) this._segundos = "0" + this.segundos;
+    //       else this._segundos = this.segundos + "";
+    //       if (this.segundos == 60) {
+    //         this.segundos = 0;
+    //         this.minutos += 1;
+    //         if (this.minutos < 10) this._minutos = "0" + this.minutos;
+    //         else this._minutos = this.minutos + "";
+    //         this._segundos = "00";
+    //         if (this.minutos == 60) {
+    //           this.minutos = 0;
+    //           this.minutos += 1;
+    //           if (this.horas < 10) this._horas = "0" + this.horas;
+    //           else this._horas = this.horas + "";
+    //           this._minutos = "00";
+    //         }
+    //       }
+    //     }
+    //     // console.log(this._minutos)
+    //     //Update your element with the new time.
+    //     console.log(this.transactionTime++);
+    //   }, 1000);
+    // }
     clearWindows() {
         this.minutos = 0;
         this.segundos = 0;
@@ -831,8 +905,7 @@ MapModalPage.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["LoadingController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ModalController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
-    { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__["BackgroundMode"] },
-    { type: _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__["Geolocation"] }
+    { type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__["BackgroundMode"] }
 ];
 MapModalPage.propDecorators = {
     mapEl: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["ViewChild"], args: ["map",] }]
@@ -1001,8 +1074,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./recognition-modal/recognition-modal.module */ "lFiN");
 /* harmony import */ var _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./map-modal/map-modal.module */ "NfN8");
 /* harmony import */ var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/background-mode/ngx */ "AcVp");
-/* harmony import */ var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/geolocation/ngx */ "gTw3");
-
 
 
 
@@ -1034,7 +1105,6 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
             _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"],
-            _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_13__["Geolocation"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]

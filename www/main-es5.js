@@ -133,7 +133,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! /Users/imac/Desktop/master_publibike/src/main.ts */
+      /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/main.ts */
       "zUnb");
       /***/
     },
@@ -689,19 +689,16 @@
 
       var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @ionic-native/background-mode/ngx */
-      "AcVp");
-      /* harmony import */
+      "AcVp"); // import { type } from 'os';
 
 
-      var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
-      /*! @ionic-native/geolocation/ngx */
-      "gTw3"); // import { type } from 'os';
-
-
-      var App = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"].App;
+      var _capacitor_core__WEBP = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"],
+          App = _capacitor_core__WEBP.App,
+          Geolocation = _capacitor_core__WEBP.Geolocation,
+          IOSAppTracking = _capacitor_core__WEBP.IOSAppTracking;
 
       var MapModalPage = /*#__PURE__*/function () {
-        function MapModalPage(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode, geolocation) {
+        function MapModalPage(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode) {
           _classCallCheck(this, MapModalPage);
 
           this.apiService = apiService;
@@ -709,8 +706,7 @@
           this.loadingCtrl = loadingCtrl;
           this.modalController = modalController;
           this.alertController = alertController;
-          this.backgroundMode = backgroundMode;
-          this.geolocation = geolocation; //Variables ArcGIS
+          this.backgroundMode = backgroundMode; //Variables ArcGIS
 
           this._zoom = 10;
           this._center = [-74.090923, 4.694939];
@@ -725,6 +721,9 @@
           this._draw = null;
           this._distance = null; //Variables del cronometro
 
+          this.transactionTime = 0;
+          this.timeStamp = Math.floor(Date.now() / 1000);
+          this.deltaDelay = 1;
           this.horas = 0;
           this.centesimas = 0;
           this.minutos = 59;
@@ -747,7 +746,8 @@
             peso: 0
           };
           this.ruteData = {};
-          this.flagCovid = 0;
+          this.flagCovid = 0; // time: any;
+
           this.km = 0.0;
           this.ingresos = 0;
           this.cal = 0;
@@ -963,7 +963,7 @@
                       this.fecha = fechaActual; //se toma la posicion y se geocodifica
 
                       _context11.next = 13;
-                      return this.geolocation.getCurrentPosition();
+                      return Geolocation.getCurrentPosition();
 
                     case 13:
                       position = _context11.sent;
@@ -974,7 +974,8 @@
                         location: this._pointGC
                       }; //Se inicializa el contador
 
-                      this.startCounter(); //cálculo de distancia cuando se esta en movimiento
+                      this.startCounter(); // this.pruebaTemp()
+                      //cálculo de distancia cuando se esta en movimiento
 
                       this._track.on("track", function (position) {
                         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
@@ -985,6 +986,9 @@
                             while (1) {
                               switch (_context10.prev = _context10.next) {
                                 case 0:
+                                  //Permiso solo para iOS para permitir tracking
+                                  // IOSAppTracking.getTrackingStatus().then((res: Response) => console.log(res))
+                                  // IOSAppTracking.requestPermission().then((res: Response) => console.log(res))
                                   App.addListener("appStateChange", function (state) {
                                     if (!state.isActive) {
                                       _this3.backgroundMode.on("activate").subscribe(function () {
@@ -1120,7 +1124,7 @@
                       //se toma la posicion y se geocodifica
 
                       _context12.next = 9;
-                      return this.geolocation.getCurrentPosition();
+                      return Geolocation.getCurrentPosition();
 
                     case 9:
                       position = _context12.sent;
@@ -1197,7 +1201,16 @@
           value: function startCounter() {
             var _this6 = this;
 
+            // let startMoment = moment();
+            // this.time = moment.utc(moment().diff(startMoment)).format('HH : mm : ss');
+            // console.log(this.time)
             this.contador = setInterval(function () {
+              // console.log(this.time)
+              if (_this6.transactionTime != 0 && Math.floor(Date.now() / 1000) - _this6.timeStamp > _this6.deltaDelay) {
+                _this6.transactionTime += Math.floor(Date.now() / 1000) - _this6.timeStamp;
+              }
+
+              _this6.timeStamp = Math.floor(Date.now() / 1000);
               _this6.centesimas += 1;
               if (_this6.centesimas < 10) _this6._centesimas = "0" + _this6.centesimas;else _this6._centesimas = "" + _this6.centesimas;
 
@@ -1222,7 +1235,67 @@
               }
             }, 100);
             console.log(this.contador);
-          }
+          } // pruebaTemp() {
+          //   this.time = moment.utc(moment().diff(this.startMoment)).format('HH : mm : ss');
+          //   setInterval(function () {
+          //     if (this.transactionTime != 0 && (Math.floor(Date.now() / 1000) - this.timeStamp) > this.deltaDelay) {
+          //       console.log("if time")
+          //       this.transactionTime += (Math.floor(Date.now() / 1000) - this.timeStamp);
+          //       this.centesimas += 1;
+          //       if (this.centesimas < 10) this._centesimas = "0" + this.centesimas;
+          //       else this._centesimas = "" + this.centesimas;
+          //       if (this.centesimas == 10) {
+          //         this.centesimas = 0;
+          //         this.segundos += 1;
+          //         if (this.segundos < 10) this._segundos = "0" + this.segundos;
+          //         else this._segundos = this.segundos + "";
+          //         if (this.segundos == 60) {
+          //           this.segundos = 0;
+          //           this.minutos += 1;
+          //           if (this.minutos < 10) this._minutos = "0" + this.minutos;
+          //           else this._minutos = this.minutos + "";
+          //           this._segundos = "00";
+          //           if (this.minutos == 60) {
+          //             this.minutos = 0;
+          //             this.minutos += 1;
+          //             if (this.horas < 10) this._horas = "0" + this.horas;
+          //             else this._horas = this.horas + "";
+          //             this._minutos = "00";
+          //           }
+          //         }
+          //       }
+          //     }
+          //     // console.log("no if time")
+          //     this.timeStamp = Math.floor(Date.now() / 1000);
+          //     this.centesimas += 1;
+          //     if (this.centesimas < 10) this._centesimas = "0" + this.centesimas;
+          //     else this._centesimas = "" + this.centesimas;
+          //     if (this.centesimas == 10) {
+          //       this.centesimas = 0;
+          //       this.segundos += 1;
+          //       if (this.segundos < 10) this._segundos = "0" + this.segundos;
+          //       else this._segundos = this.segundos + "";
+          //       if (this.segundos == 60) {
+          //         this.segundos = 0;
+          //         this.minutos += 1;
+          //         if (this.minutos < 10) this._minutos = "0" + this.minutos;
+          //         else this._minutos = this.minutos + "";
+          //         this._segundos = "00";
+          //         if (this.minutos == 60) {
+          //           this.minutos = 0;
+          //           this.minutos += 1;
+          //           if (this.horas < 10) this._horas = "0" + this.horas;
+          //           else this._horas = this.horas + "";
+          //           this._minutos = "00";
+          //         }
+          //       }
+          //     }
+          //     // console.log(this._minutos)
+          //     //Update your element with the new time.
+          //     console.log(this.transactionTime++);
+          //   }, 1000);
+          // }
+
         }, {
           key: "clearWindows",
           value: function clearWindows() {
@@ -1368,8 +1441,6 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"]
         }, {
           type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__["BackgroundMode"]
-        }, {
-          type: _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__["Geolocation"]
         }];
       };
 
@@ -1706,12 +1777,6 @@
       var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @ionic-native/background-mode/ngx */
       "AcVp");
-      /* harmony import */
-
-
-      var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
-      /*! @ionic-native/geolocation/ngx */
-      "gTw3");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -1721,7 +1786,7 @@
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
         entryComponents: [],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__["RecognitionModalPageModule"], _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__["MapModalPageModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"], _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_13__["Geolocation"], {
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"], {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
         }],

@@ -1,5 +1,6 @@
 import UIKit
 import Capacitor
+import AppTrackingTransparency
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -9,6 +10,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    if #available(iOS 14, *) {
+      ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+      //you got permission to track
+      })
+    } else {
+    //you got permission to track, iOS 14 is not yet installed
+    }
     return true
   }
 
@@ -68,7 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DidFailToRegisterForRemoteNotificationsWithError.name()), object: error)
   }
 
-#endif
+  #endif
+
 
 }
 
