@@ -44,6 +44,8 @@
 	<string>Necesitamos saber tu ubicación para iniciar el recorrido</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Necesitamos saber tu ubicación para iniciar el recorrido</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Necesitamos hacer seguimiento de tu dispositivo</string
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To Record Audio With Video</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

@@ -5,15 +5,17 @@ import {
   ModalController,
 } from "@ionic/angular";
 import { Plugins, AppState } from "@capacitor/core";
+import { Response } from "capacitor-ios-app-tracking";
 import { Storage } from "@ionic/storage";
 import { ApiPublibikeBienestarService } from "../services/api-publibike-bienestar.service";
 import { loadModules } from "esri-loader";
 import esri = __esri;
 import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
+import * as moment from "moment";
 // import { type } from 'os';
 
-const { App, Geolocation } = Plugins;
+const { App, Geolocation, IOSAppTracking } = Plugins;
 
 
 @Component({
@@ -24,6 +26,7 @@ const { App, Geolocation } = Plugins;
 export class MapModalPage implements OnInit {
   @ViewChild("map") mapEl: ElementRef;
   loading: any;
+
   //Variables ArcGIS
   private _zoom = 10;
   private _center: Array<number> = [-74.090923, 4.694939];
@@ -39,6 +42,12 @@ export class MapModalPage implements OnInit {
   private _distance: esri.DistanceMeasurement2DViewModel = null;
 
   //Variables del cronometro
+  public transactionTime: number = 0;
+  public timeStamp = Math.floor(Date.now() / 1000);
+  public deltaDelay: number = 1;
+
+  public time: any;
+
   public horas: number = 0;
   public centesimas: number = 0;
   public minutos: number = 59;
@@ -97,7 +106,7 @@ export class MapModalPage implements OnInit {
     private modalController: ModalController,
     private alertController: AlertController,
     private backgroundMode: BackgroundMode
-  ) {}
+  ) { }
 
 
   async initializedMap() {
@@ -241,6 +250,7 @@ export class MapModalPage implements OnInit {
   }
   async ngOnInit() {
     // this.presentLoading();
+    // this.pruebaTemp();
     this.user = await this.storage.get("userData");
     //se usa localizacion en segundo plano
     this.initializedMap().then(async (mapView) => {
@@ -256,7 +266,6 @@ export class MapModalPage implements OnInit {
       // this.loading.dismiss();
     });
   }
-
   async startRute() {
     this.backgroundMode.enable();
     this.km = 0;
@@ -281,9 +290,14 @@ export class MapModalPage implements OnInit {
     };
     //Se inicializa el contador
     this.startCounter();
+    // this.pruebaTemp()
     //cálculo de distancia cuando se esta en movimiento
     this._track.on("track", async (position) => {
-    
+      //Permiso solo para iOS para permitir tracking
+      // IOSAppTracking.getTrackingStatus().then((res: Response) => console.log(res))
+
+      // IOSAppTracking.requestPermission().then((res: Response) => console.log(res))
+
       App.addListener("appStateChange", (state) => {
         if (!state.isActive) {
           this.backgroundMode.on("activate").subscribe(async () => {
@@ -363,8 +377,7 @@ export class MapModalPage implements OnInit {
         this.fstPosition = params;
       })
       .catch((err) => console.log(err));
-    }
-
+  }
   async stopRute() {
     try {
       this.backgroundMode.disable();
@@ -429,7 +442,6 @@ export class MapModalPage implements OnInit {
       console.log(error);
     }
   }
-
   calculateDistance(lon1, lon2, lat1, lat2) {
     let p = 0.017453292519943295;
     let c = Math.cos;
@@ -441,7 +453,15 @@ export class MapModalPage implements OnInit {
     return dis;
   }
   startCounter() {
+    // let startMoment = moment();
+    // this.time = moment.utc(moment().diff(startMoment)).format('HH : mm : ss');
+    // console.log(this.time)
     this.contador = setInterval(() => {
+      // console.log(this.time)
+      if (this.transactionTime != 0 && (Math.floor(Date.now() / 1000) - this.timeStamp) > this.deltaDelay) {
+        this.transactionTime += (Math.floor(Date.now() / 1000) - this.timeStamp);
+      }
+      this.timeStamp = Math.floor(Date.now() / 1000);
       this.centesimas += 1;
       if (this.centesimas < 10) this._centesimas = "0" + this.centesimas;
       else this._centesimas = "" + this.centesimas;
@@ -465,9 +485,71 @@ export class MapModalPage implements OnInit {
           }
         }
       }
+
     }, 100);
     console.log(this.contador)
   }
+  // pruebaTemp() {
+  //   this.time = moment.utc(moment().diff(this.startMoment)).format('HH : mm : ss');
+  //   setInterval(function () {
+  //     if (this.transactionTime != 0 && (Math.floor(Date.now() / 1000) - this.timeStamp) > this.deltaDelay) {
+  //       console.log("if time")
+  //       this.transactionTime += (Math.floor(Date.now() / 1000) - this.timeStamp);
+  //       this.centesimas += 1;
+  //       if (this.centesimas < 10) this._centesimas = "0" + this.centesimas;
+  //       else this._centesimas = "" + this.centesimas;
+  //       if (this.centesimas == 10) {
+  //         this.centesimas = 0;
+  //         this.segundos += 1;
+  //         if (this.segundos < 10) this._segundos = "0" + this.segundos;
+  //         else this._segundos = this.segundos + "";
+  //         if (this.segundos == 60) {
+  //           this.segundos = 0;
+  //           this.minutos += 1;
+  //           if (this.minutos < 10) this._minutos = "0" + this.minutos;
+  //           else this._minutos = this.minutos + "";
+  //           this._segundos = "00";
+  //           if (this.minutos == 60) {
+  //             this.minutos = 0;
+  //             this.minutos += 1;
+  //             if (this.horas < 10) this._horas = "0" + this.horas;
+  //             else this._horas = this.horas + "";
+  //             this._minutos = "00";
+  //           }
+  //         }
+  //       }
+  //     }
+  //     // console.log("no if time")
+  //     this.timeStamp = Math.floor(Date.now() / 1000);
+  //     this.centesimas += 1;
+  //     if (this.centesimas < 10) this._centesimas = "0" + this.centesimas;
+  //     else this._centesimas = "" + this.centesimas;
+  //     if (this.centesimas == 10) {
+  //       this.centesimas = 0;
+  //       this.segundos += 1;
+  //       if (this.segundos < 10) this._segundos = "0" + this.segundos;
+  //       else this._segundos = this.segundos + "";
+  //       if (this.segundos == 60) {
+  //         this.segundos = 0;
+  //         this.minutos += 1;
+  //         if (this.minutos < 10) this._minutos = "0" + this.minutos;
+  //         else this._minutos = this.minutos + "";
+  //         this._segundos = "00";
+  //         if (this.minutos == 60) {
+  //           this.minutos = 0;
+  //           this.minutos += 1;
+  //           if (this.horas < 10) this._horas = "0" + this.horas;
+  //           else this._horas = this.horas + "";
+  //           this._minutos = "00";
+  //         }
+  //       }
+  //     }
+  //     // console.log(this._minutos)
+  //     //Update your element with the new time.
+  //     console.log(this.transactionTime++);
+
+  //   }, 1000);
+  // }
   clearWindows() {
     this.minutos = 0;
     this.segundos = 0;
