@@ -64,22 +64,29 @@
       /* harmony import */
 
 
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! ../services/api-publibike-bienestar.service */
+      "N/ei");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @ionic/angular */
       "sZkV");
       /* harmony import */
 
 
-      var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
       /*! @ionic/storage */
       "xgBC");
 
       var LoginPage = /*#__PURE__*/function () {
-        function LoginPage(formBuilder, authServices, navCtrl, loadingCtrl, storage, alertController) {
+        function LoginPage(formBuilder, authServices, apiServices, navCtrl, loadingCtrl, storage, alertController) {
           _classCallCheck(this, LoginPage);
 
           this.formBuilder = formBuilder;
           this.authServices = authServices;
+          this.apiServices = apiServices;
           this.navCtrl = navCtrl;
           this.loadingCtrl = loadingCtrl;
           this.storage = storage;
@@ -107,21 +114,26 @@
             this.presentLoading();
             console.log(credentials);
             this.authServices.loginUser(credentials).then(function (res) {
-              return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
                 var _this2 = this;
 
                 var alert;
-                return regeneratorRuntime.wrap(function _callee$(_context) {
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
                   while (1) {
-                    switch (_context.prev = _context.next) {
+                    switch (_context2.prev = _context2.next) {
                       case 0:
                         console.log(res);
                         this.errorMessage = "";
                         this.storage.set("isUserLoggedIn", true);
                         this.storage.set("userId", res);
                         this.loading.dismiss();
-                        console.log("estos son los datos de la monda esa ", res);
-                        _context.next = 8;
+
+                        if (res.terminos) {
+                          _context2.next = 13;
+                          break;
+                        }
+
+                        _context2.next = 8;
                         return this.alertController.create({
                           cssClass: "my-custom-class",
                           header: "Terminos Y Condiciones!",
@@ -134,22 +146,51 @@
                           }, {
                             text: "Acepto",
                             handler: function handler() {
+                              var datauser = {
+                                empresa: res.empresa,
+                                terminos: true
+                              };
+
+                              _this2.apiServices.updateUser(datauser).then(function () {
+                                return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                                  return regeneratorRuntime.wrap(function _callee$(_context) {
+                                    while (1) {
+                                      switch (_context.prev = _context.next) {
+                                        case 0:
+                                          console.log("Datos actualizados");
+
+                                        case 1:
+                                        case "end":
+                                          return _context.stop();
+                                      }
+                                    }
+                                  }, _callee);
+                                }));
+                              });
+
                               _this2.navCtrl.navigateForward("/tabs/profile");
                             }
                           }]
                         });
 
                       case 8:
-                        alert = _context.sent;
-                        _context.next = 11;
+                        alert = _context2.sent;
+                        _context2.next = 11;
                         return alert.present();
 
                       case 11:
+                        _context2.next = 14;
+                        break;
+
+                      case 13:
+                        this.navCtrl.navigateForward("/tabs/profile");
+
+                      case 14:
                       case "end":
-                        return _context.stop();
+                        return _context2.stop();
                     }
                   }
-                }, _callee, this);
+                }, _callee2, this);
               }));
             })["catch"](function (err) {
               console.log(err);
@@ -170,28 +211,28 @@
         }, {
           key: "presentLoading",
           value: function presentLoading() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
-                      _context2.next = 2;
+                      _context3.next = 2;
                       return this.loadingCtrl.create({
                         cssClass: "my-custom-class",
                         message: "Cargando..."
                       });
 
                     case 2:
-                      this.loading = _context2.sent;
-                      _context2.next = 5;
+                      this.loading = _context3.sent;
+                      _context3.next = 5;
                       return this.loading.present();
 
                     case 5:
                     case "end":
-                      return _context2.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee3, this);
             }));
           }
         }]);
@@ -205,13 +246,15 @@
         }, {
           type: _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticateService"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"]
+          type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_6__["ApiPublibikeBienestarService"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"]
         }, {
-          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"]
         }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"]
+          type: _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"]
         }];
       };
 
@@ -430,17 +473,17 @@
         _createClass(AuthenticateService, [{
           key: "loginUser",
           value: function loginUser(credential) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               var user, options;
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
-                  switch (_context3.prev = _context3.next) {
+                  switch (_context4.prev = _context4.next) {
                     case 0:
-                      _context3.next = 2;
+                      _context4.next = 2;
                       return this.storage.get('user');
 
                     case 2:
-                      user = _context3.sent;
+                      user = _context4.sent;
                       options = {
                         method: "POST",
                         body: JSON.stringify(credential),
@@ -448,16 +491,16 @@
                           'Content-Type': 'application/json'
                         })
                       };
-                      return _context3.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/login"), options).then(function (response) {
+                      return _context4.abrupt("return", fetch("".concat(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].publibikeApi, "/api/movil/login"), options).then(function (response) {
                         return response.json();
                       }));
 
                     case 5:
                     case "end":
-                      return _context3.stop();
+                      return _context4.stop();
                   }
                 }
-              }, _callee3, this);
+              }, _callee4, this);
             }));
           }
         }]);
