@@ -5,7 +5,7 @@ import {
   ModalController,
 } from "@ionic/angular";
 import { Plugins, AppState } from "@capacitor/core";
-import { Response } from "capacitor-ios-app-tracking";
+// import { Response } from "capacitor-ios-app-tracking";
 import { Storage } from "@ionic/storage";
 import { ApiPublibikeBienestarService } from "../services/api-publibike-bienestar.service";
 import { loadModules } from "esri-loader";

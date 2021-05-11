@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-tabs >\n  <ion-tab-bar slot=\"bottom\">\n    <ion-tab-button tab=\"profile\">\n      <ion-icon  name=\"man\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"recognitions\">\n      <ion-icon name=\"trophy\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button  (click)=\"showMap()\">\n      <!-- <ion-icon name=\"square\"></ion-icon> -->\n      <img src=\"assets/img/button-start-29.png\">\n    </ion-tab-button>\n    <ion-tab-button tab=\"record\">\n      <ion-icon name=\"analytics\"></ion-icon>\n    </ion-tab-button>\n    <ion-tab-button tab=\"rute\">\n      <ion-icon name=\"map\"></ion-icon>\n    </ion-tab-button>    \n\n  </ion-tab-bar>\n</ion-tabs>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-tabs >\r\n  <ion-tab-bar slot=\"bottom\">\r\n    <ion-tab-button tab=\"profile\">\r\n      <ion-icon  name=\"man\"></ion-icon>\r\n    </ion-tab-button>\r\n    <ion-tab-button tab=\"recognitions\">\r\n      <ion-icon name=\"trophy\"></ion-icon>\r\n    </ion-tab-button>\r\n    <ion-tab-button  (click)=\"showMap()\">\r\n      <!-- <ion-icon name=\"square\"></ion-icon> -->\r\n      <img src=\"assets/img/button-start-29.png\">\r\n    </ion-tab-button>\r\n    <ion-tab-button tab=\"record\">\r\n      <ion-icon name=\"analytics\"></ion-icon>\r\n    </ion-tab-button>\r\n    <ion-tab-button tab=\"rute\">\r\n      <ion-icon name=\"map\"></ion-icon>\r\n    </ion-tab-button>    \r\n\r\n  </ion-tab-bar>\r\n</ion-tabs>\r\n");
 
 /***/ }),
 
@@ -80,7 +80,7 @@ TabsPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-tab-bar {\n  height: 11%;\n  background: linear-gradient(90deg, #00b3d8 0%, #01d9ad 100%);\n}\n\nion-tab-button {\n  color: #ffffff;\n  background: transparent;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFicy90YWJzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNJLFdBQUE7RUFDQSw0REFBQTtBQUFKOztBQUlBO0VBQ0ksY0FBQTtFQUNBLHVCQUFBO0FBREoiLCJmaWxlIjoic3JjL2FwcC90YWJzL3RhYnMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG5pb24tdGFiLWJhcntcbiAgICBoZWlnaHQ6IDExJTtcbiAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoOTBkZWcsIHJnYmEoMCwxNzksMjE2LDEpIDAlLCByZ2JhKDEsMjE3LDE3MywxKSAxMDAlKTtcbn1cblxuXG5pb24tdGFiLWJ1dHRvbntcbiAgICBjb2xvcjogI2ZmZmZmZjtcbiAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbn0iXX0= */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-tab-bar {\n  height: 11%;\n  background: linear-gradient(90deg, #00b3d8 0%, #01d9ad 100%);\n}\n\nion-tab-button {\n  color: #ffffff;\n  background: transparent;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdGFicy90YWJzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFDQTtFQUNJLFdBQUE7RUFDQSw0REFBQTtBQUFKOztBQUlBO0VBQ0ksY0FBQTtFQUNBLHVCQUFBO0FBREoiLCJmaWxlIjoic3JjL2FwcC90YWJzL3RhYnMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXHJcbmlvbi10YWItYmFye1xyXG4gICAgaGVpZ2h0OiAxMSU7XHJcbiAgICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoOTBkZWcsIHJnYmEoMCwxNzksMjE2LDEpIDAlLCByZ2JhKDEsMjE3LDE3MywxKSAxMDAlKTtcclxufVxyXG5cclxuXHJcbmlvbi10YWItYnV0dG9ue1xyXG4gICAgY29sb3I6ICNmZmZmZmY7XHJcbiAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcclxufSJdfQ== */");
 
 /***/ }),
 

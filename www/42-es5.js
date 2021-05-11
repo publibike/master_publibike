@@ -9,7 +9,7 @@
 
   function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+  function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
   function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -38,9 +38,15 @@
       /* harmony import */
 
 
-      var _index_92848855_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! ./index-92848855.js */
-      "sxy2");
+      var _index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! ./index-7a8b7a1c.js */
+      "wEJo");
+      /* harmony import */
+
+
+      var _helpers_dd7e4b7b_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! ./helpers-dd7e4b7b.js */
+      "1vRN");
 
       var CELL_TYPE_ITEM = 'item';
       var CELL_TYPE_HEADER = 'header';
@@ -377,7 +383,7 @@
 
           _classCallCheck(this, VirtualScroll);
 
-          Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+          Object(_index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
           this.range = {
             offset: 0,
             length: 0
@@ -609,8 +615,8 @@
             } // schedule DOM operations into the stencil queue
 
 
-            Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["f"])(this.readVS.bind(this));
-            Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this.writeVS.bind(this));
+            Object(_index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__["f"])(this.readVS.bind(this));
+            Object(_index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this.writeVS.bind(this));
           }
         }, {
           key: "readVS",
@@ -661,7 +667,7 @@
             } else if (this.domRender) {
               this.domRender(this.virtualDom);
             } else if (this.renderItem) {
-              Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
+              Object(_index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__["j"])(this);
             }
           }
         }, {
@@ -678,8 +684,8 @@
               }
             };
 
-            if (node && node.componentOnReady) {
-              node.componentOnReady().then(update);
+            if (node) {
+              Object(_helpers_dd7e4b7b_js__WEBPACK_IMPORTED_MODULE_1__["c"])(node, update);
             } else {
               update();
             }
@@ -797,11 +803,11 @@
           value: function render() {
             var _this5 = this;
 
-            return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
+            return Object(_index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
               style: {
                 height: "".concat(this.totalHeight, "px")
               }
-            }, this.renderItem && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])(VirtualProxy, {
+            }, this.renderItem && Object(_index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__["h"])(VirtualProxy, {
               dom: this.virtualDom
             }, this.virtualDom.map(function (node) {
               return _this5.renderVirtualNode(node);
@@ -810,7 +816,7 @@
         }, {
           key: "el",
           get: function get() {
-            return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
+            return Object(_index_7a8b7a1c_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
           }
         }], [{
           key: "watchers",

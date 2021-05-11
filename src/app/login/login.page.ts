@@ -1,13 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AuthenticateService } from '../services/authenticate.service';
-import { LoadingController, NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import { Component, OnInit } from "@angular/core";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators,
+} from "@angular/forms";
+import { AuthenticateService } from "../services/authenticate.service";
+import {
+  LoadingController,
+  NavController,
+  AlertController,
+} from "@ionic/angular";
+import { Storage } from "@ionic/storage";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: "app-login",
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"],
 })
 export class LoginPage {
   loading: any;
@@ -16,8 +25,8 @@ export class LoginPage {
   validation_messages = {
     user: [
       { type: "required", message: "El usuario es requerido" },
-      { type: "minlength", message: "Minimo 6 nùmeros para el usuario" }
-    ]
+      { type: "minlength", message: "Minimo 6 nùmeros para el usuario" },
+    ],
   };
   errorMessage: string = "";
   constructor(
@@ -25,51 +34,73 @@ export class LoginPage {
     private authServices: AuthenticateService,
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
-    private storage: Storage
+    private storage: Storage,
+    public alertController: AlertController
   ) {
     this.loginForm = this.formBuilder.group({
       user: new FormControl(
         "",
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(6)
-        ])
-      )
-    })
+        Validators.compose([Validators.required, Validators.minLength(6)])
+      ),
+    });
   }
 
   loginUser(credentials) {
     this.presentLoading();
-    console.log(credentials)
+    console.log(credentials);
     this.authServices
       .loginUser(credentials)
-      .then(res => {
-        console.log(res)
+      .then(async (res) => {
+        console.log(res);
         this.errorMessage = "";
         this.storage.set("isUserLoggedIn", true);
         this.storage.set("userId", res);
         this.loading.dismiss();
-        this.navCtrl.navigateForward("/tabs/profile");
+        console.log("estos son los datos de la monda esa ", res);
+
+        const alert = await this.alertController.create({
+          cssClass: "my-custom-class",
+          header: "Terminos Y Condiciones!",
+          // message: "Al continuar aceptaras los terminos y condiciones!",
+          message:
+            "Al Continuar aceptaras los <a href='https://www.ecoapps.com.co/politica-de-tratamiento-de-datos-uflou/' target='_blank'>Terminos y Condiciones</a>!!!",
+          buttons: [
+            {
+              text: "No Acepto",
+              role: "cancel",
+              cssClass: "secondary",
+            },
+            {
+              text: "Acepto",
+              handler: () => {
+                this.navCtrl.navigateForward("/tabs/profile");
+              },
+            },
+          ],
+        });
+
+        await alert.present();
+
         // this.storage.set("userData", res);
       })
-      .catch(err => {
-        console.log(err)
+      .catch((err) => {
+        console.log(err);
         this.loading.dismiss();
-        console.error("ERROR", err.name)
-        if (err.name == 'SyntaxError') {
-          console.log(err)
+        console.error("ERROR", err.name);
+        if (err.name == "SyntaxError") {
+          console.log(err);
           this.errorMessage = "Usuario Incorrecto";
-        }else if (err.name == 'TypeError') {
+        } else if (err.name == "TypeError") {
           // this.errorMessage = "Usuario Incorrecto";
-          console.log(err)
+          console.log(err);
         }
-      })
+      });
   }
 
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({
-      cssClass: 'my-custom-class',
-      message: 'Cargando...'
+      cssClass: "my-custom-class",
+      message: "Cargando...",
     });
     await this.loading.present();
   }
