@@ -6,6 +6,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { AuthenticateService } from "../services/authenticate.service";
+import { ApiPublibikeBienestarService } from "../services/api-publibike-bienestar.service";
 import {
   LoadingController,
   NavController,
@@ -32,6 +33,7 @@ export class LoginPage {
   constructor(
     private formBuilder: FormBuilder,
     private authServices: AuthenticateService,
+    private apiServices: ApiPublibikeBienestarService,
     private navCtrl: NavController,
     private loadingCtrl: LoadingController,
     private storage: Storage,
@@ -56,30 +58,35 @@ export class LoginPage {
         this.storage.set("isUserLoggedIn", true);
         this.storage.set("userId", res);
         this.loading.dismiss();
-        console.log("estos son los datos de la monda esa ", res);
-
-        const alert = await this.alertController.create({
-          cssClass: "my-custom-class",
-          header: "Terminos Y Condiciones!",
-          // message: "Al continuar aceptaras los terminos y condiciones!",
-          message:
-            "Al Continuar aceptaras los <a href='https://www.ecoapps.com.co/politica-de-tratamiento-de-datos-uflou/' target='_blank'>Terminos y Condiciones</a>!!!",
-          buttons: [
-            {
-              text: "No Acepto",
-              role: "cancel",
-              cssClass: "secondary",
-            },
-            {
-              text: "Acepto",
-              handler: () => {
-                this.navCtrl.navigateForward("/tabs/profile");
+        if (!res.terminos) {
+          const alert = await this.alertController.create({
+            cssClass: "my-custom-class",
+            header: "Terminos Y Condiciones!",
+            // message: "Al continuar aceptaras los terminos y condiciones!",
+            message:
+              "Al Continuar aceptaras los <a href='https://www.ecoapps.com.co/politica-de-tratamiento-de-datos-uflou/' target='_blank'>Terminos y Condiciones</a>!!!",
+            buttons: [
+              {
+                text: "No Acepto",
+                role: "cancel",
+                cssClass: "secondary",
               },
-            },
-          ],
-        });
-
-        await alert.present();
+              {
+                text: "Acepto",
+                handler: () => {
+                  let datauser = { empresa: res.empresa, terminos: true };
+                  this.apiServices.updateUser(datauser).then(async () => {
+                    console.log("Datos actualizados");
+                  });
+                  this.navCtrl.navigateForward("/tabs/profile");
+                },
+              },
+            ],
+          });
+          await alert.present();
+        } else {
+          this.navCtrl.navigateForward("/tabs/profile");
+        }
 
         // this.storage.set("userData", res);
       })

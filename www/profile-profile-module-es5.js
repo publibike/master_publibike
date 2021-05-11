@@ -330,6 +330,7 @@
           value: function update(userData) {
             var _this3 = this;
 
+            console.log('este es el user data', userData);
             this.apiService.updateUser(userData).then(function () {
               return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this3, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
                 var alert;

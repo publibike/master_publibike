@@ -160,6 +160,7 @@ let ProfilePage = class ProfilePage {
         });
     }
     update(userData) {
+        console.log('este es el user data', userData);
         this.apiService.updateUser(userData).then(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log("Datos actualizados");
             const alert = yield this.alertController.create({

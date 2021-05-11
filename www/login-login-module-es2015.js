@@ -16,8 +16,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "8Y7J");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "s7LF");
 /* harmony import */ var _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/authenticate.service */ "fKRy");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
+/* harmony import */ var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/api-publibike-bienestar.service */ "N/ei");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
+
 
 
 
@@ -27,9 +29,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LoginPage = class LoginPage {
-    constructor(formBuilder, authServices, navCtrl, loadingCtrl, storage, alertController) {
+    constructor(formBuilder, authServices, apiServices, navCtrl, loadingCtrl, storage, alertController) {
         this.formBuilder = formBuilder;
         this.authServices = authServices;
+        this.apiServices = apiServices;
         this.navCtrl = navCtrl;
         this.loadingCtrl = loadingCtrl;
         this.storage = storage;
@@ -56,27 +59,35 @@ let LoginPage = class LoginPage {
             this.storage.set("isUserLoggedIn", true);
             this.storage.set("userId", res);
             this.loading.dismiss();
-            console.log("estos son los datos de la monda esa ", res);
-            const alert = yield this.alertController.create({
-                cssClass: "my-custom-class",
-                header: "Terminos Y Condiciones!",
-                // message: "Al continuar aceptaras los terminos y condiciones!",
-                message: "Al Continuar aceptaras los <a href='https://www.ecoapps.com.co/politica-de-tratamiento-de-datos-uflou/' target='_blank'>Terminos y Condiciones</a>!!!",
-                buttons: [
-                    {
-                        text: "No Acepto",
-                        role: "cancel",
-                        cssClass: "secondary",
-                    },
-                    {
-                        text: "Acepto",
-                        handler: () => {
-                            this.navCtrl.navigateForward("/tabs/profile");
+            if (!res.terminos) {
+                const alert = yield this.alertController.create({
+                    cssClass: "my-custom-class",
+                    header: "Terminos Y Condiciones!",
+                    // message: "Al continuar aceptaras los terminos y condiciones!",
+                    message: "Al Continuar aceptaras los <a href='https://www.ecoapps.com.co/politica-de-tratamiento-de-datos-uflou/' target='_blank'>Terminos y Condiciones</a>!!!",
+                    buttons: [
+                        {
+                            text: "No Acepto",
+                            role: "cancel",
+                            cssClass: "secondary",
                         },
-                    },
-                ],
-            });
-            yield alert.present();
+                        {
+                            text: "Acepto",
+                            handler: () => {
+                                let datauser = { empresa: res.empresa, terminos: true };
+                                this.apiServices.updateUser(datauser).then(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                                    console.log("Datos actualizados");
+                                }));
+                                this.navCtrl.navigateForward("/tabs/profile");
+                            },
+                        },
+                    ],
+                });
+                yield alert.present();
+            }
+            else {
+                this.navCtrl.navigateForward("/tabs/profile");
+            }
             // this.storage.set("userData", res);
         }))
             .catch((err) => {
@@ -106,10 +117,11 @@ let LoginPage = class LoginPage {
 LoginPage.ctorParameters = () => [
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
     { type: _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticateService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"] },
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"] }
+    { type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_6__["ApiPublibikeBienestarService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"] }
 ];
 LoginPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

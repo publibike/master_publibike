@@ -133,6 +133,7 @@ export class ProfilePage implements OnInit {
     console.log(this.reconocimientos);
   }
   update(userData) {
+    console.log('este es el user data', userData)
     this.apiService.updateUser(userData).then(async () => {
       console.log("Datos actualizados");
       const alert = await this.alertController.create({
