@@ -182,7 +182,8 @@ module.exports.register = async server => {
                     km: us.km_total,
                     co2: us.co2_total,
                     cal: us.cal_total,
-                    tiempo: us.tiempo_total
+                    tiempo: us.tiempo_total,
+                    terminos:false
                 }
 
                 const statusEmp = await req.mongo.db.collection('Empresa').updateOne({ _id: new ObjectID(id) }, { $push: { usuarios: usEmp } })

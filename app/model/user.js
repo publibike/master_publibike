@@ -18,6 +18,7 @@ class User {
         data.cal_total = 0;
         data.co2_total = 0;
         data.tiempo_total = 0;
+        data.terminos = false;
         return data;
     }
 
