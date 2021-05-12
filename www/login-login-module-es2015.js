@@ -16,8 +16,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "8Y7J");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "s7LF");
 /* harmony import */ var _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/authenticate.service */ "fKRy");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
+/* harmony import */ var _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/api-publibike-bienestar.service */ "N/ei");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "sZkV");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/storage */ "xgBC");
+
 
 
 
@@ -27,24 +29,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LoginPage = class LoginPage {
-    constructor(formBuilder, authServices, navCtrl, loadingCtrl, storage) {
+    constructor(formBuilder, authServices, apiServices, navCtrl, loadingCtrl, storage, alertController) {
         this.formBuilder = formBuilder;
         this.authServices = authServices;
+        this.apiServices = apiServices;
         this.navCtrl = navCtrl;
         this.loadingCtrl = loadingCtrl;
         this.storage = storage;
+        this.alertController = alertController;
         this.validation_messages = {
             user: [
                 { type: "required", message: "El usuario es requerido" },
-                { type: "minlength", message: "Minimo 6 nùmeros para el usuario" }
-            ]
+                { type: "minlength", message: "Minimo 6 nùmeros para el usuario" },
+            ],
         };
         this.errorMessage = "";
         this.loginForm = this.formBuilder.group({
-            user: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([
-                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required,
-                _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(6)
-            ]))
+            user: new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(6)])),
         });
     }
     loginUser(credentials) {
@@ -52,24 +53,52 @@ let LoginPage = class LoginPage {
         console.log(credentials);
         this.authServices
             .loginUser(credentials)
-            .then(res => {
+            .then((res) => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             console.log(res);
             this.errorMessage = "";
             this.storage.set("isUserLoggedIn", true);
             this.storage.set("userId", res);
             this.loading.dismiss();
-            this.navCtrl.navigateForward("/tabs/profile");
+            if (!res.terminos) {
+                const alert = yield this.alertController.create({
+                    cssClass: "my-custom-class",
+                    header: "Terminos Y Condiciones!",
+                    // message: "Al continuar aceptaras los terminos y condiciones!",
+                    message: "Al Continuar aceptaras los <a href='https://www.ecoapps.com.co/politica-de-tratamiento-de-datos-uflou/' target='_blank'>Terminos y Condiciones</a>!!!",
+                    buttons: [
+                        {
+                            text: "No Acepto",
+                            role: "cancel",
+                            cssClass: "secondary",
+                        },
+                        {
+                            text: "Acepto",
+                            handler: () => {
+                                let datauser = { empresa: res.empresa, terminos: true };
+                                this.apiServices.updateUser(datauser).then(() => Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+                                    console.log("Datos actualizados");
+                                }));
+                                this.navCtrl.navigateForward("/tabs/profile");
+                            },
+                        },
+                    ],
+                });
+                yield alert.present();
+            }
+            else {
+                this.navCtrl.navigateForward("/tabs/profile");
+            }
             // this.storage.set("userData", res);
-        })
-            .catch(err => {
+        }))
+            .catch((err) => {
             console.log(err);
             this.loading.dismiss();
             console.error("ERROR", err.name);
-            if (err.name == 'SyntaxError') {
+            if (err.name == "SyntaxError") {
                 console.log(err);
                 this.errorMessage = "Usuario Incorrecto";
             }
-            else if (err.name == 'TypeError') {
+            else if (err.name == "TypeError") {
                 // this.errorMessage = "Usuario Incorrecto";
                 console.log(err);
             }
@@ -78,8 +107,8 @@ let LoginPage = class LoginPage {
     presentLoading() {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             this.loading = yield this.loadingCtrl.create({
-                cssClass: 'my-custom-class',
-                message: 'Cargando...'
+                cssClass: "my-custom-class",
+                message: "Cargando...",
             });
             yield this.loading.present();
         });
@@ -88,13 +117,15 @@ let LoginPage = class LoginPage {
 LoginPage.ctorParameters = () => [
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },
     { type: _services_authenticate_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticateService"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["NavController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["LoadingController"] },
-    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"] }
+    { type: _services_api_publibike_bienestar_service__WEBPACK_IMPORTED_MODULE_6__["ApiPublibikeBienestarService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["LoadingController"] },
+    { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_8__["Storage"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"] }
 ];
 LoginPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
-        selector: 'app-login',
+        selector: "app-login",
         template: _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
         styles: [_login_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
     })
@@ -113,7 +144,7 @@ LoginPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n<ion-content>\n\t<div class=\"main-wrapper\">\n\t\t<div class=\"logo-ekobike\">\n\t\t\t<a href=\"assets/index.html\">\n\t\t\t\t<img src=\"assets/img/logo-publibike.png\">\n\t\t\t</a>\n\t\t</div>\n\n\t\t<div class=\"form-login\">\n\t\t\t<form class=\"ui form\" [formGroup]='loginForm' (ngSubmit)='loginUser(loginForm.value)'>\n\t\t\t\t<div class=\"field\">\n\t\t\t\t\t<ion-input type=\"text\" formControlName=\"user\" id=\"user\" placeholder=\"Ingresa tu usuario\">\n\t\t\t\t\t</ion-input>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"validation-error\">\n\t\t\t\t\t<ng-container *ngFor=\"let validation of validation_messages.user\">\n\t\t\t\t\t\t<div\n\t\t\t\t\t\t\t*ngIf=\"loginForm.get('user').hasError(validation.type)&&(loginForm.get('user').dirty || loginForm.get('user').touched)\">\n\t\t\t\t\t\t\t<p id=\"alertUser\">{{validation.message}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</ng-container>\n\t\t\t\t</div>\n\t\t\t\t<p id=\"alertUser\"> {{errorMessage}}</p>\n\t\t\t\t<ion-button text-center class=\"ui button\" color=\"secondary\" [disabled]=\"!loginForm.valid\" type=\"Submit\">Ingresar\n\t\t\t\t</ion-button>\n\t\t\t\t<p id=\"alertUser\"></p>\n\t\t\t</form>\n\t\t</div>\n\n\t\t<div class=\"footer-main\">\n\t\t\t<!-- <img class=\"slogan-ekobike\" src=\"assets/img/slogan-ekobike.png\"> -->\n\t\t\t<div class=\"animation-bike\">\n\t\t\t\t<div class=\"biker\">\n\t\t\t\t\t<img src=\"assets/img/biker-ekobike.png\">\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<hr>\n\t\t</div>\n\t</div>\n</ion-content>");
+/* harmony default export */ __webpack_exports__["default"] = ("\r\n<ion-content>\r\n\t<div class=\"main-wrapper\">\r\n\t\t<div class=\"logo-ekobike\">\r\n\t\t\t<a href=\"assets/index.html\">\r\n\t\t\t\t<img src=\"assets/img/logo-publibike.png\">\r\n\t\t\t</a>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"form-login\">\r\n\t\t\t<form class=\"ui form\" [formGroup]='loginForm' (ngSubmit)='loginUser(loginForm.value)'>\r\n\t\t\t\t<div class=\"field\">\r\n\t\t\t\t\t<ion-input type=\"text\" formControlName=\"user\" id=\"user\" placeholder=\"Ingresa tu usuario\">\r\n\t\t\t\t\t</ion-input>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"validation-error\">\r\n\t\t\t\t\t<ng-container *ngFor=\"let validation of validation_messages.user\">\r\n\t\t\t\t\t\t<div\r\n\t\t\t\t\t\t\t*ngIf=\"loginForm.get('user').hasError(validation.type)&&(loginForm.get('user').dirty || loginForm.get('user').touched)\">\r\n\t\t\t\t\t\t\t<p id=\"alertUser\">{{validation.message}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</ng-container>\r\n\t\t\t\t</div>\r\n\t\t\t\t<p id=\"alertUser\"> {{errorMessage}}</p>\r\n\t\t\t\t<ion-button text-center class=\"ui button\" color=\"secondary\" [disabled]=\"!loginForm.valid\" type=\"Submit\">Ingresar\r\n\t\t\t\t</ion-button>\r\n\t\t\t\t<p id=\"alertUser\"></p>\r\n\t\t\t</form>\r\n\t\t</div>\r\n\r\n\t\t<div class=\"footer-main\">\r\n\t\t\t<!-- <img class=\"slogan-ekobike\" src=\"assets/img/slogan-ekobike.png\"> -->\r\n\t\t\t<div class=\"animation-bike\">\r\n\t\t\t\t<div class=\"biker\">\r\n\t\t\t\t\t<img src=\"assets/img/biker-ekobike.png\">\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<hr>\r\n\t\t</div>\r\n\t</div>\r\n</ion-content>");
 
 /***/ }),
 
@@ -255,7 +286,7 @@ AuthenticateService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".form-login .ui.button {\n  padding: 0px;\n  border-radius: 20px !important;\n}\n\nion-content {\n  --background-position: top right;\n  --background: black;\n}\n\nion-button {\n  --border-radius: 30px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtFQUNBLDhCQUFBO0FBQ0o7O0FBRUE7RUFHSSxnQ0FBQTtFQUNBLG1CQUFBO0FBREo7O0FBSUE7RUFDSSxxQkFBQTtBQURKIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZvcm0tbG9naW4gLnVpLmJ1dHRvbiB7XG4gICAgcGFkZGluZzogMHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDIwcHggIWltcG9ydGFudDtcbn1cblxuaW9uLWNvbnRlbnR7XG4gICAgXG4gICAvLyAtLWJhY2tncm91bmQ6IHVybChcIi4uLy4uL2Fzc2V0cy9pbWcvZGFyay1iYWNrZ3JvdW5kLXVmbG91LTA3LmpwZ1wiKSBuby1yZXBlYXQgIGNlbnRlciAhaW1wb3J0YW50O1xuICAgIC0tYmFja2dyb3VuZC1wb3NpdGlvbjogdG9wIHJpZ2h0O1xuICAgIC0tYmFja2dyb3VuZDogYmxhY2s7XG59XG5cbmlvbi1idXR0b257XG4gICAgLS1ib3JkZXItcmFkaXVzOiAzMHB4O1xufSJdfQ== */");
+/* harmony default export */ __webpack_exports__["default"] = (".form-login .ui.button {\n  padding: 0px;\n  border-radius: 20px !important;\n}\n\nion-content {\n  --background-position: top right;\n  --background: black;\n}\n\nion-button {\n  --border-radius: 30px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksWUFBQTtFQUNBLDhCQUFBO0FBQ0o7O0FBRUE7RUFHSSxnQ0FBQTtFQUNBLG1CQUFBO0FBREo7O0FBSUE7RUFDSSxxQkFBQTtBQURKIiwiZmlsZSI6InNyYy9hcHAvbG9naW4vbG9naW4ucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmZvcm0tbG9naW4gLnVpLmJ1dHRvbiB7XHJcbiAgICBwYWRkaW5nOiAwcHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiAyMHB4ICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbmlvbi1jb250ZW50e1xyXG4gICAgXHJcbiAgIC8vIC0tYmFja2dyb3VuZDogdXJsKFwiLi4vLi4vYXNzZXRzL2ltZy9kYXJrLWJhY2tncm91bmQtdWZsb3UtMDcuanBnXCIpIG5vLXJlcGVhdCAgY2VudGVyICFpbXBvcnRhbnQ7XHJcbiAgICAtLWJhY2tncm91bmQtcG9zaXRpb246IHRvcCByaWdodDtcclxuICAgIC0tYmFja2dyb3VuZDogYmxhY2s7XHJcbn1cclxuXHJcbmlvbi1idXR0b257XHJcbiAgICAtLWJvcmRlci1yYWRpdXM6IDMwcHg7XHJcbn0iXX0= */");
 
 /***/ })
 
