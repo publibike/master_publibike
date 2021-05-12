@@ -15,5 +15,9 @@
     <param name="ios-package" value="CDVLocation"/>
   </feature>
 
+  <feature name="Idfa">
+    <param name="ios-package" value="IdfaPlugin"/>
+  </feature>
+
   
 </widget>
