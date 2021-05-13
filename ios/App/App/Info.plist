@@ -51,7 +51,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To Pick Photos from Library</string>
 	<key>NSUserTrackingUsageDescription</key>
-	<string>Necesitamos seguir tu posición para calcular datos como distancia recorrida, y calorías quemadas.</string>
+	<string>Requerimos monitorear tu ubicación con el fin de brindarte los resultados de calorías y distancia recorridas, lo cual es nuestra función principal.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

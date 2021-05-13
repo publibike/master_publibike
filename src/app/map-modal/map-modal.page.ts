@@ -3,6 +3,7 @@ import {
   AlertController,
   LoadingController,
   ModalController,
+  NavController,
 } from "@ionic/angular";
 import { Plugins, AppState } from "@capacitor/core";
 //import { Response } from "capacitor-ios-app-tracking";
@@ -10,7 +11,7 @@ import { Storage } from "@ionic/storage";
 import { ApiPublibikeBienestarService } from "../services/api-publibike-bienestar.service";
 import { loadModules } from "esri-loader";
 import esri = __esri;
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
+import { THIS_EXPR, ThrowStmt } from "@angular/compiler/src/output/output_ast";
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
 import { Geolocation } from '@ionic-native/geolocation/ngx'
 //import * as moment from "moment";
@@ -106,7 +107,8 @@ export class MapModalPage implements OnInit {
     private modalController: ModalController,
     private alertController: AlertController,
     private backgroundMode: BackgroundMode,
-    private geolocation:Geolocation
+    private navCtrl: NavController,
+    private geolocation: Geolocation
   ) { }
 
 
@@ -262,23 +264,23 @@ export class MapModalPage implements OnInit {
     });
   }
 
-  startRute(){
+  async startRute() {
     this.backgroundMode.enable();
-    this.backgroundMode.on('activate').subscribe(()=>{
-          //Se inicializa el contador
-    this.startCounter();
-    })
-  }
 
-  async startRute1() {
-    this.backgroundMode.enable();
+    this.loading = await this.loadingCtrl.create({
+      cssClass: "my-custom-class",
+      message: "Cargando...",
+    });
+    await this.loading.present();
+
     this.km = 0;
     this.cal = 0;
     this.co2 = 0;
     this.vel = 0;
     this.isRun = true;
-    this.urlButton = "button-stop-29.png";
+
     this.clearWindows();
+    clearInterval(this.contador);
     this._track.start();
     const fechaActual = new Date();
     this.fecha = fechaActual;
@@ -292,11 +294,15 @@ export class MapModalPage implements OnInit {
     let params = {
       location: this._pointGC,
     };
-    //Se inicializa el contador
-    this.startCounter();
     // this.pruebaTemp()
     //cálculo de distancia cuando se esta en movimiento
     this._track.on("track", async (position) => {
+
+      this.clearWindows();
+      clearInterval(this.contador);
+      this.loading.dismiss();
+      this.startCounter();
+
       //Permiso solo para iOS para permitir tracking
       // IOSAppTracking.getTrackingStatus().then((res: Response) => console.log(res))
 
@@ -382,6 +388,7 @@ export class MapModalPage implements OnInit {
       })
       .catch((err) => console.log(err));
   }
+
   async stopRute() {
     try {
       this.backgroundMode.disable();
@@ -389,6 +396,7 @@ export class MapModalPage implements OnInit {
       if (this.isRun) {
         this._track.stop();
         this.time = `${this._horas}:${this._minutos}:${this._segundos}.${this._centesimas}`;
+
         clearInterval(this.contador);
 
         this.isRun = false;
@@ -457,11 +465,7 @@ export class MapModalPage implements OnInit {
     return dis;
   }
   startCounter() {
-    // let startMoment = moment();
-    // this.time = moment.utc(moment().diff(startMoment)).format('HH : mm : ss');
-    // console.log(this.time)
     this.contador = setInterval(() => {
-      // console.log(this.time)
       if (this.transactionTime != 0 && (Math.floor(Date.now() / 1000) - this.timeStamp) > this.deltaDelay) {
         this.transactionTime += (Math.floor(Date.now() / 1000) - this.timeStamp);
       }
@@ -489,9 +493,7 @@ export class MapModalPage implements OnInit {
           }
         }
       }
-
     }, 100);
-    console.log(this.contador)
   }
   // pruebaTemp() {
   //   this.time = moment.utc(moment().diff(this.startMoment)).format('HH : mm : ss');
@@ -574,7 +576,9 @@ export class MapModalPage implements OnInit {
     await this.loading.present();
   }
   async closeModal() {
+    this.navCtrl.navigateForward("/tabs/profile");
     await this.modalController.dismiss();
+
   }
   async riesgoCovid(vel) {
     let alert;
