@@ -43,7 +43,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Necesitamos saber tu ubicación para iniciar el recorrido</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Necesitamos saber tu ubicación para iniciar el recorrido</string>
+	<string>Requerimos conocer datos de tu GPS tales como ubicación y velocidad para brindarte beneficios. </string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To Record Audio With Video</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
@@ -51,7 +51,11 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To Pick Photos from Library</string>
 	<key>NSUserTrackingUsageDescription</key>
+<<<<<<< HEAD
 	<string>Requerimos monitorear tu ubicación con el fin de brindarte los resultados de calorías y distancia recorridas, lo cual es nuestra función principal.</string>
+=======
+	<string>Requerimos monitorear tu ubicación con el fin de brindarte los resultados de calorías y distancia recorridas en tus trayectos, lo cual es nuestra función principal para brindarte beneficios.</string>
+>>>>>>> c10212fcb0f3901fdbdb9b934c1ca8a6c012d60e
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
