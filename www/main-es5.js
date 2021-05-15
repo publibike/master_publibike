@@ -133,7 +133,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! /Users/imac/Desktop/master_publibike/src/main.ts */
+      /*! /Users/semilleroesricolombia/Documents/AndresLoto/Desarrollos independientes/publibike/master_publibike/src/main.ts */
       "zUnb");
       /***/
     },
@@ -689,23 +689,19 @@
 
       var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @ionic-native/background-mode/ngx */
-      "AcVp");
-      /* harmony import */
-
-
-      var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
-      /*! @ionic-native/geolocation/ngx */
-      "gTw3"); //import { Response } from "capacitor-ios-app-tracking";
+      "AcVp"); //import { Response } from "capacitor-ios-app-tracking";
+      // import { Geolocation } from '@ionic-native/geolocation/ngx'
       //import * as moment from "moment";
       // import { type } from 'os';
 
 
       var _capacitor_core__WEBP = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"],
           App = _capacitor_core__WEBP.App,
-          IOSAppTracking = _capacitor_core__WEBP.IOSAppTracking;
+          IOSAppTracking = _capacitor_core__WEBP.IOSAppTracking,
+          Geolocation = _capacitor_core__WEBP.Geolocation;
 
       var MapModalPage = /*#__PURE__*/function () {
-        function MapModalPage(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode, navCtrl, geolocation) {
+        function MapModalPage(apiService, storage, loadingCtrl, modalController, alertController, backgroundMode, navCtrl) {
           _classCallCheck(this, MapModalPage);
 
           this.apiService = apiService;
@@ -714,8 +710,7 @@
           this.modalController = modalController;
           this.alertController = alertController;
           this.backgroundMode = backgroundMode;
-          this.navCtrl = navCtrl;
-          this.geolocation = geolocation; //Variables ArcGIS
+          this.navCtrl = navCtrl; //Variables ArcGIS
 
           this._zoom = 10;
           this._center = [-74.090923, 4.694939];
@@ -984,7 +979,7 @@
                       this.fecha = fechaActual; //se toma la posicion y se geocodifica
 
                       _context11.next = 18;
-                      return this.geolocation.getCurrentPosition();
+                      return Geolocation.getCurrentPosition();
 
                     case 18:
                       position = _context11.sent;
@@ -1147,7 +1142,7 @@
                       //se toma la posicion y se geocodifica
 
                       _context12.next = 9;
-                      return this.geolocation.getCurrentPosition();
+                      return Geolocation.getCurrentPosition();
 
                     case 9:
                       position = _context12.sent;
@@ -1462,8 +1457,6 @@
           type: _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_9__["BackgroundMode"]
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["NavController"]
-        }, {
-          type: _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_10__["Geolocation"]
         }];
       };
 
@@ -1799,13 +1792,8 @@
 
       var _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
       /*! @ionic-native/background-mode/ngx */
-      "AcVp");
-      /* harmony import */
+      "AcVp"); // import { Geolocation } from '@ionic-native/geolocation/ngx';
 
-
-      var _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
-      /*! @ionic-native/geolocation/ngx */
-      "gTw3");
 
       var AppModule = function AppModule() {
         _classCallCheck(this, AppModule);
@@ -1815,7 +1803,8 @@
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]],
         entryComponents: [],
         imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"], _recognition_modal_recognition_modal_module__WEBPACK_IMPORTED_MODULE_10__["RecognitionModalPageModule"], _map_modal_map_modal_module__WEBPACK_IMPORTED_MODULE_11__["MapModalPageModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_9__["IonicStorageModule"].forRoot()],
-        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"], _ionic_native_geolocation_ngx__WEBPACK_IMPORTED_MODULE_13__["Geolocation"], {
+        providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _ionic_native_background_mode_ngx__WEBPACK_IMPORTED_MODULE_12__["BackgroundMode"], // Geolocation,
+        {
           provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
           useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
         }],

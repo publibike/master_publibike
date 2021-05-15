@@ -13,11 +13,11 @@ import { loadModules } from "esri-loader";
 import esri = __esri;
 import { THIS_EXPR, ThrowStmt } from "@angular/compiler/src/output/output_ast";
 import { BackgroundMode } from '@ionic-native/background-mode/ngx'
-import { Geolocation } from '@ionic-native/geolocation/ngx'
+// import { Geolocation } from '@ionic-native/geolocation/ngx'
 //import * as moment from "moment";
 // import { type } from 'os';
 
-const { App, IOSAppTracking } = Plugins;
+const { App, IOSAppTracking, Geolocation } = Plugins;
 
 @Component({
   selector: "app-map-modal",
@@ -108,7 +108,7 @@ export class MapModalPage implements OnInit {
     private alertController: AlertController,
     private backgroundMode: BackgroundMode,
     private navCtrl: NavController,
-    private geolocation: Geolocation
+    // private geolocation: Geolocation
   ) { }
 
 
@@ -287,7 +287,7 @@ export class MapModalPage implements OnInit {
     //se toma la posicion y se geocodifica
     let address;
     // let position = await this._locate.locate();
-    let position = await this.geolocation.getCurrentPosition();
+    let position = await Geolocation.getCurrentPosition();
     console.log("position", position);
     this._pointGC.latitude = position.coords.latitude;
     this._pointGC.longitude = position.coords.longitude;
@@ -404,7 +404,7 @@ export class MapModalPage implements OnInit {
 
         //se toma la posicion y se geocodifica
         let address;
-        let position = await this.geolocation.getCurrentPosition();
+        let position = await Geolocation.getCurrentPosition();
         this._pointGC.latitude = position.coords.latitude;
         this._pointGC.longitude = position.coords.longitude;
         // this.vel = position.coords.speed;
