@@ -50,8 +50,6 @@
 	<string>Store camera photos to camera</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To Pick Photos from Library</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>La aplicación obtiene durante tus trayectos, en bicicleta u otros transportes ecoamigables, la velocidad y la distancia recorrida durante estos.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
