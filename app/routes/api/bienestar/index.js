@@ -743,6 +743,26 @@ module.exports.register = async server => {
         }
     });
 
-
+    server.route({
+        method: 'POST',
+        path: '/api/movil/rutas',
+        options: {
+            cors: true
+        },
+        handler: async (req, h) => {
+            try {
+                const payload = req.payload
+                const status = await req.mongo.db.collection('RutasMovil').insertOne(payload);
+                return h.response({
+                    message: "correcto creada correctamente",
+                    status
+                }).code(200)
+            } catch (error) {
+                return h.response({
+                    error
+                }).code(500)
+            }
+        }
+    });
 
 }

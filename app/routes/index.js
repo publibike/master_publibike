@@ -41,7 +41,6 @@ module.exports.register = async server => {
             return h.redirect('/admin').unstate('admin')
         }
     });
-
     //Ruta que muestra el home del administrador o dashboard
     server.route({
         method: "GET",
