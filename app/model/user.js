@@ -19,6 +19,9 @@ class User {
         data.co2_total = 0;
         data.tiempo_total = 0;
         data.terminos = false;
+        data.Nsmarphones = 0;
+        data.Nplantulas = 0;
+        data.NBresicladas = 0;
         return data;
     }
 

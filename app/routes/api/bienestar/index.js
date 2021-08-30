@@ -183,7 +183,7 @@ module.exports.register = async server => {
                     co2: us.co2_total,
                     cal: us.cal_total,
                     tiempo: us.tiempo_total,
-                    terminos:false
+                    terminos: false
                 }
 
                 const statusEmp = await req.mongo.db.collection('Empresa').updateOne({ _id: new ObjectID(id) }, { $push: { usuarios: usEmp } })
@@ -403,8 +403,8 @@ module.exports.register = async server => {
                         }
                     }
                 ]).toArray()
-                let historico2 = historico.map((data)=> {
-                    data.fecha=new Date(data._id)
+                let historico2 = historico.map((data) => {
+                    data.fecha = new Date(data._id)
                 })
                 // let arrayFechas = fechas.map((fechaActual) => new Date(fechaActual) );
                 let historico1 = historico.sort((a, b) => {
@@ -580,7 +580,9 @@ module.exports.register = async server => {
                 let co2 = user.co2_total;
                 let cal = user.cal_total;
                 let tiempo = user.tiempo_total;
-
+                let Nsmarphones = user.Nsmarphones;
+                let Nplantulas = user.Nplantulas;
+                let NBresicladas = user.NBresicladas
                 let idEmpresa = user.empresa.id;
 
                 //se suman los valores a los totales
@@ -588,7 +590,14 @@ module.exports.register = async server => {
                 user.co2_total = co2 + payload.co2;
                 user.cal_total = cal + payload.cal;
                 user.tiempo_total = tiempo + payload.minutos;
+                if (Nsmarphones == NaN) Nsmarphones = 0;
+                if (Nplantulas == NaN) Nplantulas = 0;
+                if (NBresicladas == NaN) NBresicladas = 0;
+                user.Nsmarphones = Nsmarphones + payload.Nsmarphones;
+                user.Nplantulas = Nplantulas + payload.Nplantulas;
+                user.NBresicladas = NBresicladas + payload.NBresicladas;
                 //Se actualizan los valores generales del usuario
+
                 statusUser = await req.mongo.db.collection('Usuario').updateOne({ _id: ObjectID(id) }, { $set: user });
 
                 //Logica para actualizar los valores totales de la empresa
