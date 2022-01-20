@@ -566,6 +566,35 @@ module.exports.register = async server => {
             return h.redirect('/admin')
         }
     });
+    
+    //Ruta que muestra las empresas registradas
+    server.route({
+        method: "GET",
+        path: "/admin/campanas",
+        handler: async (req, h) => {
+            const campana = await req.mongo.db.collection('Campaña').findOne({ _id: new ObjectID(id) });
+
+            return h.view('campanas', {
+                title: 'Campañas Registradas',
+                campana: camapana
+            })
+        }
+    });
+    server.route({
+        method: "GET",
+        path: "/admin/registro/campana",
+        handler: async (req, h) => {
+
+            const empresas = await req.mongo.db.collection('Empresa').find({}).toArray();
+
+            return h.view('registroCampana', {
+                title: 'Registrar Reto',
+                empresas: empresas
+            })
+        }
+    });
+
+
     //Ruta que permite cargar los diferentes assets de las vistas
     server.route({
         method: "GET",

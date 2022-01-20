@@ -1,6 +1,6 @@
 "use strict";
 
-const Hapi = require("hapi");
+const Hapi = require("@hapi/hapi");
 const path = require('path');
 const handlebars = require('handlebars');
 const plugins = require("./app/plugins");

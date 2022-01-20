@@ -15,11 +15,12 @@
   "author": "AndresLoto",
   "license": "MIT",
   "dependencies": {
-    "@hapi/hapi": "^20.0.0",
+    "@hapi/hapi": "^20.2.1",
     "@hapi/vision": "^6.0.1",
     "assert": "^2.0.0",
     "bcrypt": "^5.0.0",
     "boom": "^7.3.0",
+    "bootstrap": "^5.1.3",
     "cron": "^1.8.2",
     "dotenv": "^8.2.0",
     "handlebars": "^4.7.6",
@@ -29,9 +30,18 @@
     "joi": "^17.2.1",
     "moment": "^2.29.1",
     "nvm": "0.0.4",
+    "pptxgenjs": "^3.8.0",
     "vision": "^5.4.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/publibike/master_publibike.git"
+  },
+  "bugs": {
+    "url": "https://github.com/publibike/master_publibike/issues"
+  },
+  "homepage": "https://github.com/publibike/master_publibike#readme"
 }
