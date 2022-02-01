@@ -392,7 +392,7 @@ module.exports.register = async server => {
         handler: async (req, h) => {
             const id = req.params.id;
             const ObjectID = req.mongo.ObjectID;
-            const usuario = await req.mongo.db.collection('Usuario').findOne({ _id: new ObjectID(id) });
+            const usuario = await req.mongo.db.collection('Usuario').findOne({});
             const arrayRecorridos = Object.values(usuario.recorridos);
             let ultRecorrido = arrayRecorridos[0];
             if (ultRecorrido === undefined) {
@@ -413,11 +413,11 @@ module.exports.register = async server => {
             usuario.cal_total = usuario.cal_total.toFixed(2)
             usuario.km_total = usuario.km_total.toFixed(2)
             return h.view('usuario', {
-                title: `Usuario: ${usuario.usuario}`,
+                // title: `Usuario: ${usuario.usuario}`,
                 usuario: usuario,
                 ultRecorrido: ultRecorrido,
                 recorridos: arrayRecorridos,
-                id: id
+                // id: id
             })
         }
     });
