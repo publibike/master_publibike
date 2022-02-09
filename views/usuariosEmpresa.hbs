@@ -1,24 +1,133 @@
 <div class="ui one column grid content">
-		    <div class="column">
-		    	<div class="inside-column">
-			      <table class="ui very basic table tabla-ekobike">
-			        <thead>
-			          <tr><th>Nombre</th>
-			          <th>Usuario</th>
-			          <th>Email</th>
-			          <th>Empresa</th>
-			        </tr></thead>
-			        <tbody>
-			          {{#each usuarios}}
-						<tr>
-							<td>{{this.nombre}}</td>
-							<td><a href="/admin/empresa/usuario/{{this._id}}">{{this.usuario}}</a></td>
-							<td>{{this.email}}</td>
-							<td>{{this.empresa.nombre}}</td>
-						</tr>
-						{{/each}}
-			        </tbody>
-			      </table>
-			    </div>
-		    </div>
+	<div class="column">
+		<div class="inside-column">
+			<form class="ui form" method="POST" action="/admin/usuarios/filtrados">
+				<h2 class="ui dividing header">Filtrar Datos</h2>
+				<div class="fields">
+					<div class="four wide field">
+						<label>Buscar Por datos</label>
+						<input type="text" placeholder="Filtra por (NOMBRE, USUARIO, EMAIL)" name="texto">
+					</div>
+					<div class="two wide field">
+						<label>RECORRIDOS</label>
+						<select class="ui fluid search dropdown" name="recorridos">
+							<option value="">Seleccionar</option>
+							<option value="Mayor">Mayor</option>
+							<option value="Menor">Menor</option>
+						</select>
+					</div>
+					<div class="two wide field">
+						<label>TOTAL KILOMETROS</label>
+						<select class="ui fluid search dropdown" name="kilometros">
+							<option value="">Seleccionar</option>
+							<option value="Mayor">Mayor</option>
+							<option value="Menor">Menor</option>
+						</select>
+					</div>
+					<div class="two wide field">
+						<label>TOTAL CALORIAS</label>
+						<select class="ui fluid search dropdown" name="calorias">
+							<option value="">Seleccionar</option>
+							<option value="Mayor">Mayor</option>
+							<option value="Menor">Menor</option>
+						</select>
+					</div>
+					<div class="two wide field">
+						<label>TOTAL Co2</label>
+						<select class="ui fluid search dropdown" name="co2">
+							<option value="">Seleccionar</option>
+							<option value="Mayor">Mayor</option>
+							<option value="Menor">Menor</option>
+						</select>
+					</div>
+					<div class="two wide field">
+						<label>TOTAL TIEMPO</label>
+						<select class="ui fluid search dropdown" name="tiempo">
+							<option value="">Seleccionar</option>
+							<option value="Mayor">Mayor</option>
+							<option value="Menor">Menor</option>
+						</select>
+					</div>
+					<div class="two wide field">
+						<label>Mostrar</label>
+						<button type="submit" class="ui fluid large teal submit button">Filtrar</button>
+					</div>
+				</div>
+			</form>
+			<form class="ui form" method="POST" action="/admin/usuarios/filtrados">
+				<h2 class="ui dividing header">Filtrar Por rango de Fechas</h2>
+				<div class="fields">
+					<div class="eight wide field">
+						<label>Fecha Inicio</label>
+						<input type="date" name="FechaInicio" required>
+					</div>
+					<div class="eight wide field">
+						<label>Fecha Fin</label>
+						<input type="date" name="FechaFin" required>
+					</div>
+				</div>
+				<div class="field">
+					<button type="submit" class="ui fluid large teal submit button">Filtrar</button>
+				</div>
+			</form>
+			<table class="ui very basic table tabla-ekobike">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Usuario</th>
+						<th>Email</th>
+						<th>Recorridos</th>
+						<th>Total Kilometros</th>
+						<th>Total Calorias</th>
+						<th>Total Co2</th>
+						<th>Total Tiempo</th>
+						<th>Empresa</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each usuarios}}
+					<tr>
+						<td>{{this.nombre}}</td>
+						<td><a href="/admin/empresa/usuario/{{this._id}}">{{this.usuario}}</a></td>
+						<td>{{this.email}}</td>
+						<td>{{this.Nrecorridos}} </td>
+						<td>{{this.km_total}} <h5>Kms</h5>
+						</td>
+						<td>{{this.cal_total}} <h5>kcal</h5>
+						</td>
+						<td>{{this.co2_total}} <h5>kgr</h5>
+						</td>
+						<td>{{this.tiempo_total}} <h5>Mins</h5>
+						</td>
+						<td>{{this.empresa.nombre}}</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+
+
+			<form class="ui form" method="POST" action="/admin/usuarios/filtrados">
+
+				<div class="fields">
+					<div class="two wide field">
+						<label>Mostrar</label>
+						<select class="ui fluid search dropdown" name="Nfilas">
+							<option>Seleccionar...</option>
+							{{#each Nusuarios}}
+							<option value="{{this}}">
+								{{this}}
+							</option>
+							{{/each}}
+						</select>
+					</div>
+					<div class="two wide field">
+						<label>Filtrar</label>
+						<button type="submit" class="ui fluid large teal submit button">Filtrar</button>
+					</div>
+				</div>
+			</form>
+
+
 		</div>
+	</div>
+</div>

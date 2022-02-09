@@ -1,266 +1,581 @@
-<div class="ui two column grid content">
-    <div class="column">
-        <div class="inside-column">
-            <h3>Usuarios Registrados en Empresa</h3>
-            <table class="ui very basic table tabla-ekobike">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Usuario</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each empresa.usuarios}}
+<div id="contenidoPf">
+    <div class="ui one column grid content user-data">
+        <div class="column">
+            {{!-- <div class="inside-column">
+                <div class="ui three column grid" style="background:linear-gradient(90deg, rgba(6,224,201,1) 0%, rgba(4,124,148,1) 47%, rgba(4,135,116,1) 100%);;">
+                    <div class="column">
+                        <h4><small>Nombre</small>{{usuario.nombre}}</h4>
+                    </div>
+                    <div class="column">
+                        <h4><small>Correo Electrónico</small>{{usuario.email}}</h4>
+                    </div>
+                    <div class="column">
+                        <h4><small>Empresa</small>{{usuario.empresa.nombre}}</h4>
+                    </div>
+                </div>
+            </div> --}}
+        </div>
+    </div>
 
-                    <tr>
-                        <td>{{this.nombre}}</td>
-                        <td><a href="/admin/empresa/usuario/{{this.id}}">{{this.usuario}}</a></td>
-                        <td>{{this.email}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="column">
-        <div class="inside-column">
-            <h3>Resultados Generales</h3>
-            <div style="width:100%;">
-                <canvas id="coResultados"></canvas>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header" style="background: #fff;border-color: #18e1cf;">
+                    {{!-- <div class="col-md-10"> --}}
+                    <i class="bookmark icon"></i>
+                    {{!-- <div class="header"> --}}
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;color: #18e1cf;"><b>Plan gratuito</b></font>
+                        </font>
+                        {{!--
+                    </div> --}}
+                    {{!-- </div> --}}
+                    {{!-- <div class="col-md-2"> --}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button class="ui teal submit button">Exporttar PDF</button>
+                    {{!-- </div> --}}
+                    
+                </div>
+                
+                <div class="card-body" style="background: #f2f3f3;">
+                    <form class="ui form center" method="POST" action="/api/admin/filtrarRecorrido/{{this.id}}">
+                        <center>
+                            <h2 class="ui dividing header">Filtrar Por rango de Fechas</h2>
+                        </center>
+                        <div class="fields">
+                            <div class="eight wide field">
+                                <label>Fecha Inicio</label>
+                                <input type="date" name="FechaInicio" required>
+                            </div>
+                            <div class="eight wide field">
+                                <label>Fecha Fin</label>
+                                <input type="date" name="FechaFin" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button type="submit" id="filtrar" class="ui fluid large teal submit button">Filtar</button>
+                        </div>
+                    </form>
+                    <br>
+                    <div id="contentPdf">
+                        <div class="ui grid center">
+                            <div class="seven wide column">
+                                <div class="ui cards" style="width: 260px;">
+                                    <div class="card">
+
+                                        <div class="content">
+                                            <div class="header">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Horas de actividad física
+                                                    </font>
+                                                </font>
+                                            </div>
+
+                                            <div class="description" id="description" style="font-size:45px;background:#06e0c9;
+                                            color:white;border-radius: 12px;">
+                                                <font style="vertical-align: inherit;">
+                                                    <center>
+                                                        <font style="vertical-align: inherit;">
+
+                                                        </font>
+                                                    </center>
+                                                </font>
+                                            </div><br>
+                                            <div class="meta">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Horas - Minutos -
+                                                        Segundos
+                                                    </font>
+                                                </font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="seven wide column">
+                                <div class="ui cards" style="width: 350px;">
+                                    <div class="card">
+                                        <div class="content">
+                                            <div class="header">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">KMs recorridos</font>
+                                                </font>
+                                            </div>
+
+                                            <div class="description" style="font-size:45px">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        {{!-- {{usuario.km_total}} --}}
+                                                        0
+                                                    </font>
+                                                </font>
+                                            </div>
+                                            <br>
+                                            <div class="meta">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">KMs
+                                                    </font>
+                                                </font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui one column centered grid">
+                        <div class="column">
+                            <div class="ui cards">
+                                <div class="card" style="width: 550px;">
+                                    <div class="content">
+                                        <div class="header">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Viajes Realizados</font>
+                                            </font>
+                                        </div>
+
+                                        <div class="description" style="font-size:45px">
+                                            <canvas id="line-chart1" style="height: 300px;width: 450px;"></canvas>
+                                            <canvas id="line-chart3"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="four column centered row">
+                            <div class="column">
+
+                            </div>
+                            <div class="column">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui grid center">
+                        <div class="seven wide column">
+                            <div class="ui cards" style="width: 260px;">
+                                <div class="card">
+                                    <div class="content">
+                                        <div class="header">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Calorías quemadas</font>
+                                            </font>
+                                        </div>
+
+                                        <div class="description" style="font-size:45px">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">
+                                                    {{!-- {{usuario.cal_total}} --}}
+                                                    0
+                                                </font>
+                                            </font>
+                                        </div>
+                                        <br>
+                                        <div class="meta">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Kcal</font>
+                                            </font>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="seven wide column">
+                            <div class="ui cards" style="width: 360px;">
+                                <div class="card">
+                                    <div class="content">
+                                        <div class="header">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Habitos de Movilidad
+                                                </font>
+                                            </font>
+                                        </div>
+
+                                        <div class="description" style="font-size:45px">
+                                            <canvas id="line-chart2"></canvas>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-             {{!-- {{#each empresas}}  --}}
-			<div class="top attached ui statistics">
-				<div class="data-statistics">
-					Kilometros
-				</div>
-				<div class="ui progress blue graphic-statistics" data-percent="1000">
-					<div class="bar" style="transition-duration: 300ms; width: {{empresa.km}}%;">
-						<div class="progress">{{empresa.km}}</div>
-					</div>
-				</div>
-                <div class="data-statistics">
-					Calorías
-				</div>
-				<div class="ui progress blue graphic-statistics" data-percent="1000">
-					<div class="bar" style="transition-duration: 300ms; width: {{empresa.cal}}%;">
-						<div class="progress">{{empresa.cal}}</div>
-					</div>
-				</div>
-                <div class="data-statistics">
-					CO2 Reducido
-				</div>
-				<div class="ui progress blue graphic-statistics" data-percent="1000">
-					<div class="bar" style="transition-duration: 300ms; width: {{empresa.co2}}%;">
-						<div class="progress">{{empresa.co2}}</div>
-					</div>
-				</div>
-                <div class="data-statistics">
-					Tiempo 
-				</div>
-				<div class="ui progress blue graphic-statistics" data-percent="1000">
-					<div class="bar" style="transition-duration: 300ms; width: {{empresa.tiempo}}%;">
-						<div class="progress">{{empresa.tiempo}}</div>
-					</div>
-				</div>
-			</div>
-			{{!-- {{/each}} --}}
         </div>
-    </div>
-</div>
-<div class="ui one column grid content user-data">
-    <div class="column">
-        <div class="inside-column">
-            <h3>
-                Reconocimientos para Usuarios
-            </h3>
-            <div class="prize-content">
-                <ul>
-                    {{#each empresa.reconocimientos}}
-                    <li>
-                        <i class="icon-tools-2"></i>
-                        {{this.categoria}}
-                    </li>
-                    {{/each}}
-                </ul>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header" style="background: #fff;border-color: #18e1cf;">
+                    <i class="bookmark icon"></i>
+                    {{!-- <div class="header"> --}}
+                        <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;color: #18e1cf;"><b>Plan premium</b></font>
+                        </font>
+                        {{!--
+                    </div> --}}
+                </div>
+                <div class="card-body"
+                    style="background: linear-gradient(90deg, rgba(6,224,201,1) 0%, rgba(4,124,148,1) 47%, rgba(4,135,116,1) 100%);">
+                    <form class="ui form center" method="POST" action="/api/admin/filtrarRecorrido/{{this.id}}">
+                        <center>
+                            <h2 class="ui dividing header">Filtrar Por rango de Fechas</h2>
+                        </center>
+                        <div class="fields">
+                            <div class="eight wide field">
+                                <label>Fecha Inicio</label>
+                                <input type="date" name="FechaInicio" required>
+                            </div>
+                            <div class="eight wide field">
+                                <label>Fecha Fin</label>
+                                <input type="date" name="FechaFin" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button type="submit" class="ui fluid large teal submit button"
+                                style="background: #042640;">Filtar</button>
+                        </div>
+                    </form>
+                    <br>
+                    <div class="fields">
+                        <div class="eight wide center">
+                            <div class="ui cards">
+                                <div class="card" style="width: 700px;height: 300px;">
+                                    <div class="content">
+                                        <div class="header">
+                                            <font style="vertical-align: inherit;">
+                                                <font style="vertical-align: inherit;">Co2 dejado de emitir</font>
+                                            </font>
+                                        </div>
+
+                                        <div class="description" style="font-size:45px">
+                                            <canvas id="line-chart" style="width: 700px;height: 300px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{!-- <div class="ui grid center"> --}}
+                            {{!-- <div class="five wide column"> --}}
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card mb-3" style="max-width: 540px;">
+                                            <label><center><b>SMARPHONE CARGADOS&nbsp;&nbsp;&nbsp;</b></center></label>
+                                            <div class="row g-0">
+                                                <div class="col-md-4">
+                                                    <img src="/assets/img/celular.PNG" class="img-fluid rounded-start"
+                                                        alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title" style="font-size: 35px;">0</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                    <div class="card mb-3" style="max-width: 540px;">
+                                        <label><center><b>PLANTULAS SEMBRADAS&nbsp;&nbsp;&nbsp;</b></center></label>
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <img src="/assets/img/planta.PNG" class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title" style="font-size: 35px;">0</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-3" style="max-width: 540px;">
+                                        <label><center><b>BOLSAS DE BASURA RECICLADAS</b></center></label>
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <img src="/assets/img/basura.PNG" class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="card-body">
+                                                    <h5 class="card-title" style="font-size: 35px;">0</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                                {{!-- <div class="ui cards">
+                                    <div class="card">
+
+                                        <div class="content">
+                                            <div class="header">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        <center>Smartphone cargados</center>
+                                                    </font>
+                                                </font>
+                                            </div>
+
+                                            <div class="description" style="font-size:45px">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        <center>14</center>
+                                                    </font>
+                                                </font>
+                                            </div><br>
+                                            <div class="meta">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        <center><i class="mobile alternate icon"></i></center>
+                                                    </font>
+                                                </font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                {{!--
+                            </div> --}}
+                            {{!-- <div class="five wide column">
+                                <div class="ui cards">
+                                    <div class="card">
+                                        <div class="content">
+                                            <div class="header">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Plantulas sembradas</font>
+                                                </font>
+                                            </div>
+
+                                            <div class="description" style="font-size:45px">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        120
+                                                    </font>
+                                                </font>
+                                            </div>
+                                            <br>
+                                            <div class="meta">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;"><i class="leaf icon"></i>
+                                                    </font>
+                                                </font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="five wide column">
+                                <div class="ui cards">
+                                    <div class="card">
+                                        <div class="content">
+                                            <div class="header" style="font-size: 16px;">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">Bolsas de basura reciclada
+                                                    </font>
+                                                </font>
+                                            </div>
+
+                                            <div class="description" style="font-size:45px">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;">
+                                                        78
+                                                    </font>
+                                                </font>
+                                            </div>
+                                            <br>
+                                            <div class="meta">
+                                                <font style="vertical-align: inherit;">
+                                                    <font style="vertical-align: inherit;"><i
+                                                            class="trash alternate icon"></i>
+                                                    </font>
+                                                </font>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
+                            {{!--
+                        </div> --}}
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <br><br>
 </div>
+
 <script>
+    $('#line-chart3').hide();
+    $('#filtrar').click(function () {
+        $('#line-chart1').hide();
+        $('#line-chart3').show();
+    }
 
-    $('#resultados .menu .item')
-        .tab({
-            // special keyword works same as above
-            context: 'parent'
-        })
-        ;
+    )
+    $('#pdf').click(function () {
+        var doc = new jsPDF();
+        var elementHTML = $('#contenidoPf').html();
+        var specialElementHandlers = {
+            '#elementH': function (element, renderer) {
+                return true;
+            }
+        };
+        doc.fromHTML(elementHTML, 15, 15, {
+            'width': 170,
+            'elementHandlers': specialElementHandlers
+        });
 
-    /*GRÁFICA CO2*/
-    var MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    
-    var config = {
+        // Save the PDF
+        doc.save('PDF.pdf');
+    })
+
+
+    var round = Math.round;
+    var segundos = round({{ usuario.tiempo_total }});
+    console.log(secondsToString(segundos));
+    function secondsToString(seconds) {
+        var hour = Math.floor(seconds / 3600);
+        hour = (hour < 10) ? '0' + hour : hour;
+        var minute = Math.floor((seconds / 60) % 60);
+        minute = (minute < 10) ? '0' + minute : minute;
+        var second = seconds % 60;
+        second = (second < 10) ? '0' + second : second;
+        document.getElementById("description").innerHTML = '00' + ':' + '00' + ':' + '00';
+        //document.getElementById("description").innerHTML = hour + ':' + minute + ':' + second;
+    }
+
+    new Chart(document.getElementById("line-chart"), {
         type: 'line',
         data: {
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            labels: ['Ago', 'Sep', 'Nov', 'Dic', 'Ene', 'Feb'],
             datasets: [{
-                label: 'CO2 Reducido',
-                backgroundColor: window.chartColors.green,
-                borderColor: window.chartColors.green,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
-                fill: false,
-            }, {
-                label: 'Kilometros Recorridos',
-                fill: false,
-                backgroundColor: window.chartColors.blue,
-                borderColor: window.chartColors.blue,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
-            }, {
-                label: 'Calorías Reducidas',
-                backgroundColor: window.chartColors.red,
-                borderColor: window.chartColors.red,
-                data: [
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor(),
-                    randomScalingFactor()
-                ],
-                fill: false,
-            }]
-        },
-        options: {
-            responsive: true,
+                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, {{ ultRecorrido.co2 }}],
+            label: "Co2",
+            borderColor: "#3cba9f",
+            fill: false
+        }
+            ]
+    },
+        /*options: {
             title: {
                 display: true,
-                text: ' '
-            },
-            tooltips: {
-                mode: 'index',
-                intersect: false,
-            },
-            hover: {
-                mode: 'nearest',
-                intersect: true
-            },
-            scales: {
-                x: {
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Month'
-                    }
-                },
-                y: {
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'Value'
-                    }
-                }
+                text: 'World population per region (in millions)'
             }
-        }
-    };
+        }*/
+    });
 
+    new Chart(document.getElementById("line-chart1"), {
+        type: 'bar',
+        data: {
+            labels: ['Ago', 'Sep', 'Nov', 'Dic', 'Ene', 'Feb'],
+            datasets: [{
+                data: [0, 0, 0, 0, 0, 0, 0],
+                label: "Viajes",
+                backgroundColor: [
+                    'rgb(6,224,201)',
+                    'rgb(4,124,148)',
+                    'rgb(4,91,105)',
+                    'rgb(6,224,201)',
+                    'rgb(4,124,148)',
+                    'rgb(4,91,105)',
+                    'rgb(6,224,201)'
+                ],
+                borderColor: "#06e0c9",
+                fill: false
+            }
+            ]
+        },
+        /*options: {
+            title: {
+                display: true,
+                text: 'World population per region (in millions)'
+            }
+        }*/
+    });
 
-    window.onload = function () {
-        var ctx = document.getElementById('coResultados').getContext('2d');
-        window.myLine = new Chart(ctx, config);
-    };
+    new Chart(document.getElementById("line-chart3"), {
+        type: 'bar',
+        data: {
+            labels: ['Sema 1', 'Sema 2', 'Sema 3', 'Sema 4'],
+            datasets: [{
+                data: [40, 14, 45, 17],
+                label: "Viajes",
+                borderColor: "#3cba9f",
+                backgroundColor: [
+                    'rgb(6,224,201)',
+                    'rgb(6,224,201)',
+                    'rgb(6,224,201)',
+                    'rgb(6,224,201)'
+                ],
+                fill: false
+            }
+            ]
+        },
+        /*options: {
+            title: {
+                display: true,
+                text: 'World population per region (in millions)'
+            }
+        }*/
+    });
 
-    document.getElementById('randomizeData').addEventListener('click', function () {
-        config.data.datasets.forEach(function (dataset) {
-            dataset.data = dataset.data.map(function () {
-                return randomScalingFactor();
-            });
+    new Chart(document.getElementById("line-chart2"), {
+        type: 'pie',
+        data: {
+            labels: [
+                'T. Publico',
+                'T.Privado',
+                'Mov Limpia'
+            ],
+            datasets: [{
+                data: [0.1, 0.1, 0.1],
+                backgroundColor: [
+                    'rgb(6,224,201)',
+                    'rgb(4,124,148)',
+                    'rgb(4,91,105)'
+                ],
+                hoverOffset: 4
+            }]
+        },
+        /*options: {
+            title: {
+                display: true,
+                text: 'World population per region (in millions)'
+            }
+        }*/
+    });
+    /*$('#ppt').click(function () {
+        import pptxgen from "pptxgenjs";
+        const pptx = new pptxgen();
+        const copyright = `© 2019 My copyright`;
 
+        pptx.defineSlideMaster({
+            title: 'MASTER_SLIDE',
+            bkgd: 'FFFFFF',
+            objects: [
+                { image: { x: 10.7, y: scales.yTop, w: 2.3, h: 0.3, path: 'path/to/image/' } },
+                { text: { text: copyright, options: { x: scales.xLeft, y: 6.9, w: 10, h: 0.75, fontSize: scales.fontSmall, color: 'A9A9A9' } } },
+                { image: { x: 11, y: 7, w: 2, h: 0.23, path: 'path/to/image/' } },
+            ],
         });
-
-        window.myLine.update();
-    });
-
-    var colorNames = Object.keys(window.chartColors);
-    document.getElementById('addDataset').addEventListener('click', function () {
-        var colorName = colorNames[config.data.datasets.length % colorNames.length];
-        var newColor = window.chartColors[colorName];
-        var newDataset = {
-            label: 'Dataset ' + config.data.datasets.length,
-            backgroundColor: newColor,
-            borderColor: newColor,
-            data: [],
-            fill: false
-        };
-
-        for (var index = 0; index < config.data.labels.length; ++index) {
-            newDataset.data.push(randomScalingFactor());
-        }
-
-        config.data.datasets.push(newDataset);
-        window.myLine.update();
-    });
-
-    document.getElementById('addData').addEventListener('click', function () {
-        if (config.data.datasets.length > 0) {
-            var month = MONTHS[config.data.labels.length % MONTHS.length];
-            config.data.labels.push(month);
-
-            config.data.datasets.forEach(function (dataset) {
-                dataset.data.push(randomScalingFactor());
-            });
-
-            window.myLine.update();
-        }
-    });
-
-    document.getElementById('removeDataset').addEventListener('click', function () {
-        config.data.datasets.splice(0, 1);
-        window.myLine.update();
-    });
-
-    document.getElementById('removeData').addEventListener('click', function () {
-        config.data.labels.splice(-1, 1); // remove the label first
-
-        config.data.datasets.forEach(function (dataset) {
-            dataset.data.pop();
-        });
-
-        window.myLine.update();
-    });
-
+    })*/
 </script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-1.11.3.js" type="text/javascript"></script>
+<script src="https://jqueryui.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+<script src="https://jqueryui.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/semantic.min.js"></script>
+<script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
