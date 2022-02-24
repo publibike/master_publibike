@@ -1,73 +1,93 @@
-<!DOCTYPE html>
 <html>
 
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EkoBike - En bici creamos un mundo mejor</title>
-    <link rel="stylesheet" type="text/css" href="/assets/css/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/ekobike-admin.css">
-    <script src="https://code.jquery.com/jquery-1.11.3.js" type="text/javascript"></script>
-    <script src="https://jqueryui.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
-    <script src="https://jqueryui.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/semantic.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/ekobike-admin.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-1.11.3.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://jqueryui.com/jquery-wp-content/themes/jquery/js/plugins.js"
+    ></script>
+    <script
+      src="https://jqueryui.com/jquery-wp-content/themes/jquery/js/main.js"
+    ></script>
     <script type="text/javascript" src="/assets/js/semantic.min.js"></script>
     <script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
-    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
 
-</head>
+  </head>
 
-{{!-- movilidad limpia
+  {{! movilidad limpia
 transporte <p>
     pra privado
-</p> --}}
+</p> }}
 
-<body>
+  <body>
     <!-- NAVBAR -->
     <div class="ui visible inverted left vertical sidebar menu menu-side">
-        <div class="logo-ekobike">
-            <a href="/admin/empresa/{{empresa._id}}">
-                <img src="/assets/img/logo-ekobike.png">
-            </a>
-        </div>
-        <a class="item" href="/admin/empresa/{{empresa._id}}">
-            <i class="home icon"></i>
-            Dashboard
+      <div class="logo-ekobike">
+        <a href="/admin/empresa/{{empresa._id}}">
+          <img src="/assets/img/logo-ekobike.png" />
         </a>
-        <a class="item" href="/admin/empresa/{{empresa._id}}/usuarios">
-            <i class="user circle outline layout icon"></i>
-            Usuarios Registrados
-        </a>
-        <a class="item" href="/admin/empresa/{{empresa._id}}/registro/usuarios">
-            <i class="id badge outline"></i>
-            Registrar Usuarios
-        </a><a class="item" href="/admin/empresa/{{empresa._id}}/registro/reconocimiento">
-            <i class="id badge outline"></i>
-            Registrar Reconocimiento
-        </a>
+      </div>
+      <a class="item" href="/admin/empresa/{{empresa._id}}">
+        <i class="home icon"></i>
+        Dashboard
+      </a>
+      <a class="item" href="/admin/empresa/{{empresa._id}}/usuarios">
+        <i class="user circle outline layout icon"></i>
+        Usuarios Registrados
+      </a>
+      <a class="item" href="/admin/empresa/{{empresa._id}}/registro/usuarios">
+        <i class="id badge outline"></i>
+        Registrar Usuarios
+      </a><a
+        class="item"
+        href="/admin/empresa/{{empresa._id}}/registro/reconocimiento"
+      >
+        <i class="id badge outline"></i>
+        Registrar Reconocimiento
+      </a>
+      <a class="item" href="/admin/registro/campana/empresa/{{empresa._id}}">
+        <i class="id badge outline"></i>
+        Registrar Reto
+      </a>
     </div>
     <!-- FIN NAVBAR -->
-    {{!-- HEADER --}}
+    {{! HEADER }}
     <div class="wrapper pusher">
-        <div class="ui secondary menu">
-            <h3>
-                Empresa: {{empresa.nombre}}
-            </h3>
-            <div class="right menu">
-                <div class="item">
-                    <div class="ui icon input">
-                        <input type="text" placeholder="Buscar...">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
-                <a class="ui item" href="/admin/logout">
-                    Cerrar Sesión
-                </a>
+      <div class="ui secondary menu">
+        <h3>
+          Empresa:
+          {{empresa.nombre}}
+        </h3>
+        <div class="right menu">
+          <div class="item">
+            <div class="ui icon input">
+              <input type="text" placeholder="Buscar..." />
+              <i class="search link icon"></i>
             </div>
+          </div>
+          <a class="ui item" href="/admin/logout">
+            Cerrar Sesión
+          </a>
         </div>
-        {{!-- FIN HEADER --}}
-        {{{content}}}
+      </div>
+      {{! FIN HEADER }}
+      {{{content}}}
     </div>
-</body>
-
+  </body>
 
 </html>

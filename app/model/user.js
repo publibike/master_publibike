@@ -11,6 +11,7 @@ class User {
         data.usuario = Number.parseInt(data.usuario);
         data.peso = Number.parseInt(data.peso);
         data.estatura = Number.parseInt(data.estatura);
+        data.sede = "";
         data.riesgo_COVID = 0;
         data.recorridos = [];
         data.reconocimientos = [];

@@ -65,7 +65,7 @@ module.exports.register = async server => {
 
 
             if (result.tipo === "super") {
-                return h.redirect('/admin/usuario/60012e9fb05f541b2b15dc54').state('session', cookie);
+                return h.redirect('/admin/usuario/5fee064159aa4e5b64f9152b').state('session', cookie);
             } else if (result.tipo === "empresa") {
                 return h.redirect(`/admin/empresa/${result.empresaId}`).state('session', cookie);
             }
