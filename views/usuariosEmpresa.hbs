@@ -1,21 +1,12 @@
 <div class="ui one column grid content">
   <div class="column">
     <div class="inside-column" style="overflow-x: auto;">
-      <form
-        class="ui form"
-        style="display: none;"
-        method="POST"
-        action="/admin/usuarios/filtrados"
-      >
+      <form class="ui form" style="display: none;" method="POST" action="/admin/usuarios/filtrados">
         <h2 class="ui dividing header">Filtrar Datos</h2>
         <div class="fields">
           <div class="four wide field">
             <label>Buscar Por datos</label>
-            <input
-              type="text"
-              placeholder="Filtra por (NOMBRE, USUARIO, EMAIL)"
-              name="texto"
-            />
+            <input type="text" placeholder="Filtra por (NOMBRE, USUARIO, EMAIL)" name="texto" />
           </div>
           <div class="two wide field">
             <label>RECORRIDOS</label>
@@ -59,19 +50,11 @@
           </div>
           <div class="two wide field">
             <label>Mostrar</label>
-            <button
-              type="submit"
-              class="ui fluid large teal submit button"
-            >Filtrar</button>
+            <button type="submit" class="ui fluid large teal submit button">Filtrar</button>
           </div>
         </div>
       </form>
-      <form
-        class="ui form"
-        style="display: none;"
-        method="POST"
-        action="/admin/usuarios/filtrados"
-      >
+      <form class="ui form" style="display: none;" method="POST" action="/admin/usuarios/filtrados">
         <h2 class="ui dividing header">Filtrar Por rango de Fechas</h2>
         <div class="fields">
           <div class="eight wide field">
@@ -84,10 +67,7 @@
           </div>
         </div>
         <div class="field">
-          <button
-            type="submit"
-            class="ui fluid large teal submit button"
-          >Filtrar</button>
+          <button type="submit" class="ui fluid large teal submit button">Filtrar</button>
         </div>
       </form>
       <table id="table_id">
@@ -97,36 +77,30 @@
             <th>Usuario</th>
             <th>Email</th>
             <th>Recorridos</th>
-            <th>Total Kilometros</th>
-            <th>Total Calorias</th>
-            <th>Total Co2</th>
-            <th>Total Tiempo</th>
+            <th>Total Kilometros (Kms)</th>
+            <th>Total Calorias (Kcal)</th>
+            <th>Total Co2 (Kgrs)</th>
+            <th>Total Tiempo (Min)</th>
             <th>Empresa</th>
           </tr>
         </thead>
         <tbody>
           {{#each usuarios}}
-            <tr>
-              <td>{{this.nombre}}</td>
-              <td><a
-                  href="/admin/empresa/usuario/{{this._id}}"
-                >{{this.usuario}}</a></td>
-              <td>{{this.email}}</td>
-              <td>{{this.Nrecorridos}} </td>
-              <td>{{this.km_total}}
-                <h5>Kms</h5>
-              </td>
-              <td>{{this.cal_total}}
-                <h5>kcal</h5>
-              </td>
-              <td>{{this.co2_total}}
-                <h5>kgr</h5>
-              </td>
-              <td>{{this.tiempo_total}}
-                <h5>Mins</h5>
-              </td>
-              <td>{{this.empresa.nombre}}</td>
-            </tr>
+          <tr>
+            <td>{{this.nombre}}</td>
+            <td><a href="/admin/empresa/usuario/{{this._id}}">{{this.usuario}}</a></td>
+            <td>{{this.email}}</td>
+            <td>{{this.Nrecorridos}} </td>
+            <td>{{this.km_total}}
+            </td>
+            <td>{{this.cal_total}}
+            </td>
+            <td>{{this.co2_total}}
+            </td>
+            <td>{{this.tiempo_total}}
+            </td>
+            <td>{{this.empresa.nombre}}</td>
+          </tr>
           {{/each}}
         </tbody>
       </table>
@@ -135,11 +109,7 @@
   </div>
 </div>
 
-<script
-  type="text/javascript"
-  charset="utf8"
-  src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"
-></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 <script>
-  $(document).ready( function () { $('#table_id').DataTable(); } );
+  $(document).ready(function () { $('#table_id').DataTable(); });
 </script>
