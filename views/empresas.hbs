@@ -2,7 +2,7 @@
     <div class="column">
         <div class="inside-column">
             {{empresas}}
-            <table class="ui very basic table tabla-ekobike">
+            <table id="table_id" class="display">
                 <thead>
                     <tr>
                         <th>Empresa</th>
@@ -13,12 +13,14 @@
                 </thead>
                 <tbody>
                     {{#each empresa}}
-                    <tr>
-                        <td><a href="/admin/empresadetalle/{{this._id}}">{{this.nombre}}</a></td>
-                        <td>{{this.usuarios.length}}</td>
-                        <td>{{this.email}}</td>
-                        <td>{{this.num_contacto}}</td>
-                    </tr>
+                        {{#if this.nombre}}
+                        <tr>
+                            <td><a href="/admin/empresadetalle/{{this._id}}">{{this.nombre}}</a></td>
+                            <td>{{this.usuarios.length}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.num_contacto}}</td>
+                        </tr>
+                        {{/if}}
                     {{/each}}
                 </tbody>
             </table>
