@@ -2,6 +2,8 @@
 
 const api = require("./api");
 const moment = require("moment");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 /****************************************
  * RUTAS DE VISUALIZACIÓN DE LA APLICACIÓN
@@ -507,15 +509,22 @@ module.exports.register = async (server) => {
       empresa.co2 = empresa.co2.toFixed(2);
       empresa.cal = empresa.cal.toFixed(2);
       empresa.km = empresa.km.toFixed(2);
-      empresa.smartphones = ((empresa.co2  * 34) / 0.067).toFixed(2)
-      empresa.numeroPlantulas = ((empresa.co2 * 0.001) / 0.067).toFixed(2)
-      empresa.bolsasRecicladas = ((empresa.co2 * 0.003) / 0.067).toFixed(2)
+      empresa.smartphones = ((empresa.co2 * 34) / 0.067).toFixed(2);
+      empresa.numeroPlantulas = ((empresa.co2 * 0.001) / 0.067).toFixed(2);
+      empresa.bolsasRecicladas = ((empresa.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
 
+      const token = jwt.sign(
+        {
+          _id: id,
+        },
+        process.env.COOKIE_ENCRYPT_PWD
+      );
       return h.view("usuario", {
         // title: `Usuario: ${usuario.usuario}`,
         usuario: usuario,
         empresa: empresa,
+        token: token,
         // id: id
       });
     },
@@ -572,7 +581,7 @@ module.exports.register = async (server) => {
       const graph = await req.mongo.db
         .collection("Empresa")
         .aggregate([
-          { $match : { _id: new ObjectID(id) } },
+          { $match: { _id: new ObjectID(id) } },
           { $unwind: "$datosHistoricos" },
           { $unwind: "$datosHistoricos.fechaCom" },
           {
@@ -590,15 +599,24 @@ module.exports.register = async (server) => {
       empresa.co2 = empresa.co2.toFixed(2);
       empresa.cal = empresa.cal.toFixed(2);
       empresa.km = empresa.km.toFixed(2);
-      empresa.smartphones = ((empresa.co2  * 34) / 0.067).toFixed(2)
-      empresa.numeroPlantulas = ((empresa.co2 * 0.001) / 0.067).toFixed(2)
-      empresa.bolsasRecicladas = ((empresa.co2 * 0.003) / 0.067).toFixed(2)
+      empresa.smartphones = ((empresa.co2 * 34) / 0.067).toFixed(2);
+      empresa.numeroPlantulas = ((empresa.co2 * 0.001) / 0.067).toFixed(2);
+      empresa.bolsasRecicladas = ((empresa.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
+
+      const token = jwt.sign(
+        {
+          _id: id,
+        },
+        process.env.COOKIE_ENCRYPT_PWD
+      );
+
       return h.view(
         "dashboardEmpresa",
         {
           admin: req.state.admin,
           empresa: empresa,
+          token: token,
         },
         {
           layout: "layoutEmpresa",
