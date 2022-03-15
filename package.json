@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --ext js,hbs",
+    "dev": "npm i && nodemon --ext js,hbs",
     "start": "npm install && pm2 start index.js"
   },
   "keywords": [
