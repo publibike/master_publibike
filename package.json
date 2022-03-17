@@ -20,7 +20,7 @@
     "assert": "^2.0.0",
     "bcrypt": "^5.0.0",
     "boom": "^7.3.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "handlebars": "^4.7.6",
     "hapi": "^18.1.0",
     "hapi-mongodb": "^9.0.1",
