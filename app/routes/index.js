@@ -4,6 +4,7 @@ const api = require("./api");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const Handlebars = require('handlebars');
 
 /****************************************
  * RUTAS DE VISUALIZACIÓN DE LA APLICACIÓN
@@ -12,6 +13,10 @@ require("dotenv").config();
 module.exports.register = async (server) => {
   //registra la ruta api
   await api.register(server);
+
+  Handlebars.registerHelper('distanceFixed', function(distance) {
+    return distance.toFixed(2);
+  });
 
   /************************************
    * Rutas para el perfil Admin General
@@ -378,7 +383,6 @@ module.exports.register = async (server) => {
         var cal = ususfiltred.reduce((sum, value) => sum + value.cal, 0);
         var co2 = ususfiltred.reduce((sum, value) => sum + value.co2, 0);
         ultRecorrido = { minutos, kms, cal, co2 };
-        console.log(ultRecorrido);
       }
 
       if (!ultRecorrido) {
@@ -476,6 +480,17 @@ module.exports.register = async (server) => {
       });
     },
   });
+
+  //Funcion que convierte segundos en tiempo
+  function secsToTime(secs) {
+    let d = (secs / 8.64e4) | 0;
+    let H = ((secs % 8.64e4) / 3.6e3) | 0;
+    let m = ((secs % 3.6e3) / 60) | 0;
+    let s = secs % 60;
+    let z = (n) => (n < 10 ? "0" : "") + n;
+    return `${d}:${z(H)}:${z(m)}`;
+  }
+
   //Ruta que muestra un usuario
   server.route({
     method: "GET",
@@ -483,11 +498,11 @@ module.exports.register = async (server) => {
     handler: async (req, h) => {
       const usuario = await req.mongo.db.collection("Empresa").findOne({});
       const id = req.params.id;
-      const ObjectID = req.mongo.ObjectID;
 
       const empresa = await req.mongo.db
         .collection("Empresa")
-        .findOne({ _id: new ObjectID(id) });
+        .find({ webReconocimientos: { $exists: true } })
+        .toArray();
 
       const graph = await req.mongo.db
         .collection("Empresa")
@@ -505,13 +520,26 @@ module.exports.register = async (server) => {
         ])
         .toArray();
 
-      empresa.tiempo = moment.utc(empresa.tiempo * 1000).format("HH:mm:ss");
-      empresa.co2 = empresa.co2.toFixed(2);
-      empresa.cal = empresa.cal.toFixed(2);
-      empresa.km = empresa.km.toFixed(2);
-      empresa.smartphones = ((empresa.co2 * 34) / 0.067).toFixed(2);
-      empresa.numeroPlantulas = ((empresa.co2 * 0.001) / 0.067).toFixed(2);
-      empresa.bolsasRecicladas = ((empresa.co2 * 0.003) / 0.067).toFixed(2);
+      let tempEmp = {
+        tiempo: 0,
+        co2: 0,
+        cal: 0,
+        km: 0,
+      };
+      await empresa.map((emp) => {
+        tempEmp.tiempo = tempEmp.tiempo + emp.tiempo;
+        tempEmp.co2 = tempEmp.co2 + emp.co2;
+        tempEmp.cal = tempEmp.cal + emp.cal;
+        tempEmp.km = tempEmp.km + emp.km;
+      });
+
+      empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
+      empresa.co2 = tempEmp.co2.toFixed(2);
+      empresa.cal = tempEmp.cal.toFixed(2);
+      empresa.km = tempEmp.km.toFixed(2);
+      empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
+      empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
+      empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
 
       const token = jwt.sign(
@@ -595,7 +623,7 @@ module.exports.register = async (server) => {
         ])
         .toArray();
 
-      empresa.tiempo = moment.utc(empresa.tiempo * 1000).format("HH:mm:ss");
+      empresa.tiempo = secsToTime(empresa.tiempo * 60);
       empresa.co2 = empresa.co2.toFixed(2);
       empresa.cal = empresa.cal.toFixed(2);
       empresa.km = empresa.km.toFixed(2);

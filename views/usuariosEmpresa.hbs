@@ -81,7 +81,6 @@
             <th>Total Calorias (Kcal)</th>
             <th>Total Co2 (Kgrs)</th>
             <th>Total Tiempo (Min)</th>
-            <th>Empresa</th>
           </tr>
         </thead>
         <tbody>
@@ -90,16 +89,15 @@
             <td>{{this.nombre}}</td>
             <td>{{this.usuario}}</td>
             <td>{{this.email}}</td>
-            <td>{{this.Nrecorridos}} </td>
-            <td>{{this.km_total}}
+            <td>{{this.recorridos.length}} </td>
+            <td>{{distanceFixed this.km_total}}
             </td>
-            <td>{{this.cal_total}}
+            <td>{{distanceFixed this.cal_total}}
             </td>
-            <td>{{this.co2_total}}
+            <td>{{distanceFixed this.co2_total}}
             </td>
             <td>{{this.tiempo_total}}
             </td>
-            <td>{{this.empresa.nombre}}</td>
           </tr>
           {{/each}}
         </tbody>

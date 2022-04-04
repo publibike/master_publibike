@@ -594,7 +594,10 @@ module.exports.register = async (server) => {
         const id = req.params.id;
         const ObjectID = req.mongo.ObjectID;
 
-        const payload = req.payload;
+        let payload = req.payload;
+        payload.empresa.id = new ObjectID(payload.empresa.id)
+
+        console.log(payload)
 
         status = await req.mongo.db
           .collection("Usuario")
