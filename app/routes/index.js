@@ -4,7 +4,7 @@ const api = require("./api");
 const moment = require("moment");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const Handlebars = require('handlebars');
+const Handlebars = require("handlebars");
 
 /****************************************
  * RUTAS DE VISUALIZACIÓN DE LA APLICACIÓN
@@ -14,7 +14,7 @@ module.exports.register = async (server) => {
   //registra la ruta api
   await api.register(server);
 
-  Handlebars.registerHelper('distanceFixed', function(distance) {
+  Handlebars.registerHelper("distanceFixed", function (distance) {
     return distance.toFixed(2);
   });
 
@@ -104,6 +104,7 @@ module.exports.register = async (server) => {
       const datos = request.payload;
 
       let usuarios = [];
+      /*
       if (datos.texto) {
         var regex = new RegExp(["^", datos.texto, "$"].join(""), "i");
         usuarios = await request.mongo.db
@@ -212,34 +213,20 @@ module.exports.register = async (server) => {
           .limit(parseInt(datos.Nfilas))
           .toArray();
       }
-
+*/
       if (datos.FechaInicio) {
-        let datapert = [];
         const datosConsulta = await request.mongo.db
           .collection("Usuario")
           .find({})
           .toArray();
-        datosConsulta.filter((datosfiltrados) => {
-          datosfiltrados.recorridos.map((valor) => {
-            if (
-              moment(valor.fecha).isBetween(
-                moment(datos.FechaInicio),
-                moment(datos.FechaFin)
-              )
-            ) {
-              datapert.push(datosfiltrados);
-            }
-          });
-        });
-
-        var hash = {};
-        datapert = datapert.filter(function (current) {
-          var exists = !hash[current.nombre];
-          hash[current.nombre] = true;
-          return exists;
-        });
-
-        usuarios = datapert;
+        usuarios = datosConsulta.filter((d) =>
+          d.recorridos.every((c) =>
+            moment(c.fecha).isBetween(
+              moment(datos.FechaInicio),
+              moment(datos.FechaFin)
+            )
+          )
+        );
       }
 
       if (usuarios.length === 0) {
@@ -274,6 +261,176 @@ module.exports.register = async (server) => {
         usuarios: usuarios,
         Nusuarios: Nusuarios,
       });
+    },
+  });
+
+  server.route({
+    method: "POST",
+    path: "/admin/usuarios/filtrados/empresa/{id}",
+    handler: async (request, h) => {
+      const datos = request.payload;
+      const id = request.params.id;
+      const ObjectID = request.mongo.ObjectID;
+
+      let usuarios = [];
+      /*
+      if (datos.texto) {
+        var regex = new RegExp(["^", datos.texto, "$"].join(""), "i");
+        usuarios = await request.mongo.db
+          .collection("Usuario")
+          .find({ nombre: regex })
+          .toArray();
+        if (usuarios.length === 0) {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .find({ usuario: parseInt(datos.texto) })
+            .toArray();
+        }
+        if (usuarios.length === 0) {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .find({ email: regex })
+            .toArray();
+        }
+      }
+      if (datos.recorridos) {
+        if (datos.recorridos == "Mayor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { recorridos: -1 } }])
+            .limit(10)
+            .toArray();
+        }
+        if (datos.recorridos == "Menor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { recorridos: 1 } }])
+            .limit(10)
+            .toArray();
+        }
+      }
+
+      if (datos.kilometros) {
+        if (datos.kilometros == "Mayor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { km_total: -1 } }])
+            .limit(10)
+            .toArray();
+        }
+        if (datos.kilometros == "Menor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { km_total: 1 } }])
+            .limit(10)
+            .toArray();
+        }
+      }
+      if (datos.calorias) {
+        if (datos.calorias == "Mayor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { cal_total: -1 } }])
+            .limit(10)
+            .toArray();
+        }
+        if (datos.calorias == "Menor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { cal_total: 1 } }])
+            .limit(10)
+            .toArray();
+        }
+      }
+      if (datos.co2) {
+        if (datos.co2 == "Mayor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { co2_total: -1 } }])
+            .limit(10)
+            .toArray();
+        }
+        if (datos.co2 == "Menor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { co2_total: 1 } }])
+            .limit(10)
+            .toArray();
+        }
+      }
+      if (datos.tiempo) {
+        if (datos.tiempo == "Mayor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { tiempo_total: -1 } }])
+            .limit(10)
+            .toArray();
+        }
+        if (datos.tiempo == "Menor") {
+          usuarios = await request.mongo.db
+            .collection("Usuario")
+            .aggregate([{ $sort: { tiempo_total: 1 } }])
+            .limit(10)
+            .toArray();
+        }
+      }
+
+      if (datos.Nfilas > 0) {
+        usuarios = await request.mongo.db
+          .collection("Usuario")
+          .aggregate([{ $sort: { tiempo_total: 1 } }])
+          .limit(parseInt(datos.Nfilas))
+          .toArray();
+      }
+*/
+      if (datos.FechaInicio) {
+        const datosConsulta = await request.mongo.db
+          .collection("Usuario")
+          .find({ "empresa.id": new ObjectID(id) })
+          .toArray();
+        usuarios = datosConsulta.filter((d) =>
+          d.recorridos.every((c) =>
+            moment(c.fecha).isBetween(
+              moment(datos.FechaInicio),
+              moment(datos.FechaFin)
+            )
+          )
+        );
+      }
+
+      if (usuarios.length === 0) {
+        usuarios = await request.mongo.db
+          .collection("Usuario")
+          .find({})
+          .toArray();
+      }
+
+      let Nusuarios = [];
+      let usuariosTotales = await request.mongo.db
+        .collection("Usuario")
+        .find({})
+        .toArray();
+      let numeroDivididoTres = usuariosTotales.length / 3;
+      let numeroDivididodos = parseInt(usuariosTotales.length / 2);
+      let numeroTotales = usuariosTotales.length;
+      Nusuarios.push(numeroDivididoTres);
+      Nusuarios.push(numeroDivididodos);
+      Nusuarios.push(numeroTotales);
+      const empresa = await request.mongo.db
+        .collection("Empresa")
+        .findOne({ _id: new ObjectID(id) });
+
+      return h.view(
+        "usuariosEmpresa",
+        {
+          title: "Usuarios Registrados",
+          empresa: empresa,
+          usuarios: usuarios,
+        },
+        {
+          layout: "layoutEmpresa",
+        }
+      );
     },
   });
 
@@ -498,15 +655,29 @@ module.exports.register = async (server) => {
     handler: async (req, h) => {
       const usuario = await req.mongo.db.collection("Empresa").findOne({});
       const id = req.params.id;
+      const ObjectID = req.mongo.ObjectID;
 
       const empresa = await req.mongo.db
         .collection("Empresa")
-        .find({ webReconocimientos: { $exists: true } })
+        .find({
+          $and: [
+            { webReconocimientos: { $exists: true } },
+            { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+          ],
+        })
         .toArray();
 
       const graph = await req.mongo.db
         .collection("Empresa")
         .aggregate([
+          {
+            $match: {
+              $and: [
+                { webReconocimientos: { $exists: true } },
+                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+              ],
+            },
+          },
           { $unwind: "$datosHistoricos" },
           { $unwind: "$datosHistoricos.fechaCom" },
           {
