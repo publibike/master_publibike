@@ -219,14 +219,15 @@ module.exports.register = async (server) => {
           .collection("Usuario")
           .find({})
           .toArray();
-        usuarios = datosConsulta.filter((d) =>
-          d.recorridos.every((c) =>
+        datosConsulta.map((d) => {
+          d.recorridos = d.recorridos.filter((c) =>
             moment(c.fecha).isBetween(
               moment(datos.FechaInicio),
               moment(datos.FechaFin)
             )
-          )
-        );
+          );
+        });
+        usuarios = datosConsulta;
       }
 
       if (usuarios.length === 0) {
@@ -235,13 +236,23 @@ module.exports.register = async (server) => {
           .find({})
           .toArray();
       }
-
+      let tiempo_total, co2_total, cal_total, km_total;
       usuarios.map((usu, i) => {
+        tiempo_total = 0;
+        co2_total = 0;
+        cal_total = 0;
+        km_total = 0;
+        usu.recorridos.map((rec) => {
+          tiempo_total = tiempo_total + rec.minutos;
+          co2_total = co2_total + rec.co2;
+          cal_total = cal_total + rec.cal;
+          km_total = km_total + rec.kms;
+        });
         usu.Nrecorridos = usu.recorridos.length;
-        usu.tiempo_total = parseInt(usu.tiempo_total).toFixed(1);
-        usu.co2_total = parseInt(usu.co2_total).toFixed(1);
-        usu.cal_total = parseInt(usu.cal_total).toFixed(1);
-        usu.km_total = parseInt(usu.km_total).toFixed(1);
+        usu.tiempo_total = parseInt(tiempo_total).toFixed(1);
+        usu.co2_total = parseInt(co2_total).toFixed(1);
+        usu.cal_total = parseInt(cal_total).toFixed(1);
+        usu.km_total = parseInt(km_total).toFixed(1);
       });
 
       let Nusuarios = [];
@@ -388,14 +399,15 @@ module.exports.register = async (server) => {
           .collection("Usuario")
           .find({ "empresa.id": new ObjectID(id) })
           .toArray();
-        usuarios = datosConsulta.filter((d) =>
-          d.recorridos.every((c) =>
+        datosConsulta.map((d) => {
+          d.recorridos = d.recorridos.filter((c) =>
             moment(c.fecha).isBetween(
               moment(datos.FechaInicio),
               moment(datos.FechaFin)
             )
-          )
-        );
+          );
+        });
+        usuarios = datosConsulta;
       }
 
       if (usuarios.length === 0) {
@@ -404,6 +416,24 @@ module.exports.register = async (server) => {
           .find({})
           .toArray();
       }
+      let tiempo_total, co2_total, cal_total, km_total;
+      usuarios.map((usu, i) => {
+        tiempo_total = 0;
+        co2_total = 0;
+        cal_total = 0;
+        km_total = 0;
+        usu.recorridos.map((rec) => {
+          tiempo_total = tiempo_total + rec.minutos;
+          co2_total = co2_total + rec.co2;
+          cal_total = cal_total + rec.cal;
+          km_total = km_total + rec.kms;
+        });
+        usu.Nrecorridos = usu.recorridos.length;
+        usu.tiempo_total = parseInt(tiempo_total).toFixed(1);
+        usu.co2_total = parseInt(co2_total);
+        usu.cal_total = parseInt(cal_total);
+        usu.km_total = parseInt(km_total);
+      });
 
       let Nusuarios = [];
       let usuariosTotales = await request.mongo.db
