@@ -25,13 +25,31 @@ module.exports.register = async (server) => {
       let result;
       try {
         let admini = req.payload;
+        const ObjectID = req.mongo.ObjectID;
         if (req.payload.token) {
-          let decoded = jwt.verify(req.payload.token, process.env.COOKIE_ENCRYPT_PWD);
+          let decoded = jwt.verify(
+            req.payload.token,
+            process.env.COOKIE_ENCRYPT_PWD
+          );
+
+          console.log({ _id: new ObjectID(decoded._id) })
+          const data = await req.mongo.db
+            .collection("Administrador")
+            .findOne({ empresaId: new ObjectID(decoded._id) });
+
           let cookie = req.state.admin;
           if (decoded) {
-            return h
-              .redirect("/admin/usuario/" + decoded._id)
-              .state("session", cookie);
+            //   cookie.lastVisit = Date.now()
+            console.log(data)
+            if (data.tipo === "super") {
+              return h
+                .redirect("/admin/usuario/5fee064159aa4e5b64f9152b")
+                .state("session", cookie);
+            } else if (data.tipo === "empresa") {
+              return h
+                .redirect(`/admin/empresa/${data.empresaId}`)
+                .state("session", cookie);
+            }
           }
         }
         // let usuario = parseInt(admini.usuario)
@@ -595,9 +613,9 @@ module.exports.register = async (server) => {
         const ObjectID = req.mongo.ObjectID;
 
         let payload = req.payload;
-        payload.empresa.id = new ObjectID(payload.empresa.id)
+        payload.empresa.id = new ObjectID(payload.empresa.id);
 
-        console.log(payload)
+        console.log(payload);
 
         status = await req.mongo.db
           .collection("Usuario")
