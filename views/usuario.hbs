@@ -38,37 +38,37 @@
           {{! <div class="col-md-2">
             }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="ui teal submit button">Exportar PDF</button>
+            <button id="pdf" class="ui teal submit button">Exportar PDF</button>
             {{!
           </div> }}
 
         </div>
 
-        <div class="card-body" style="background: #f2f3f3;">
-          <form style="display: none;" class="ui form center" method="POST"
-            action="/api/admin/filtrarRecorrido/5fee064159aa4e5b64f9152b">
+        <div id="part1" class="card-body" style="background: #f2f3f3;">
+          <form id="formfilter" class="ui form center" method="POST"
+            action="/admin/usuario/filtros/5fee064159aa4e5b64f9152b">
             <center>
               <h2 class="ui dividing header">Filtrar Por rango de Fechas</h2>
             </center>
             <div class="fields">
               <div class="eight wide field">
                 <label>Fecha Inicio</label>
-                <input type="date" name="FechaInicio" required />
+                <input type="date" name="FechaInicio" value="{{empresa.FechaInicio}}" required />
               </div>
               <div class="eight wide field">
                 <label>Fecha Fin</label>
-                <input type="date" name="FechaFin" required />
+                <input type="date" name="FechaFin" value="{{empresa.FechaFin}}" required />
               </div>
             </div>
             <div class="field">
-              <button type="submit" id="filtrar" class="ui fluid large teal submit button">Filtar</button>
+              <button type="submit" class="ui fluid large teal submit button">Filtrar</button>
             </div>
           </form>
           <br />
           <div id="contentPdf">
-            <div class="ui grid center">
-              <div class="seven wide column">
-                <div class="ui cards" style="width: 300px;">
+            <div style="display: flex; gap:10%; margin-bottom: 15px;justify-content: center;">
+              <div class="wide column">
+                <div class="ui cards" >
                   <div class="card">
 
                     <div class="content">
@@ -80,7 +80,7 @@
                         </font>
                       </div>
 
-                      <div class="description" id="description" style="font-size:35px;background:#06e0c9;
+                      <div class="description" id="description" style="font-size:45px;background:#06e0c9;
                                             color:white;border-radius: 12px;">
                         <font style="vertical-align: inherit;">
                           <center>
@@ -101,8 +101,8 @@
                   </div>
                 </div>
               </div>
-              <div class="seven wide column">
-                <div class="ui cards" style="width: 300px;">
+              <div class="wide column">
+                <div class="ui cards" >
                   <div class="card">
                     <div class="content">
                       <div class="header">
@@ -111,9 +111,10 @@
                         </font>
                       </div>
 
-                      <div class="description" style="font-size:35px">
+                      <div class="description" style="font-size:45px">
                         <font style="vertical-align: inherit;">
                           <font style="vertical-align: inherit;">
+                            {{!-- {{usuario.km_total}} --}}
                             {{empresa.km}}
                           </font>
                         </font>
@@ -131,9 +132,73 @@
               </div>
             </div>
           </div>
+          <div id="contentPdf">
+            <div style="display: flex; gap:10%;margin-bottom: 15px;justify-content: center;">
+              <div class="wide column">
+                <div class="ui cards" >
+                  <div class="card">
+
+                    <div class="content">
+                      <div class="header">
+                        <font style="vertical-align: inherit;">
+                          <font style="vertical-align: inherit;">Viajes Totales Realizados
+                          </font>
+                        </font>
+                      </div>
+
+                      <div class="description" id="description" style="font-size:35px;background:#06e0c9;
+                                            color:white;border-radius: 12px;">
+                        <font style="vertical-align: inherit;">
+                          <center>
+                            <font style="vertical-align: inherit;">
+                              {{empresa.viajes}}
+                            </font>
+                          </center>
+                        </font>
+                      </div><br />
+                      <div class="meta">
+                        <font style="vertical-align: inherit;">
+                          <font style="vertical-align: inherit;">Viajes
+                          </font>
+                        </font>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="wide column">
+                <div class="ui cards">
+                  <div class="card">
+                    <div class="content">
+                      <div class="header">
+                        <font style="vertical-align: inherit;">
+                          <font style="vertical-align: inherit;">Calorías quemadas</font>
+                        </font>
+                      </div>
+
+                      <div class="description" style="font-size:45px">
+                        <font style="vertical-align: inherit;">
+                          <font style="vertical-align: inherit;">
+                            {{!-- {{usuario.cal_total}} --}}
+                            {{empresa.cal}}
+                          </font>
+                        </font>
+                      </div>
+                      <br />
+                      <div class="meta">
+                        <font style="vertical-align: inherit;">
+                          <font style="vertical-align: inherit;">Kcal</font>
+                        </font>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="ui one column centered grid">
             <div class="column">
-              <div class="ui cards">
+              <div style="justify-content: center;" class="ui cards">
                 <div class="card" style="width: 550px;">
                   <div class="content">
                     <div class="header">
@@ -150,43 +215,8 @@
                 </div>
               </div>
             </div>
-            <div class="four column centered row">
-              <div class="column">
-
-              </div>
-              <div class="column">
-
-              </div>
-            </div>
           </div>
           <div class="ui grid center">
-            <div class="seven wide column">
-              <div class="ui cards" style="width: 260px;">
-                <div class="card">
-                  <div class="content">
-                    <div class="header">
-                      <font style="vertical-align: inherit;">
-                        <font style="vertical-align: inherit;">Calorías quemadas</font>
-                      </font>
-                    </div>
-
-                    <div class="description" style="font-size:45px">
-                      <font style="vertical-align: inherit;">
-                        <font style="vertical-align: inherit;">
-                          {{empresa.cal}}
-                        </font>
-                      </font>
-                    </div>
-                    <br />
-                    <div class="meta">
-                      <font style="vertical-align: inherit;">
-                        <font style="vertical-align: inherit;">Kcal</font>
-                      </font>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="seven wide column" style="display: none;">
               <div class="ui cards" style="width: 360px;">
                 <div class="card">
@@ -224,7 +254,7 @@
             {{!
           </div> }}
         </div>
-        <div class="card-body"
+        <div id="part2" class="card-body"
           style="background: linear-gradient(90deg, rgba(6,224,201,1) 0%, rgba(4,124,148,1) 47%, rgba(4,135,116,1) 100%);">
           <form style="display: none;" class="ui form center" method="POST"
             action="/api/admin/filtrarRecorrido/{{this.id}}">
@@ -250,7 +280,7 @@
           <div class="fields">
             <div class="eight wide center">
               <div class="ui cards">
-                <div class="card" style="width: 700px;height: 300px;">
+                <div class="card" style="width: 100%;">
                   <div class="content">
                     <div class="header">
                       <font style="vertical-align: inherit;">
@@ -260,7 +290,7 @@
                     </div>
 
                     <div class="description" style="font-size:45px">
-                      <canvas id="line-chart" style="width: 700px;height: 300px;"></canvas>
+                      <canvas id="line-chart" style="width: 100%;"></canvas>
                     </div>
                   </div>
                 </div>
@@ -322,8 +352,36 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                  <div class="col-md-4 offset-md-4">
+                    <div class="ui cards" style="width: 300px;">
+                      <div class="card">
+                        <div class="content">
+                          <div class="header">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Co2 Total Dejado De Emitir</font>
+                            </font>
+                          </div>
 
+                          <div class="description" style="font-size:35px">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">
+                                {{empresa.co2}}
+                              </font>
+                            </font>
+                          </div>
+                          <br />
+                          <div class="meta">
+                            <font style="vertical-align: inherit;">
+                              <font style="vertical-align: inherit;">Co2
+                              </font>
+                            </font>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="header"></div>
                 {{! <div class="ui cards">
                   <div class="card">
 
@@ -436,7 +494,7 @@
   });
 
   let dataCo2 = str.map(function (item) {
-    return item.co2;
+    return item.co2.toFixed(2);
   });
 
   $('#line-chart3').hide();
@@ -445,19 +503,43 @@
     $('#line-chart3').show();
   })
   $('#pdf').click(function () {
-    var doc = new jsPDF();
-    var elementHTML =
-      $('#contenidoPf').html();
-    var specialElementHandlers = {
-      '#elementH': function (element, renderer) {
-        return true;
-      }
-    };
-    doc.fromHTML(elementHTML, 15, 15, {
-      'width': 170,
-      'elementHandlers': specialElementHandlers
-    }); // Save the PDF
-    doc.save('PDF.pdf');
+    const filtros = `{{{empresa.FechaInicio}}}`;
+    if(!filtros)
+      $("#formfilter").hide();
+    
+    var header= document.getElementById("header");
+    header.innerHTML=  `<div style="display:flex; gap:5%; justify-content: center; align-items: center; margin:0 30px">
+                        <img style="image-rendering: pixelated;" src="/assets/img/logo-ekobike.png" width="10%" heigth="5%">
+                        <h1>Estadísticas UFLOU - GENERALES</h1>
+                    <div>`
+    html2canvas(document.getElementById("header"), {
+        scale: 2,
+        onrendered: function(canvas) {
+            header.innerHTML= ""
+            var img = canvas.toDataURL("image/png");
+            var doc = new jsPDF("p", "mm", "a4");
+            doc.addImage(img, 'JPEG', 0, 5);
+            html2canvas(document.getElementById("part1"),{
+            onrendered:function(canvas){
+              var img=canvas.toDataURL("image/png");
+              const pageWidth = doc.internal.pageSize.width*0.8;
+              const pageHeight = doc.internal.pageSize.height*0.8;
+              doc.addImage(img, 'JPEG', 20, 30, pageWidth, pageHeight);
+              
+              html2canvas(document.getElementById("part2"),{
+                onrendered:function(canvas){
+                  doc.addPage();
+                  var img=canvas.toDataURL("image/png");
+                  doc.addImage(img, 'JPEG', 20, 30, pageWidth, pageHeight);
+                  doc.save('Estadísticas UFLOU - GENERALES.pdf');
+                  $("#formfilter").show();
+                }
+              })
+            }
+          })
+        }
+      })
+    
   })
 
   new Chart(document.getElementById("line-chart"), {
@@ -471,8 +553,43 @@
         fill: false
       }]
     },
-    /*options: { title: { display: true, text: 'World population per region (in
-    millions)' } }*/
+    options: {
+      events: false,
+      tooltips: {
+          enabled: false
+      },
+      hover: {
+          animationDuration: 0
+      },
+      animation: {
+          duration: 1,
+          onComplete: function () {
+              var chartInstance = this.chart,
+                  ctx = chartInstance.ctx;
+              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              ctx.fillStyle = "#000"
+              this.data.datasets.forEach(function (dataset, i) {
+                  var meta = chartInstance.controller.getDatasetMeta(i);
+                  meta.data.forEach(function (bar, index) {
+                      var data = dataset.data[index];
+                      ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                  });
+              });
+          }
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          ticks: {
+            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+            // OR //
+            beginAtZero: true   // minimum value will be 0.
+          }
+        }]
+      }
+    }
   });
   new Chart(document.getElementById("line-chart1"), {
     type: 'bar',
@@ -490,6 +607,31 @@
       }]
     },
     options: {
+      events: false,
+      tooltips: {
+          enabled: false
+      },
+      hover: {
+          animationDuration: 0
+      },
+      animation: {
+          duration: 1,
+          onComplete: function () {
+              var chartInstance = this.chart,
+                  ctx = chartInstance.ctx;
+              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              ctx.fillStyle = "#000"
+              this.data.datasets.forEach(function (dataset, i) {
+                  var meta = chartInstance.controller.getDatasetMeta(i);
+                  meta.data.forEach(function (bar, index) {
+                      var data = dataset.data[index];
+                      ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                  });
+              });
+          }
+      },
       scales: {
         yAxes: [{
           display: true,
@@ -517,6 +659,31 @@
       }]
     },
     options: {
+      events: false,
+      tooltips: {
+          enabled: false
+      },
+      hover: {
+          animationDuration: 0
+      },
+      animation: {
+          duration: 1,
+          onComplete: function () {
+              var chartInstance = this.chart,
+                  ctx = chartInstance.ctx;
+              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+
+              this.data.datasets.forEach(function (dataset, i) {
+                  var meta = chartInstance.controller.getDatasetMeta(i);
+                  meta.data.forEach(function (bar, index) {
+                      var data = dataset.data[index];
+                      ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                  });
+              });
+          }
+      },
       scales: {
         yAxes: [{
           display: true,

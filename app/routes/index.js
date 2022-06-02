@@ -691,7 +691,7 @@ module.exports.register = async (server) => {
         .collection("Empresa")
         .find({
           $and: [
-            { webReconocimientos: { $exists: true } },
+            { nombre: { $exists: true } },
             { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
           ],
         })
@@ -703,7 +703,7 @@ module.exports.register = async (server) => {
           {
             $match: {
               $and: [
-                { webReconocimientos: { $exists: true } },
+                { nombre: { $exists: true } },
                 { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
               ],
             },
@@ -726,23 +726,156 @@ module.exports.register = async (server) => {
         co2: 0,
         cal: 0,
         km: 0,
+        viajes: 0,
       };
       await empresa.map((emp) => {
         tempEmp.tiempo = tempEmp.tiempo + emp.tiempo;
-        tempEmp.co2 = tempEmp.co2 + emp.co2;
         tempEmp.cal = tempEmp.cal + emp.cal;
         tempEmp.km = tempEmp.km + emp.km;
       });
 
+      await graph.map((emp) => {
+        tempEmp.co2 = tempEmp.co2 + emp.co2;
+        tempEmp.viajes = tempEmp.viajes + emp.viajes;
+      });
+
       empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
       empresa.co2 = tempEmp.co2.toFixed(2);
+      empresa.viajes = tempEmp.viajes;
       empresa.cal = tempEmp.cal.toFixed(2);
       empresa.km = tempEmp.km.toFixed(2);
       empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
       empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
       empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
+      const token = jwt.sign(
+        {
+          _id: id,
+        },
+        process.env.COOKIE_ENCRYPT_PWD
+      );
+      return h.view("usuario", {
+        // title: `Usuario: ${usuario.usuario}`,
+        usuario: usuario,
+        empresa: empresa,
+        token: token,
+        // id: id
+      });
+    },
+  });
 
+  //Ruta dashboard filtrado
+  server.route({
+    method: "POST",
+    path: "/admin/usuario/filtros/{id}",
+    handler: async (req, h) => {
+      console.log("entro");
+      const usuario = await req.mongo.db.collection("Empresa").findOne({});
+      const id = req.params.id;
+      const ObjectID = req.mongo.ObjectID;
+      let datos = req.payload;
+      const empresa = await req.mongo.db
+        .collection("Empresa")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+              ],
+            },
+          },
+          { $unwind: "$datosHistoricos" },
+          { $project: { _id: 0, datosHistoricos: 1 } },
+          /* { $unwind: "$datosHistoricos" },
+          { $unwind: "$datosHistoricos.fechaCom" },*/
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+            },
+          },
+
+          {
+            $match: {
+              convertedDate: {
+                $gte: new Date(datos.FechaInicio),
+                $lt: new Date(datos.FechaFin),
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      const graph = await req.mongo.db
+        .collection("Empresa")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+              ],
+            },
+          },
+          { $unwind: "$datosHistoricos" },
+          { $project: { _id: 0, datosHistoricos: 1 } },
+          /* { $unwind: "$datosHistoricos" },
+            { $unwind: "$datosHistoricos.fechaCom" },*/
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+            },
+          },
+
+          {
+            $match: {
+              convertedDate: {
+                $gte: new Date(datos.FechaInicio),
+                $lt: new Date(datos.FechaFin),
+              },
+            },
+          },
+          {
+            $group: {
+              _id: { $substr: ["$datosHistoricos.fechaCom", 0, 7] },
+              viajes: { $sum: 1 },
+              co2: { $sum: "$datosHistoricos.co2" },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      let tempEmp = {
+        tiempo: 0,
+        co2: 0,
+        cal: 0,
+        km: 0,
+        viajes: 0,
+      };
+
+      await empresa.map((emp) => {
+        tempEmp.tiempo = tempEmp.tiempo + emp.datosHistoricos.min;
+        tempEmp.cal = tempEmp.cal + emp.datosHistoricos.cal;
+        tempEmp.km = tempEmp.km + emp.datosHistoricos.kms;
+      });
+
+      await graph.map((emp) => {
+        tempEmp.co2 = tempEmp.co2 + emp.co2;
+        tempEmp.viajes = tempEmp.viajes + emp.viajes;
+      });
+
+      empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
+      empresa.co2 = tempEmp.co2.toFixed(2);
+      empresa.viajes = tempEmp.viajes;
+      empresa.cal = tempEmp.cal.toFixed(2);
+      empresa.km = tempEmp.km.toFixed(2);
+      empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
+      empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
+      empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
+      empresa.dataGraph = JSON.stringify(graph);
+      empresa.FechaInicio = datos.FechaInicio
+      empresa.FechaFin = datos.FechaFin
       const token = jwt.sign(
         {
           _id: id,
@@ -824,15 +957,152 @@ module.exports.register = async (server) => {
         ])
         .toArray();
 
+      let tempEmp = {
+        co2: 0,
+        viajes: 0,
+      };
+      await graph.map((emp) => {
+        tempEmp.co2 = tempEmp.co2 + emp.co2;
+        tempEmp.viajes = tempEmp.viajes + emp.viajes;
+      });
+
       empresa.tiempo = secsToTime(empresa.tiempo * 60);
-      empresa.co2 = empresa.co2.toFixed(2);
+      empresa.co2 = tempEmp.co2.toFixed(2);
+      empresa.viajes = tempEmp.viajes;
       empresa.cal = empresa.cal.toFixed(2);
       empresa.km = empresa.km.toFixed(2);
       empresa.smartphones = ((empresa.co2 * 34) / 0.067).toFixed(2);
       empresa.numeroPlantulas = ((empresa.co2 * 0.001) / 0.067).toFixed(2);
       empresa.bolsasRecicladas = ((empresa.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
+      const token = jwt.sign(
+        {
+          _id: id,
+        },
+        process.env.COOKIE_ENCRYPT_PWD
+      );
 
+      return h.view(
+        "dashboardEmpresa",
+        {
+          admin: req.state.admin,
+          empresa: empresa,
+          token: token,
+        },
+        {
+          layout: "layoutEmpresa",
+        }
+      );
+    },
+  });
+
+  //Ruta dashboard empresa filtro
+  server.route({
+    method: "POST",
+    path: "/admin/empresa/filtro/{id}",
+    handler: async (req, h) => {
+      const id = req.params.id;
+      const ObjectID = req.mongo.ObjectID;
+      let datos = req.payload;
+      const empresa = await req.mongo.db
+        .collection("Empresa")
+        .findOne({ _id: new ObjectID(id) });
+      const datosFiltrados = await req.mongo.db
+        .collection("Empresa")
+        .aggregate([
+          {
+            $match: {
+              _id: new ObjectID(id),
+            },
+          },
+          { $unwind: "$datosHistoricos" },
+          { $project: { _id: 0, datosHistoricos: 1 } },
+          /* { $unwind: "$datosHistoricos" },
+          { $unwind: "$datosHistoricos.fechaCom" },*/
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+            },
+          },
+
+          {
+            $match: {
+              convertedDate: {
+                $gte: new Date(datos.FechaInicio),
+                $lt: new Date(datos.FechaFin),
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      const graph = await req.mongo.db
+        .collection("Empresa")
+        .aggregate([
+          {
+            $match: {
+              _id: new ObjectID(id),
+            },
+          },
+          { $unwind: "$datosHistoricos" },
+          { $project: { _id: 0, datosHistoricos: 1 } },
+          /* { $unwind: "$datosHistoricos" },
+            { $unwind: "$datosHistoricos.fechaCom" },*/
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+            },
+          },
+
+          {
+            $match: {
+              convertedDate: {
+                $gte: new Date(datos.FechaInicio),
+                $lt: new Date(datos.FechaFin),
+              },
+            },
+          },
+          {
+            $group: {
+              _id: { $substr: ["$datosHistoricos.fechaCom", 0, 7] },
+              viajes: { $sum: 1 },
+              co2: { $sum: "$datosHistoricos.co2" },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      let tempEmp = {
+        tiempo: 0,
+        co2: 0,
+        cal: 0,
+        km: 0,
+        viajes: 0,
+      };
+
+      await datosFiltrados.map((emp) => {
+        tempEmp.tiempo = tempEmp.tiempo + emp.datosHistoricos.min;
+        tempEmp.cal = tempEmp.cal + emp.datosHistoricos.cal;
+        tempEmp.km = tempEmp.km + emp.datosHistoricos.kms;
+      });
+
+      await graph.map((emp) => {
+        tempEmp.co2 = tempEmp.co2 + emp.co2;
+        tempEmp.viajes = tempEmp.viajes + emp.viajes;
+      });
+
+      empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
+      empresa.co2 = tempEmp.co2.toFixed(2);
+      empresa.viajes = tempEmp.viajes;
+      empresa.cal = tempEmp.cal.toFixed(2);
+      empresa.km = tempEmp.km.toFixed(2);
+      empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
+      empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
+      empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
+      empresa.dataGraph = JSON.stringify(graph);
+      empresa.FechaInicio = datos.FechaInicio
+      empresa.FechaFin = datos.FechaFin
       const token = jwt.sign(
         {
           _id: id,
