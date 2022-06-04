@@ -858,10 +858,10 @@ module.exports.register = async (server) => {
         tempEmp.tiempo = tempEmp.tiempo + emp.datosHistoricos.min;
         tempEmp.cal = tempEmp.cal + emp.datosHistoricos.cal;
         tempEmp.km = tempEmp.km + emp.datosHistoricos.kms;
+        tempEmp.co2 = tempEmp.co2 + emp.datosHistoricos.co2;
       });
 
       await graph.map((emp) => {
-        tempEmp.co2 = tempEmp.co2 + emp.co2;
         tempEmp.viajes = tempEmp.viajes + emp.viajes;
       });
 
@@ -962,12 +962,11 @@ module.exports.register = async (server) => {
         viajes: 0,
       };
       await graph.map((emp) => {
-        tempEmp.co2 = tempEmp.co2 + emp.co2;
         tempEmp.viajes = tempEmp.viajes + emp.viajes;
       });
 
       empresa.tiempo = secsToTime(empresa.tiempo * 60);
-      empresa.co2 = tempEmp.co2.toFixed(2);
+      empresa.co2 = empresa.co2.toFixed(2);
       empresa.viajes = tempEmp.viajes;
       empresa.cal = empresa.cal.toFixed(2);
       empresa.km = empresa.km.toFixed(2);
