@@ -732,10 +732,10 @@ module.exports.register = async (server) => {
         tempEmp.tiempo = tempEmp.tiempo + emp.tiempo;
         tempEmp.cal = tempEmp.cal + emp.cal;
         tempEmp.km = tempEmp.km + emp.km;
+        tempEmp.co2 = tempEmp.co2 + emp.co2
       });
 
       await graph.map((emp) => {
-        tempEmp.co2 = tempEmp.co2 + emp.co2;
         tempEmp.viajes = tempEmp.viajes + emp.viajes;
       });
 
