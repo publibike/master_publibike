@@ -721,6 +721,71 @@ module.exports.register = async (server) => {
         ])
         .toArray();
 
+      const graphHours = await req.mongo.db
+        .collection("Empresa")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+              ],
+            },
+          },
+          { $unwind: "$datosHistoricos" },
+          { $unwind: "$datosHistoricos.fechaCom" },
+          {
+            $group: {
+              _id: {
+                $toInt: {
+                  $substr: [
+                    {
+                      $dateSubtract: {
+                        startDate: {
+                          $dateFromString: {
+                            dateString: "$datosHistoricos.fechaCom",
+                          },
+                        },
+                        unit: "hour",
+                        amount: {
+                          $toInt: {
+                            $cond: {
+                              if: { $gt: ["$datosHistoricos.min", 0] },
+                              then: { $divide: ["$datosHistoricos.min", 60] },
+                              else: 0,
+                            },
+                          },
+                        },
+                      },
+                    },
+                    11,
+                    2,
+                  ],
+                },
+              },
+              min: { $sum: "$datosHistoricos.min" },
+              viajes: { $sum: 1 },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      
+
+      graphHours.map((item, index) => {
+        if (parseInt(item._id) - 5 < 0) {
+          graphHours[index]._id = 24 + parseInt(item._id) - 5;
+        } else {
+          graphHours[index]._id = parseInt(item._id) - 5;
+        }
+      });
+
+      let result = graphHours.sort((a, b) => {
+        return a._id - b._id;
+      });
+      
+
       let tempEmp = {
         tiempo: 0,
         co2: 0,
@@ -732,7 +797,7 @@ module.exports.register = async (server) => {
         tempEmp.tiempo = tempEmp.tiempo + emp.tiempo;
         tempEmp.cal = tempEmp.cal + emp.cal;
         tempEmp.km = tempEmp.km + emp.km;
-        tempEmp.co2 = tempEmp.co2 + emp.co2
+        tempEmp.co2 = tempEmp.co2 + emp.co2;
       });
 
       await graph.map((emp) => {
@@ -748,6 +813,7 @@ module.exports.register = async (server) => {
       empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
       empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
+      empresa.hoursData = JSON.stringify(result);
       const token = jwt.sign(
         {
           _id: id,
@@ -874,8 +940,8 @@ module.exports.register = async (server) => {
       empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
       empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
-      empresa.FechaInicio = datos.FechaInicio
-      empresa.FechaFin = datos.FechaFin
+      empresa.FechaInicio = datos.FechaInicio;
+      empresa.FechaFin = datos.FechaFin;
       const token = jwt.sign(
         {
           _id: id,
@@ -1100,8 +1166,8 @@ module.exports.register = async (server) => {
       empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
       empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
-      empresa.FechaInicio = datos.FechaInicio
-      empresa.FechaFin = datos.FechaFin
+      empresa.FechaInicio = datos.FechaInicio;
+      empresa.FechaFin = datos.FechaFin;
       const token = jwt.sign(
         {
           _id: id,
