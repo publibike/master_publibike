@@ -32,7 +32,7 @@ module.exports.register = async (server) => {
             process.env.COOKIE_ENCRYPT_PWD
           );
 
-          console.log({ _id: new ObjectID(decoded._id) })
+          console.log({ _id: new ObjectID(decoded._id) });
           const data = await req.mongo.db
             .collection("Administrador")
             .findOne({ empresaId: new ObjectID(decoded._id) });
@@ -40,7 +40,7 @@ module.exports.register = async (server) => {
           let cookie = req.state.admin;
           if (decoded) {
             //   cookie.lastVisit = Date.now()
-            console.log(data)
+            console.log(data);
             if (data.tipo === "super") {
               return h
                 .redirect("/admin/usuario/5fee064159aa4e5b64f9152b")
@@ -254,6 +254,52 @@ module.exports.register = async (server) => {
           );
         }
         console.log(error);
+        // return h.response('Problemas creando el usuario').code(500)
+      }
+    },
+  });
+
+  //Agrega un multiples usuarios
+  server.route({
+    method: "POST",
+    path: "/api/admin/empresa/{id}/multipleusuario",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      try {
+        let us = JSON.parse(req.payload);
+        const id = req.params.id;
+        const ObjectID = req.mongo.ObjectID;
+        const empresa = await req.mongo.db
+          .collection("Empresa")
+          .findOne({ _id: new ObjectID(id) }, { _id: 1, nombre: 1 });
+        console.log(us)
+        us = await user.create(us, empresa);
+
+        const status = await req.mongo.db.collection("Usuario").insertOne(us);
+
+        const usEmp = {
+          id: status.insertedId,
+          nombre: us.nombre,
+          usuario: us.usuario,
+          email: us.email,
+          km: us.km_total,
+          co2: us.co2_total,
+          cal: us.cal_total,
+          tiempo: us.tiempo_total,
+          terminos: false,
+        };
+
+        const statusEmp = await req.mongo.db
+          .collection("Empresa")
+          .updateOne({ _id: new ObjectID(id) }, { $push: { usuarios: usEmp } });
+
+        // return h.response(statusEmp.ok).redirect(`/admin/empresa/${id}/registro/usuarios`);
+        return { error: false };
+      } catch (error) {
+        console.log(error)
+        return { error: true };
         // return h.response('Problemas creando el usuario').code(500)
       }
     },

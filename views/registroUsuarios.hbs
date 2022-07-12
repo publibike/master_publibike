@@ -1,39 +1,209 @@
 <div class="ui two column grid content">
-    <form class="ui form" method="POST" action="/api/admin/empresa/{{empresa._id}}/createusuario">
-        <h4 class="ui dividing header">Datos Principales</h4>
-        <div class="field">
-            <label>Nombre Completo</label>
-            <input type="text" name="nombre" placeholder="Nombre Apellido">
-        </div>
-        <div class="field">
-            <label>Doc. de Identificación</label>
-            <input type="number" name="usuario" placeholder="Número de identificación">
-        </div>
-        <div class="field">
-            <label>Correo </label>
-            <input type="email" name="email" placeholder="Correo electrónico">
-        </div>
-        <h4 class="ui dividing header">Información Adicional</h4>
-        <div class="two fields">
-            <div class="field">
-                <label>Peso (kg) </label>
-                <input type="number" name="peso" placeholder="Peso en Kilogramos">
-            </div>
-            <div class="field">
-                <label>Estatura (Cm)</label>
-                <input type="number" name="estatura" placeholder="Estatura en Centímetros">
-            </div>
-        </div>
-        {{#with success}}
-        <div class="ui green inverted segment" role="alert">
-            {{this}}
-        </div>
-        {{/with}}
-        {{#with error}}
-        <div class="ui red inverted segment" role="alert">
-            {{this}}
-        </div>
-        {{/with}}
-        <button type="submit" class="ui fluid large yellow submit button">Registrar</button>
-    </form>
+  <form
+    class="ui form"
+    method="POST"
+    action="/api/admin/empresa/{{empresa._id}}/createusuario"
+  >
+    <h4 class="ui dividing header">Datos Principales</h4>
+    <div class="field">
+      <label>Nombre Completo</label>
+      <input type="text" name="nombre" placeholder="Nombre Apellido" />
+    </div>
+    <div class="field">
+      <label>Doc. de Identificación</label>
+      <input
+        type="number"
+        name="usuario"
+        placeholder="Número de identificación"
+      />
+    </div>
+    <div class="field">
+      <label>Correo </label>
+      <input type="email" name="email" placeholder="Correo electrónico" />
+    </div>
+    <h4 class="ui dividing header">Información Adicional</h4>
+    <div class="two fields">
+      <div class="field">
+        <label>Peso (kg) </label>
+        <input type="number" name="peso" placeholder="Peso en Kilogramos" />
+      </div>
+      <div class="field">
+        <label>Estatura (Cm)</label>
+        <input
+          type="number"
+          name="estatura"
+          placeholder="Estatura en Centímetros"
+        />
+      </div>
+    </div>
+    {{#with success}}
+      <div class="ui green inverted segment" role="alert">
+        {{this}}
+      </div>
+    {{/with}}
+    {{#with error}}
+      <div class="ui red inverted segment" role="alert">
+        {{this}}
+      </div>
+    {{/with}}
+    <button
+      type="submit"
+      class="ui fluid large yellow submit button"
+    >Registrar</button>
+  </form>
+  <div class="ui two column grid content" style="width: 100%;margin:50px 20px">
+    <div style="margin:50px 20px;">
+      <h3>Subir con archivo</h3>
+      <input id="fileUpload" type="file" accept=".xlsx, .xls, .csv" />
+    </div>
+    <table id="table_id">
+    </table>
+    <button
+        onclick="saveData()"
+      class="ui fluid large yellow submit button"
+    >Registrar Multiples</button>
+  </div>
 </div>
+
+<script
+  src="https://code.jquery.com/jquery-1.11.3.js"
+  type="text/javascript"
+></script>
+<script
+  src="https://jqueryui.com/jquery-wp-content/themes/jquery/js/plugins.js"
+></script>
+<script
+  src="https://jqueryui.com/jquery-wp-content/themes/jquery/js/main.js"
+></script>
+<script type="text/javascript" src="/assets/js/semantic.min.js"></script>
+<script
+  type="text/javascript"
+  charset="utf8"
+  src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"
+></script>
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
+<script>
+    let JSON_DATA = []
+    function fileReader(oEvent) {
+        var oFile = oEvent.target.files[0];
+        var sFilename = oFile.name;
+
+        var reader = new FileReader();
+        var result = {};
+
+        reader.onload = function (e) {
+            var data = e.target.result;
+            data = new Uint8Array(data);
+            var workbook = XLSX.read(data, {type: 'array'});
+            var result = {};
+            workbook.SheetNames.forEach(function (sheetName) {
+                var roa = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header: 1});
+                if (roa.length) result[sheetName] = roa;
+            });
+            // see the result, caution: it works after reader event is done.
+            console.log(result);
+            for (let index = 1; index < result.Hoja1.length -1; index++) {
+                const element = result.Hoja1[index];
+                console.log(element)
+                JSON_DATA.push({
+                    'nombre':element[0], 
+                    'usuario':element[1], 
+                    'email':element[2], 
+                    'peso':element[3], 
+                    'estatura':element[4], 
+                    'genero':element[5]
+                })
+            }
+            console.log(JSON_DATA)
+            let columns = [
+                {
+                    data: 'nombre',
+                    title: 'Nombre',
+                    sortable: true,
+                    searchable: true,
+                    visible: true
+                },
+                {
+                    data: 'usuario',
+                    title: 'Doc. de Identificación',
+                    sortable: true,
+                    searchable: true,
+                    visible: true
+                },
+                {
+                    data: 'email',
+                    title: 'Correo',
+                    sortable: true,
+                    searchable: true,
+                    visible: true
+                },
+                {
+                    data: 'peso',
+                    title: 'Peso (kg) ',
+                    sortable: true,
+                    searchable: true,
+                    visible: true
+                },
+                {
+                    data: 'estatura',
+                    title: 'Estatura (Cm)',
+                    sortable: true,
+                    searchable: true,
+                    visible: true
+                },
+                {
+                    data: 'genero',
+                    title: 'Genero',
+                    sortable: true,
+                    searchable: true,
+                    visible: true
+                },
+	        ]
+            $('#table_id').DataTable( {
+                data: JSON_DATA,
+                columns: columns,
+                columnDefs: [{
+                    "defaultContent": "-",
+                    "targets": "_all"
+                }]
+            } );
+        };
+        reader.readAsArrayBuffer(oFile);
+    }
+
+    // Add your id of "File Input" 
+    $('#fileUpload').change(function(ev) {
+        fileReader(ev);
+    })
+
+    const saveData =  async() => {
+        if(JSON_DATA){
+            let succes = true;
+            await Promise.all(JSON_DATA.map(async (item)=>{
+                if(item.usuario){
+                    try{
+                        const response = await fetch(`/api/admin/empresa/{{{empresa._id}}}/multipleusuario`,{
+                            method: 'POST',
+                            body: JSON.stringify(item),
+                        })
+                        const data = await response.json()
+                        if (!data.error) {
+                            console.log("Success")
+                        }else{
+                            succes = false
+                        }
+                    } catch (error) {
+                        alert(error)
+                    }
+                }
+            }))
+
+            if(succes){
+                alert("Registros creados exitosamente.")
+            }else{
+                alert("error")
+            }
+        }
+    }
+</script>
