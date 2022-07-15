@@ -67,7 +67,8 @@
     <table id="table_id">
     </table>
     <button
-        onclick="saveData()"
+      id="buttonMultiple"
+      onclick="saveData()"
       class="ui fluid large yellow submit button"
     >Registrar Multiples</button>
   </div>
@@ -92,7 +93,7 @@
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
 <script>
-    let JSON_DATA = []
+    var JSON_DATA = []
     function fileReader(oEvent) {
         var oFile = oEvent.target.files[0];
         var sFilename = oFile.name;
@@ -187,6 +188,8 @@
 
     const saveData =  async() => {
         if(JSON_DATA){
+            document.getElementById("buttonMultiple").textContent = "Cargando ..."
+            document.getElementById("buttonMultiple").disabled = true;
             let succes = true;
             await Promise.all(JSON_DATA.map(async (item)=>{
                 if(item.usuario){
@@ -198,10 +201,16 @@
                         const data = await response.json()
                         if (!data.error) {
                             console.log("Success")
+                            document.getElementById("buttonMultiple").textContent = "Registrar Multiples"
+                            document.getElementById("buttonMultiple").disabled = false;
                         }else{
                             succes = false
+                             document.getElementById("buttonMultiple").textContent = "Registrar Multiples"
+                              document.getElementById("buttonMultiple").disabled = false;
                         }
                     } catch (error) {
+                        document.getElementById("buttonMultiple").textContent = "Registrar Multiples"
+                        document.getElementById("buttonMultiple").disabled = false;
                         alert(error)
                     }
                 }
