@@ -687,6 +687,24 @@ module.exports.register = async (server) => {
       const id = req.params.id;
       const ObjectID = req.mongo.ObjectID;
 
+      const generos = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            //check if genero exists
+            $match: {
+              genero: { $exists: true },
+            },
+          },
+          {
+            $group: {
+              _id: "$genero",
+              count: { $sum: 1 },
+            },
+          },
+        ])
+        .toArray();
+
       const empresa = await req.mongo.db
         .collection("Empresa")
         .find({
@@ -715,6 +733,44 @@ module.exports.register = async (server) => {
               _id: { $substr: ["$datosHistoricos.fechaCom", 0, 7] },
               viajes: { $sum: 1 },
               co2: { $sum: "$datosHistoricos.co2" },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      const graphTypeOfTransport = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                {
+                  "empresa.id": {
+                    $ne: new ObjectID("5fee064159aa4e5b64f9152b"),
+                  },
+                },
+              ],
+            },
+          },
+          { $unwind: "$recorridos" },
+          {
+            $match: {
+              $and: [
+                { "recorridos.vehicle": { $exists: true } },
+                {
+                  "recorridos.vehicle": {
+                    $ne: null,
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $group: {
+              _id: "$recorridos.vehicle",
+              viajes: { $sum: 1 },
             },
           },
           { $sort: { _id: 1 } },
@@ -811,6 +867,7 @@ module.exports.register = async (server) => {
       empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
       empresa.hoursData = JSON.stringify(result);
+      empresa.typeTransportData = JSON.stringify(graphTypeOfTransport);
       const token = jwt.sign(
         {
           _id: id,
@@ -821,6 +878,7 @@ module.exports.register = async (server) => {
         // title: `Usuario: ${usuario.usuario}`,
         usuario: usuario,
         empresa: empresa,
+        generos: JSON.stringify(generos),
         token: token,
         // id: id
       });
@@ -837,6 +895,25 @@ module.exports.register = async (server) => {
       const id = req.params.id;
       const ObjectID = req.mongo.ObjectID;
       let datos = req.payload;
+      //agrupar los generos de los usuarios y contarlos
+      const generos = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            //check if genero exists
+            $match: {
+              genero: { $exists: true },
+            },
+          },
+          {
+            $group: {
+              _id: "$genero",
+              count: { $sum: 1 },
+            },
+          },
+        ])
+        .toArray();
+
       const empresa = await req.mongo.db
         .collection("Empresa")
         .aggregate([
@@ -903,6 +980,55 @@ module.exports.register = async (server) => {
               _id: { $substr: ["$datosHistoricos.fechaCom", 0, 7] },
               viajes: { $sum: 1 },
               co2: { $sum: "$datosHistoricos.co2" },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      const graphTypeOfTransport = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                {
+                  "empresa.id": {
+                    $ne: new ObjectID("5fee064159aa4e5b64f9152b"),
+                  },
+                },
+              ],
+            },
+          },
+          { $unwind: "$recorridos" },
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$recorridos.fecha" },
+            },
+          },
+          {
+            $match: {
+              $and: [
+                {
+                  convertedDate: {
+                    $gte: new Date(datos.FechaInicio),
+                    $lt: new Date(datos.FechaFin),
+                  },
+                },
+                { "recorridos.vehicle": { $exists: true } },
+                {
+                  "recorridos.vehicle": {
+                    $ne: null,
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $group: {
+              _id: "$recorridos.vehicle",
+              viajes: { $sum: 1 },
             },
           },
           { $sort: { _id: 1 } },
@@ -1018,6 +1144,7 @@ module.exports.register = async (server) => {
       empresa.hoursData = JSON.stringify(result);
       empresa.FechaInicio = datos.FechaInicio;
       empresa.FechaFin = datos.FechaFin;
+      empresa.typeTransportData = JSON.stringify(graphTypeOfTransport);
       const token = jwt.sign(
         {
           _id: id,
@@ -1028,6 +1155,7 @@ module.exports.register = async (server) => {
         // title: `Usuario: ${usuario.usuario}`,
         usuario: usuario,
         empresa: empresa,
+        generos: JSON.stringify(generos),
         token: token,
         // id: id
       });
@@ -1079,6 +1207,27 @@ module.exports.register = async (server) => {
       const id = req.params.id;
       const ObjectID = req.mongo.ObjectID;
 
+      const generos = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            //check if genero exists
+            $match: {
+              $and: [
+                { "empresa.id": new ObjectID(id) },
+                { genero: { $exists: true } },
+              ],
+            },
+          },
+          {
+            $group: {
+              _id: "$genero",
+              count: { $sum: 1 },
+            },
+          },
+        ])
+        .toArray();
+
       const empresa = await req.mongo.db
         .collection("Empresa")
         .findOne({ _id: new ObjectID(id) });
@@ -1093,6 +1242,42 @@ module.exports.register = async (server) => {
               _id: { $substr: ["$datosHistoricos.fechaCom", 0, 7] },
               viajes: { $sum: 1 },
               co2: { $sum: "$datosHistoricos.co2" },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      const graphTypeOfTransport = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                {
+                  "empresa.id": new ObjectID(id),
+                },
+              ],
+            },
+          },
+          { $unwind: "$recorridos" },
+          {
+            $match: {
+              $and: [
+                { "recorridos.vehicle": { $exists: true } },
+                {
+                  "recorridos.vehicle": {
+                    $ne: null,
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $group: {
+              _id: "$recorridos.vehicle",
+              viajes: { $sum: 1 },
             },
           },
           { $sort: { _id: 1 } },
@@ -1172,6 +1357,8 @@ module.exports.register = async (server) => {
       empresa.bolsasRecicladas = ((empresa.co2 * 0.003) / 0.067).toFixed(2);
       empresa.dataGraph = JSON.stringify(graph);
       empresa.hoursData = JSON.stringify(result);
+      empresa.typeTransportData = JSON.stringify(graphTypeOfTransport);
+
       const token = jwt.sign(
         {
           _id: id,
@@ -1184,6 +1371,7 @@ module.exports.register = async (server) => {
         {
           admin: req.state.admin,
           empresa: empresa,
+          generos: JSON.stringify(generos),
           token: token,
         },
         {
@@ -1201,9 +1389,78 @@ module.exports.register = async (server) => {
       const id = req.params.id;
       const ObjectID = req.mongo.ObjectID;
       let datos = req.payload;
+
+      const generos = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            //check if genero exists
+            $match: {
+              $and: [
+                { "empresa.id": new ObjectID(id) },
+                { genero: { $exists: true } },
+              ],
+            },
+          },
+          {
+            $group: {
+              _id: "$genero",
+              count: { $sum: 1 },
+            },
+          },
+        ])
+        .toArray();
       const empresa = await req.mongo.db
         .collection("Empresa")
         .findOne({ _id: new ObjectID(id) });
+      
+        const graphTypeOfTransport = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                {
+                  "empresa.id": new ObjectID(id),
+                },
+              ],
+            },
+          },
+          { $unwind: "$recorridos" },
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$recorridos.fecha" },
+            },
+          },
+          {
+            $match: {
+              $and: [
+                {
+                  convertedDate: {
+                    $gte: new Date(datos.FechaInicio),
+                    $lt: new Date(datos.FechaFin),
+                  },
+                },
+                { "recorridos.vehicle": { $exists: true } },
+                {
+                  "recorridos.vehicle": {
+                    $ne: null,
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $group: {
+              _id: "$recorridos.vehicle",
+              viajes: { $sum: 1 },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
       const datosFiltrados = await req.mongo.db
         .collection("Empresa")
         .aggregate([
@@ -1375,6 +1632,7 @@ module.exports.register = async (server) => {
       empresa.FechaInicio = datos.FechaInicio;
       empresa.FechaFin = datos.FechaFin;
       empresa.hoursData = JSON.stringify(result);
+      empresa.typeTransportData = JSON.stringify(graphTypeOfTransport);
       const token = jwt.sign(
         {
           _id: id,
@@ -1387,6 +1645,7 @@ module.exports.register = async (server) => {
         {
           admin: req.state.admin,
           empresa: empresa,
+          generos: JSON.stringify(generos),
           token: token,
         },
         {

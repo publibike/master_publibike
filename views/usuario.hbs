@@ -26,18 +26,6 @@
         <div class="card-header" style="background: #fff;border-color: #18e1cf;">
           {{! <div class="col-md-10"> }}
             <i class="bookmark icon"></i>
-            {{! <div class="header"> }}
-              <font style="vertical-align: inherit;">
-                <font style="vertical-align: inherit;color: #18e1cf;"><b>Plan
-                    gratuito</b></font>
-              </font>
-              {{!
-            </div> }}
-            {{!
-          </div> }}
-          {{! <div class="col-md-2">
-            }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button id="pdf" class="ui teal submit button">Exportar PDF</button>
             {{!
           </div> }}
@@ -216,6 +204,44 @@
               </div>
             </div>
           </div>
+          <div class="ui one column centered grid">
+            <div class="column">
+              <div style="justify-content: center;" class="ui cards">
+                <div class="card" style="width: 550px;">
+                  <div class="content">
+                    <div class="header">
+                      <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">Usarios en la plataforma</font>
+                      </font>
+                    </div>
+
+                    <div class="description" style="font-size:45px">
+                      <canvas id="gender-chart" style="height: 300px;width: 450px;"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui one column centered grid">
+            <div class="column">
+              <div style="justify-content: center;" class="ui cards">
+                <div class="card" style="width: 550px;">
+                  <div class="content">
+                    <div class="header">
+                      <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">Medios de transporte</font>
+                      </font>
+                    </div>
+
+                    <div class="description" style="font-size:45px">
+                      <canvas id="transport-chart" style="height: 300px;width: 450px;"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="ui grid center">
             <div class="seven wide column" style="display: none;">
               <div class="ui cards" style="width: 360px;">
@@ -246,11 +272,6 @@
       <div class="card">
         <div class="card-header" style="background: #fff;border-color: #18e1cf;">
           <i class="bookmark icon"></i>
-          {{! <div class="header"> }}
-            <font style="vertical-align: inherit;">
-              <font style="vertical-align: inherit;color: #18e1cf;"><b>Plan
-                  premium</b></font>
-            </font>
             {{!
           </div> }}
         </div>
@@ -411,8 +432,12 @@
 
   const json = `{{{empresa.dataGraph}}}`;
   const json2 = `{{{empresa.hoursData}}}`;
+  const json3 = `{{{generos}}}`;
+  const json4 = `{{{empresa.typeTransportData}}}`;
   const str = JSON.parse(json);
   const hours = JSON.parse(json2);
+  const gender = JSON.parse(json3);
+  const typeTransport = JSON.parse(json4);
   //Carga de data de graficas
   let datesTravels = str.map(function (item) {
     return item._id;
@@ -429,6 +454,20 @@
     return item._id;
   });
   let dataHours = hours.map(function (item) {
+    return item.viajes;
+  });
+
+  let genderLabels = gender.map(function (item) {
+    return item._id;
+  });
+  let dataGender = gender.map(function (item) {
+    return item.count;
+  });
+
+  let trasnportLabels = typeTransport.map(function (item) {
+    return item._id + " - " +item.viajes;
+  });
+  let dataTransport = typeTransport.map(function (item) {
     return item.viajes;
   });
 
@@ -578,6 +617,100 @@
         }]
       }
     }
+  });
+  new Chart(document.getElementById("gender-chart"), {
+    type: 'bar',
+    data: {
+      labels: genderLabels,
+      datasets: [{
+        data: dataGender,
+        label: "Generos",
+        backgroundColor: [
+          'rgb(6,224,201)', 'rgb(4,124,148)', 'rgb(4,91,105)', 'rgb(6,224,201)',
+          'rgb(4,124,148)', 'rgb(4,91,105)', 'rgb(6,224,201)'
+        ],
+        borderColor: "#06e0c9",
+        fill: false
+      }]
+    },
+    options: {
+      events: false,
+      tooltips: {
+          enabled: false
+      },
+      hover: {
+          animationDuration: 0
+      },
+      animation: {
+          duration: 1,
+          onComplete: function () {
+              var chartInstance = this.chart,
+                  ctx = chartInstance.ctx;
+              ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              ctx.fillStyle = "#000"
+              this.data.datasets.forEach(function (dataset, i) {
+                  var meta = chartInstance.controller.getDatasetMeta(i);
+                  meta.data.forEach(function (bar, index) {
+                      var data = dataset.data[index];
+                      ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                  });
+              });
+          }
+      },
+      scales: {
+        yAxes: [{
+          display: true,
+          ticks: {
+            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+            // OR //
+            beginAtZero: true   // minimum value will be 0.
+          }
+        }]
+      }
+    }
+  });
+  new Chart(document.getElementById("transport-chart"), {
+    type: 'pie',
+    data: {
+      labels: trasnportLabels,
+      datasets: [{
+        data: dataTransport,
+        label: "Medios de transporte",
+        backgroundColor: [
+        "#FF5733",
+        "#FFFC33",
+        "#33FF36",
+        "#33FFE0",
+        "#339FFF",
+        "#4C33FF",
+        "#D433FF",
+      ],
+      }]
+    },
+    options: {
+    plugins: {
+      datalabels: {
+        /* anchor puede ser "start", "center" o "end" */
+        anchor: "center",
+        /* Color del texto */
+        color: "black",
+        /* Formato de la fuente */
+        font: {
+          family: '"Times New Roman", Times, serif',
+          size: "14",
+          weight: "bold",
+        },
+        /* Formato de la caja contenedora */
+        //padding: "4",
+        //borderWidth: 2,
+        //borderColor: "darkblue",
+        //borderRadius: 8,
+        //backgroundColor: "lightblue"
+      }
+    }
+  }
   });
   new Chart(document.getElementById("hours-chart"), {
     type: 'bar',
