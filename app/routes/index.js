@@ -777,6 +777,14 @@ module.exports.register = async (server) => {
         ])
         .toArray();
 
+      let arr = graphTypeOfTransport.filter(
+        (item) => item._id !== "Transporte público"
+      );
+      let totalNotPublicTransport = 0;
+      arr.map((item) => {
+        totalNotPublicTransport += item.viajes;
+      });
+
       const graphHours = await req.mongo.db
         .collection("Empresa")
         .aggregate([
@@ -857,9 +865,15 @@ module.exports.register = async (server) => {
         tempEmp.viajes = tempEmp.viajes + emp.viajes;
       });
 
+      let pesoConvert = Intl.NumberFormat("es-CO");
+
       empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
       empresa.co2 = tempEmp.co2.toFixed(2);
       empresa.viajes = tempEmp.viajes;
+      empresa.ahorroTrans =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
+      empresa.ahorroSITP =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
       empresa.cal = tempEmp.cal.toFixed(2);
       empresa.km = tempEmp.km.toFixed(2);
       empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
@@ -1101,6 +1115,14 @@ module.exports.register = async (server) => {
         ])
         .toArray();
 
+      let arr = graphTypeOfTransport.filter(
+        (item) => item._id !== "Transporte público"
+      );
+      let totalNotPublicTransport = 0;
+      arr.map((item) => {
+        totalNotPublicTransport += item.viajes;
+      });
+
       graphHours.map((item, index) => {
         if (parseInt(item._id) - 5 < 0) {
           graphHours[index]._id = 24 + parseInt(item._id) - 5;
@@ -1132,9 +1154,15 @@ module.exports.register = async (server) => {
         tempEmp.viajes = tempEmp.viajes + emp.viajes;
       });
 
+      let pesoConvert = Intl.NumberFormat("es-CO");
+
       empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
       empresa.co2 = tempEmp.co2.toFixed(2);
       empresa.viajes = tempEmp.viajes;
+      empresa.ahorroTrans =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
+      empresa.ahorroSITP =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
       empresa.cal = tempEmp.cal.toFixed(2);
       empresa.km = tempEmp.km.toFixed(2);
       empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
@@ -1284,6 +1312,14 @@ module.exports.register = async (server) => {
         ])
         .toArray();
 
+      let arr = graphTypeOfTransport.filter(
+        (item) => item._id !== "Transporte público"
+      );
+      let totalNotPublicTransport = 0;
+      arr.map((item) => {
+        totalNotPublicTransport += item.viajes;
+      });
+
       const graphHours = await req.mongo.db
         .collection("Empresa")
         .aggregate([
@@ -1347,9 +1383,15 @@ module.exports.register = async (server) => {
         tempEmp.viajes = tempEmp.viajes + emp.viajes;
       });
 
+      let pesoConvert = Intl.NumberFormat("es-CO");
+
       empresa.tiempo = secsToTime(empresa.tiempo * 60);
       empresa.co2 = empresa.co2.toFixed(2);
       empresa.viajes = tempEmp.viajes;
+      empresa.ahorroTrans =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
+      empresa.ahorroSITP =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
       empresa.cal = empresa.cal.toFixed(2);
       empresa.km = empresa.km.toFixed(2);
       empresa.smartphones = ((empresa.co2 * 34) / 0.067).toFixed(2);
@@ -1413,8 +1455,8 @@ module.exports.register = async (server) => {
       const empresa = await req.mongo.db
         .collection("Empresa")
         .findOne({ _id: new ObjectID(id) });
-      
-        const graphTypeOfTransport = await req.mongo.db
+
+      const graphTypeOfTransport = await req.mongo.db
         .collection("Usuario")
         .aggregate([
           {
@@ -1460,6 +1502,14 @@ module.exports.register = async (server) => {
           { $sort: { _id: 1 } },
         ])
         .toArray();
+
+      let arr = graphTypeOfTransport.filter(
+        (item) => item._id !== "Transporte público"
+      );
+      let totalNotPublicTransport = 0;
+      arr.map((item) => {
+        totalNotPublicTransport += item.viajes;
+      });
 
       const datosFiltrados = await req.mongo.db
         .collection("Empresa")
@@ -1620,9 +1670,15 @@ module.exports.register = async (server) => {
         tempEmp.viajes = tempEmp.viajes + emp.viajes;
       });
 
+      let pesoConvert = Intl.NumberFormat("es-CO");
+
       empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
       empresa.co2 = tempEmp.co2.toFixed(2);
       empresa.viajes = tempEmp.viajes;
+      empresa.ahorroTrans =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
+      empresa.ahorroSITP =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
       empresa.cal = tempEmp.cal.toFixed(2);
       empresa.km = tempEmp.km.toFixed(2);
       empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);

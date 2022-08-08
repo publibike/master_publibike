@@ -274,7 +274,7 @@ module.exports.register = async (server) => {
         const empresa = await req.mongo.db
           .collection("Empresa")
           .findOne({ _id: new ObjectID(id) }, { _id: 1, nombre: 1 });
-        console.log(us)
+        console.log(us);
         us = await user.create(us, empresa);
 
         const status = await req.mongo.db.collection("Usuario").insertOne(us);
@@ -298,7 +298,7 @@ module.exports.register = async (server) => {
         // return h.response(statusEmp.ok).redirect(`/admin/empresa/${id}/registro/usuarios`);
         return { error: false };
       } catch (error) {
-        console.log(error)
+        console.log(error);
         return { error: true };
         // return h.response('Problemas creando el usuario').code(500)
       }
@@ -582,6 +582,56 @@ module.exports.register = async (server) => {
         const usuario = await req.mongo.db
           .collection("Usuario")
           .findOne({ _id: new ObjectID(id) });
+
+        const graphTypeOfTransport = await req.mongo.db
+          .collection("Usuario")
+          .aggregate([
+            {
+              $match: {
+                $and: [
+                  { nombre: { $exists: true } },
+                  { _id: new ObjectID(id) },
+                ],
+              },
+            },
+            { $unwind: "$recorridos" },
+            {
+              $match: {
+                $and: [
+                  { "recorridos.vehicle": { $exists: true } },
+                  {
+                    "recorridos.vehicle": {
+                      $ne: null,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              $group: {
+                _id: "$recorridos.vehicle",
+                viajes: { $sum: 1 },
+              },
+            },
+            { $sort: { _id: 1 } },
+          ])
+          .toArray();
+
+        let arr = graphTypeOfTransport.filter(
+          (item) => item._id !== "Transporte público"
+        );
+        console.log(arr);
+        let totalNotPublicTransport = 0;
+        arr.map((item) => {
+          totalNotPublicTransport += item.viajes;
+        });
+
+        let pesoConvert = Intl.NumberFormat("es-CO");
+
+        usuario.ahorroTrans =
+          "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
+        usuario.ahorroSITP =
+          "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
 
         return usuario;
       } catch (error) {
