@@ -425,7 +425,7 @@ module.exports.register = async (server) => {
         console.log(error);
         return h.response("Problemas creando el usuario").code(500);
       }
-      mail.sendRegisterMail(user.email);
+      mail.sendRegisterMail(us.email);
       return h.response(`Usuario creado con ID: ${result.ops[0]._id}`);
     },
   });
