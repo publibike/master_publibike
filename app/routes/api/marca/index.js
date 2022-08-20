@@ -14,7 +14,9 @@ const campaing = require("../../../model/index").campaing;
 const { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } = require("constants");
 const { Console } = require("console");
 const jwt = require("jsonwebtoken");
+const mail = require('../../../services/mail.service');
 require("dotenv").config();
+
 
 module.exports.register = async (server) => {
   /**
@@ -402,6 +404,7 @@ module.exports.register = async (server) => {
     },
     handler: async (req, h) => {
       let result = {};
+      console.log("entrooo")
       try {
         let us = req.payload;
         console.log(us);
@@ -422,7 +425,7 @@ module.exports.register = async (server) => {
         console.log(error);
         return h.response("Problemas creando el usuario").code(500);
       }
-
+      mail.sendRegisterMail(user.email);
       return h.response(`Usuario creado con ID: ${result.ops[0]._id}`);
     },
   });
@@ -435,6 +438,7 @@ module.exports.register = async (server) => {
       cors: true,
     },
     handler: (req, h) => {
+      console.log("entrooo")
       const id = req.params.id;
       const ObjectID = req.mongo.ObjectID;
 
