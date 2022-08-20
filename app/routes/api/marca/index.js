@@ -406,8 +406,10 @@ module.exports.register = async (server) => {
       console.log("entrooo");
       try {
         let us = req.payload;
-        let email = us.email;
-        console.log(us);
+        console.log("entrooo");
+        let temp =JSON.parse(us)
+        let email = temp.email;
+        console.log(email);
         us = JSON.parse(us);
         //crea el administrador con el password cifrado
         us = await user.create(us);
