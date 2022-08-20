@@ -14,9 +14,8 @@ const campaing = require("../../../model/index").campaing;
 const { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } = require("constants");
 const { Console } = require("console");
 const jwt = require("jsonwebtoken");
-const mail = require('../../../services/mail.service');
+const mail = require("../../../services/mail.service");
 require("dotenv").config();
-
 
 module.exports.register = async (server) => {
   /**
@@ -404,9 +403,10 @@ module.exports.register = async (server) => {
     },
     handler: async (req, h) => {
       let result = {};
-      console.log("entrooo")
+      console.log("entrooo");
       try {
         let us = req.payload;
+        let email = us.email;
         console.log(us);
         us = JSON.parse(us);
         //crea el administrador con el password cifrado
@@ -414,6 +414,8 @@ module.exports.register = async (server) => {
         // console.log(us)
 
         result = await req.mongo.db.collection("Usuario").insertOne(us);
+
+        mail.sendRegisterMail(email, {});
       } catch (error) {
         if (error.code == 11000) {
           return h
@@ -425,7 +427,6 @@ module.exports.register = async (server) => {
         console.log(error);
         return h.response("Problemas creando el usuario").code(500);
       }
-      mail.sendRegisterMail(us.email, {});
       return h.response(`Usuario creado con ID: ${result.ops[0]._id}`);
     },
   });
@@ -438,7 +439,7 @@ module.exports.register = async (server) => {
       cors: true,
     },
     handler: (req, h) => {
-      console.log("entrooo")
+      console.log("entrooo");
       const id = req.params.id;
       const ObjectID = req.mongo.ObjectID;
 
