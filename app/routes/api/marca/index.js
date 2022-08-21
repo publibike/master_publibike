@@ -571,6 +571,110 @@ module.exports.register = async (server) => {
     },
   });
 
+  //Enviar codigo de verificacion
+  server.route({
+    method: "PUT",
+    path: "/api/movil/usuario/{email}",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      try {
+        //get user by req email and generate code of verification with 6 alphanumeric characters and send it to user email and save code in user collection
+        const email = req.params.email;
+
+        const user = await req.mongo.db
+          .collection("Usuario")
+          .findOne({ email: email });
+        if (!user) {
+          return h.response("Usuario no encontrado").code(500);
+        }
+        //generate alpha numeric string of 6 length
+        const code = Math.random().toString(36).slice(2)
+        console.log(code);
+       
+        const status = await req.mongo.db
+          .collection("Usuario")
+          .updateOne({ email: email }, { $set: { code: code } });
+        if (!status) {
+          return h.response("Error al enviar el codigo").code(500);
+        }
+        mail.sendPasswordReset(email, { code: code });
+
+        return h.response("Codigo enviado").code(200);
+      } catch (error) {
+        return error;
+      }
+    },
+  });
+
+  //verificar codigo de verificacion y retornar true
+  server.route({
+    method: "POST",
+    path: "/api/movil/usuario/{email}/{code}",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      try {
+        const email = req.params.email;
+        const code = req.params.code;
+        const user = await req.mongo.db
+          .collection("Usuario")
+          .findOne({ email: email });
+        if (!user) {
+          return h.response("Usuario no encontrado").code(500);
+        }
+        if (user.code !== code) {
+          return h.response("Codigo incorrecto").code(500);
+        }
+        const status = await req.mongo.db
+          .collection("Usuario")
+          .updateOne({ email: email }, { $set: { code: "" } });
+        if (!status) {
+          return h.response("Error al verificar el codigo").code(500);
+        }
+        return h.response("Codigo verificado").code(200);
+      } catch (error) {
+        return error;
+      }
+    },
+  });
+
+  //Actualiza la contraseña de un usuario
+  server.route({
+    method: "PUT",
+    path: "/api/movil/usuario/{email}/{password}",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      try {
+        const email = req.params.email;
+        const password = req.params.password;
+        const user = await req.mongo.db
+          .collection("Usuario")
+          .findOne({ email: email });
+        if (!user) {
+          return h.response("Usuario no encontrado").code(500);
+        }
+        //encrypt password
+        const encryptedPassword = await bcrypt.hash(password, 10);
+        const status = await req.mongo.db
+          .collection("Usuario")
+          .updateOne({ email: email }, { $set: { password: encryptedPassword } });
+        if (!status) {
+          return h.response("Error al actualizar la contraseña").code(500);
+        }
+        return h.response("Contraseña actualizada").code(200);
+      } catch (error) {
+        return error;
+      }
+    },
+  });
+          
+
+
   //Envia el recorrido
   server.route({
     method: "PUT",
