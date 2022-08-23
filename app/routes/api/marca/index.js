@@ -574,7 +574,7 @@ module.exports.register = async (server) => {
   //Enviar codigo de verificacion
   server.route({
     method: "PUT",
-    path: "/api/movil/usuario/{email}",
+    path: "/api/movil/usuario_verification/{email}",
     options: {
       cors: true,
     },
@@ -611,7 +611,7 @@ module.exports.register = async (server) => {
   //verificar codigo de verificacion y retornar true
   server.route({
     method: "POST",
-    path: "/api/movil/usuario/{email}/{code}",
+    path: "/api/movil/usuario_verification/{email}/{code}",
     options: {
       cors: true,
     },
