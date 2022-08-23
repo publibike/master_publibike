@@ -1,5 +1,5 @@
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey("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")
+sgMail.setApiKey(process.env.SENDGRID_API)
 
 
 module.exports.sendRegisterMail = (to, data) => {
