@@ -417,7 +417,7 @@ module.exports.register = async (server) => {
 
         result = await req.mongo.db.collection("Usuario").insertOne(us);
 
-        mail.sendRegisterMail(email, {});
+        mail.sendRegisterMail(email, {nombre: us.nombre});
       } catch (error) {
         if (error.code == 11000) {
           return h
