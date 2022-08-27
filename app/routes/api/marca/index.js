@@ -15,6 +15,8 @@ const { SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS } = require("constants");
 const { Console } = require("console");
 const jwt = require("jsonwebtoken");
 const mail = require("../../../services/mail.service");
+const bcrypt = require('bcrypt');
+
 require("dotenv").config();
 
 module.exports.register = async (server) => {
@@ -407,7 +409,7 @@ module.exports.register = async (server) => {
       try {
         let us = req.payload;
         console.log("entrooo");
-        let temp =JSON.parse(us)
+        let temp = JSON.parse(us)
         let email = temp.email;
         console.log(email);
         us = JSON.parse(us);
@@ -417,7 +419,7 @@ module.exports.register = async (server) => {
 
         result = await req.mongo.db.collection("Usuario").insertOne(us);
 
-        mail.sendRegisterMail(email, {nombre: us.nombre});
+        mail.sendRegisterMail(email, { nombre: us.nombre });
       } catch (error) {
         if (error.code == 11000) {
           return h
@@ -479,7 +481,7 @@ module.exports.register = async (server) => {
     },
     handler: async (req, h) => {
       try {
-      } catch (error) {}
+      } catch (error) { }
       return "Lista las campañas de un usuario en la app movil";
     },
   });
@@ -592,7 +594,7 @@ module.exports.register = async (server) => {
         //generate alpha numeric string of 6 length
         const code = Math.random().toString(36).slice(2)
         console.log(code);
-       
+
         const status = await req.mongo.db
           .collection("Usuario")
           .updateOne({ email: email }, { $set: { code: code } });
@@ -676,7 +678,7 @@ module.exports.register = async (server) => {
       }
     },
   });
-          
+
 
 
   //Envia el recorrido
