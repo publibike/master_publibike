@@ -656,14 +656,17 @@ module.exports.register = async (server) => {
         const user = await req.mongo.db
           .collection("Usuario")
           .findOne({ email: email });
+        console.log(user);
         if (!user) {
           return h.response("Usuario no encontrado").code(500);
         }
         //encrypt password
+        console.log("entro");
         const encryptedPassword = await bcrypt.hash(password, 10);
         const status = await req.mongo.db
           .collection("Usuario")
           .updateOne({ email: email }, { $set: { password: encryptedPassword } });
+        console.log("entro2");
         if (!status) {
           return h.response("Error al actualizar la contraseña").code(500);
         }
