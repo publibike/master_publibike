@@ -599,7 +599,8 @@ module.exports.register = async (server) => {
         if (!status) {
           return h.response("Error al enviar el codigo").code(500);
         }
-        mail.sendPasswordReset(email, { code: code });
+        console.log(code)
+        //mail.sendPasswordReset(email, { code: code });
 
         return h.response("Codigo enviado").code(200);
       } catch (error) {
