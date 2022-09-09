@@ -12,6 +12,7 @@ module.exports.sendRegisterMail = (to, data) => {
 }
 
 module.exports.sendPasswordReset = (to, data) => {
+    console.log(data)
     sgMail.send({
         to: to,
         from: 'noreply@uflou.com.co',
