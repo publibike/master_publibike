@@ -602,7 +602,7 @@ module.exports.register = async (server) => {
           return h.response("Error al enviar el codigo").code(500);
         }
         console.log(code)
-        //mail.sendPasswordReset(email, { code: code });
+        mail.sendPasswordReset(email, { code: code, nombre: user.nombre });
 
         return h.response("Codigo enviado").code(200);
       } catch (error) {
