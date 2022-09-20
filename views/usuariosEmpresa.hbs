@@ -120,7 +120,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.1/xlsx.full.min.js"></script>
 <script>
   $(document).ready(function () { 
-    $('#table_id').DataTable(); 
+    $('#table_id').DataTable({
+      //add length of table
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+    }); 
     $('#download').click(function() {
 			//get columns thead
 			let columns = [];
