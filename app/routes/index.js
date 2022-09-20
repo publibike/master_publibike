@@ -1190,6 +1190,301 @@ module.exports.register = async (server) => {
     },
   });
 
+  //Ruta dashboard filtrado vehiculo
+  server.route({
+    method: "POST",
+    path: "/admin/usuario/filtros_vehicle/{id}",
+    handler: async (req, h) => {
+      console.log("entro");
+      const usuario = await req.mongo.db.collection("Empresa").findOne({});
+      const id = req.params.id;
+      const ObjectID = req.mongo.ObjectID;
+      let datos = req.payload;
+      //agrupar los generos de los usuarios y contarlos
+      const generos = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            //undwind recorridos for get vehicles
+            $unwind: "$recorridos",
+            //check if genero exists
+            $match: {
+              genero: { $exists: true },
+              //check if vehicle is the same
+              "recorridos.vehiculo": datos.vehicle,
+            },
+          },
+          {
+            $group: {
+              _id: "$genero",
+              count: { $sum: 1 },
+            },
+          },
+        ])
+        .toArray();
+
+      const empresa = await req.mongo.db
+        .collection("Empresa")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+              ],
+            },
+          },
+          { $unwind: "$datosHistoricos" },
+          { $project: { _id: 0, datosHistoricos: 1 } },
+          /* { $unwind: "$datosHistoricos" },
+          { $unwind: "$datosHistoricos.fechaCom" },*/
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+            },
+          },
+
+          {
+            $match: {
+              convertedDate: {
+                $gte: new Date(datos.FechaInicio),
+                $lt: new Date(datos.FechaFin),
+              },
+            },
+          },
+        ])
+        .toArray();
+
+      const graph = await req.mongo.db
+        .collection("Empresa")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+              ],
+            },
+          },
+          { $unwind: "$datosHistoricos" },
+          { $project: { _id: 0, datosHistoricos: 1 } },
+          /* { $unwind: "$datosHistoricos" },
+            { $unwind: "$datosHistoricos.fechaCom" },*/
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+            },
+          },
+
+          {
+            $match: {
+              convertedDate: {
+                $gte: new Date(datos.FechaInicio),
+                $lt: new Date(datos.FechaFin),
+              },
+            },
+          },
+          {
+            $group: {
+              _id: { $substr: ["$datosHistoricos.fechaCom", 0, 7] },
+              viajes: { $sum: 1 },
+              co2: { $sum: "$datosHistoricos.co2" },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      const graphTypeOfTransport = await req.mongo.db
+        .collection("Usuario")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                {
+                  "empresa.id": {
+                    $ne: new ObjectID("5fee064159aa4e5b64f9152b"),
+                  },
+                },
+              ],
+            },
+          },
+          { $unwind: "$recorridos" },
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$recorridos.fecha" },
+            },
+          },
+          {
+            $match: {
+              $and: [
+                {
+                  convertedDate: {
+                    $gte: new Date(datos.FechaInicio),
+                    $lt: new Date(datos.FechaFin),
+                  },
+                },
+                { "recorridos.vehicle": { $exists: true } },
+                {
+                  "recorridos.vehicle": {
+                    $ne: null,
+                  },
+                },
+              ],
+            },
+          },
+          {
+            $group: {
+              _id: "$recorridos.vehicle",
+              viajes: { $sum: 1 },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      const graphHours = await req.mongo.db
+        .collection("Empresa")
+        .aggregate([
+          {
+            $match: {
+              $and: [
+                { nombre: { $exists: true } },
+                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+              ],
+            },
+          },
+          { $unwind: "$datosHistoricos" },
+          { $project: { _id: 0, datosHistoricos: 1 } },
+          /* { $unwind: "$datosHistoricos" },
+            { $unwind: "$datosHistoricos.fechaCom" },*/
+          {
+            $addFields: {
+              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+            },
+          },
+
+          {
+            $match: {
+              convertedDate: {
+                $gte: new Date(datos.FechaInicio),
+                $lt: new Date(datos.FechaFin),
+              },
+            },
+          },
+          {
+            $group: {
+              _id: {
+                $toInt: {
+                  $substr: [
+                    {
+                      $dateSubtract: {
+                        startDate: {
+                          $dateFromString: {
+                            dateString: "$datosHistoricos.fechaCom",
+                          },
+                        },
+                        unit: "hour",
+                        amount: {
+                          $toInt: {
+                            $cond: {
+                              if: { $gt: ["$datosHistoricos.min", 0] },
+                              then: { $divide: ["$datosHistoricos.min", 60] },
+                              else: 0,
+                            },
+                          },
+                        },
+                      },
+                    },
+                    11,
+                    2,
+                  ],
+                },
+              },
+              min: { $sum: "$datosHistoricos.min" },
+              viajes: { $sum: 1 },
+            },
+          },
+          { $sort: { _id: 1 } },
+        ])
+        .toArray();
+
+      let arr = graphTypeOfTransport.filter(
+        (item) => item._id !== "Transporte público"
+      );
+      let totalNotPublicTransport = 0;
+      arr.map((item) => {
+        totalNotPublicTransport += item.viajes;
+      });
+
+      graphHours.map((item, index) => {
+        if (parseInt(item._id) - 5 < 0) {
+          graphHours[index]._id = 24 + parseInt(item._id) - 5;
+        } else {
+          graphHours[index]._id = parseInt(item._id) - 5;
+        }
+      });
+
+      let result = graphHours.sort((a, b) => {
+        return a._id - b._id;
+      });
+
+      let tempEmp = {
+        tiempo: 0,
+        co2: 0,
+        cal: 0,
+        km: 0,
+        viajes: 0,
+      };
+
+      await empresa.map((emp) => {
+        tempEmp.tiempo = tempEmp.tiempo + emp.datosHistoricos.min;
+        tempEmp.cal = tempEmp.cal + emp.datosHistoricos.cal;
+        tempEmp.km = tempEmp.km + emp.datosHistoricos.kms;
+        tempEmp.co2 = tempEmp.co2 + emp.datosHistoricos.co2;
+      });
+
+      await graph.map((emp) => {
+        tempEmp.viajes = tempEmp.viajes + emp.viajes;
+      });
+
+      let pesoConvert = Intl.NumberFormat("es-CO");
+
+      empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
+      empresa.co2 = tempEmp.co2.toFixed(2);
+      empresa.viajes = tempEmp.viajes;
+      empresa.ahorroTrans =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
+      empresa.ahorroSITP =
+        "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
+      empresa.cal = tempEmp.cal.toFixed(2);
+      empresa.km = tempEmp.km.toFixed(2);
+      empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
+      empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
+      empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
+      empresa.dataGraph = JSON.stringify(graph);
+      empresa.hoursData = JSON.stringify(result);
+      empresa.FechaInicio = datos.FechaInicio;
+      empresa.FechaFin = datos.FechaFin;
+      empresa.typeTransportData = JSON.stringify(graphTypeOfTransport);
+      const token = jwt.sign(
+        {
+          _id: id,
+        },
+        process.env.COOKIE_ENCRYPT_PWD
+      );
+      return h.view("usuario", {
+        // title: `Usuario: ${usuario.usuario}`,
+        usuario: usuario,
+        empresa: empresa,
+        generos: JSON.stringify(generos),
+        token: token,
+        // id: id
+      });
+    },
+  });
+
   //Ruta que muestra un usuario
   server.route({
     method: "GET",

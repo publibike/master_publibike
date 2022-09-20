@@ -1,137 +1,215 @@
-<div class="ui one column grid content">
-	<div class="column">
-		<div class="inside-column" style="overflow-x: auto;">
-			<form class="ui form"  style="display: none;" method="POST" action="/admin/usuarios/filtrados">
-				<h2 class="ui dividing header">Filtrar Datos</h2>
-				<div class="fields">
-					<div class="four wide field">
-						<label>Buscar Por datos</label>
-						<input type="text" placeholder="Filtra por (NOMBRE, USUARIO, EMAIL)" name="texto">
-					</div>
-					<div class="two wide field">
-						<label>RECORRIDOS</label>
-						<select class="ui fluid search dropdown" name="recorridos">
-							<option value="">Seleccionar</option>
-							<option value="Mayor">Mayor</option>
-							<option value="Menor">Menor</option>
-						</select>
-					</div>
-					<div class="two wide field">
-						<label>TOTAL KILOMETROS</label>
-						<select class="ui fluid search dropdown" name="kilometros">
-							<option value="">Seleccionar</option>
-							<option value="Mayor">Mayor</option>
-							<option value="Menor">Menor</option>
-						</select>
-					</div>
-					<div class="two wide field">
-						<label>TOTAL CALORIAS</label>
-						<select class="ui fluid search dropdown" name="calorias">
-							<option value="">Seleccionar</option>
-							<option value="Mayor">Mayor</option>
-							<option value="Menor">Menor</option>
-						</select>
-					</div>
-					<div class="two wide field">
-						<label>TOTAL Co2</label>
-						<select class="ui fluid search dropdown" name="co2">
-							<option value="">Seleccionar</option>
-							<option value="Mayor">Mayor</option>
-							<option value="Menor">Menor</option>
-						</select>
-					</div>
-					<div class="two wide field">
-						<label>TOTAL TIEMPO</label>
-						<select class="ui fluid search dropdown" name="tiempo">
-							<option value="">Seleccionar</option>
-							<option value="Mayor">Mayor</option>
-							<option value="Menor">Menor</option>
-						</select>
-					</div>
-					<div class="two wide field">
-						<label>Mostrar</label>
-						<button type="submit" class="ui fluid large teal submit button">Filtrar</button>
-					</div>
-				</div>
-			</form>
-			<form class="ui form" style="margin-bottom: 20px;" method="POST" action="/admin/usuarios/filtrados">
-				<h2 class="ui dividing header">Filtrar Por rango de Fechas</h2>
-				<div class="fields">
-					<div class="eight wide field">
-						<label>Fecha Inicio</label>
-						<input type="date" name="FechaInicio" required>
-					</div>
-					<div class="eight wide field">
-						<label>Fecha Fin</label>
-						<input type="date" name="FechaFin" required>
-					</div>
-				</div>
-				<div class="field">
-					<button type="submit" class="ui fluid large teal submit button">Filtrar</button>
-				</div>
-			</form>
-			<table id="table_id">
-				<thead>
-					<tr>
-						<th>Nombre</th>
-						<th>Usuario</th>
-						<th>Email</th>
-						<th>Recorridos</th>
-						<th>Total Kilometros (Kms)</th>
-						<th>Total Calorias (Kcal)</th>
-						<th>Total Co2 (kgr)</th>
-						<th>Total Tiempo (Min)</th>
-						<th>Empresa</th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#each usuarios}}
-					<tr>
-						<td>{{this.nombre}}</td>
-						<td><a href="/admin/usuario/{{this._id}}">{{this.usuario}}</a></td>
-						<td>{{this.email}}</td>
-						<td>{{this.Nrecorridos}} </td>
-						<td>{{this.km_total}}
-						</td>
-						<td>{{this.cal_total}}
-						</td>
-						<td>{{this.co2_total}}
-						</td>
-						<td>{{this.tiempo_total}}
-						</td>
-						<td>{{this.empresa.nombre}}</td>
-					</tr>
-					{{/each}}
-				</tbody>
-			</table>
+<div class='ui one column grid content'>
+  <div class='column'>
+    <div class='inside-column' style='overflow-x: auto;'>
+      <form
+        class='ui form'
+        style='display: none;'
+        method='POST'
+        action='/admin/usuarios/filtrados'
+      >
+        <h2 class='ui dividing header'>Filtrar Datos</h2>
+        <div class='fields'>
+          <div class='four wide field'>
+            <label>Buscar Por datos</label>
+            <input
+              type='text'
+              placeholder='Filtra por (NOMBRE, USUARIO, EMAIL)'
+              name='texto'
+            />
+          </div>
+          <div class='two wide field'>
+            <label>RECORRIDOS</label>
+            <select class='ui fluid search dropdown' name='recorridos'>
+              <option value=''>Seleccionar</option>
+              <option value='Mayor'>Mayor</option>
+              <option value='Menor'>Menor</option>
+            </select>
+          </div>
+          <div class='two wide field'>
+            <label>TOTAL KILOMETROS</label>
+            <select class='ui fluid search dropdown' name='kilometros'>
+              <option value=''>Seleccionar</option>
+              <option value='Mayor'>Mayor</option>
+              <option value='Menor'>Menor</option>
+            </select>
+          </div>
+          <div class='two wide field'>
+            <label>TOTAL CALORIAS</label>
+            <select class='ui fluid search dropdown' name='calorias'>
+              <option value=''>Seleccionar</option>
+              <option value='Mayor'>Mayor</option>
+              <option value='Menor'>Menor</option>
+            </select>
+          </div>
+          <div class='two wide field'>
+            <label>TOTAL Co2</label>
+            <select class='ui fluid search dropdown' name='co2'>
+              <option value=''>Seleccionar</option>
+              <option value='Mayor'>Mayor</option>
+              <option value='Menor'>Menor</option>
+            </select>
+          </div>
+          <div class='two wide field'>
+            <label>TOTAL TIEMPO</label>
+            <select class='ui fluid search dropdown' name='tiempo'>
+              <option value=''>Seleccionar</option>
+              <option value='Mayor'>Mayor</option>
+              <option value='Menor'>Menor</option>
+            </select>
+          </div>
+          <div class='two wide field'>
+            <label>Mostrar</label>
+            <button
+              type='submit'
+              class='ui fluid large teal submit button'
+            >Filtrar</button>
+          </div>
+        </div>
+      </form>
+      <form
+        class='ui form'
+        style='margin-bottom: 20px;'
+        method='POST'
+        action='/admin/usuarios/filtrados'
+      >
+        <h2 class='ui dividing header'>Filtrar Por rango de Fechas</h2>
+        <div class='fields'>
+          <div class='eight wide field'>
+            <label>Fecha Inicio</label>
+            <input type='date' name='FechaInicio' required />
+          </div>
+          <div class='eight wide field'>
+            <label>Fecha Fin</label>
+            <input type='date' name='FechaFin' required />
+          </div>
+        </div>
+        <div class='field'>
+          <button
+            type='submit'
+            class='ui fluid large teal submit button'
+          >Filtrar</button>
+        </div>
+      </form>
+	  <!-- Create buttton download excel -->
+	  <button
+		class='ui left floated button'
+		id='download'
+		style='margin-bottom: 20px;'
+		>
+			<i class='download icon'></i>
+			Descargar Excel
+	  </button>
+      <table id='table_id'>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Recorridos</th>
+            <th>Total Kilometros (Kms)</th>
+            <th>Total Calorias (Kcal)</th>
+            <th>Total Co2 (kgr)</th>
+            <th>Total Tiempo (Min)</th>
+            <th>Empresa</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each usuarios}}
+            <tr>
+              <td>{{this.nombre}}</td>
+              <td><a
+                  href='/admin/usuario/{{this._id}}'
+                >{{this.usuario}}</a></td>
+              <td>{{this.email}}</td>
+              <td>{{this.Nrecorridos}} </td>
+              <td>{{this.km_total}}
+              </td>
+              <td>{{this.cal_total}}
+              </td>
+              <td>{{this.co2_total}}
+              </td>
+              <td>{{this.tiempo_total}}
+              </td>
+              <td>{{this.empresa.nombre}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
 
+      <form
+        class='ui form'
+        style='display: none;'
+        method='POST'
+        action='/admin/usuarios/filtrados'
+      >
 
-			<form class="ui form" style="display: none;" method="POST" action="/admin/usuarios/filtrados">
+        <div class='fields'>
+          <div class='two wide field'>
+            <label>Mostrar</label>
+            <select class='ui fluid search dropdown' name='Nfilas'>
+              <option>Seleccionar...</option>
+              {{#each Nusuarios}}
+                <option value='{{this}}'>
+                  {{this}}
+                </option>
+              {{/each}}
+            </select>
+          </div>
+          <div class='two wide field'>
+            <label>Filtrar</label>
+            <button
+              type='submit'
+              class='ui fluid large teal submit button'
+            >Filtrar</button>
+          </div>
+        </div>
+      </form>
 
-				<div class="fields">
-					<div class="two wide field">
-						<label>Mostrar</label>
-						<select class="ui fluid search dropdown" name="Nfilas">
-							<option>Seleccionar...</option>
-							{{#each Nusuarios}}
-							<option value="{{this}}">
-								{{this}}
-							</option>
-							{{/each}}
-						</select>
-					</div>
-					<div class="two wide field">
-						<label>Filtrar</label>
-						<button type="submit" class="ui fluid large teal submit button">Filtrar</button>
-					</div>
-				</div>
-			</form>
-
-
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<!-- XLSX -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.1/xlsx.full.min.js"></script>
 <script>
-  $(document).ready(function () { $('#table_id').DataTable(); });
+	$(document).ready(function() {
+		let table = $('#table_id').DataTable();
+
+		// create button excel in 
+		$('#download').click(function() {
+			//get columns thead
+			let columns = [];
+			$('#table_id thead th').each(function() {
+				columns.push($(this).text());
+			});
+			console.log(columns);
+			//get data tbody
+			let data = [];
+			$('#table_id tbody tr').each(function() {
+				let row = [];
+				$(this).find('td').each(function() {
+					row.push($(this).text());
+				});
+				data.push(row);
+			});
+			//create json
+			let json = [];
+			for (let i = 0; i < data.length; i++) {
+				let row = {};
+				for (let j = 0; j < columns.length; j++) {
+					row[columns[j]] = data[i][j];
+				}
+				json.push(row);
+			}
+			//create xlsx
+			let wb = XLSX.utils.book_new();
+			let ws = XLSX.utils.json_to_sheet(json);
+			XLSX.utils.book_append_sheet(wb, ws, "Usuarios");
+			XLSX.writeFile(wb, "Usuarios.xlsx");
+		});
+	});
 </script>
