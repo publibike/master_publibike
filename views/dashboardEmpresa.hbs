@@ -51,6 +51,26 @@
             </div>
           </form>
           <br />
+          <form id="formfilter2" class="ui form center" method="POST"
+            action="/admin/empresa/filtros_vehicle/{{empresa._id}}">
+            <center>
+              <h2 class="ui dividing header">Filtrar Medios De Transporte</h2>
+            </center>
+            <div class="fields">
+              <select name="vehicle" id="vehicle">
+                <option value="0" disabled selected>Escoge un medio de transporte</option>
+                <option value="Transporte público">Transporte público</option>
+                <option value="Caminar">Caminar</option>
+                <option value="Bicicleta">Bicicleta</option>
+                <option value="Patinete eléctrico">Patinete eléctrico</option>
+                <option value="Bicicleta eléctrica">Bicicleta eléctrica</option>
+                <option value="Moto eléctrica">Moto eléctrica</option>
+              </select>
+            </div>
+            <div class="field">
+              <button type="submit" class="ui fluid large teal submit button">Filtrar</button>
+            </div>
+          </form>
           <div id="contentPdf">
             <div style="display: flex; gap:10%; margin-bottom: 15px;justify-content: center;">
               <div class="wide column">

@@ -90,15 +90,42 @@
           >Filtrar</button>
         </div>
       </form>
-	  <!-- Create buttton download excel -->
-	  <button
-		class='ui left floated button'
-		id='download'
-		style='margin-bottom: 20px;'
-		>
-			<i class='download icon'></i>
-			Descargar Excel
-	  </button>
+      <br />
+      <form
+        id='formfilter2'
+        class='ui form center'
+        method='POST'
+        action='/admin/usuarios/filtros_vehicle'
+      >
+        <h2 class='ui dividing header'>Filtrar Medios De Transporte</h2>
+        <div class='fields'>
+          <select name='vehicle' id='vehicle'>
+            <option value='0' disabled selected>Escoge un medio de transporte</option>
+            <option value='Transporte público'>Transporte público</option>
+            <option value='Caminar'>Caminar</option>
+            <option value='Bicicleta'>Bicicleta</option>
+            <option value='Patinete eléctrico'>Patinete eléctrico</option>
+            <option value='Bicicleta eléctrica'>Bicicleta eléctrica</option>
+            <option value='Moto eléctrica'>Moto eléctrica</option>
+          </select>
+        </div>
+        <div class='field'>
+          <button
+            type='submit'
+            class='ui fluid large teal submit button'
+          >Filtrar</button>
+        </div>
+      </form>
+      <br />
+      <!-- Create buttton download excel -->
+      <button
+        class='ui left floated button'
+        id='download'
+        style='margin-bottom: 20px;'
+      >
+        <i class='download icon'></i>
+        Descargar Excel
+      </button>
       <table id='table_id'>
         <thead>
           <tr>
@@ -169,47 +196,33 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'
+></script>
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js'
+></script>
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js'
+></script>
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js'
+></script>
 <!-- XLSX -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.1/xlsx.full.min.js"></script>
+<script
+  src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.1/xlsx.full.min.js'
+></script>
 <script>
-	$(document).ready(function() {
-		let table = $('#table_id').DataTable();
-
-		// create button excel in 
-		$('#download').click(function() {
-			//get columns thead
-			let columns = [];
-			$('#table_id thead th').each(function() {
-				columns.push($(this).text());
-			});
-			console.log(columns);
-			//get data tbody
-			let data = [];
-			$('#table_id tbody tr').each(function() {
-				let row = [];
-				$(this).find('td').each(function() {
-					row.push($(this).text());
-				});
-				data.push(row);
-			});
-			//create json
-			let json = [];
-			for (let i = 0; i < data.length; i++) {
-				let row = {};
-				for (let j = 0; j < columns.length; j++) {
-					row[columns[j]] = data[i][j];
-				}
-				json.push(row);
-			}
-			//create xlsx
-			let wb = XLSX.utils.book_new();
-			let ws = XLSX.utils.json_to_sheet(json);
-			XLSX.utils.book_append_sheet(wb, ws, "Usuarios");
-			XLSX.writeFile(wb, "Usuarios.xlsx");
-		});
-	});
+  $(document).ready(function() { let table = $('#table_id').DataTable(); //
+  create button excel in $('#download').click(function() { //get columns thead
+  let columns = []; $('#table_id thead th').each(function() {
+  columns.push($(this).text()); }); console.log(columns); //get data tbody let
+  data = []; $('#table_id tbody tr').each(function() { let row = [];
+  $(this).find('td').each(function() { row.push($(this).text()); });
+  data.push(row); }); //create json let json = []; for (let i = 0; i <
+  data.length; i++) { let row = {}; for (let j = 0; j < columns.length; j++) {
+  row[columns[j]] = data[i][j]; } json.push(row); } //create xlsx let wb =
+  XLSX.utils.book_new(); let ws = XLSX.utils.json_to_sheet(json);
+  XLSX.utils.book_append_sheet(wb, ws, "Usuarios"); XLSX.writeFile(wb,
+  "Usuarios.xlsx"); }); });
 </script>
