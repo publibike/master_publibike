@@ -1446,7 +1446,7 @@ module.exports.register = async (server) => {
           .toArray();
 
         let arr = graphTypeOfTransport.filter(
-          (item) => item._id !== "Transporte público"
+          (item) => item._id === datos.vehicle
         );
         let totalNotPublicTransport = 0;
         arr.map((item) => {
@@ -1544,7 +1544,7 @@ module.exports.register = async (server) => {
         empresa.co2 = tempEmp.co2.toFixed(2);
         empresa.viajes = tempEmp.viajes;
         console.log("datos", datos.vehicle);
-        if (datos.vehicle !== "Transporte público") {
+        if (datos.vehicle === "Transporte público") {
           empresa.ahorroTrans =
             "$" + pesoConvert.format(0);
           empresa.ahorroSITP =
@@ -2215,7 +2215,7 @@ module.exports.register = async (server) => {
         .toArray();
 
       let arr = graphTypeOfTransport.filter(
-        (item) => item._id !== "Transporte público"
+        (item) => item._id === datos.vehicle
       );
       let totalNotPublicTransport = 0;
       arr.map((item) => {
@@ -2312,7 +2312,7 @@ module.exports.register = async (server) => {
       empresa.co2 = tempEmp.co2.toFixed(2);
       empresa.viajes = tempEmp.viajes;
       console.log("datos", datos.vehicle);
-      if (datos.vehicle !== "Transporte público") {
+      if (datos.vehicle === "Transporte público") {
         empresa.ahorroTrans =
           "$" + pesoConvert.format(0);
         empresa.ahorroSITP =
