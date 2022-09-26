@@ -386,6 +386,12 @@ module.exports.register = async (server) => {
           // return h.response("Usuario y/o contraseña incorrecta").code(401)
           return h.response("Correo y/o constraseña incorrectos");
         }
+
+        //verficar si el usuario esta activo
+        if (result.deleted) {
+          // return h.response("Usuario inactivo").code(401)
+          return h.response("Usuario no existe");
+        }
       } catch (error) {
         console.log(error);
         // return h.response('Problemas validando el usuario').code(500)
@@ -679,7 +685,31 @@ module.exports.register = async (server) => {
     },
   });
 
+  //Eliminar cuenta soft delete
+  server.route({
+    method: "DELETE",
+    path: "/api/movil/usuario/{id}",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      try {
+        const id = req.params.id;
+        const ObjectID = req.mongo.ObjectID;
 
+        const status = await req.mongo.db
+          .collection("Usuario")
+          .updateOne({ _id: ObjectID(id) }, { $set: { deleted: true } });
+
+          if (!status) {
+            return h.response("Error al eliminar el usuario").code(500);
+          }
+          return h.response("Usuario Eliminado").code(200);
+      } catch (error) {
+        return error;
+      }
+    },
+  });
 
   //Envia el recorrido
   server.route({
