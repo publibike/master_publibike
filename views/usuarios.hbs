@@ -83,20 +83,6 @@
             <input type='date' name='FechaFin' required />
           </div>
         </div>
-        <div class='field'>
-          <button
-            type='submit'
-            class='ui fluid large teal submit button'
-          >Filtrar</button>
-        </div>
-      </form>
-      <br />
-      <form
-        id='formfilter2'
-        class='ui form center'
-        method='POST'
-        action='/admin/usuarios/filtros_vehicle'
-      >
         <h2 class='ui dividing header'>Filtrar Medios De Transporte</h2>
         <div class='fields'>
           <select name='vehicle' id='vehicle'>
@@ -213,40 +199,16 @@
   src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.1/xlsx.full.min.js'
 ></script>
 <script>
-  $(document).ready(function() {
-		let table = $('#table_id').DataTable();
-
-		// create button excel in 
-		$('#download').click(function() {
-			//get columns thead
-			let columns = [];
-			$('#table_id thead th').each(function() {
-				columns.push($(this).text());
-			});
-			console.log(columns);
-			//get data tbody
-			let data = [];
-			$('#table_id tbody tr').each(function() {
-				let row = [];
-				$(this).find('td').each(function() {
-					row.push($(this).text());
-				});
-				data.push(row);
-			});
-			//create json
-			let json = [];
-			for (let i = 0; i < data.length; i++) {
-				let row = {};
-				for (let j = 0; j < columns.length; j++) {
-					row[columns[j]] = data[i][j];
-				}
-				json.push(row);
-			}
-			//create xlsx
-			let wb = XLSX.utils.book_new();
-			let ws = XLSX.utils.json_to_sheet(json);
-			XLSX.utils.book_append_sheet(wb, ws, "Usuarios");
-			XLSX.writeFile(wb, "Usuarios.xlsx");
-		});
-	});
+  $(document).ready(function() { let table = $('#table_id').DataTable(); //
+  create button excel in $('#download').click(function() { //get columns thead
+  let columns = []; $('#table_id thead th').each(function() {
+  columns.push($(this).text()); }); console.log(columns); //get data tbody let
+  data = []; $('#table_id tbody tr').each(function() { let row = [];
+  $(this).find('td').each(function() { row.push($(this).text()); });
+  data.push(row); }); //create json let json = []; for (let i = 0; i <
+  data.length; i++) { let row = {}; for (let j = 0; j < columns.length; j++) {
+  row[columns[j]] = data[i][j]; } json.push(row); } //create xlsx let wb =
+  XLSX.utils.book_new(); let ws = XLSX.utils.json_to_sheet(json);
+  XLSX.utils.book_append_sheet(wb, ws, "Usuarios"); XLSX.writeFile(wb,
+  "Usuarios.xlsx"); }); });
 </script>

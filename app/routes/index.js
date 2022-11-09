@@ -104,116 +104,6 @@ module.exports.register = async (server) => {
       const datos = request.payload;
 
       let usuarios = [];
-      /*
-      if (datos.texto) {
-        var regex = new RegExp(["^", datos.texto, "$"].join(""), "i");
-        usuarios = await request.mongo.db
-          .collection("Usuario")
-          .find({ nombre: regex })
-          .toArray();
-        if (usuarios.length === 0) {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .find({ usuario: parseInt(datos.texto) })
-            .toArray();
-        }
-        if (usuarios.length === 0) {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .find({ email: regex })
-            .toArray();
-        }
-      }
-      if (datos.recorridos) {
-        if (datos.recorridos == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { recorridos: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.recorridos == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { recorridos: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-
-      if (datos.kilometros) {
-        if (datos.kilometros == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { km_total: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.kilometros == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { km_total: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-      if (datos.calorias) {
-        if (datos.calorias == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { cal_total: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.calorias == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { cal_total: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-      if (datos.co2) {
-        if (datos.co2 == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { co2_total: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.co2 == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { co2_total: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-      if (datos.tiempo) {
-        if (datos.tiempo == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { tiempo_total: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.tiempo == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { tiempo_total: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-
-      if (datos.Nfilas > 0) {
-        usuarios = await request.mongo.db
-          .collection("Usuario")
-          .aggregate([{ $sort: { tiempo_total: 1 } }])
-          .limit(parseInt(datos.Nfilas))
-          .toArray();
-      }
-*/
       if (datos.FechaInicio) {
         const datosConsulta = await request.mongo.db
           .collection("Usuario")
@@ -224,7 +114,7 @@ module.exports.register = async (server) => {
             moment(c.fecha).isBetween(
               moment(datos.FechaInicio),
               moment(datos.FechaFin)
-            )
+            ) && c.vehicle == datos.vehicle
           );
         });
         usuarios = datosConsulta;
@@ -348,116 +238,7 @@ module.exports.register = async (server) => {
       const ObjectID = request.mongo.ObjectID;
 
       let usuarios = [];
-      /*
-      if (datos.texto) {
-        var regex = new RegExp(["^", datos.texto, "$"].join(""), "i");
-        usuarios = await request.mongo.db
-          .collection("Usuario")
-          .find({ nombre: regex })
-          .toArray();
-        if (usuarios.length === 0) {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .find({ usuario: parseInt(datos.texto) })
-            .toArray();
-        }
-        if (usuarios.length === 0) {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .find({ email: regex })
-            .toArray();
-        }
-      }
-      if (datos.recorridos) {
-        if (datos.recorridos == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { recorridos: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.recorridos == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { recorridos: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-
-      if (datos.kilometros) {
-        if (datos.kilometros == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { km_total: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.kilometros == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { km_total: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-      if (datos.calorias) {
-        if (datos.calorias == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { cal_total: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.calorias == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { cal_total: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-      if (datos.co2) {
-        if (datos.co2 == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { co2_total: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.co2 == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { co2_total: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-      if (datos.tiempo) {
-        if (datos.tiempo == "Mayor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { tiempo_total: -1 } }])
-            .limit(10)
-            .toArray();
-        }
-        if (datos.tiempo == "Menor") {
-          usuarios = await request.mongo.db
-            .collection("Usuario")
-            .aggregate([{ $sort: { tiempo_total: 1 } }])
-            .limit(10)
-            .toArray();
-        }
-      }
-
-      if (datos.Nfilas > 0) {
-        usuarios = await request.mongo.db
-          .collection("Usuario")
-          .aggregate([{ $sort: { tiempo_total: 1 } }])
-          .limit(parseInt(datos.Nfilas))
-          .toArray();
-      }
-*/
+      
       if (datos.FechaInicio) {
         const datosConsulta = await request.mongo.db
           .collection("Usuario")
@@ -468,7 +249,7 @@ module.exports.register = async (server) => {
             moment(c.fecha).isBetween(
               moment(datos.FechaInicio),
               moment(datos.FechaFin)
-            )
+            ) && c.vehicle == datos.vehicle
           );
         });
         usuarios = datosConsulta;
@@ -1051,283 +832,311 @@ module.exports.register = async (server) => {
       const ObjectID = req.mongo.ObjectID;
       let datos = req.payload;
       //agrupar los generos de los usuarios y contarlos
-      const generos = await req.mongo.db
-        .collection("Usuario")
-        .aggregate([
-          {
-            //check if genero exists
-            $match: {
-              genero: { $exists: true },
-            },
-          },
-          {
-            $group: {
-              _id: "$genero",
-              count: { $sum: 1 },
-            },
-          },
-        ])
-        .toArray();
-
-      const empresa = await req.mongo.db
-        .collection("Empresa")
-        .aggregate([
-          {
-            $match: {
-              $and: [
-                { nombre: { $exists: true } },
-                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
-              ],
-            },
-          },
-          { $unwind: "$datosHistoricos" },
-          { $project: { _id: 0, datosHistoricos: 1 } },
-          /* { $unwind: "$datosHistoricos" },
-          { $unwind: "$datosHistoricos.fechaCom" },*/
-          {
-            $addFields: {
-              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
-            },
-          },
-
-          {
-            $match: {
-              convertedDate: {
-                $gte: new Date(datos.FechaInicio),
-                $lt: new Date(datos.FechaFin),
+      try {
+        const generos = await req.mongo.db
+          .collection("Usuario")
+          .aggregate([
+            {
+              //check if genero exists
+              $match: {
+                $and: [
+                  { genero: { $exists: true }, },
+                  //check if recorrido vehicle is equal to the one selected
+                  datos.vehicle && { "recorridos.vehicle": datos.vehicle, }
+                ],
               },
             },
-          },
-        ])
-        .toArray();
-
-      const graph = await req.mongo.db
-        .collection("Empresa")
-        .aggregate([
-          {
-            $match: {
-              $and: [
-                { nombre: { $exists: true } },
-                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
-              ],
+            {
+              $group: {
+                _id: "$genero",
+                count: { $sum: 1 },
+              },
             },
-          },
-          { $unwind: "$datosHistoricos" },
-          { $project: { _id: 0, datosHistoricos: 1 } },
-          /* { $unwind: "$datosHistoricos" },
+          ])
+          .toArray();
+        console.log("entro2")
+        const empresa = await req.mongo.db
+          .collection("Usuario")
+          .aggregate([
+            { $unwind: "$recorridos" },
+            {
+              $match: {
+                $and: [
+                  { nombre: { $exists: true } },
+                  { "empresa.id": { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+                  datos.vehicle && { "recorridos.vehicle": datos.vehicle },
+                ],
+              },
+            },
+            { $project: { _id: 0, recorridos: 1 } },
+            /* { $unwind: "$datosHistoricos" },
             { $unwind: "$datosHistoricos.fechaCom" },*/
-          {
-            $addFields: {
-              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
-            },
-          },
-
-          {
-            $match: {
-              convertedDate: {
-                $gte: new Date(datos.FechaInicio),
-                $lt: new Date(datos.FechaFin),
+            {
+              $addFields: {
+                convertedDate: { $toDate: "$recorridos.fecha" },
               },
             },
-          },
-          {
-            $group: {
-              _id: { $substr: ["$datosHistoricos.fechaCom", 0, 7] },
-              viajes: { $sum: 1 },
-              co2: { $sum: "$datosHistoricos.co2" },
-            },
-          },
-          { $sort: { _id: 1 } },
-        ])
-        .toArray();
 
-      const graphTypeOfTransport = await req.mongo.db
-        .collection("Usuario")
-        .aggregate([
-          {
-            $match: {
-              $and: [
-                { nombre: { $exists: true } },
-                {
-                  "empresa.id": {
-                    $ne: new ObjectID("5fee064159aa4e5b64f9152b"),
-                  },
+            {
+              $match: {
+                convertedDate: {
+                  $gte: new Date(datos.FechaInicio),
+                  $lt: new Date(datos.FechaFin),
                 },
-              ],
-            },
-          },
-          { $unwind: "$recorridos" },
-          {
-            $addFields: {
-              convertedDate: { $toDate: "$recorridos.fecha" },
-            },
-          },
-          {
-            $match: {
-              $and: [
-                {
-                  convertedDate: {
-                    $gte: new Date(datos.FechaInicio),
-                    $lt: new Date(datos.FechaFin),
-                  },
-                },
-                { "recorridos.vehicle": { $exists: true } },
-                {
-                  "recorridos.vehicle": {
-                    $ne: null,
-                  },
-                },
-              ],
-            },
-          },
-          {
-            $group: {
-              _id: "$recorridos.vehicle",
-              viajes: { $sum: 1 },
-            },
-          },
-          { $sort: { _id: 1 } },
-        ])
-        .toArray();
-
-      const graphHours = await req.mongo.db
-        .collection("Empresa")
-        .aggregate([
-          {
-            $match: {
-              $and: [
-                { nombre: { $exists: true } },
-                { _id: { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
-              ],
-            },
-          },
-          { $unwind: "$datosHistoricos" },
-          { $project: { _id: 0, datosHistoricos: 1 } },
-          /* { $unwind: "$datosHistoricos" },
-            { $unwind: "$datosHistoricos.fechaCom" },*/
-          {
-            $addFields: {
-              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
-            },
-          },
-
-          {
-            $match: {
-              convertedDate: {
-                $gte: new Date(datos.FechaInicio),
-                $lt: new Date(datos.FechaFin),
               },
             },
-          },
-          {
-            $group: {
-              _id: {
-                $toInt: {
-                  $substr: [
-                    {
-                      $dateSubtract: {
-                        startDate: {
-                          $dateFromString: {
-                            dateString: "$datosHistoricos.fechaCom",
+          ])
+          .toArray();
+
+        console.log(empresa)
+
+        const graph = await req.mongo.db
+          .collection("Usuario")
+          .aggregate([
+            { $unwind: "$recorridos" },
+            {
+              $match: {
+                $and: [
+                  { nombre: { $exists: true } },
+                  { "empresa.id": { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+                  { "recorridos.vehicle": datos.vehicle },
+                ],
+              },
+            },
+            { $project: { _id: 0, recorridos: 1 } },
+            /* { $unwind: "$datosHistoricos" },
+              { $unwind: "$datosHistoricos.fechaCom" },*/
+            {
+              $addFields: {
+                convertedDate: { $toDate: "$recorridos.fecha" },
+              },
+            },
+
+            {
+              $match: {
+                convertedDate: {
+                  $gte: new Date(datos.FechaInicio),
+                  $lt: new Date(datos.FechaFin),
+                },
+              },
+            },
+            {
+              $group: {
+                _id: { $substr: ["$recorridos.fecha", 0, 7] },
+                viajes: { $sum: 1 },
+                co2: { $sum: "$recorridos.co2" },
+              },
+            },
+            { $sort: { _id: 1 } },
+          ])
+          .toArray();
+
+        let graphTypeOfTransport = await req.mongo.db
+          .collection("Usuario")
+          .aggregate([
+            {
+              $match: {
+                $and: [
+                  { nombre: { $exists: true } },
+                  {
+                    "empresa.id": {
+                      $ne: new ObjectID("5fee064159aa4e5b64f9152b"),
+                    },
+                  },
+                ],
+              },
+            },
+            { $unwind: "$recorridos" },
+            {
+              $addFields: {
+                convertedDate: { $toDate: "$recorridos.fecha" },
+              },
+            },
+            {
+              $match: {
+                $and: [
+                  {
+                    convertedDate: {
+                      $gte: new Date(datos.FechaInicio),
+                      $lt: new Date(datos.FechaFin),
+                    },
+                  },
+                  { "recorridos.vehicle": { $exists: true } },
+                  {
+                    "recorridos.vehicle": {
+                      $ne: null,
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              $group: {
+                _id: "$recorridos.vehicle",
+                viajes: { $sum: 1 },
+              },
+            },
+            { $sort: { _id: 1 } },
+          ])
+          .toArray();
+
+
+        const graphHours = await req.mongo.db
+          .collection("Usuario")
+          .aggregate([
+            { $unwind: "$recorridos" },
+            {
+              $match: {
+                $and: [
+                  { nombre: { $exists: true } },
+                  { "empresa.id": { $ne: new ObjectID("5fee064159aa4e5b64f9152b") } },
+                  { "recorridos.vehicle": datos.vehicle },
+                ],
+              },
+            },
+            { $project: { _id: 0, recorridos: 1 } },
+            /* { $unwind: "$datosHistoricos" },
+              { $unwind: "$datosHistoricos.fechaCom" },*/
+            {
+              $addFields: {
+                convertedDate: { $toDate: "$recorridos.fecha" },
+              },
+            },
+
+            {
+              $match: {
+                convertedDate: {
+                  $gte: new Date(datos.FechaInicio),
+                  $lt: new Date(datos.FechaFin),
+                },
+              },
+            },
+            {
+              $group: {
+                _id: {
+                  $toInt: {
+                    $substr: [
+                      {
+                        $dateSubtract: {
+                          startDate: {
+                            $dateFromString: {
+                              dateString: "$recorridos.fecha",
+                            },
                           },
-                        },
-                        unit: "hour",
-                        amount: {
-                          $toInt: {
-                            $cond: {
-                              if: { $gt: ["$datosHistoricos.min", 0] },
-                              then: { $divide: ["$datosHistoricos.min", 60] },
-                              else: 0,
+                          unit: "hour",
+                          amount: {
+                            $toInt: {
+                              $cond: {
+                                if: { $gt: ["$recorridos.minutos", 0] },
+                                then: { $divide: ["$recorridos.minutos", 60] },
+                                else: 0,
+                              },
                             },
                           },
                         },
                       },
-                    },
-                    11,
-                    2,
-                  ],
+                      11,
+                      2,
+                    ],
+                  },
                 },
+                min: { $sum: "$recorridos.minutos" },
+                viajes: { $sum: 1 },
               },
-              min: { $sum: "$datosHistoricos.min" },
-              viajes: { $sum: 1 },
             },
-          },
-          { $sort: { _id: 1 } },
-        ])
-        .toArray();
+            { $sort: { _id: 1 } },
+          ])
+          .toArray();
 
-      let arr = graphTypeOfTransport.filter(
-        (item) => item._id !== "Transporte público"
-      );
-      let totalNotPublicTransport = 0;
-      arr.map((item) => {
-        totalNotPublicTransport += item.viajes;
-      });
+        let arr = graphTypeOfTransport.filter(
+          (item) => datos.vehicle ? item._id == datos.vehicle : item._id !== "Transporte público"
+        );
+        let totalNotPublicTransport = 0;
+        arr.map((item) => {
+          totalNotPublicTransport += item.viajes;
+        });
 
-      graphHours.map((item, index) => {
-        if (parseInt(item._id) - 5 < 0) {
-          graphHours[index]._id = 24 + parseInt(item._id) - 5;
+        graphTypeOfTransport = graphTypeOfTransport.filter(
+          (item) => item._id === datos.vehicle
+        );
+
+        graphHours.map((item, index) => {
+          if (parseInt(item._id) - 5 < 0) {
+            graphHours[index]._id = 24 + parseInt(item._id) - 5;
+          } else {
+            graphHours[index]._id = parseInt(item._id) - 5;
+          }
+        });
+
+        let result = graphHours.sort((a, b) => {
+          return a._id - b._id;
+        });
+
+        let tempEmp = {
+          tiempo: 0,
+          co2: 0,
+          cal: 0,
+          km: 0,
+          viajes: 0,
+        };
+
+        await empresa.map((emp) => {
+          console.log(emp);
+          tempEmp.tiempo = tempEmp.tiempo + emp.recorridos.minutos;
+          tempEmp.cal = tempEmp.cal + emp.recorridos.kms;
+          tempEmp.km = tempEmp.km + emp.recorridos.cal;
+          tempEmp.co2 = tempEmp.co2 + emp.recorridos.co2;
+        });
+
+        await graph.map((emp) => {
+          tempEmp.viajes = tempEmp.viajes + emp.viajes;
+        });
+
+        let pesoConvert = Intl.NumberFormat("es-CO");
+
+        empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
+        empresa.co2 = tempEmp.co2.toFixed(2);
+        empresa.viajes = tempEmp.viajes;
+        if (datos.vehicle === "Transporte público") {
+          empresa.ahorroTrans =
+            "$" + pesoConvert.format(0);
+          empresa.ahorroSITP =
+            "$" + pesoConvert.format(0);
         } else {
-          graphHours[index]._id = parseInt(item._id) - 5;
+          console.log("entro")
+          empresa.ahorroTrans =
+            "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
+          empresa.ahorroSITP =
+            "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
         }
-      });
+        empresa.cal = tempEmp.cal.toFixed(2);
+        empresa.km = tempEmp.km.toFixed(2);
+        empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
+        empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
+        empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
+        empresa.dataGraph = JSON.stringify(graph);
+        empresa.hoursData = JSON.stringify(result);
+        empresa.FechaInicio = datos.FechaInicio;
+        empresa.FechaFin = datos.FechaFin;
+        empresa.typeTransportData = JSON.stringify(graphTypeOfTransport);
+        const token = jwt.sign(
+          {
+            _id: id,
+          },
+          process.env.COOKIE_ENCRYPT_PWD
+        );
 
-      let result = graphHours.sort((a, b) => {
-        return a._id - b._id;
-      });
-
-      let tempEmp = {
-        tiempo: 0,
-        co2: 0,
-        cal: 0,
-        km: 0,
-        viajes: 0,
-      };
-
-      await empresa.map((emp) => {
-        tempEmp.tiempo = tempEmp.tiempo + emp.datosHistoricos.min;
-        tempEmp.cal = tempEmp.cal + emp.datosHistoricos.cal;
-        tempEmp.km = tempEmp.km + emp.datosHistoricos.kms;
-        tempEmp.co2 = tempEmp.co2 + emp.datosHistoricos.co2;
-      });
-
-      await graph.map((emp) => {
-        tempEmp.viajes = tempEmp.viajes + emp.viajes;
-      });
-
-      let pesoConvert = Intl.NumberFormat("es-CO");
-
-      empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
-      empresa.co2 = tempEmp.co2.toFixed(2);
-      empresa.viajes = tempEmp.viajes;
-      empresa.ahorroTrans =
-        "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
-      empresa.ahorroSITP =
-        "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
-      empresa.cal = tempEmp.cal.toFixed(2);
-      empresa.km = tempEmp.km.toFixed(2);
-      empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
-      empresa.numeroPlantulas = ((tempEmp.co2 * 0.001) / 0.067).toFixed(2);
-      empresa.bolsasRecicladas = ((tempEmp.co2 * 0.003) / 0.067).toFixed(2);
-      empresa.dataGraph = JSON.stringify(graph);
-      empresa.hoursData = JSON.stringify(result);
-      empresa.FechaInicio = datos.FechaInicio;
-      empresa.FechaFin = datos.FechaFin;
-      empresa.typeTransportData = JSON.stringify(graphTypeOfTransport);
-      const token = jwt.sign(
-        {
-          _id: id,
-        },
-        process.env.COOKIE_ENCRYPT_PWD
-      );
-      return h.view("usuario", {
-        // title: `Usuario: ${usuario.usuario}`,
-        usuario: usuario,
-        empresa: empresa,
-        generos: JSON.stringify(generos),
-        token: token,
-        // id: id
-      });
+        return h.view("usuario", {
+          // title: `Usuario: ${usuario.usuario}`,
+          usuario: usuario,
+          empresa: empresa,
+          generos: JSON.stringify(generos),
+          token: token,
+          // id: id
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 
@@ -1835,6 +1644,7 @@ module.exports.register = async (server) => {
               $and: [
                 { "empresa.id": new ObjectID(id) },
                 { genero: { $exists: true } },
+                datos.vehicle && { "recorridos.vehicle": datos.vehicle, }
               ],
             },
           },
@@ -1850,7 +1660,7 @@ module.exports.register = async (server) => {
         .collection("Empresa")
         .findOne({ _id: new ObjectID(id) });
 
-      const graphTypeOfTransport = await req.mongo.db
+      let graphTypeOfTransport = await req.mongo.db
         .collection("Usuario")
         .aggregate([
           {
@@ -1898,28 +1708,35 @@ module.exports.register = async (server) => {
         .toArray();
 
       let arr = graphTypeOfTransport.filter(
-        (item) => item._id !== "Transporte público"
+        (item) => item._id === datos.vehicle
       );
       let totalNotPublicTransport = 0;
       arr.map((item) => {
         totalNotPublicTransport += item.viajes;
       });
 
+      graphTypeOfTransport = graphTypeOfTransport.filter(
+        (item) => item._id === datos.vehicle
+      );
+
       const datosFiltrados = await req.mongo.db
-        .collection("Empresa")
+        .collection("Usuario")
         .aggregate([
+          { $unwind: "$recorridos" },
           {
             $match: {
-              _id: new ObjectID(id),
+              $and: [
+                { "empresa.id": new ObjectID(id), },
+                datos.vehicle && { "recorridos.vehicle": datos.vehicle },
+              ]
             },
           },
-          { $unwind: "$datosHistoricos" },
-          { $project: { _id: 0, datosHistoricos: 1 } },
+          { $project: { _id: 0, recorridos: 1 } },
           /* { $unwind: "$datosHistoricos" },
           { $unwind: "$datosHistoricos.fechaCom" },*/
           {
             $addFields: {
-              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+              convertedDate: { $toDate: "$recorridos.fecha" },
             },
           },
 
@@ -1935,20 +1752,23 @@ module.exports.register = async (server) => {
         .toArray();
 
       const graph = await req.mongo.db
-        .collection("Empresa")
+        .collection("Usuario")
         .aggregate([
+          { $unwind: "$recorridos" },
           {
             $match: {
-              _id: new ObjectID(id),
+              $and: [
+                { "empresa.id": new ObjectID(id), },
+                datos.vehicle && { "recorridos.vehicle": datos.vehicle },
+              ]
             },
           },
-          { $unwind: "$datosHistoricos" },
-          { $project: { _id: 0, datosHistoricos: 1 } },
+          { $project: { _id: 0, recorridos: 1 } },
           /* { $unwind: "$datosHistoricos" },
             { $unwind: "$datosHistoricos.fechaCom" },*/
           {
             $addFields: {
-              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+              convertedDate: { $toDate: "$recorridos.fecha" },
             },
           },
 
@@ -1962,9 +1782,9 @@ module.exports.register = async (server) => {
           },
           {
             $group: {
-              _id: { $substr: ["$datosHistoricos.fechaCom", 0, 7] },
+              _id: { $substr: ["$recorridos.fecha", 0, 7] },
               viajes: { $sum: 1 },
-              co2: { $sum: "$datosHistoricos.co2" },
+              co2: { $sum: "$recorridos.co2" },
             },
           },
           { $sort: { _id: 1 } },
@@ -1972,20 +1792,23 @@ module.exports.register = async (server) => {
         .toArray();
 
       const graphHours = await req.mongo.db
-        .collection("Empresa")
+        .collection("Usuario")
         .aggregate([
+          { $unwind: "$recorridos" },
           {
             $match: {
-              _id: new ObjectID(id),
+              $and: [
+                { "empresa.id": new ObjectID(id) },
+                { "recorridos.vehicle": datos.vehicle },
+              ]
             },
           },
-          { $unwind: "$datosHistoricos" },
-          { $project: { _id: 0, datosHistoricos: 1 } },
+          { $project: { _id: 0, recorridos: 1 } },
           /* { $unwind: "$datosHistoricos" },
             { $unwind: "$datosHistoricos.fechaCom" },*/
           {
             $addFields: {
-              convertedDate: { $toDate: "$datosHistoricos.fechaCom" },
+              convertedDate: { $toDate: "$recorridos.fecha" },
             },
           },
           {
@@ -2005,15 +1828,15 @@ module.exports.register = async (server) => {
                       $dateSubtract: {
                         startDate: {
                           $dateFromString: {
-                            dateString: "$datosHistoricos.fechaCom",
+                            dateString: "$recorridos.fecha",
                           },
                         },
                         unit: "hour",
                         amount: {
                           $toInt: {
                             $cond: {
-                              if: { $gt: ["$datosHistoricos.min", 0] },
-                              then: { $divide: ["$datosHistoricos.min", 60] },
+                              if: { $gt: ["$recorridos.minutos", 0] },
+                              then: { $divide: ["$recorridos.minutos", 60] },
                               else: 0,
                             },
                           },
@@ -2025,7 +1848,7 @@ module.exports.register = async (server) => {
                   ],
                 },
               },
-              min: { $sum: "$datosHistoricos.min" },
+              min: { $sum: "$recorridos.minutos" },
               viajes: { $sum: 1 },
             },
           },
@@ -2054,13 +1877,13 @@ module.exports.register = async (server) => {
       };
 
       await datosFiltrados.map((emp) => {
-        tempEmp.tiempo = tempEmp.tiempo + emp.datosHistoricos.min;
-        tempEmp.cal = tempEmp.cal + emp.datosHistoricos.cal;
-        tempEmp.km = tempEmp.km + emp.datosHistoricos.kms;
+        tempEmp.tiempo = tempEmp.tiempo + emp.recorridos.minutos;
+        tempEmp.cal = tempEmp.cal + emp.recorridos.cal;
+        tempEmp.km = tempEmp.km + emp.recorridos.kms;
+        tempEmp.co2 = tempEmp.co2 + emp.recorridos.co2;
       });
 
       await graph.map((emp) => {
-        tempEmp.co2 = tempEmp.co2 + emp.co2;
         tempEmp.viajes = tempEmp.viajes + emp.viajes;
       });
 
@@ -2069,10 +1892,18 @@ module.exports.register = async (server) => {
       empresa.tiempo = secsToTime(tempEmp.tiempo * 60);
       empresa.co2 = tempEmp.co2.toFixed(2);
       empresa.viajes = tempEmp.viajes;
-      empresa.ahorroTrans =
-        "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
-      empresa.ahorroSITP =
-        "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
+      if (datos.vehicle === "Transporte público") {
+        empresa.ahorroTrans =
+          "$" + pesoConvert.format(0);
+        empresa.ahorroSITP =
+          "$" + pesoConvert.format(0);
+      } else {
+        console.log("entro")
+        empresa.ahorroTrans =
+          "$" + pesoConvert.format((totalNotPublicTransport * 2650).toFixed(2));
+        empresa.ahorroSITP =
+          "$" + pesoConvert.format((totalNotPublicTransport * 2450).toFixed(2));
+      }
       empresa.cal = tempEmp.cal.toFixed(2);
       empresa.km = tempEmp.km.toFixed(2);
       empresa.smartphones = ((tempEmp.co2 * 34) / 0.067).toFixed(2);
