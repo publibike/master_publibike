@@ -905,7 +905,7 @@ module.exports.register = async (server) => {
       console.log(datos);
       //agrupar los generos de los usuarios y contarlos
       try {
-        if (datos.fechaInicio && datos.fechaFin && datos.vehicle) {
+        if (datos.FechaInicio && datos.FechaFin && datos.vehicle) {
           const generos = await req.mongo.db
             .collection("Usuario")
             .aggregate([
@@ -2228,7 +2228,7 @@ module.exports.register = async (server) => {
       let datos = req.payload;
       console.log(datos);
       try {
-        if (datos.fechaInicio && datos.fechaFin && datos.vehicle) {
+        if (datos.FechaFin && datos.FechaFin && datos.vehicle) {
           console.log("aca")
           const generos = await req.mongo.db
             .collection("Usuario")
