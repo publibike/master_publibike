@@ -31,7 +31,6 @@
           </div> }}
 
         </div>
-
         <div id="part1" class="card-body" style="background: #f2f3f3;">
           <form id="formfilter" class="ui form center" method="POST"
             action="/admin/usuario/filtros/5fee064159aa4e5b64f9152b">
@@ -523,6 +522,15 @@
   const json2 = `{{{empresa.hoursData}}}`;
   const json3 = `{{{generos}}}`;
   const json4 = `{{{empresa.typeTransportData}}}`;
+  const values = `{{{values}}}`;
+  if(values){
+    var value = JSON.parse(values);
+    document.getElementById("vehicle").value = value.vehicle;
+    //get by name
+    document.getElementsByName("FechaInicio")[0].value = value.FechaInicio;
+    document.getElementsByName("FechaFin")[0].value = value.FechaFin;
+  }
+
   const str = JSON.parse(json);
   const hours = JSON.parse(json2);
   const gender = JSON.parse(json3);

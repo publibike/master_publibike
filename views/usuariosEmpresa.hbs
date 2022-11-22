@@ -105,6 +105,7 @@
             <th>Total Calorias (Kcal)</th>
             <th>Total Co2 (Kgrs)</th>
             <th>Total Tiempo (Min)</th>
+            <th>Genero</th>
           </tr>
         </thead>
         <tbody>
@@ -122,6 +123,7 @@
             </td>
             <td>{{this.tiempo_total}}
             </td>
+            <td>{{this.genero}}</td>
           </tr>
           {{/each}}
         </tbody>
@@ -136,6 +138,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.1/xlsx.full.min.js"></script>
 <script>
   $(document).ready(function () { 
+    const values = `{{{values}}}`;
+    if (values) {
+        var value = JSON.parse(values);
+        document.getElementById("vehicle").value = value.vehicle;
+        //get by name
+        document.getElementsByName("FechaInicio")[0].value = value.FechaInicio;
+        document.getElementsByName("FechaFin")[0].value = value.FechaFin;
+    }
     $('#table_id').DataTable({
       //add length of table
       "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],

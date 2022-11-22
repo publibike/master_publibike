@@ -635,6 +635,14 @@
   const hours = JSON.parse(json2);
   const gender = JSON.parse(json3);
   const typeTransport = JSON.parse(json4);
+  const values = `{{{values}}}`;
+  if(values){
+    var value = JSON.parse(values);
+    document.getElementById("vehicle").value = value.vehicle;
+    //get by name
+    document.getElementsByName("FechaInicio")[0].value = value.FechaInicio;
+    document.getElementsByName("FechaFin")[0].value = value.FechaFin;
+  }
   //Carga de data de graficas
   let datesTravels = str.map(function (item) {
     return item._id;

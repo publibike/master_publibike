@@ -196,6 +196,7 @@ module.exports.register = async (server) => {
         title: "Usuarios Registrados",
         usuarios: usuarios,
         Nusuarios: Nusuarios,
+        values: JSON.stringify(datos),
       });
     },
   });
@@ -260,6 +261,7 @@ module.exports.register = async (server) => {
         title: "Usuarios Registrados",
         usuarios: usuarios,
         Nusuarios: Nusuarios,
+        values: JSON.stringify(datos),
       });
     },
   });
@@ -372,6 +374,7 @@ module.exports.register = async (server) => {
           title: "Usuarios Registrados",
           empresa: empresa,
           usuarios: usuarios,
+          values: JSON.stringify(datos),
         },
         {
           layout: "layoutEmpresa",
@@ -449,6 +452,7 @@ module.exports.register = async (server) => {
           title: "Usuarios Registrados",
           empresa: empresa,
           usuarios: usuarios,
+          values: JSON.stringify(datos),
         },
         {
           layout: "layoutEmpresa",
@@ -485,6 +489,7 @@ module.exports.register = async (server) => {
         title: "Usuarios Registrados",
         usuarios: usuarios,
         Nusuarios: Nusuarios,
+        values: null,
       });
     },
   });
@@ -589,6 +594,7 @@ module.exports.register = async (server) => {
         ultRecorrido: ultRecorrido,
         recorridos: arrayRecorridos,
         id: id,
+        values: JSON.stringify(datos),
       });
     },
   });
@@ -657,6 +663,7 @@ module.exports.register = async (server) => {
         ultRecorrido: ultRecorrido,
         recorridos: arrayRecorridos,
         id: id,
+        values: JSON.stringify(datos),
       });
     },
   });
@@ -887,6 +894,7 @@ module.exports.register = async (server) => {
         empresa: empresa,
         generos: JSON.stringify(generos),
         token: token,
+        values: null,
         // id: id
       });
     },
@@ -1205,6 +1213,7 @@ module.exports.register = async (server) => {
             empresa: empresa,
             generos: JSON.stringify(generos),
             token: token,
+            values: JSON.stringify(datos),
             // id: id
           });
         } else {
@@ -1443,6 +1452,7 @@ module.exports.register = async (server) => {
               empresa: empresa,
               generos: JSON.stringify(generos),
               token: token,
+              values: JSON.stringify(datos),
               // id: id
             });
           } else {
@@ -1722,6 +1732,7 @@ module.exports.register = async (server) => {
               empresa: empresa,
               generos: JSON.stringify(generos),
               token: token,
+              values: JSON.stringify(datos),
               // id: id
             });
           }
@@ -2210,6 +2221,7 @@ module.exports.register = async (server) => {
           empresa: empresa,
           generos: JSON.stringify(generos),
           token: token,
+          values: null,
         },
         {
           layout: "layoutEmpresa",
@@ -2523,6 +2535,7 @@ module.exports.register = async (server) => {
               empresa: empresa,
               generos: JSON.stringify(generos),
               token: token,
+              values: JSON.stringify(datos),
             },
             {
               layout: "layoutEmpresa",
@@ -2769,6 +2782,7 @@ module.exports.register = async (server) => {
                 empresa: empresa,
                 generos: JSON.stringify(generos),
                 token: token,
+                values: JSON.stringify(datos),
               },
               {
                 layout: "layoutEmpresa",
@@ -3046,6 +3060,7 @@ module.exports.register = async (server) => {
                 empresa: empresa,
                 generos: JSON.stringify(generos),
                 token: token,
+                values: JSON.stringify(datos),
               },
               {
                 layout: "layoutEmpresa",
@@ -3306,6 +3321,7 @@ module.exports.register = async (server) => {
           empresa: empresa,
           generos: JSON.stringify(generos),
           token: token,
+          values: JSON.stringify(datos),
         },
         {
           layout: "layoutEmpresa",
@@ -3335,6 +3351,7 @@ module.exports.register = async (server) => {
           admin: req.state.admin,
           empresa: empresa,
           usuarios: usuarios,
+          values: null,
         },
         {
           layout: "layoutEmpresa",
