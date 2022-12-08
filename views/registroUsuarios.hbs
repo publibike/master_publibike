@@ -115,14 +115,16 @@
             for (let index = 1; index < result.Hoja1.length -1; index++) {
                 const element = result.Hoja1[index];
                 console.log(element)
-                JSON_DATA.push({
-                    'nombre':element[0], 
-                    'usuario':element[1], 
-                    'email':element[2], 
-                    'peso':element[3], 
-                    'estatura':element[4], 
-                    'genero':element[5]
-                })
+                if(element[0]){
+                  JSON_DATA.push({
+                      'nombre':element[0], 
+                      'usuario':element[1], 
+                      'email':element[2], 
+                      'peso':element[3], 
+                      'estatura':element[4], 
+                      'genero':element[5]
+                  })
+                }
             }
             console.log(JSON_DATA)
             let columns = [

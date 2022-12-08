@@ -1,0 +1,45 @@
+<div>
+  <!-- Create form with nombre -->
+  <form
+    class='ui form'
+    method='POST'
+    action='/api/admin/empresa/{{empresa._id}}/createcomunidad'
+  >
+    <h4 class='ui dividing header'>Datos Principales</h4>
+    <div class='field'>
+      <label>Nombre de la Comunidad</label>
+      <input type='text' name='nombre' placeholder='Nombre de la Comunidad' />
+    </div>
+    <button
+      type='submit'
+      class='ui fluid large yellow submit button'
+    >Registrar</button>
+  </form>
+
+  <!-- create data table -->
+  <table id="table-comunidad" class='ui celled table'>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each empresa.comunidades}}
+      <tr>
+        <td>{{this.comunidad}}</td>
+        <td>
+          <a href='/api/admin/empresa/{{this.idEmpresa}}/comunidad/{{this.comunidad}}/delete'>
+            <button class='ui red button'>Eliminar</button>
+          </a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+<script>
+  $(document).ready(function () {
+    $('#table-comunidad').DataTable();
+  });
+</script>

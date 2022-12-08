@@ -3520,4 +3520,102 @@ module.exports.register = async (server) => {
       },
     },
   });
+
+  server.route({
+    method: "GET",
+    path: "/admin/registro/comunidad/empresa/{id}",
+    handler: async (req, h) => {
+      const id = req.params.id;
+      const ObjectID = req.mongo.ObjectID;
+
+      const empresa = await req.mongo.db
+        .collection("Empresa")
+        .findOne({ _id: new ObjectID(id) });
+
+      //add id of empresa to the array comunidades
+      empresa.comunidades = empresa.comunidades.map((comunidad) => {
+        return {
+          comunidad: comunidad,
+          idEmpresa: id,
+        }
+      });
+
+      console.log(empresa.comunidades);
+
+
+      return h.view(
+        "registroComunidadEmpresa",
+        {
+          title: "Registrar Facultad o Area",
+          empresa: empresa,
+        },
+        {
+          layout: "layoutEmpresa",
+        }
+      );
+    },
+  });
+
+  //save in empresa in the array comunidades push the option
+  server.route({
+    method: "POST",
+    path: "/api/admin/empresa/{id}/createcomunidad",
+    handler: async (req, h) => {
+      const id = req.params.id;
+      const ObjectID = req.mongo.ObjectID;
+
+      const payload = req.payload;
+
+      const empresa = await req.mongo.db
+        .collection("Empresa")
+        .findOne({ _id: new ObjectID(id) });
+
+      const comunidades = empresa.comunidades || [];
+
+      comunidades.push(payload.nombre);
+
+      const update = await req.mongo.db
+        .collection("Empresa")
+        .updateOne(
+          { _id: new ObjectID(id) },
+          { $set: { comunidades: comunidades } }
+        );
+
+      return h.redirect("/admin/registro/comunidad/empresa/" + id);
+    }
+  });
+
+  //delete comunidad
+  server.route({
+    method: "GET",
+    path: "/api/admin/empresa/{id}/comunidad/{payload}/delete",
+    handler: async (req, h) => {
+      const id = req.params.id;
+      const ObjectID = req.mongo.ObjectID;
+
+      const payload = req.params.payload;
+
+      const empresa = await req.mongo.db
+        .collection("Empresa")
+        .findOne({ _id: new ObjectID(id) });
+
+      const comunidades = empresa.comunidades || [];
+
+      //find index of payload
+      const index = comunidades.indexOf(payload);
+      
+      //delete payload
+      comunidades.splice(index, 1);
+
+      const update = await req.mongo.db
+        .collection("Empresa")
+        .updateOne(
+          { _id: new ObjectID(id) },
+          { $set: { comunidades: comunidades } }
+        );
+
+      return h.redirect("/admin/registro/comunidad/empresa/" + id);
+
+    }
+  });
 };
