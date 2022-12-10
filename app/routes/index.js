@@ -15,6 +15,9 @@ module.exports.register = async (server) => {
   await api.register(server);
 
   Handlebars.registerHelper("distanceFixed", function (distance) {
+    if(distance || isNaN(distance)){
+      return 0;
+    }
     return distance.toFixed(2);
   });
 
@@ -3546,7 +3549,7 @@ module.exports.register = async (server) => {
       return h.view(
         "registroComunidadEmpresa",
         {
-          title: "Registrar Facultad o Area",
+          title: "Registrar Facultad o Área",
           empresa: empresa,
         },
         {
@@ -3603,7 +3606,7 @@ module.exports.register = async (server) => {
 
       //find index of payload
       const index = comunidades.indexOf(payload);
-      
+
       //delete payload
       comunidades.splice(index, 1);
 
@@ -3616,6 +3619,27 @@ module.exports.register = async (server) => {
 
       return h.redirect("/admin/registro/comunidad/empresa/" + id);
 
+    }
+  });
+
+  //get comunidades
+  server.route({
+    method: "GET",
+    path: "/api/admin/empresa/{id}/comunidades",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      const id = req.params.id;
+      const ObjectID = req.mongo.ObjectID;
+
+      const empresa = await req.mongo.db
+        .collection("Empresa")
+        .findOne({ _id: new ObjectID(id) });
+
+      const comunidades = empresa.comunidades || [];
+
+      return comunidades;
     }
   });
 };
