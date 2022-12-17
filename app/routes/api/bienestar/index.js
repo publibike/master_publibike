@@ -852,10 +852,12 @@ module.exports.register = async (server) => {
             }
           }
         }
+
+        return h.response(statusUser).code(200);
       } catch (error) {
-        console.log("error", error);
+        console.log(error);
+        return h.response(error).code(500);
       }
-      return h.response(status).code(200);
     },
   });
 
