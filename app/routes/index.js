@@ -15,7 +15,7 @@ module.exports.register = async (server) => {
   await api.register(server);
 
   Handlebars.registerHelper("distanceFixed", function (distance) {
-    if(!distance || isNaN(distance)){
+    if (!distance || isNaN(distance)) {
       return 0;
     }
     return distance.toFixed(2);
@@ -3536,12 +3536,16 @@ module.exports.register = async (server) => {
         .findOne({ _id: new ObjectID(id) });
 
       //add id of empresa to the array comunidades
-      empresa.comunidades = empresa.comunidades.map((comunidad) => {
-        return {
-          comunidad: comunidad,
-          idEmpresa: id,
-        }
-      });
+      if (empresa.comunidades) {
+        empresa.comunidades = empresa.comunidades.map((comunidad) => {
+          return {
+            comunidad: comunidad,
+            idEmpresa: id,
+          }
+        });
+      }else{
+        empresa.comunidades = [];
+      }
 
       console.log(empresa.comunidades);
 
