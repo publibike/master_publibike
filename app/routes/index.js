@@ -15,7 +15,7 @@ module.exports.register = async (server) => {
   await api.register(server);
 
   Handlebars.registerHelper("distanceFixed", function (distance) {
-    if(distance || isNaN(distance)){
+    if(!distance || isNaN(distance)){
       return 0;
     }
     return distance.toFixed(2);
