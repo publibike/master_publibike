@@ -8,7 +8,7 @@ class User {
             id: dataEmpresa._id,
             nombre: dataEmpresa.nombre
         }
-        data.usuario = Number.parseInt(data.usuario);
+        data.usuario = data.usuario;
         data.peso = Number.parseInt(data.peso);
         data.estatura = Number.parseInt(data.estatura);
         data.sede = "";

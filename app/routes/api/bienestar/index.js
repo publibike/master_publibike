@@ -541,7 +541,7 @@ module.exports.register = async (server) => {
       let result;
       try {
         let us = req.payload;
-        const usuario = Number.parseInt(us.user, "10");
+        const usuario = us.user;
 
         // let email = (us.email)
 
