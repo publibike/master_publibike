@@ -541,7 +541,9 @@ module.exports.register = async (server) => {
       let result;
       try {
         let us = req.payload;
-        const usuario = us.user;
+        let usuario = us.user;
+        //convert in number if can
+        usuario = Number(usuario) || usuario;
 
         // let email = (us.email)
 
