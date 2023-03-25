@@ -5,6 +5,8 @@ const user = require("../../../model/index").user;
 const company = require("../../../model/index").company;
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
+//bcrypt
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 /****************************************
  * RUTAS DEL API REST DE LA APLICACIÓN
@@ -530,6 +532,55 @@ module.exports.register = async (server) => {
   /*********************************
    * RUTAS PARA LA APLICACION MOVIL
    ********************************/
+
+  //Permite Registrar al usuario
+  server.route({
+    method: "POST",
+    path: "/api/movil/registro",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      try {
+        let us = req.payload;
+        us = JSON.parse(us);
+        const id = us.empresa;
+        const ObjectID = req.mongo.ObjectID;
+        const empresa = await req.mongo.db
+          .collection("Empresa")
+          .findOne({ _id: new ObjectID(id) }, { _id: 1, nombre: 1 });
+
+        const saltRounds = 10;
+        const hashedPwd = await bcrypt.hash(us.password, saltRounds);
+        us.password = hashedPwd;
+        console.log(us);
+
+        us = await user.create(us, empresa);
+
+        const status = await req.mongo.db.collection("Usuario").insertOne(us);
+
+        const usEmp = {
+          id: status.insertedId,
+          nombre: us.nombre,
+          usuario: us.usuario,
+          email: us.email,
+          km: us.km_total,
+          co2: us.co2_total,
+          cal: us.cal_total,
+          tiempo: us.tiempo_total,
+          terminos: false,
+        };
+
+        const statusEmp = await req.mongo.db
+          .collection("Empresa")
+          .updateOne({ _id: new ObjectID(id) }, { $push: { usuarios: usEmp } });
+        return h.response("Usuario registrado correctamente").code(200);
+      } catch (error) {
+        return h.response("Error al registrar el usuario " + error).code(500);
+      }
+    },
+  });
+
   //Permite el acceso al usuario
   server.route({
     method: "POST",
@@ -541,29 +592,34 @@ module.exports.register = async (server) => {
       let result;
       try {
         let us = req.payload;
-        let usuario = us.user;
-        //convert in number if can
-        usuario = Number(usuario) || usuario;
+        console.log(us);
 
-        // let email = (us.email)
+        let email = (us.email)
+        let password = (us.password)
+
+        //check if email exists
 
         result = await req.mongo.db
           .collection("Usuario")
-          .findOne({ usuario: usuario });
+          .findOne({ email: email });
 
-        // result = await user.validateUser(data, us.password);
+        console.log(result)
+
+        result = await user.validateUser(result, us.password);
+
+        console.log(result)
 
         //Si no existe registro envia mensaje
         if (!result) {
           // return h.response("Usuario y/o contraseña incorrecta").code(401)
           return h.response(
             "Usuario no registrado, comuniquese con su empresa"
-          );
+          ).code(401);
         }
       } catch (error) {
         console.log(error);
         // return h.response('Problemas validando el usuario').code(500)
-        return h.response("Problemas validando el usuario");
+        return h.response("Problemas validando el usuario").code(500);
       }
       return h.response(result).code(200);
     },
@@ -786,9 +842,8 @@ module.exports.register = async (server) => {
         let tiempo_C = company.tiempo;
 
         let fechaHora = new Date(payload.fecha);
-        let fecha = `${
-          fechaHora.getMonth() + 1
-        }/${fechaHora.getDate()}/${fechaHora.getFullYear()}`;
+        let fecha = `${fechaHora.getMonth() + 1
+          }/${fechaHora.getDate()}/${fechaHora.getFullYear()}`;
 
         //Se crean el objeto de datos históricos
         let hisData = {
@@ -915,9 +970,8 @@ module.exports.register = async (server) => {
           for (let j = 0; j < recorridos.length; j++) {
             const recorrido = recorridos[j];
             let fechaHora = new Date(recorrido.fecha);
-            let fecha = `${
-              fechaHora.getMonth() + 1
-            }/${fechaHora.getDate()}/${fechaHora.getFullYear()}`;
+            let fecha = `${fechaHora.getMonth() + 1
+              }/${fechaHora.getDate()}/${fechaHora.getFullYear()}`;
 
             const datos = {
               fechaCom: recorrido.fecha,

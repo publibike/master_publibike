@@ -38,6 +38,7 @@ class User {
     async validateUser(data, password) {
         if (data) {
             const passwordRight = await bcrypt.compare(password, data.password)
+            console.log(password, data.password, passwordRight)
             const result = (passwordRight) ? data : false
             return result
         }
