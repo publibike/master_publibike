@@ -5,6 +5,7 @@ const user = require("../../../model/index").user;
 const company = require("../../../model/index").company;
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
+const mail = require("../../../services/mail.service");
 //bcrypt
 const bcrypt = require("bcrypt");
 require("dotenv").config();

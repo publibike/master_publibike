@@ -17,6 +17,7 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.1",
     "@hapi/vision": "^6.0.1",
+    "@sendgrid/mail": "^7.7.0",
     "assert": "^2.0.0",
     "bcrypt": "^5.0.0",
     "boom": "^7.3.0",
