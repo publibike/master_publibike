@@ -3487,6 +3487,26 @@ module.exports.register = async (server) => {
     },
   });
 
+  server.route({
+    method: "GET",
+    path: "/api/admin/comunidades/lista",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      const empresas = await req.mongo.db
+        .collection("Empresa")
+        .find({})
+        .project({ nombre: 1 })
+        .toArray();
+
+      return {
+        empresas: empresas,
+        success: true,
+      }
+    },
+  });
+
   //Registro campaña empresa
   server.route({
     method: "GET",
