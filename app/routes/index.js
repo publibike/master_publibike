@@ -474,11 +474,11 @@ module.exports.register = async (server) => {
         .find({})
         .toArray();
       usuarios.map((usu, i) => {
-        usu.Nrecorridos = usu.recorridos.length;
-        usu.tiempo_total = usu.tiempo_total.toFixed(1);
-        usu.co2_total = usu.co2_total.toFixed(1);
-        usu.cal_total = usu.cal_total.toFixed(1);
-        usu.km_total = usu.km_total.toFixed(1);
+        usu.Nrecorridos = usu.recorridos ? usu.recorridos.length : 0;
+        usu.tiempo_total = usu.tiempo_total ? usu.tiempo_total.toFixed(1) : 0;
+        usu.co2_total = usu.co2_total ? usu.co2_total.toFixed(1) : 0;
+        usu.cal_total = usu.cal_total ? usu.cal_total.toFixed(1) : 0;
+        usu.km_total = usu.km_total ? usu.km_total.toFixed(1) : 0;
       });
       let Nusuarios = [];
       let numeroDivididoTres = usuarios.length / 3;
