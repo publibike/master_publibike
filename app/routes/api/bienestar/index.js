@@ -575,6 +575,10 @@ module.exports.register = async (server) => {
         const statusEmp = await req.mongo.db
           .collection("Empresa")
           .updateOne({ _id: new ObjectID(id) }, { $push: { usuarios: usEmp } });
+          
+        mail.sendRegisterMail(usEmp.email, { nombre: usEmp.nombre });
+
+
         return h.response("Usuario registrado correctamente").code(200);
       } catch (error) {
         return h.response("Error al registrar el usuario " + error).code(500);
