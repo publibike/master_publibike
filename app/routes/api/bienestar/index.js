@@ -551,6 +551,14 @@ module.exports.register = async (server) => {
           .collection("Empresa")
           .findOne({ _id: new ObjectID(id) }, { _id: 1, nombre: 1 });
 
+        //check email
+        const email = await req.mongo.db
+          .collection("Usuario")
+          .findOne({ email: us.email });
+        if (email) {
+          return h.response("Email ya registrado").code(500);
+        }
+
         const saltRounds = 10;
         const hashedPwd = await bcrypt.hash(us.password, saltRounds);
         us.password = hashedPwd;
