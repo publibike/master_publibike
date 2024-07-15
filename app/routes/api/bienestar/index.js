@@ -552,11 +552,20 @@ module.exports.register = async (server) => {
           .findOne({ _id: new ObjectID(id) }, { _id: 1, nombre: 1 });
 
         //check email
-        const email = await req.mongo.db
+        const {email, celular, usuario} = await req.mongo.db
           .collection("Usuario")
-          .findOne({ email: us.email });
+          .findOne({ email: us.email, celular: us.celular, usuario: us.usuario });
+          
         if (email) {
           return h.response("Email ya registrado").code(500);
+        }
+
+        if (celular) {
+          return h.response("Celular ya registrado").code(500);
+        }
+
+        if (usuario) {
+          return h.response("Usuario ya registrado").code(500);
         }
 
         const saltRounds = 10;
