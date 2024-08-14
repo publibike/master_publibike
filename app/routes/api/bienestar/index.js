@@ -544,18 +544,30 @@ module.exports.register = async (server) => {
     handler: async (req, h) => {
       try {
         let us = req.payload;
-        us = JSON.parse(us);
+        console.log(us.email);
+        //us = JSON.parse(us);
         const id = us.empresa;
         const ObjectID = req.mongo.ObjectID;
         const empresa = await req.mongo.db
           .collection("Empresa")
           .findOne({ _id: new ObjectID(id) }, { _id: 1, nombre: 1 });
+          console.log(us.email);
 
         //check email
-        const {email, celular, usuario} = await req.mongo.db
+        const email = await req.mongo.db
           .collection("Usuario")
-          .findOne({ email: us.email, celular: us.celular, usuario: us.usuario });
-          
+          .findOne({ email: us.email});
+        
+        //check celular
+        const celular = await req.mongo.db
+          .collection("Usuario")
+          .findOne({ celular: us.celular });
+
+        //check usuario
+        const usuario = await req.mongo.db
+          .collection("Usuario")
+          .findOne({ usuario: us.usuario });
+
         if (email) {
           return h.response("Email ya registrado").code(500);
         }
