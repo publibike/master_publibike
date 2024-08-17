@@ -1078,7 +1078,7 @@ module.exports.register = async (server) => {
           return h.response("Usuario no encontrado").code(500);
         }
         //generate alpha numeric string of 6 length
-        const code = Math.random().toString(36).slice(2)
+        const code = Math.floor(1000 + Math.random() * 9000);
         console.log(code);
 
         const status = await req.mongo.db
