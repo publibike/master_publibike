@@ -637,6 +637,11 @@ module.exports.register = async (server) => {
           .collection("Usuario")
           .findOne({ email: email });
 
+        //check if user not deleted
+        if (result.deleted) {
+          return h.response("Usuario no registrado, comuniquese con su empresa").code(401);
+        }
+
         console.log(result)
 
         result = await user.validateUser(result, us.password);
@@ -656,6 +661,30 @@ module.exports.register = async (server) => {
         return h.response("Problemas validando el usuario").code(500);
       }
       return h.response(result).code(200);
+    },
+  });
+
+  //Eliminar el usuario
+  server.route({
+    method: "DELETE",
+    path: "/api/movil/usuario/{id}",
+    options: {
+      cors: true,
+    },
+    handler: async (req, h) => {
+      let status;
+      try {
+        const id = req.params.id;
+        const ObjectID = req.mongo.ObjectID;
+
+        status = await req.mongo.db
+          .collection("Usuario")
+          .updateOne({ _id: ObjectID(id) }, { $set: { deleted: true } });
+      } catch (error) {
+        return error;
+      }
+
+      return h.response(status).code(200);
     },
   });
 
