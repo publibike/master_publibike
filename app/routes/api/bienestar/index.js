@@ -1143,7 +1143,7 @@ module.exports.register = async (server) => {
         if (!user) {
           return h.response("Usuario no encontrado").code(500);
         }
-        if (user.code !== code) {
+        if (user.code != code) {
           return h.response("Codigo incorrecto").code(500);
         }
         const status = await req.mongo.db
