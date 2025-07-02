@@ -884,9 +884,9 @@ module.exports.register = async (server) => {
         if (Nsmarphones == NaN) Nsmarphones = 0;
         if (Nplantulas == NaN) Nplantulas = 0;
         if (NBresicladas == NaN) NBresicladas = 0;
-        user.Nsmarphones = Nsmarphones + payload.Nsmarphones;
-        user.Nplantulas = Nplantulas + payload.Nplantulas;
-        user.NBresicladas = NBresicladas + payload.NBresicladas;
+        user.Nsmarphones = parseFloat(Nsmarphones) + parseFloat(payload.Nsmarphones);
+        user.Nplantulas = parseFloat(Nplantulas) + parseFloat(payload.Nplantulas);
+        user.NBresicladas = parseFloat(NBresicladas) + parseFloat(payload.NBresicladas);
         //Se actualizan los valores generales del usuario
 
         statusUser = await req.mongo.db
